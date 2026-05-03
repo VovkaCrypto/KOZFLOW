@@ -25,3 +25,5 @@ kozflow-landing-site/
 .vercel/
 .env
 .env.local
+
+.vercel

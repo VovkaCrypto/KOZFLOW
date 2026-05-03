@@ -263,17 +263,49 @@
     }
   }
 
-  // FAQ ask — opens TG with prefilled question
+  // FAQ ask — POST to /api/submit, fallback to TG link
   const askForm = document.getElementById('faqAskForm');
   if (askForm) {
-    askForm.addEventListener('submit', (e) => {
+    askForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const q = (document.getElementById('faqAskInput').value || '').trim();
+      const input = document.getElementById('faqAskInput');
+      const q = (input.value || '').trim();
       if (!q) return;
-      const msg = 'Привет! Вопрос с сайта: ' + q;
-      window.open('https://t.me/kozflow?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      const btn = askForm.querySelector('.faq-ask-btn');
+      const orig = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span>Отправка…</span>';
+      const sent = await sendToServer({ kind: 'faq', question: q });
+      if (sent) {
+        btn.innerHTML = '<span>Отправлено ✓</span>';
+        input.value = '';
+        setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2400);
+      } else {
+        // fallback — open TG with prefilled
+        window.open('https://t.me/kozflow?text=' + encodeURIComponent('Привет! Вопрос с сайта: ' + q), '_blank', 'noopener');
+        btn.innerHTML = orig;
+        btn.disabled = false;
+      }
     });
   }
+
+  // Shared server submit helper — returns true on success
+  async function sendToServer(payload) {
+    try {
+      const r = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!r.ok) return false;
+      const data = await r.json().catch(() => ({}));
+      return !!data.ok;
+    } catch (_) {
+      return false;
+    }
+  }
+  // expose for contact form below
+  window.__kfSend = sendToServer;
 
   // ── CONTACT — 3-step state machine
   (function initCtaSteps() {
@@ -393,26 +425,64 @@
       if (preview) preview.textContent = buildMessage();
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (form.website && form.website.value) return; // honeypot
       if (!validateStep(3)) return;
 
       const msg = buildMessage();
-      const channel = (form.channel && form.channel.value) || 'tg';
+      const data = new FormData(form);
+      const channel = (data.get('channel')) || 'tg';
 
+      const submitBtn = form.querySelector('.cta-submit');
+      const origText = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Отправка… <span class="arrow">…</span>';
+      }
+
+      // 1) Try server (Telegram bot)
+      const sent = await (window.__kfSend || (() => false))({
+        kind: 'form',
+        name: data.get('name'),
+        contact: data.get('contact'),
+        channel,
+        type: data.get('type'),
+        budget: data.get('budget'),
+        urgency: data.get('urgency'),
+        task: data.get('task'),
+        website: data.get('website') || '',
+      });
+
+      // 2) Show success state regardless — user always gets a path forward
       steps.forEach(s => s.classList.remove('is-active'));
       progress.forEach(p => p.classList.add('is-done'));
       success.hidden = false;
 
-      try {
-        if (channel === 'email') {
-          const subject = 'Заявка с kozflow.ai';
-          window.location.href = 'mailto:vladimirkozlov2003@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
-        } else {
-          window.open('https://t.me/kozflow?text=' + encodeURIComponent(msg), '_blank', 'noopener');
-        }
-      } catch (_) {}
+      // 3) If server failed → fallback open chosen channel
+      if (!sent) {
+        try {
+          if (channel === 'email') {
+            const subject = 'Заявка с kozflow.ai';
+            window.location.href = 'mailto:vladimirkozlov2003@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
+          } else {
+            window.open('https://t.me/kozflow?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+          }
+        } catch (_) {}
+      }
+
+      // 4) Update success copy if delivered
+      if (sent) {
+        const sub = success.querySelector('.cta-success-sub');
+        const title = success.querySelector('.cta-success-title');
+        if (title) title.textContent = 'Заявка отправлена ✓';
+        if (sub) sub.textContent = 'Уведомление улетело в Telegram. Отвечу за день. Можно также написать напрямую:';
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = origText;
+      }
 
       const tg = document.getElementById('successTg');
       const mail = document.getElementById('successMail');
