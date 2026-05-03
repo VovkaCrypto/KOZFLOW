@@ -1,0 +1,27 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
+node_modules/
+
+# Local working folders (Russian-named source folders, не нужны в репо)
+лого/
+ШРИФТЫ/
+мои клиенты/
+kozflow-landing-site/
+
+# Vercel
+.vercel/
+.env
+.env.local

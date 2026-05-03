@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KozFlow — AI-агенты, автоматизация, дизайн</title>
+<meta name="description" content="Голосовые AI-агенты, автоматизация процессов и дизайн под ключ. 30+ проектов в HoReCa. Тверь · удалённо по РФ." />
+<meta name="theme-color" content="#FAF7F2" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KozFlow — меньше людей, больше дела" />
+<meta property="og:description" content="AI-агенты, автоматизация и визуал под вашу задачу. Голос, Telegram, n8n." />
+<meta property="og:locale" content="ru_RU" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="stylesheet" href="styles.css?v=33" />
+<link rel="stylesheet" href="transitions.css?v=3" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js" defer></script>
+</head>
+<body data-palette="warm" data-cta="forest" data-navbar="pill" data-serif="cormorant" data-glitch="on" data-svcicon="abstract" data-herocta="outline" data-radius="22" data-noise="off" data-density="comfy" data-uppercase="on" data-grain="off" data-cursor="default" data-trans="kiri">
+
+<!-- ─────── NAVBAR (kinetic) ─────── -->
+<div class="site-header-wrapper" id="topnav">
+  <header class="header">
+    <div class="container is--full">
+      <nav class="nav-row">
+        <a href="#top" aria-label="KozFlow" class="pill kf-pill kf-pill-logo">
+          <span class="kf-mark">
+            <img class="kf-mark-img" src="assets/logo.png" alt="KozFlow" decoding="async" />
+          </span>
+        </a>
+        <div class="nav-row__right">
+          <div class="contact-fan" id="contactFan" data-open="false">
+            <button type="button" class="contact-fan-trigger" id="contactFanTrigger" aria-expanded="false" aria-haspopup="true" aria-label="Связаться">
+              <span class="contact-fan-text">Связаться</span>
+              <span class="contact-fan-icons" aria-hidden="true">
+                <span class="contact-fan-stack"></span>
+                <span class="contact-fan-stack"></span>
+                <span class="contact-fan-stack"></span>
+              </span>
+            </button>
+            <div class="contact-fan-menu" role="menu" aria-label="Каналы связи">
+              <a href="https://t.me/kozflow" target="_blank" rel="noopener" class="contact-fan-item contact-fan-item-tg" role="menuitem" data-i="0">
+                <span class="contact-fan-ico">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.96c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" fill="currentColor"/></svg>
+                </span>
+                <span class="contact-fan-label">
+                  <span class="contact-fan-name">Telegram</span>
+                  <span class="contact-fan-handle">@kozflow</span>
+                </span>
+              </a>
+              <a href="tel:+79106407134" class="contact-fan-item contact-fan-item-phone" role="menuitem" data-i="1">
+                <span class="contact-fan-ico">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <span class="contact-fan-label">
+                  <span class="contact-fan-name">Макс</span>
+                  <span class="contact-fan-handle">+7 910 640 71 34</span>
+                </span>
+              </a>
+              <a href="mailto:vladimirkozlov2003@gmail.com" class="contact-fan-item contact-fan-item-mail" role="menuitem" data-i="2">
+                <span class="contact-fan-ico">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/></svg>
+                </span>
+                <span class="contact-fan-label">
+                  <span class="contact-fan-name">Email</span>
+                  <span class="contact-fan-handle">vladimirkozlov2003@gmail.com</span>
+                </span>
+              </a>
+            </div>
+          </div>
+          <button type="button" class="nav-close-btn" id="menuBtn" aria-label="Открыть меню" aria-expanded="false">
+            <div class="menu-button-text" aria-hidden="true">
+              <p class="p-large">Меню</p>
+              <p class="p-large">Закрыть</p>
+            </div>
+            <div class="icon-wrap" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none" class="menu-button-icon">
+                <path d="M7.33333 16L7.33333 -3.2055e-07L8.66667 -3.78832e-07L8.66667 16L7.33333 16Z" fill="currentColor"></path>
+                <path d="M16 8.66667L-2.62269e-07 8.66667L-3.78832e-07 7.33333L16 7.33333L16 8.66667Z" fill="currentColor"></path>
+                <path d="M6 7.33333L7.33333 7.33333L7.33333 6C7.33333 6.73637 6.73638 7.33333 6 7.33333Z" fill="currentColor"></path>
+                <path d="M10 7.33333L8.66667 7.33333L8.66667 6C8.66667 6.73638 9.26362 7.33333 10 7.33333Z" fill="currentColor"></path>
+                <path d="M6 8.66667L7.33333 8.66667L7.33333 10C7.33333 9.26362 6.73638 8.66667 6 8.66667Z" fill="currentColor"></path>
+                <path d="M10 8.66667L8.66667 8.66667L8.66667 10C8.66667 9.26362 9.26362 8.66667 10 8.66667Z" fill="currentColor"></path>
+              </svg>
+            </div>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<!-- ─────── FULLSCREEN KINETIC MENU ─────── -->
+<section class="fullscreen-menu-container">
+  <div data-nav="closed" class="nav-overlay-wrapper" id="navOverlay">
+    <div class="overlay" id="overlayDim"></div>
+    <nav class="menu-content">
+      <div class="menu-bg" aria-hidden="true">
+        <div class="backdrop-layer first"></div>
+        <div class="backdrop-layer second"></div>
+        <div class="backdrop-layer base"></div>
+
+      </div>
+
+      <div class="menu-content-wrapper">
+        <ul class="menu-list">
+          <li class="menu-list-item">
+            <a href="#top" class="nav-link" data-close>
+              <p class="nav-link-text">Главная</p>
+              <span class="nav-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="menu-list-item">
+            <a href="#services" class="nav-link" data-close>
+              <p class="nav-link-text">Услуги</p>
+              <span class="nav-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="menu-list-item">
+            <a href="#cases" class="nav-link" data-close>
+              <p class="nav-link-text">Кейсы</p>
+              <span class="nav-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="menu-list-item">
+            <a href="#process" class="nav-link" data-close>
+              <p class="nav-link-text">Процесс</p>
+              <span class="nav-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="menu-list-item">
+            <a href="#faq" class="nav-link" data-close>
+              <p class="nav-link-text">FAQ</p>
+              <span class="nav-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="menu-list-item">
+            <a href="#contact" class="nav-link" data-close>
+              <p class="nav-link-text">Контакт</p>
+              <span class="nav-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="menu-tg" href="https://t.me/kozflow" target="_blank" rel="noopener" data-menu-fade>
+          <span class="menu-tg-ico" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.96c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" fill="#2D2419"/>
+            </svg>
+          </span>
+          <div class="menu-tg-text">
+            <div class="label">Telegram</div>
+            <div class="name">KozFlow · canal</div>
+            <div class="handle">@kozflow</div>
+          </div>
+          <span class="menu-tg-arrow">→</span>
+        </a>
+
+        <div class="menu-foot" data-menu-fade>
+          <span>KozFlow · 2026</span>
+          <span>kozflow.ai</span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<a id="top"></a>
+
+<!-- ─────── HERO ─────── -->
+<header class="hero kt-section" data-kt>
+  <div class="hero-video-stack" id="videoStack">
+    <video id="v1" src="assets/hero.mp4" muted autoplay playsinline></video>
+    <video id="v2" src="assets/hero.mp4" muted playsinline class="fading"></video>
+  </div>
+  <div class="hero-dim"></div>
+
+  <div class="hero-content">
+    <div class="hero-brand reveal" aria-hidden="true">
+      <span class="hero-brand-text">KozFlow</span>
+    </div>
+    <h1 class="reveal delay-1 cursor-text" data-cursor-text style="opacity: 1">Меньше людей<br /><span class="it">Больше дела</span></h1>
+    <p class="sub reveal delay-2">
+      AI-агенты и автоматизации под вашу задачу<br />
+      Голосовые ассистенты, делегация рабочих процессов на ИИ, визуал — под ключ
+    </p>
+    <div class="reveal delay-3" id="heroCtaWrap">
+      <div class="hero-cta-row">
+        <a class="cta cta-outline" href="#contact">Обсудить проект <span class="arrow">→</span></a>
+        <a class="cta cta-ghost" href="#cases">Посмотреть кейсы</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint reveal delay-4">
+    <span>Scroll</span>
+    <span class="line"></span>
+  </div>
+</header>
+
+<!-- ─────── PROOF STRIP (marquee) ─────── -->
+<section class="strip kt-section" data-kt aria-label="Proof">
+  <div class="strip-marquee">
+    <div class="strip-track">
+      <span>30+ проектов в HoReCa</span><span class="dot">·</span>
+      <span>Голосовой ассистент в действующих заведениях</span><span class="dot">·</span>
+      <span class="stack-tag">Claude · n8n · Vapi · Telegram API</span><span class="dot">·</span>
+      <span>Тверь · удалённо по РФ и СНГ</span><span class="dot">·</span>
+      <span>NDA по запросу</span><span class="dot">·</span>
+      <span>Поддержка первый месяц включена</span><span class="dot">·</span>
+      <!-- duplicate for seamless loop -->
+      <span aria-hidden="true">30+ проектов в HoReCa</span><span class="dot" aria-hidden="true">·</span>
+      <span aria-hidden="true">Голосовой ассистент в действующих заведениях</span><span class="dot" aria-hidden="true">·</span>
+      <span class="stack-tag" aria-hidden="true">Claude · n8n · Vapi · Telegram API</span><span class="dot" aria-hidden="true">·</span>
+      <span aria-hidden="true">Тверь · удалённо по РФ и СНГ</span><span class="dot" aria-hidden="true">·</span>
+      <span aria-hidden="true">NDA по запросу</span><span class="dot" aria-hidden="true">·</span>
+      <span aria-hidden="true">Поддержка первый месяц включена</span><span class="dot" aria-hidden="true">·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── CLIENTS (logos marquee) ─────── -->
+<section class="clients kt-section" data-kt aria-label="Клиенты">
+  <div class="wrap">
+    <div class="clients-head reveal">
+      <span class="kicker">работали со мной</span>
+      <h3 class="clients-title serif">бренды, доверявшие визуал и автоматизацию</h3>
+    </div>
+    <div class="clients-marquee reveal delay-1">
+      <div class="clients-track">
+        <a class="client-logo client-logo--zavod"    href="https://zavod-tver.ru/"      target="_blank" rel="noopener" aria-label="ЗАВОД — открыть сайт"><img src="assets/clients/zavod.png" alt="ЗАВОД" loading="lazy" /></a>
+        <a class="client-logo client-logo--kegelbar" href="https://kegelbar.ru/"        target="_blank" rel="noopener" aria-label="Кегельбар — открыть сайт"><img src="assets/clients/kegelbar.png" alt="Кегельбар" loading="lazy" /></a>
+        <a class="client-logo client-logo--kinza"    href="https://kinzatver.ru/"       target="_blank" rel="noopener" aria-label="Кинза — открыть сайт"><img src="assets/clients/kinza.png" alt="Кинза" loading="lazy" /></a>
+        <a class="client-logo client-logo--schukin"  href="https://shukinideti.ru/"     target="_blank" rel="noopener" aria-label="Щукин и дети — открыть сайт"><img src="assets/clients/schukin.png" alt="Щукин и дети" loading="lazy" /></a>
+        <a class="client-logo client-logo--volzhanka" href="https://vk.com/volzhankatver" target="_blank" rel="noopener" aria-label="Волжанка — открыть страницу VK"><img src="assets/clients/volzhanka.png" alt="Кулинария Волжанка" loading="lazy" /></a>
+        <!-- duplicate for seamless loop -->
+        <a class="client-logo client-logo--zavod"    href="https://zavod-tver.ru/"      target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="assets/clients/zavod.png" alt="" loading="lazy" /></a>
+        <a class="client-logo client-logo--kegelbar" href="https://kegelbar.ru/"        target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="assets/clients/kegelbar.png" alt="" loading="lazy" /></a>
+        <a class="client-logo client-logo--kinza"    href="https://kinzatver.ru/"       target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="assets/clients/kinza.png" alt="" loading="lazy" /></a>
+        <a class="client-logo client-logo--schukin"  href="https://shukinideti.ru/"     target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="assets/clients/schukin.png" alt="" loading="lazy" /></a>
+        <a class="client-logo client-logo--volzhanka" href="https://vk.com/volzhankatver" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="assets/clients/volzhanka.png" alt="" loading="lazy" /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── PROBLEM → PROMISE ─────── -->
+<section class="section kt-section pp-section" id="problem" data-kt>
+  <div class="wrap">
+    <div class="pp-head reveal">
+      <h2 class="section-h section-h-italic">что съедает время <span class="section-h-accent">— и как это убрать</span></h2>
+    </div>
+
+    <div class="pp-ledger">
+      <div class="pp-card pp-card-before reveal" data-card>
+        <div class="pp-card-bg" aria-hidden="true"></div>
+        <div class="pp-card-tag">сейчас в ручном</div>
+        <ul class="pp-ledger-list">
+          <li><span class="x">×</span> Одинаковые звонки и вопросы клиентов</li>
+          <li><span class="x">×</span> Ручной перенос заявок в таблицу или CRM</li>
+          <li><span class="x">×</span> Отчёты, которые собираются полночи</li>
+          <li><span class="x">×</span> Брони, которые теряются между сменами</li>
+          <li><span class="x">×</span> Отзывы — кто отвечает, кто нет</li>
+        </ul>
+      </div>
+      <div class="pp-arrow" aria-hidden="true">
+        <svg viewBox="0 0 80 80" fill="none">
+          <path d="M10 40 H62 M50 28 L62 40 L50 52" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="pp-card pp-card-after reveal delay-1" data-card>
+        <div class="pp-card-bg" aria-hidden="true"></div>
+        <div class="pp-card-tag pp-card-tag-on">я переношу в kozflow</div>
+        <ul class="pp-ledger-list pp-ledger-on">
+          <li><span class="ok">✓</span> Голосовой агент закрывает входящие 24/7</li>
+          <li><span class="ok">✓</span> Заявки сами летят в нужную систему</li>
+          <li><span class="ok">✓</span> Отчёт собирается раз в час, без вас</li>
+          <li><span class="ok">✓</span> Бронь фиксируется в момент звонка</li>
+          <li><span class="ok">✓</span> Бот отвечает на отзывы — вы только смотрите</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pp-foot reveal delay-2">
+      <span>Настраивается один раз — работает дальше без вас</span>
+      <span class="pp-foot-meta">первый месяц поддержки включён</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── SERVICES ─────── -->
+<section class="section kt-section svc-section" id="services" data-kt>
+  <div class="wrap">
+    <div class="svc-head reveal">
+      <h2 class="section-h section-h-italic">услуги</h2>
+    </div>
+
+    <div class="svc-grid">
+      <article class="svc-flip reveal delay-1" data-flip data-svc="ai">
+        <div class="svc-flip-inner">
+          <div class="svc-flip-face svc-flip-front svc-card svc-card-1">
+            <div class="svc-card-bg" aria-hidden="true"></div>
+            <div class="svc-flip-illu" aria-hidden="true">
+              <svg viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="36" stroke="currentColor" stroke-width="0.8" opacity="0.55"/>
+                <circle cx="100" cy="100" r="58" stroke="currentColor" stroke-width="0.8" opacity="0.38"/>
+                <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="0.8" opacity="0.22"/>
+                <circle cx="100" cy="100" r="9" fill="#C4985A"/>
+                <circle cx="62" cy="76" r="2.5" fill="#C4985A" opacity="0.7"/>
+                <circle cx="138" cy="124" r="2.5" fill="#C4985A" opacity="0.5"/>
+                <path d="M100 64 L100 100 L132 116" stroke="currentColor" stroke-width="0.8" opacity="0.45"/>
+              </svg>
+            </div>
+            <h3 class="svc-flip-title">ai-агенты</h3>
+            <span class="svc-flip-hint">наведи →</span>
+          </div>
+          <div class="svc-flip-face svc-flip-back svc-card svc-card-1">
+            <div class="svc-card-bg" aria-hidden="true"></div>
+            <div class="svc-card-tag">голосовой · текстовый · гибридный</div>
+            <p class="svc-card-body">Работает вместо сотрудника — без выходных, без ошибок</p>
+            <ul class="svc-card-list">
+              <li style="--i:0">Голосовой агент для звонков и бронирований</li>
+              <li style="--i:1">Репутационный бот — сбор отзывов, реакция на негатив</li>
+              <li style="--i:2">Telegram-бот под любую задачу бизнеса</li>
+            </ul>
+            <a href="#contact" class="svc-flip-cta">обсудить <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc-flip reveal delay-2" data-flip data-svc="auto">
+        <div class="svc-flip-inner">
+          <div class="svc-flip-face svc-flip-front svc-card svc-card-2">
+            <div class="svc-card-bg" aria-hidden="true"></div>
+            <div class="svc-flip-illu" aria-hidden="true">
+              <svg viewBox="0 0 200 200" fill="none">
+                <path d="M20 100 Q60 40 100 100 T180 100" stroke="currentColor" stroke-width="1" opacity="0.55"/>
+                <path d="M20 120 Q60 60 100 120 T180 120" stroke="currentColor" stroke-width="1" opacity="0.38"/>
+                <path d="M20 80 Q60 20 100 80 T180 80" stroke="currentColor" stroke-width="1" opacity="0.22"/>
+                <circle cx="20" cy="100" r="5" fill="#3A4A3D"/>
+                <circle cx="100" cy="100" r="4" fill="#3A4A3D" opacity="0.6"/>
+                <circle cx="180" cy="100" r="5" fill="#3A4A3D"/>
+              </svg>
+            </div>
+            <h3 class="svc-flip-title">автоматизация</h3>
+            <span class="svc-flip-hint">наведи →</span>
+          </div>
+          <div class="svc-flip-face svc-flip-back svc-card svc-card-2">
+            <div class="svc-card-bg" aria-hidden="true"></div>
+            <div class="svc-card-tag">процессы · интеграции · отчёты</div>
+            <p class="svc-card-body">Рутина исчезает. Остаётся только то, что требует человека</p>
+            <ul class="svc-card-list">
+              <li style="--i:0">Интеграции между сервисами — CRM, мессенджеры, таблицы</li>
+              <li style="--i:1">Автоматические отчёты и уведомления</li>
+              <li style="--i:2">Workflow под конкретные процессы</li>
+            </ul>
+            <a href="#contact" class="svc-flip-cta">обсудить <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="svc-flip reveal delay-3" data-flip data-svc="visual">
+        <div class="svc-flip-inner">
+          <div class="svc-flip-face svc-flip-front svc-card svc-card-3">
+            <div class="svc-card-bg" aria-hidden="true"></div>
+            <div class="svc-flip-illu" aria-hidden="true">
+              <svg viewBox="0 0 200 200" fill="none">
+                <rect x="40" y="40" width="120" height="120" stroke="currentColor" stroke-width="0.9" opacity="0.4"/>
+                <rect x="64" y="64" width="72" height="72" stroke="currentColor" stroke-width="0.9" opacity="0.55"/>
+                <rect x="84" y="84" width="32" height="32" stroke="currentColor" stroke-width="0.9" opacity="0.7"/>
+                <circle cx="100" cy="100" r="6" fill="#C26B4A"/>
+                <line x1="40" y1="40" x2="64" y2="64" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+                <line x1="160" y1="40" x2="136" y2="64" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+                <line x1="40" y1="160" x2="64" y2="136" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+                <line x1="160" y1="160" x2="136" y2="136" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+              </svg>
+            </div>
+            <h3 class="svc-flip-title">визуал</h3>
+            <span class="svc-flip-hint">наведи →</span>
+          </div>
+          <div class="svc-flip-face svc-flip-back svc-card svc-card-3">
+            <div class="svc-card-bg" aria-hidden="true"></div>
+            <div class="svc-card-tag">дизайн · инфографика · контент</div>
+            <p class="svc-card-body">Дизайн, который объясняет без слов</p>
+            <ul class="svc-card-list">
+              <li style="--i:0">Брендинг и фирменный стиль</li>
+              <li style="--i:1">Инфографика и презентации</li>
+              <li style="--i:2">AI-контент для соцсетей</li>
+            </ul>
+            <a href="#contact" class="svc-flip-cta">обсудить <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── CASES ─────── -->
+<section class="section kt-section" id="cases" style="padding-top:0" data-kt>
+  <div class="wrap">
+    <div class="services-head reveal" style="text-align:left; margin-bottom:60px">
+      <div class="kicker">Кейсы</div>
+      <h2 class="section-title serif" style="margin-top:14px">Что уже работает</h2>
+    </div>
+
+    <div class="showcase" id="caseShowcase">
+      <!-- floating preview that follows cursor -->
+      <div class="showcase-preview" id="showcasePreview" aria-hidden="true">
+        <img data-i="0" src="assets/case-1.jpg" alt="" />
+        <img data-i="1" src="assets/case-2.jpg" alt="" />
+        <img data-i="2" src="assets/case-3.jpg" alt="" />
+        <img data-i="3" src="assets/case-4.jpg" alt="" />
+      </div>
+
+      <div class="showcase-list">
+        <a class="sc-row reveal" href="#contact" data-i="0">
+          <div class="sc-row-inner">
+            <div class="sc-row-main">
+              <h3 class="serif">Голосовой ИИ-помощник в боулинге<span class="sc-arrow">↗</span></h3>
+              <p>Голосовой агент принимает звонки и фиксирует брони — там, где хостес не у телефона</p>
+              <div class="sc-row-chips">
+                <span class="sc-chip">2 заведения в проде</span>
+                <span class="sc-chip">24/7 без оператора</span>
+                <span class="sc-chip">~80% звонков закрыто без человека</span>
+              </div>
+            </div>
+            <span class="sc-year">2025</span>
+          </div>
+        </a>
+        <a class="sc-row reveal delay-1" href="#contact" data-i="1">
+          <div class="sc-row-inner">
+            <div class="sc-row-main">
+              <h3 class="serif">30+ проектов HoReCa<span class="sc-arrow">↗</span></h3>
+              <p>Меню, брендинг, инфографика — материалы в реальном обороте по Твери</p>
+              <div class="sc-row-chips">
+                <span class="sc-chip">ЗАВОД · Кегельбар · Волжанка · Щукин</span>
+                <span class="sc-chip">30+ комплектов</span>
+              </div>
+            </div>
+            <span class="sc-year">2023 — 25</span>
+          </div>
+        </a>
+        <a class="sc-row reveal delay-2" href="#contact" data-i="2">
+          <div class="sc-row-inner">
+            <div class="sc-row-main">
+              <h3 class="serif">Автоматизированный сбор информации по рабочим местам<span class="sc-arrow">↗</span></h3>
+              <p>Интеграции CRM, мессенджеров и таблиц — заявки сами доходят туда, где их ждут</p>
+              <div class="sc-row-chips">
+                <span class="sc-chip">−5 ч ручной работы в неделю</span>
+                <span class="sc-chip">0 потерянных заявок</span>
+              </div>
+            </div>
+            <span class="sc-year">2025</span>
+          </div>
+        </a>
+        <a class="sc-row reveal delay-3" href="#contact" data-i="3">
+          <div class="sc-row-inner">
+            <div class="sc-row-main">
+              <h3 class="serif">Репутационный агент<span class="sc-arrow">↗</span></h3>
+              <p>Сбор отзывов и автоответы — реакция на негатив раньше, чем он наберёт обороты</p>
+              <div class="sc-row-chips">
+                <span class="sc-chip">Реакция за минуты, не дни</span>
+                <span class="sc-chip">Авто-собранные отзывы в TG</span>
+              </div>
+            </div>
+            <span class="sc-year">2025</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── PROCESS ─────── -->
+<section class="section kt-section pr-section" id="process" data-kt>
+  <div class="wrap">
+    <div class="pr-head reveal">
+      <h2 class="section-h section-h-italic">как работаем</h2>
+    </div>
+
+    <ol class="pr-flow pr-roadmap">
+      <li class="pr-step reveal" data-pr-step="1" data-status="done">
+        <div class="pr-step-dot" aria-hidden="true">
+          <span class="pr-step-dot-inner"></span>
+        </div>
+        <span class="pr-step-badge">Этап 1</span>
+        <h3 class="pr-step-name">продумываем структуру</h3>
+        <p class="pr-step-desc">Разбираем задачу. Без брифов на 40 страниц</p>
+        <span class="pr-step-meta">созвон · 30 минут</span>
+      </li>
+
+      <li class="pr-step reveal delay-1" data-pr-step="2" data-status="in-progress">
+        <div class="pr-step-dot" aria-hidden="true">
+          <span class="pr-step-dot-inner"></span>
+        </div>
+        <span class="pr-step-badge">Этап 2</span>
+        <h3 class="pr-step-name">предложение</h3>
+        <p class="pr-step-desc">Скоуп, сроки, стоимость. Фиксируем письменно</p>
+        <span class="pr-step-meta">кп · фикс</span>
+      </li>
+
+      <li class="pr-step reveal delay-2" data-pr-step="3" data-status="upcoming">
+        <div class="pr-step-dot" aria-hidden="true">
+          <span class="pr-step-dot-inner"></span>
+        </div>
+        <span class="pr-step-badge">Этап 3</span>
+        <h3 class="pr-step-name">запуск</h3>
+        <p class="pr-step-desc">Делаю. Вы следите за прогрессом</p>
+        <span class="pr-step-meta">2 — 4 недели</span>
+      </li>
+
+      <li class="pr-step reveal delay-3" data-pr-step="4" data-status="upcoming">
+        <div class="pr-step-dot" aria-hidden="true">
+          <span class="pr-step-dot-inner"></span>
+        </div>
+        <span class="pr-step-badge">Этап 4</span>
+        <h3 class="pr-step-name">передача</h3>
+        <p class="pr-step-desc">Документация, обучение, поддержка после</p>
+        <span class="pr-step-meta">1 месяц поддержки включён</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ─────── PRICE — orbital ─────── -->
+<section class="section kt-section price-orbital-section" id="price" data-kt>
+  <div class="wrap">
+    <div class="services-head reveal" style="text-align:left">
+      <div class="kicker">Прайс</div>
+      <h2 class="section-title serif" style="margin-top:14px">Прозрачно о стоимости</h2>
+      <p class="price-orbital-hint reveal delay-1">фикс-стоимость · без скрытых платежей · оплата по этапам</p>
+    </div>
+
+    <!-- TIER CARDS — мгновенная читаемость -->
+    <div class="price-tiers reveal delay-1">
+      <article class="price-tier" data-tier="bot">
+        <div class="price-tier-head">
+          <span class="price-tier-tag">бот</span>
+          <span class="price-tier-time">от 2 нед</span>
+        </div>
+        <h3 class="price-tier-name serif">Telegram-бот</h3>
+        <p class="price-tier-desc">Под одну задачу: отзывы, FAQ, заявки. Передаёт горячее живому человеку</p>
+        <div class="price-tier-price-row">
+          <span class="price-tier-from">от</span>
+          <span class="price-tier-amount serif">20 000<span class="price-tier-currency"> ₽</span></span>
+        </div>
+        <a href="#contact" class="price-tier-cta">обсудить <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="price-tier" data-tier="auto">
+        <div class="price-tier-head">
+          <span class="price-tier-tag">workflow</span>
+          <span class="price-tier-time">2–4 нед</span>
+        </div>
+        <h3 class="price-tier-name serif">Автоматизация</h3>
+        <p class="price-tier-desc">Интеграции CRM, мессенджеров, отчёты. n8n / Make. Рутина исчезает</p>
+        <div class="price-tier-price-row">
+          <span class="price-tier-from">от</span>
+          <span class="price-tier-amount serif">15 000<span class="price-tier-currency"> ₽</span></span>
+        </div>
+        <a href="#contact" class="price-tier-cta">обсудить <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="price-tier price-tier-feature" data-tier="voice">
+        <div class="price-tier-badge">популярное</div>
+        <div class="price-tier-head">
+          <span class="price-tier-tag">voice</span>
+          <span class="price-tier-time">3–5 нед</span>
+        </div>
+        <h3 class="price-tier-name serif">Голосовой агент</h3>
+        <p class="price-tier-desc">Vapi / Retell. Принимает звонки 24/7, фиксирует брони, без участия персонала</p>
+        <div class="price-tier-price-row">
+          <span class="price-tier-from">от</span>
+          <span class="price-tier-amount serif">30 000<span class="price-tier-currency"> ₽</span></span>
+        </div>
+        <a href="#contact" class="price-tier-cta">обсудить <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="price-tier" data-tier="design">
+        <div class="price-tier-head">
+          <span class="price-tier-tag">design</span>
+          <span class="price-tier-time">1–3 нед</span>
+        </div>
+        <h3 class="price-tier-name serif">Дизайн и визуал</h3>
+        <p class="price-tier-desc">Брендинг, инфографика, презентации, AI-контент для соцсетей</p>
+        <div class="price-tier-price-row">
+          <span class="price-tier-from">от</span>
+          <span class="price-tier-amount serif">25 000<span class="price-tier-currency"> ₽</span></span>
+        </div>
+        <a href="#contact" class="price-tier-cta">обсудить <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="price-tier" data-tier="care">
+        <div class="price-tier-head">
+          <span class="price-tier-tag">care</span>
+          <span class="price-tier-time">ежемесячно</span>
+        </div>
+        <h3 class="price-tier-name serif">Поддержка</h3>
+        <p class="price-tier-desc">Доработки, мониторинг, обновления промптов. Первый месяц включён</p>
+        <div class="price-tier-price-row">
+          <span class="price-tier-from">от</span>
+          <span class="price-tier-amount serif">10 000<span class="price-tier-currency"> ₽/мес</span></span>
+        </div>
+        <a href="#contact" class="price-tier-cta">обсудить <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+
+    <div class="price-extras">
+      <!-- LEFT — Включено всегда -->
+      <aside class="price-side price-side-left reveal">
+        <div class="price-side-label">
+          <span class="price-side-dot" aria-hidden="true"></span>
+          <span class="kicker">Включено всегда</span>
+        </div>
+        <h4 class="serif">Что входит в стоимость любого проекта</h4>
+        <ul class="price-side-list">
+          <li><span class="ok">✓</span> Созвон-знакомство — 30 минут, бесплатно</li>
+          <li><span class="ok">✓</span> Документация и инструкция</li>
+          <li><span class="ok">✓</span> Передача исходников</li>
+          <li><span class="ok">✓</span> Первый месяц поддержки</li>
+          <li><span class="ok">✓</span> Две итерации правок</li>
+          <li><span class="ok">✓</span> NDA по запросу</li>
+        </ul>
+        <div class="price-side-quote serif">«Платите за результат, а не за человеко-часы»</div>
+      </aside>
+
+      <!-- RIGHT — Дополнительно -->
+      <aside class="price-side price-side-right reveal delay-1">
+        <div class="price-side-label">
+          <span class="price-side-dot" aria-hidden="true"></span>
+          <span class="kicker">Дополнительно</span>
+        </div>
+        <h4 class="serif">Опции по запросу — поверх базовой стоимости</h4>
+        <ul class="price-side-list price-side-list-options">
+          <li>
+            <div class="opt-row">
+              <span class="opt-name">Срочный запуск</span>
+              <span class="opt-price mono">×1.5</span>
+            </div>
+            <span class="opt-desc">сжатый срок — за неделю до старта</span>
+          </li>
+          <li>
+            <div class="opt-row">
+              <span class="opt-name">Расширенная поддержка</span>
+              <span class="opt-price mono">+15к/мес</span>
+            </div>
+            <span class="opt-desc">SLA реакция за 1 час, бэкап</span>
+          </li>
+          <li>
+            <div class="opt-row">
+              <span class="opt-name">Доп. интеграция</span>
+              <span class="opt-price mono">+10к</span>
+            </div>
+            <span class="opt-desc">CRM, ERP, нестандартный API</span>
+          </li>
+          <li>
+            <div class="opt-row">
+              <span class="opt-name">Обучение команды</span>
+              <span class="opt-price mono">+8к</span>
+            </div>
+            <span class="opt-desc">созвон 2 часа + методичка</span>
+          </li>
+          <li>
+            <div class="opt-row">
+              <span class="opt-name">White-label</span>
+              <span class="opt-price mono">+25к</span>
+            </div>
+            <span class="opt-desc">без упоминания KozFlow</span>
+          </li>
+        </ul>
+        <div class="price-side-quote serif">«Платите по факту работы, не за &laquo;вдруг пригодится&raquo;»</div>
+      </aside>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="price-stats reveal delay-2">
+      <div class="price-stat">
+        <div class="price-stat-num serif">30<span class="price-stat-unit">+</span></div>
+        <div class="price-stat-label">проектов в HoReCa</div>
+      </div>
+      <div class="price-stat">
+        <div class="price-stat-num serif">24<span class="price-stat-unit">/7</span></div>
+        <div class="price-stat-label">голос принимает звонки</div>
+      </div>
+      <div class="price-stat">
+        <div class="price-stat-num serif">2<span class="price-stat-unit"> нед</span></div>
+        <div class="price-stat-label">от ТЗ до пилота</div>
+      </div>
+      <div class="price-stat">
+        <div class="price-stat-num serif">1<span class="price-stat-unit"> мес</span></div>
+        <div class="price-stat-label">поддержки в подарок</div>
+      </div>
+    </div>
+
+    <p class="price-foot reveal" style="margin-top:48px">Нестандартная задача — обсудим скоуп отдельно · фиксированная цена в КП</p>
+  </div>
+</section>
+
+<!-- ─────── DARK · WHY ─────── -->
+<section class="why-section kt-section" id="why" data-kt>
+  <!-- decorative blobs -->
+  <div class="why-blob why-blob-1" aria-hidden="true"></div>
+  <div class="why-blob why-blob-2" aria-hidden="true"></div>
+
+  <div class="wrap why-wrap">
+
+    <div class="why-head reveal">
+      <span class="why-eyebrow"><span class="why-eyebrow-dot"></span>WHY KOZFLOW · 21Y · ТВЕРЬ</span>
+      <h2 class="why-title">Почему я</h2>
+      <span class="why-rule" aria-hidden="true"></span>
+    </div>
+
+    <p class="why-lede reveal delay-1">
+      Мне 21. Тверь, ТвГУ. Работаю с AI-инструментами с момента, когда они стали серьёзными — Claude, n8n, Vapi, Voximplant, Yandex&nbsp;STT/TTS. Не агентство, не команда джунов. Один человек на проект — от первого созвона до сдачи.
+    </p>
+
+    <div class="why-grid">
+
+      <!-- LEFT column -->
+      <div class="why-col why-col-left">
+        <article class="why-item reveal" data-dir="left">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="why-icon-dot"></span>
+          </div>
+          <h3 class="why-name">Один человек, без джунов</h3>
+          <p class="why-desc">Каждый проект веду сам — от созвона до запуска. Гарантия качества — отсутствие команды, через которую можно потерять детали</p>
+        </article>
+
+        <article class="why-item reveal delay-1" data-dir="left">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg>
+            <span class="why-icon-dot"></span>
+          </div>
+          <h3 class="why-name">HoReCa-моат</h3>
+          <p class="why-desc">30+ дизайн-работ для ресторанов, баров, кулинарий Твери. Ресторанная кухня изнутри — редкое преимущество для AI-разработчика 21 года</p>
+        </article>
+
+        <article class="why-item reveal delay-2" data-dir="left">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="why-icon-dot"></span>
+          </div>
+          <h3 class="why-name">Пилот в продакшене</h3>
+          <p class="why-desc">Голосовой агент Кирилл уже работает в двух заведениях. Принимает звонки, отвечает на вопросы, фиксирует брони — без участия персонала</p>
+        </article>
+      </div>
+
+      <!-- CENTER — video portrait + tech overlay -->
+      <div class="why-center">
+        <div class="why-portrait reveal">
+          <video src="assets/hero.mp4" muted autoplay loop playsinline aria-hidden="true"></video>
+          <div class="why-portrait-overlay">
+            <div class="why-portrait-badge mono">SOLO · OPERATOR</div>
+            <div class="why-portrait-name serif">— Владимир Козлов</div>
+            <div class="why-portrait-role">фрилансер · AI &amp; автоматизации</div>
+          </div>
+          <div class="why-portrait-frame" aria-hidden="true"></div>
+        </div>
+
+        <!-- tech stack pills under portrait -->
+        <ul class="why-stack reveal delay-2" aria-label="Технологический стек">
+          <li>Claude</li>
+          <li>n8n</li>
+          <li>Vapi</li>
+          <li>Voximplant</li>
+          <li>Yandex&nbsp;STT</li>
+          <li>Gemini&nbsp;Flash</li>
+          <li>Telegram&nbsp;API</li>
+          <li>YClients</li>
+        </ul>
+      </div>
+
+      <!-- RIGHT column -->
+      <div class="why-col why-col-right">
+        <article class="why-item reveal" data-dir="right">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z M4 12h2 M18 12h2 M12 4v2 M12 18v2"/></svg>
+            <span class="why-icon-dot"></span>
+          </div>
+          <h3 class="why-name">Полный AI-стек</h3>
+          <p class="why-desc">Claude · n8n · Vapi · Voximplant · Yandex STT/TTS · Gemini · Telegram MCP · Telethon. Всё, что нужно для автоматизации, — в одной голове</p>
+        </article>
+
+        <article class="why-item reveal delay-1" data-dir="right">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span class="why-icon-dot"></span>
+          </div>
+          <h3 class="why-name">Без брифов на 40 страниц</h3>
+          <p class="why-desc">Созвон 30 минут — фиксированное предложение — пилот за 2 недели. Без воды, презентаций «о компании» и заполнения формы из 80 пунктов</p>
+        </article>
+
+        <article class="why-item reveal delay-2" data-dir="right">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            <span class="why-icon-dot"></span>
+          </div>
+          <h3 class="why-name">Прозрачно и фикс</h3>
+          <p class="why-desc">Цена в КП заранее, а не «по факту». NDA по запросу. Исходники после сдачи. Первый месяц поддержки — включён в любой проект</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- STATS counters -->
+    <div class="why-stats reveal delay-2">
+      <div class="why-stat">
+        <div class="why-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13.5L7 22l5-3 5 3-2-8.5"/></svg>
+        </div>
+        <div class="why-stat-num" data-count="30">0<span class="why-stat-unit">+</span></div>
+        <div class="why-stat-label">проектов в HoReCa</div>
+        <span class="why-stat-line"></span>
+      </div>
+
+      <div class="why-stat">
+        <div class="why-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="why-stat-num" data-count="2">0<span class="why-stat-unit"> заведения</span></div>
+        <div class="why-stat-label">с пилотом голоса</div>
+        <span class="why-stat-line"></span>
+      </div>
+
+      <div class="why-stat">
+        <div class="why-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="why-stat-num" data-count="18">0<span class="why-stat-unit"> ч</span></div>
+        <div class="why-stat-label">контента по voice agents</div>
+        <span class="why-stat-line"></span>
+      </div>
+
+      <div class="why-stat">
+        <div class="why-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2 4 4 8-8 4 4M3 18l18 0"/></svg>
+        </div>
+        <div class="why-stat-num" data-count="21">0<span class="why-stat-unit"> год</span></div>
+        <div class="why-stat-label">ТвГУ · 4 курс · экономика</div>
+        <span class="why-stat-line"></span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────── FAQ ─────── -->
+<section class="section kt-section" id="faq" data-kt>
+  <div class="wrap-narrow">
+    <div class="services-head reveal" style="text-align:left">
+      <div class="kicker">FAQ</div>
+      <h2 class="section-title serif" style="margin-top:14px">Вопросы</h2>
+      <p class="faq-lede reveal delay-1">Отвечаю честно, без воды. Не нашли ответ — спросите внизу, отвечу за день.</p>
+    </div>
+
+    <div class="faq-chips reveal delay-2" id="faqChips" role="tablist" aria-label="Категории FAQ"></div>
+    <div class="faq-list" id="faqList"></div>
+
+    <div class="faq-ask reveal delay-2" id="faqAsk">
+      <div class="faq-ask-head">
+        <span class="kicker">Не нашли ответ?</span>
+        <h3 class="faq-ask-title serif">Задайте вопрос — отвечу лично за день</h3>
+      </div>
+      <form class="faq-ask-form" id="faqAskForm" novalidate>
+        <input type="text" name="aq" id="faqAskInput" placeholder="Например: подключите ли YClients?" autocomplete="off" required />
+        <button type="submit" class="faq-ask-btn">
+          <span>Спросить</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </form>
+      <div class="faq-ask-alts">
+        <a href="https://t.me/kozflow" target="_blank" rel="noopener">Telegram @kozflow</a>
+        <span class="faq-ask-sep" aria-hidden="true">·</span>
+        <a href="tel:+79106407134">+7 910 640 71 34</a>
+        <span class="faq-ask-sep" aria-hidden="true">·</span>
+        <a href="mailto:vladimirkozlov2003@gmail.com">vladimirkozlov2003@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── CTA FORM (3 steps) ─────── -->
+<section class="cta-section kt-section" id="contact" data-kt>
+  <video class="bg-video" src="assets/hero.mp4" muted autoplay loop playsinline></video>
+  <div class="bg-fade"></div>
+  <div class="wrap-narrow cta-form-wrap">
+    <div class="kicker reveal">Контакт</div>
+    <h2 class="reveal delay-1" style="margin-top:14px">Расскажите о задаче</h2>
+    <p class="sub reveal delay-2">Отвечаю в течение дня · NDA по запросу · ничего не передаю третьим</p>
+
+    <div class="cta-steps-wrap reveal delay-3">
+      <!-- progress -->
+      <ol class="cta-progress" aria-label="Шаги формы">
+        <li class="cta-progress-step is-active" data-step="1"><span class="cta-progress-dot"></span><span class="cta-progress-label">Тип</span></li>
+        <li class="cta-progress-step" data-step="2"><span class="cta-progress-dot"></span><span class="cta-progress-label">Бюджет · Сроки</span></li>
+        <li class="cta-progress-step" data-step="3"><span class="cta-progress-dot"></span><span class="cta-progress-label">Контакт</span></li>
+      </ol>
+
+      <form class="cta-form" id="ctaForm" novalidate>
+        <!-- honeypot -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+        <!-- STEP 1 -->
+        <fieldset class="cta-step is-active" data-step="1">
+          <legend class="cta-step-title">Что нужно автоматизировать?</legend>
+          <div class="cta-chips" role="radiogroup" aria-label="Тип задачи">
+            <label class="cta-chip"><input type="radio" name="type" value="Голосовой агент"><span>Голосовой агент</span></label>
+            <label class="cta-chip"><input type="radio" name="type" value="Telegram-бот"><span>Telegram-бот</span></label>
+            <label class="cta-chip"><input type="radio" name="type" value="Workflow / интеграции"><span>Workflow / интеграции</span></label>
+            <label class="cta-chip"><input type="radio" name="type" value="Дизайн / визуал"><span>Дизайн / визуал</span></label>
+            <label class="cta-chip"><input type="radio" name="type" value="Ещё не знаю"><span>Ещё не знаю</span></label>
+          </div>
+          <div class="cta-step-nav">
+            <span class="cta-step-meta">шаг 1 из 3</span>
+            <button type="button" class="cta cta-fill" data-step-next>Дальше <span class="arrow">→</span></button>
+          </div>
+        </fieldset>
+
+        <!-- STEP 2 -->
+        <fieldset class="cta-step" data-step="2">
+          <legend class="cta-step-title">Ориентир по бюджету и срокам</legend>
+          <div class="cta-block">
+            <div class="cta-label">Бюджет</div>
+            <div class="cta-chips" role="radiogroup" aria-label="Бюджет">
+              <label class="cta-chip"><input type="radio" name="budget" value="до 30 тыс ₽"><span>до 30к</span></label>
+              <label class="cta-chip"><input type="radio" name="budget" value="30 — 80 тыс ₽"><span>30 — 80к</span></label>
+              <label class="cta-chip"><input type="radio" name="budget" value="80 — 200 тыс ₽"><span>80 — 200к</span></label>
+              <label class="cta-chip"><input type="radio" name="budget" value="200 тыс+ ₽"><span>200к+</span></label>
+              <label class="cta-chip"><input type="radio" name="budget" value="обсудим"><span>обсудим</span></label>
+            </div>
+          </div>
+          <div class="cta-block">
+            <div class="cta-label">Сроки</div>
+            <div class="cta-chips" role="radiogroup" aria-label="Сроки">
+              <label class="cta-chip"><input type="radio" name="urgency" value="срочно — за неделю"><span>срочно</span></label>
+              <label class="cta-chip"><input type="radio" name="urgency" value="в течение месяца"><span>в течение месяца</span></label>
+              <label class="cta-chip"><input type="radio" name="urgency" value="не горит"><span>не горит</span></label>
+            </div>
+          </div>
+          <div class="cta-step-nav">
+            <button type="button" class="cta cta-ghost" data-step-prev>← Назад</button>
+            <span class="cta-step-meta">шаг 2 из 3</span>
+            <button type="button" class="cta cta-fill" data-step-next>Дальше <span class="arrow">→</span></button>
+          </div>
+        </fieldset>
+
+        <!-- STEP 3 -->
+        <fieldset class="cta-step" data-step="3">
+          <legend class="cta-step-title">Как с вами связаться?</legend>
+          <div class="cta-block">
+            <div class="cta-label">Имя</div>
+            <div class="field"><input type="text" name="name" id="fName" placeholder="Как к вам обращаться" autocomplete="given-name" required /></div>
+          </div>
+          <div class="cta-block">
+            <div class="cta-label">Канал связи</div>
+            <div class="cta-chips cta-chips-channel" role="radiogroup" aria-label="Канал связи">
+              <label class="cta-chip"><input type="radio" name="channel" value="tg" checked><span>Telegram</span></label>
+              <label class="cta-chip"><input type="radio" name="channel" value="email"><span>Email</span></label>
+              <label class="cta-chip"><input type="radio" name="channel" value="phone"><span>Телефон</span></label>
+            </div>
+            <div class="field">
+              <input type="text" name="contact" id="fContact"
+                     placeholder="@username, email или +7…"
+                     autocomplete="off" required
+                     inputmode="text" />
+            </div>
+          </div>
+          <div class="cta-block">
+            <div class="cta-label">Опишите задачу</div>
+            <div class="field"><textarea name="task" id="fTask" placeholder="Что хотите автоматизировать. 2-3 предложения хватит" required maxlength="800"></textarea></div>
+            <div class="cta-counter"><span id="fTaskCount">0</span> / 800</div>
+          </div>
+
+          <details class="cta-preview">
+            <summary>Предпросмотр сообщения</summary>
+            <pre id="ctaPreview"></pre>
+          </details>
+
+          <div class="cta-step-nav">
+            <button type="button" class="cta cta-ghost" data-step-prev>← Назад</button>
+            <button type="submit" class="cta cta-fill cta-submit">Отправить <span class="arrow">→</span></button>
+          </div>
+          <p class="cta-fineprint">отвечаю за день · NDA по запросу · ничего не передаю третьим</p>
+        </fieldset>
+
+        <!-- SUCCESS -->
+        <div class="cta-success" data-step="success" hidden>
+          <div class="cta-success-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5"/><path d="M14 24l7 7 14-14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="cta-success-title serif">Заявка готова</h3>
+          <p class="cta-success-sub">Открываю выбранный канал. Если что-то не открылось — используйте резерв или скопируйте сообщение.</p>
+          <div class="cta-success-alts">
+            <a class="cta-success-btn" href="https://t.me/kozflow" target="_blank" rel="noopener" id="successTg">
+              <span>Открыть Telegram</span><span aria-hidden="true">→</span>
+            </a>
+            <a class="cta-success-btn" href="mailto:vladimirkozlov2003@gmail.com" id="successMail">
+              <span>Написать на email</span><span aria-hidden="true">→</span>
+            </a>
+            <button type="button" class="cta-success-btn" id="copyMsgBtn">
+              <span>Скопировать сообщение</span><span aria-hidden="true">⎘</span>
+            </button>
+          </div>
+          <button type="button" class="cta-success-restart" id="ctaRestart">← Отправить ещё одну</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Always-visible fallback contacts -->
+    <div class="cta-alts reveal">
+      <span class="cta-alts-label">Или сразу напрямую</span>
+      <div class="cta-alts-row">
+        <a class="cta-alt" href="https://t.me/kozflow" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.96c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" fill="currentColor"/></svg>
+          <span>@kozflow</span>
+        </a>
+        <a class="cta-alt" href="tel:+79106407134">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+7 910 640 71 34 · Макс</span>
+        </a>
+        <a class="cta-alt" href="mailto:vladimirkozlov2003@gmail.com">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/></svg>
+          <span>vladimirkozlov2003@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── FOOTER ─────── -->
+<footer class="foot">
+  <div class="wrap row">
+    <div>KozFlow · 2026 · Тверь</div>
+    <div class="right">
+      <a href="https://t.me/kozflow" target="_blank" rel="noopener">Telegram @kozflow</a>
+      <a href="tel:+79106407134">+7 910 640 71 34 · Макс</a>
+      <a href="mailto:vladimirkozlov2003@gmail.com">vladimirkozlov2003@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile sticky CTA bar -->
+<div class="sticky-cta" aria-hidden="true">
+  <button type="button" class="sticky-cta-btn sticky-cta-tg" id="stickyContactBtn" aria-label="Связаться">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
+    <span>Связаться</span>
+  </button>
+  <a class="sticky-cta-btn sticky-cta-form" href="#contact">
+    <span>Обсудить</span>
+    <span aria-hidden="true">→</span>
+  </a>
+</div>
+
+<script src="app.js?v=14"></script>
+</body>
+</html>
