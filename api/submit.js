@@ -32,15 +32,17 @@ export default async function handler(req, res) {
   const kind = String(body.kind || 'form');
   let text = '';
 
+  const stamp = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }) + ' MSK';
+
   if (kind === 'faq') {
     const q = String(body.question || '').trim().slice(0, 1000);
     if (!q) return res.status(400).json({ ok: false, error: 'Empty question' });
     text = [
-      '*Вопрос с сайта (FAQ)*',
+      '❓ Вопрос с сайта (FAQ)',
       '',
-      escapeMd(q),
+      q,
       '',
-      `_${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })} MSK_`,
+      '— ' + stamp,
     ].join('\n');
   } else {
     const safe = (k) => String(body[k] || '—').trim().slice(0, 1500);
@@ -49,18 +51,18 @@ export default async function handler(req, res) {
                        : body.channel === 'phone' ? 'Телефон'
                        : '—';
     text = [
-      '*Новая заявка с kozflow.vercel.app*',
+      '🔥 Новая заявка с kozflow.vercel.app',
       '',
-      `*Имя:* ${escapeMd(safe('name'))}`,
-      `*Контакт \\(${escapeMd(channelLabel)}\\):* ${escapeMd(safe('contact'))}`,
-      `*Тип задачи:* ${escapeMd(safe('type'))}`,
-      `*Бюджет:* ${escapeMd(safe('budget'))}`,
-      `*Сроки:* ${escapeMd(safe('urgency'))}`,
+      'Имя: ' + safe('name'),
+      'Контакт (' + channelLabel + '): ' + safe('contact'),
+      'Тип задачи: ' + safe('type'),
+      'Бюджет: ' + safe('budget'),
+      'Сроки: ' + safe('urgency'),
       '',
-      '*Описание:*',
-      escapeMd(safe('task')),
+      'Описание:',
+      safe('task'),
       '',
-      `_${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })} MSK_`,
+      '— ' + stamp,
     ].join('\n');
   }
 
@@ -71,7 +73,6 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         chat_id: chatId,
         text,
-        parse_mode: 'MarkdownV2',
         disable_web_page_preview: true,
       }),
     });
@@ -87,7 +88,3 @@ export default async function handler(req, res) {
   }
 }
 
-// Escape MarkdownV2 special chars per Telegram spec
-function escapeMd(s) {
-  return String(s).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\$&');
-}
