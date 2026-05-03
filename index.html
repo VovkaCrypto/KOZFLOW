@@ -12,12 +12,24 @@
 <meta property="og:locale" content="ru_RU" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="stylesheet" href="styles.css?v=33" />
+<link rel="stylesheet" href="styles.css?v=34" />
 <link rel="stylesheet" href="transitions.css?v=3" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js" defer></script>
 </head>
-<body data-palette="warm" data-cta="forest" data-navbar="pill" data-serif="cormorant" data-glitch="on" data-svcicon="abstract" data-herocta="outline" data-radius="22" data-noise="off" data-density="comfy" data-uppercase="on" data-grain="off" data-cursor="default" data-trans="kiri">
+<body data-palette="warm" data-cta="forest" data-navbar="pill" data-serif="cormorant" data-glitch="on" data-svcicon="abstract" data-herocta="outline" data-radius="22" data-noise="off" data-density="comfy" data-uppercase="on" data-grain="off" data-cursor="default" data-trans="kiri" class="is-loading">
+
+<!-- ─────── PRELOADER ─────── -->
+<div class="kf-loader" id="kfLoader" aria-hidden="true">
+  <div class="kf-loader-inner">
+    <div class="kf-loader-mark">
+      <img src="assets/logo.png" alt="" />
+    </div>
+    <div class="kf-loader-name">KozFlow</div>
+    <div class="kf-loader-bar"><span></span></div>
+    <div class="kf-loader-meta">загружаем</div>
+  </div>
+</div>
 
 <!-- ─────── NAVBAR (kinetic) ─────── -->
 <div class="site-header-wrapper" id="topnav">
@@ -171,8 +183,8 @@
 <!-- ─────── HERO ─────── -->
 <header class="hero kt-section" data-kt>
   <div class="hero-video-stack" id="videoStack">
-    <video id="v1" src="assets/hero.mp4" muted autoplay playsinline></video>
-    <video id="v2" src="assets/hero.mp4" muted playsinline class="fading"></video>
+    <video id="v1" src="assets/hero.mp4" muted autoplay playsinline preload="auto"></video>
+    <video id="v2" src="assets/hero.mp4" muted playsinline class="fading" preload="metadata"></video>
   </div>
   <div class="hero-dim"></div>
 
@@ -749,7 +761,7 @@
       <!-- CENTER — video portrait + tech overlay -->
       <div class="why-center">
         <div class="why-portrait reveal">
-          <video src="assets/hero.mp4" muted autoplay loop playsinline aria-hidden="true"></video>
+          <video data-lazy-src="assets/hero.mp4" muted loop playsinline aria-hidden="true" preload="none"></video>
           <div class="why-portrait-overlay">
             <div class="why-portrait-badge mono">SOLO · OPERATOR</div>
             <div class="why-portrait-name serif">— Владимир Козлов</div>
@@ -881,7 +893,7 @@
 
 <!-- ─────── CTA FORM (3 steps) ─────── -->
 <section class="cta-section kt-section" id="contact" data-kt>
-  <video class="bg-video" src="assets/hero.mp4" muted autoplay loop playsinline></video>
+  <video class="bg-video" data-lazy-src="assets/hero.mp4" muted loop playsinline preload="none"></video>
   <div class="bg-fade"></div>
   <div class="wrap-narrow cta-form-wrap">
     <div class="kicker reveal">Контакт</div>
@@ -1051,6 +1063,6 @@
   </a>
 </div>
 
-<script src="app.js?v=15"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

@@ -1,5 +1,68 @@
 /* KozFlow — interactions */
 (function () {
+  // ── Preloader: hold body until hero video can play, with hard timeout
+  (function initLoader() {
+    const loader = document.getElementById('kfLoader');
+    if (!loader) return;
+    const v1 = document.getElementById('v1');
+    let done = false;
+    function finish() {
+      if (done) return;
+      done = true;
+      document.body.classList.remove('is-loading');
+      // remove from DOM after fade
+      setTimeout(() => { loader.parentNode && loader.parentNode.removeChild(loader); }, 700);
+    }
+    // wait for hero video first frame, OR window load, OR 4.5s timeout
+    if (v1) {
+      const ready = () => finish();
+      v1.addEventListener('canplay', ready, { once: true });
+      v1.addEventListener('loadeddata', ready, { once: true });
+      v1.addEventListener('error', ready, { once: true });
+    }
+    window.addEventListener('load', () => setTimeout(finish, 200), { once: true });
+    setTimeout(finish, 4500); // hard cap
+  })();
+
+  // ── Lazy videos: hydrate src when in viewport
+  (function initLazyVideos() {
+    const vids = document.querySelectorAll('video[data-lazy-src]');
+    if (!vids.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const v = e.target;
+        if (!v.src) {
+          v.src = v.dataset.lazySrc;
+          v.preload = 'auto';
+          v.muted = true;
+          v.loop = v.loop || v.hasAttribute('loop');
+          const p = v.play();
+          if (p && p.catch) p.catch(() => {});
+        }
+        io.unobserve(v);
+      });
+    }, { rootMargin: '300px 0px' });
+    vids.forEach((v) => io.observe(v));
+  })();
+
+  // ── Toast helper (global)
+  function showToast(text, ok) {
+    let el = document.querySelector('.kf-toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'kf-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = text;
+    el.classList.toggle('kf-toast-ok', !!ok);
+    el.classList.add('is-show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => el.classList.remove('is-show'), 1800);
+  }
+  window.__kfToast = showToast;
+
+
   // Reveal-on-scroll for inner elements
   const io = new IntersectionObserver(
     (entries) => {
@@ -555,8 +618,52 @@
         trigger.focus();
       }
     });
+    const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
     fan.querySelectorAll('.contact-fan-item').forEach(a => {
-      a.addEventListener('click', () => setTimeout(() => setOpen(false), 100));
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href') || '';
+        // Telegram → always open in new tab
+        if (a.classList.contains('contact-fan-item-tg')) {
+          setTimeout(() => setOpen(false), 100);
+          return;
+        }
+        // Phone / Email — on mobile let default fire (dialer / mail);
+        // on desktop copy the value to clipboard with toast
+        if (!isCoarse) {
+          e.preventDefault();
+          let value = '';
+          if (href.startsWith('tel:'))    value = href.replace(/^tel:/, '');
+          else if (href.startsWith('mailto:')) value = href.replace(/^mailto:/, '').split('?')[0];
+          if (value && navigator.clipboard) {
+            navigator.clipboard.writeText(value)
+              .then(() => showToast('Скопировано: ' + value, true))
+              .catch(() => showToast('Не удалось скопировать'));
+          }
+        }
+        setTimeout(() => setOpen(false), 100);
+      });
+    });
+  })();
+
+  // ── Universal copy-on-desktop for tel:/mailto: links (alts + footer + faq-ask-alts)
+  (function initCopyLinks() {
+    const isCoarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (isCoarse) return; // mobile uses native dialer/mail
+    const sels = '.cta-alt, .foot a, .faq-ask-alts a';
+    document.querySelectorAll(sels).forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (!href.startsWith('tel:') && !href.startsWith('mailto:')) return;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const val = href.startsWith('tel:')
+          ? href.replace(/^tel:/, '')
+          : href.replace(/^mailto:/, '').split('?')[0];
+        if (val && navigator.clipboard) {
+          navigator.clipboard.writeText(val)
+            .then(() => showToast('Скопировано: ' + val, true))
+            .catch(() => showToast('Не удалось скопировать'));
+        }
+      });
     });
   })();
 
@@ -811,39 +918,43 @@
     });
   }
 
-  // ── Custom cursor (beige + soft trail)
-  const TRAIL_LEN = 8;
-  const dots = [];
-  for (let i = 0; i < TRAIL_LEN; i++) {
-    const d = document.createElement('div');
-    d.className = 'kt-trail';
-    d.style.opacity = String(0.55 * (1 - i / TRAIL_LEN));
-    d.style.width = d.style.height = (10 - i * 0.7) + 'px';
-    document.body.appendChild(d);
-    dots.push({ el: d, x: 0, y: 0 });
-  }
-  const cursor = document.createElement('div');
-  cursor.className = 'kt-cursor';
-  document.body.appendChild(cursor);
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
-  function tick() {
-    cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-    let px = mx, py = my;
-    for (const d of dots) {
-      d.x += (px - d.x) * 0.28;
-      d.y += (py - d.y) * 0.28;
-      d.el.style.transform = `translate(${d.x}px, ${d.y}px) translate(-50%,-50%)`;
-      px = d.x; py = d.y;
+  // ── Custom cursor (beige + soft trail) — desktop only
+  if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+    const TRAIL_LEN = 8;
+    const dots = [];
+    for (let i = 0; i < TRAIL_LEN; i++) {
+      const d = document.createElement('div');
+      d.className = 'kt-trail';
+      d.style.opacity = String(0.55 * (1 - i / TRAIL_LEN));
+      d.style.width = d.style.height = (10 - i * 0.7) + 'px';
+      document.body.appendChild(d);
+      dots.push({ el: d, x: 0, y: 0 });
+    }
+    const cursor = document.createElement('div');
+    cursor.className = 'kt-cursor';
+    document.body.appendChild(cursor);
+    let mx = 0, my = 0;
+    document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+    function tick() {
+      cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+      let px = mx, py = my;
+      for (const d of dots) {
+        d.x += (px - d.x) * 0.28;
+        d.y += (py - d.y) * 0.28;
+        d.el.style.transform = `translate(${d.x}px, ${d.y}px) translate(-50%,-50%)`;
+        px = d.x; py = d.y;
+      }
+      requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tick);
 
   // ── Hero text — cursor proximity effect (vanilla port of motion/react)
   (function initCursorText() {
     const targets = document.querySelectorAll('[data-cursor-text]');
     if (!targets.length) return;
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const RADIUS = 180;
     const FROM_COLOR = [232, 214, 168];   // var(--cream) cool ~#E8D6A8
     const TO_COLOR   = [196, 152, 90];    // var(--gold) #C4985A
