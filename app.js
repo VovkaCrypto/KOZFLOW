@@ -1146,4 +1146,69 @@
       });
     });
   })();
+
+  // ── Mobile accordion: tier cards
+  (function initTierAccordion() {
+    const mql = window.matchMedia('(max-width: 720px)');
+    const tiers = Array.from(document.querySelectorAll('.price-tier'));
+    if (!tiers.length) return;
+    function attach() {
+      tiers.forEach(t => {
+        if (t._kfAccBound) return;
+        t._kfAccBound = true;
+        t.addEventListener('click', e => {
+          if (!mql.matches) return;
+          if (e.target.closest('.price-tier-cta')) return;
+          t.classList.toggle('is-open');
+        });
+      });
+    }
+    function reset() {
+      if (!mql.matches) tiers.forEach(t => t.classList.remove('is-open'));
+    }
+    attach();
+    mql.addEventListener('change', reset);
+  })();
+
+  // ── Mobile horizontal scroll: snap progress dots for services + process
+  (function initSnapDots() {
+    const mql = window.matchMedia('(max-width: 720px)');
+    const targets = [
+      { rail: '.svc-grid', dotWrap: '#svcDots' },
+      { rail: '.pr-flow',  dotWrap: '#prDots'  },
+    ];
+    targets.forEach(({ rail, dotWrap }) => {
+      const r = document.querySelector(rail);
+      const w = document.querySelector(dotWrap);
+      if (!r || !w) return;
+      function build() {
+        if (!mql.matches) { w.innerHTML = ''; return; }
+        const items = r.children;
+        if (w.children.length !== items.length) {
+          w.innerHTML = '';
+          for (let i = 0; i < items.length; i++) {
+            const d = document.createElement('span');
+            d.className = 'snap-dot';
+            w.appendChild(d);
+          }
+        }
+        update();
+      }
+      function update() {
+        if (!mql.matches) return;
+        const items = r.children;
+        const sl = r.scrollLeft + r.clientWidth / 2;
+        let active = 0;
+        for (let i = 0; i < items.length; i++) {
+          const it = items[i];
+          if (it.offsetLeft <= sl && it.offsetLeft + it.offsetWidth >= sl) { active = i; break; }
+        }
+        Array.from(w.children).forEach((d, i) => d.classList.toggle('is-active', i === active));
+      }
+      build();
+      r.addEventListener('scroll', update, { passive: true });
+      mql.addEventListener('change', build);
+      window.addEventListener('resize', build);
+    });
+  })();
 })();

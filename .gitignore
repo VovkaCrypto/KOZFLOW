@@ -27,3 +27,4 @@ kozflow-landing-site/
 .env.local
 
 .vercel
+.playwright-audit/
