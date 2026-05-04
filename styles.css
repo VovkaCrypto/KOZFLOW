@@ -4644,9 +4644,12 @@ body.fan-open .sticky-cta { display: none; }
 
 /* ─────── MOBILE POLISH ─────── */
 @media (max-width: 720px) {
-  /* hero — full-width CTAs */
-  .hero-cta-row { width: 100%; flex-wrap: wrap; }
-  .hero-cta-row .cta { flex: 1 1 calc(50% - 7px); justify-content: center; min-width: 0; }
+  /* hero — compact left-aligned CTAs */
+  #heroCtaWrap { text-align: left; }
+  .hero-cta-row { width: auto; flex-wrap: wrap; gap: 10px; justify-content: flex-start; }
+  .hero-cta-row .cta { flex: 0 0 auto; justify-content: center; min-width: 0; }
+  .hero .cta { font-size: 12px; padding: 11px 18px; letter-spacing: 0.1em; }
+  .hero .cta-ghost { font-size: 11px; padding: 10px 16px; letter-spacing: 0.14em; }
   .hero-content {
     max-width: 100%;
     padding: 0 18px clamp(120px, 24vh, 200px);
@@ -4731,8 +4734,9 @@ body.fan-open .sticky-cta { display: none; }
   .strip-track { font-size: 11px; gap: 18px; padding-left: 18px; animation-duration: 30s; }
   .cta-chips { gap: 6px; }
   .cta-chip span { padding: 8px 12px; font-size: 12px; }
-  /* hero CTAs stack at very small */
-  .hero-cta-row .cta { flex-basis: 100%; }
+  /* hero CTAs stay compact, no full-width stack */
+  .hero-cta-row { gap: 8px; }
+  .hero .cta { font-size: 11px; padding: 10px 16px; }
   /* process step: collapse meta to under name */
   .pr-step { grid-template-columns: 44px 1fr; }
   .pr-step-meta { grid-column: 2; margin-top: 4px; }
