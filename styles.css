@@ -4654,8 +4654,8 @@ body.fan-open .sticky-cta { display: none; }
     max-width: 100%;
     padding: 0 18px clamp(120px, 24vh, 200px);
   }
-  .hero h1 { font-size: clamp(30px, 8vw, 46px) !important; line-height: 1.06; letter-spacing: -0.02em; }
-  .hero .sub { font-size: 13px; line-height: 1.5; max-width: 32ch; }
+  .hero h1 { font-size: clamp(26px, 6.6vw, 38px) !important; line-height: 1.05; letter-spacing: -0.02em; max-width: 78%; }
+  .hero .sub { font-size: 13px; line-height: 1.5; max-width: 30ch; }
   .hero-brand-text { font-size: clamp(18px, 4.6vw, 24px); }
   /* svc flip title: allow wrap to avoid horizontal overflow on long words */
   .svc-flip-title { white-space: normal; line-height: 1.05; }
