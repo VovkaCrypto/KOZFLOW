@@ -1965,6 +1965,15 @@ body[data-glitch="off"] .glitch::after { display: none; }
   .menu-button-text { display: block; font-size: 11px; letter-spacing: 0.14em; }
   .menu-button-text p { font-size: 11px; }
   .nav-close-btn .icon-wrap { width: 14px; height: 14px; }
+  .menu-content-wrapper { padding: clamp(72px, 10vh, 100px) 22px 24px; }
+  .menu-list { margin-bottom: 14px; }
+  .menu-list-item .nav-link { padding: 18px 0; }
+  .nav-link-text { font-size: clamp(28px, 8vw, 44px); }
+  .menu-contact { padding: 12px 14px; gap: 12px; grid-template-columns: 40px 1fr auto; }
+  .menu-contact-ico { width: 40px; height: 40px; border-radius: 11px; }
+  .menu-contact-name { font-size: 16px; }
+  .menu-contact-handle { font-size: 10px; }
+  .menu-foot { margin-top: 16px; padding-top: 14px; }
   .nav-link-text { font-size: clamp(36px, 9vw, 56px); }
   .menu-content { width: 100vw; }
   .strip-row { font-size: 12px; gap: 14px; }
