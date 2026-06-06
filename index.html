@@ -12,7 +12,7 @@
 <meta property="og:locale" content="ru_RU" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="stylesheet" href="styles.css?v=42" />
+<link rel="stylesheet" href="styles.css?v=43" />
 <link rel="stylesheet" href="transitions.css?v=3" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js" defer></script>
@@ -437,74 +437,187 @@
 <!-- ─────── CASES ─────── -->
 <section class="section kt-section" id="cases" style="padding-top:0" data-kt>
   <div class="wrap">
-    <div class="services-head reveal" style="text-align:left; margin-bottom:60px">
+    <div class="services-head reveal" style="text-align:left; margin-bottom:48px">
       <div class="kicker">Кейсы</div>
-      <h2 class="section-title serif" style="margin-top:14px">Что уже работает</h2>
+      <h2 class="section-title serif" style="margin-top:14px">Детища в продакшене</h2>
+      <p class="cases-lede reveal delay-1">Не слайды — рабочие системы. Голосовых ботов можно прямо сейчас набрать и проверить голосом.</p>
     </div>
 
-    <div class="showcase" id="caseShowcase">
-      <!-- floating preview that follows cursor -->
-      <div class="showcase-preview" id="showcasePreview" aria-hidden="true">
-        <img data-i="0" src="assets/case-1.webp" alt="" />
-        <img data-i="1" src="assets/case-2.webp" alt="" />
-        <img data-i="2" src="assets/case-3.webp" alt="" />
-        <img data-i="3" src="assets/case-4.webp" alt="" />
-      </div>
+    <!-- ── FLAGSHIP детища ── -->
+    <div class="flagships">
 
-      <div class="showcase-list">
-        <a class="sc-row reveal" href="#contact" data-i="0">
-          <div class="sc-row-inner">
-            <div class="sc-row-main">
-              <h3 class="serif">Голосовой ИИ-помощник в боулинге<span class="sc-arrow">↗</span></h3>
-              <p>Голосовой агент принимает звонки и фиксирует брони — там, где хостес не у телефона</p>
-              <div class="sc-row-chips">
-                <span class="sc-chip">2 заведения в проде</span>
-                <span class="sc-chip">24/7 без оператора</span>
-                <span class="sc-chip">~80% звонков закрыто без человека</span>
-              </div>
-            </div>
-            <span class="sc-year">2025</span>
+      <!-- 1 · ЗАВОД -->
+      <article class="flagship reveal" data-flagship="zavod">
+        <div class="flagship-media flagship-media-voice">
+          <div class="flagship-media-logo"><img src="assets/clients/zavod.webp" alt="ЗАВОД" loading="lazy" /></div>
+          <svg class="flagship-wave" viewBox="0 0 224 80" fill="none" aria-hidden="true">
+            <rect style="--i:0"  x="6"   y="8" width="8" height="64" rx="4"/><rect style="--i:1"  x="22"  y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:2"  x="38"  y="8" width="8" height="64" rx="4"/><rect style="--i:3"  x="54"  y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:4"  x="70"  y="8" width="8" height="64" rx="4"/><rect style="--i:5"  x="86"  y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:6"  x="102" y="8" width="8" height="64" rx="4"/><rect style="--i:7"  x="118" y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:8"  x="134" y="8" width="8" height="64" rx="4"/><rect style="--i:9"  x="150" y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:10" x="166" y="8" width="8" height="64" rx="4"/><rect style="--i:11" x="182" y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:12" x="198" y="8" width="8" height="64" rx="4"/><rect style="--i:13" x="214" y="8" width="4" height="64" rx="2"/>
+          </svg>
+          <span class="flagship-live"><span class="flagship-live-dot"></span>в эфире</span>
+        </div>
+        <div class="flagship-body">
+          <span class="flagship-eyebrow">голосовой агент · 2025</span>
+          <h3 class="flagship-name serif">Кирилл — голос «Завода»</h3>
+          <p class="flagship-role">боулинг · бильярд · караоке</p>
+          <p class="flagship-desc">Принимает звонки клуба круглосуточно: бронирует дорожки, бильярд и караоке, отвечает по меню и ценам, фиксирует заявки — без участия персонала. Голос и VK работают на одной логике.</p>
+          <div class="flagship-stats">
+            <div><strong>24/7</strong><span>приём звонков</span></div>
+            <div><strong>15</strong><span>n8n-сценариев</span></div>
+            <div><strong>16</strong><span>голосовых тулов</span></div>
+            <div><strong>~0.3с</strong><span>задержка ответа</span></div>
           </div>
-        </a>
-        <a class="sc-row reveal delay-1" href="#contact" data-i="1">
-          <div class="sc-row-inner">
-            <div class="sc-row-main">
-              <h3 class="serif">30+ проектов HoReCa<span class="sc-arrow">↗</span></h3>
-              <p>Меню, брендинг, инфографика — материалы в реальном обороте по Твери</p>
-              <div class="sc-row-chips">
-                <span class="sc-chip">ЗАВОД · Кегельбар · Волжанка · Щукин</span>
-                <span class="sc-chip">30+ комплектов</span>
-              </div>
+          <div class="flagship-stack"><span>Vapi</span><span>n8n</span><span>Deepgram</span><span>PostgreSQL</span><span>YClients</span></div>
+          <div class="flagship-actions">
+            <a class="call-btn" href="tel:+79038083333" aria-label="Позвонить голосовому боту Завода">
+              <span class="call-btn-pulse" aria-hidden="true"></span>
+              <span class="call-btn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+              <span class="call-btn-text"><span class="call-btn-label">Позвонить боту</span><span class="call-btn-num">+7 903 808-33-33</span></span>
+            </a>
+            <div class="flagship-links">
+              <a href="https://zavod-tver.ru/" target="_blank" rel="noopener">Сайт <span aria-hidden="true">↗</span></a>
+              <a href="https://vk.com/zavodtver" target="_blank" rel="noopener">VK <span aria-hidden="true">↗</span></a>
             </div>
-            <span class="sc-year">2023 — 25</span>
           </div>
-        </a>
-        <a class="sc-row reveal delay-2" href="#contact" data-i="2">
-          <div class="sc-row-inner">
-            <div class="sc-row-main">
-              <h3 class="serif">Автоматизированный сбор информации по рабочим местам<span class="sc-arrow">↗</span></h3>
-              <p>Интеграции CRM, мессенджеров и таблиц — заявки сами доходят туда, где их ждут</p>
-              <div class="sc-row-chips">
-                <span class="sc-chip">−5 ч ручной работы в неделю</span>
-                <span class="sc-chip">0 потерянных заявок</span>
-              </div>
+          <p class="flagship-note">рабочая линия заведения — Кирилл ответит вживую</p>
+        </div>
+      </article>
+
+      <!-- 2 · КИНЗА -->
+      <article class="flagship reveal" data-flagship="kinza">
+        <div class="flagship-media flagship-media-voice flagship-media-kinza">
+          <div class="flagship-media-logo"><img src="assets/clients/kinza.webp" alt="Кинза" loading="lazy" /></div>
+          <svg class="flagship-wave" viewBox="0 0 224 80" fill="none" aria-hidden="true">
+            <rect style="--i:7"  x="6"   y="8" width="8" height="64" rx="4"/><rect style="--i:2"  x="22"  y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:11" x="38"  y="8" width="8" height="64" rx="4"/><rect style="--i:4"  x="54"  y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:9"  x="70"  y="8" width="8" height="64" rx="4"/><rect style="--i:0"  x="86"  y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:6"  x="102" y="8" width="8" height="64" rx="4"/><rect style="--i:13" x="118" y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:3"  x="134" y="8" width="8" height="64" rx="4"/><rect style="--i:10" x="150" y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:5"  x="166" y="8" width="8" height="64" rx="4"/><rect style="--i:12" x="182" y="8" width="8" height="64" rx="4"/>
+            <rect style="--i:1"  x="198" y="8" width="8" height="64" rx="4"/><rect style="--i:8"  x="214" y="8" width="4" height="64" rx="2"/>
+          </svg>
+          <span class="flagship-live"><span class="flagship-live-dot"></span>в эфире</span>
+        </div>
+        <div class="flagship-body">
+          <span class="flagship-eyebrow">голосовая хостес · 2026</span>
+          <h3 class="flagship-name serif">Лейла — хостес «Кинзы»</h3>
+          <p class="flagship-role">ресторан восточной кухни</p>
+          <p class="flagship-desc">AI-хостес ресторана. Принимает брони столов с двойным подтверждением — ноль случайных броней, собирает заказы навынос, отвечает по меню и предлагает воскресные винные дегустации.</p>
+          <div class="flagship-stats">
+            <div><strong>408</strong><span>авто-тестов</span></div>
+            <div><strong>2</strong><span>канала: звонок + VK</span></div>
+            <div><strong>0</strong><span>ложных броней</span></div>
+            <div><strong>live</strong><span>слоты Restoplace</span></div>
+          </div>
+          <div class="flagship-stack"><span>Vapi</span><span>11Labs</span><span>Deepgram</span><span>Fastify</span><span>PostgreSQL</span></div>
+          <div class="flagship-actions">
+            <a class="call-btn" href="tel:+74822303279" aria-label="Позвонить голосовой хостес Кинзы">
+              <span class="call-btn-pulse" aria-hidden="true"></span>
+              <span class="call-btn-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+              <span class="call-btn-text"><span class="call-btn-label">Позвонить Лейле</span><span class="call-btn-num">+7 4822 30-32-79</span></span>
+            </a>
+            <div class="flagship-links">
+              <a href="https://kinzatver.ru/" target="_blank" rel="noopener">Сайт <span aria-hidden="true">↗</span></a>
             </div>
-            <span class="sc-year">2025</span>
           </div>
-        </a>
-        <a class="sc-row reveal delay-3" href="#contact" data-i="3">
-          <div class="sc-row-inner">
-            <div class="sc-row-main">
-              <h3 class="serif">Репутационный агент<span class="sc-arrow">↗</span></h3>
-              <p>Сбор отзывов и автоответы — реакция на негатив раньше, чем он наберёт обороты</p>
-              <div class="sc-row-chips">
-                <span class="sc-chip">Реакция за минуты, не дни</span>
-                <span class="sc-chip">Авто-собранные отзывы в TG</span>
+          <p class="flagship-note">рабочая линия заведения — Лейла ответит вживую</p>
+        </div>
+      </article>
+
+      <!-- 3 · ABC АНАЛИТИКА -->
+      <article class="flagship reveal" data-flagship="abc">
+        <div class="flagship-media flagship-media-abc">
+          <span class="flagship-media-word serif" aria-hidden="true">ABC</span>
+          <svg class="flagship-chart" viewBox="0 0 200 96" fill="none" aria-hidden="true">
+            <rect style="--i:0" x="14"  y="14" width="26" height="68" rx="5"/>
+            <rect style="--i:1" x="50"  y="14" width="26" height="68" rx="5"/>
+            <rect style="--i:2" x="86"  y="14" width="26" height="68" rx="5"/>
+            <rect style="--i:3" x="122" y="14" width="26" height="68" rx="5"/>
+            <rect style="--i:4" x="158" y="14" width="26" height="68" rx="5"/>
+          </svg>
+          <span class="flagship-live flagship-live-soft"><span class="flagship-live-dot"></span>в разработке</span>
+        </div>
+        <div class="flagship-body">
+          <span class="flagship-eyebrow">веб-приложение · 2026</span>
+          <h3 class="flagship-name serif">ABC Аналитика</h3>
+          <p class="flagship-role">AI-разбор меню и фудкоста</p>
+          <p class="flagship-desc">Загружаешь выгрузки из R-Keeper или StoreHouse — Claude Opus раскладывает меню по ABC, находит убыточные блюда, скачки себестоимости и даёт конкретные рекомендации. Экспорт в PDF, Word и слайды.</p>
+          <div class="flagship-stats">
+            <div><strong>ABC</strong><span>разбор меню</span></div>
+            <div><strong>Opus</strong><span>4.8 · глубокий анализ</span></div>
+            <div><strong>3</strong><span>формата экспорта</span></div>
+            <div><strong>Next</strong><span>.js 16 + SQLite</span></div>
+          </div>
+          <div class="flagship-stack"><span>Next.js</span><span>SQLite</span><span>Claude Opus</span><span>Recharts</span><span>Puppeteer</span></div>
+          <div class="flagship-actions">
+            <a class="call-btn call-btn-demo" href="#contact" aria-label="Запросить демо ABC Аналитики">
+              <span class="call-btn-ico" aria-hidden="true">→</span>
+              <span class="call-btn-text"><span class="call-btn-label">Запросить демо</span><span class="call-btn-num">покажу вживую</span></span>
+            </a>
+          </div>
+          <p class="flagship-note">публичный доступ скоро — напишите, открою демо лично</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- ── вторичные кейсы ── -->
+    <div class="cases-more">
+      <div class="cases-more-head reveal"><span class="kicker">Ещё в работе</span></div>
+      <div class="showcase" id="caseShowcase">
+        <!-- floating preview that follows cursor -->
+        <div class="showcase-preview" id="showcasePreview" aria-hidden="true">
+          <img data-i="0" src="assets/case-2.webp" alt="" />
+          <img data-i="1" src="assets/case-3.webp" alt="" />
+          <img data-i="2" src="assets/case-4.webp" alt="" />
+        </div>
+
+        <div class="showcase-list">
+          <a class="sc-row reveal" href="#contact" data-i="0">
+            <div class="sc-row-inner">
+              <div class="sc-row-main">
+                <h3 class="serif">30+ проектов HoReCa<span class="sc-arrow">↗</span></h3>
+                <p>Меню, брендинг, инфографика — материалы в реальном обороте по Твери</p>
+                <div class="sc-row-chips">
+                  <span class="sc-chip">ЗАВОД · Кегельбар · Волжанка · Щукин</span>
+                  <span class="sc-chip">30+ комплектов</span>
+                </div>
               </div>
+              <span class="sc-year">2023 — 25</span>
             </div>
-            <span class="sc-year">2025</span>
-          </div>
-        </a>
+          </a>
+          <a class="sc-row reveal delay-1" href="#contact" data-i="1">
+            <div class="sc-row-inner">
+              <div class="sc-row-main">
+                <h3 class="serif">Автоматизированный сбор информации по рабочим местам<span class="sc-arrow">↗</span></h3>
+                <p>Интеграции CRM, мессенджеров и таблиц — заявки сами доходят туда, где их ждут</p>
+                <div class="sc-row-chips">
+                  <span class="sc-chip">−5 ч ручной работы в неделю</span>
+                  <span class="sc-chip">0 потерянных заявок</span>
+                </div>
+              </div>
+              <span class="sc-year">2025</span>
+            </div>
+          </a>
+          <a class="sc-row reveal delay-2" href="#contact" data-i="2">
+            <div class="sc-row-inner">
+              <div class="sc-row-main">
+                <h3 class="serif">Репутационный агент<span class="sc-arrow">↗</span></h3>
+                <p>Сбор отзывов и автоответы — реакция на негатив раньше, чем он наберёт обороты</p>
+                <div class="sc-row-chips">
+                  <span class="sc-chip">Реакция за минуты, не дни</span>
+                  <span class="sc-chip">Авто-собранные отзывы в TG</span>
+                </div>
+              </div>
+              <span class="sc-year">2025</span>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
