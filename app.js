@@ -352,10 +352,17 @@
     });
   }
 
+  // Form backend.
+  // На GitHub Pages (.ru) серверной функции нет — форму принимает Yandex Cloud Function.
+  // После создания функции вставь её URL сюда (см. yandex-function/README.md).
+  // Пока стоит заглушка — на Vercel (.com) работает старый /api/submit.
+  const FORM_ENDPOINT = 'https://functions.yandexcloud.net/REPLACE_WITH_FUNCTION_ID';
+
   // Shared server submit helper — returns true on success
   async function sendToServer(payload) {
+    const endpoint = FORM_ENDPOINT.includes('REPLACE') ? '/api/submit' : FORM_ENDPOINT;
     try {
-      const r = await fetch('/api/submit', {
+      const r = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
