@@ -28,3 +28,6 @@ kozflow-landing-site/
 
 .vercel
 .playwright-audit/
+
+# Server secrets (Timeweb) — токен бота, не коммитим
+api/config.php

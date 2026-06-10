@@ -1,0 +1,27 @@
+# Timeweb / Apache конфиг для сайта KozFlow
+
+RewriteEngine On
+
+# /api/submit  ->  /api/submit.php  (фронт шлёт сюда, как на Vercel)
+RewriteRule ^api/submit/?$ /api/submit.php [L]
+
+# Закрыть доступ к конфигу с токеном
+<Files "config.php">
+  Require all denied
+</Files>
+
+# cleanUrls: /about -> about.html (как trailingSlash:false на Vercel)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^.]+)$ $1.html [L]
+
+# Кэш статики
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
