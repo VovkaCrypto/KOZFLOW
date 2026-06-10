@@ -356,7 +356,7 @@
   // На GitHub Pages (.ru) серверной функции нет — форму принимает Yandex Cloud Function.
   // После создания функции вставь её URL сюда (см. yandex-function/README.md).
   // Пока стоит заглушка — на Vercel (.com) работает старый /api/submit.
-  const FORM_ENDPOINT = 'https://functions.yandexcloud.net/REPLACE_WITH_FUNCTION_ID';
+  const FORM_ENDPOINT = 'https://functions.yandexcloud.net/d4e72pvnvo8ikt58b5ne';
 
   // Shared server submit helper — returns true on success
   async function sendToServer(payload) {
