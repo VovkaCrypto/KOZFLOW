@@ -12,7 +12,12 @@ const COM_HOST = 'kozflow.com';
 export default function middleware(request) {
   const url = new URL(request.url);
   const host = (request.headers.get('host') || url.hostname).toLowerCase();
-  const country = request.headers.get('x-vercel-ip-country') || '';
+  // За Cloudflare берём CF-IPCountry (реальный посетитель),
+  // иначе нативный заголовок Vercel.
+  const country =
+    request.headers.get('cf-ipcountry') ||
+    request.headers.get('x-vercel-ip-country') ||
+    '';
 
   // Не трогаем preview-домены vercel.app и localhost
   if (host.endsWith('.vercel.app') || host.startsWith('localhost')) return;
