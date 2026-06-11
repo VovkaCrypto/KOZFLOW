@@ -536,7 +536,7 @@
         try {
           if (channel === 'email') {
             const subject = 'Заявка с kozflow.ai';
-            window.location.href = 'mailto:vladimirkozlov2003@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
+            window.location.href = 'mailto:kozflow.ai@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
           } else {
             window.open('https://t.me/kozflow?text=' + encodeURIComponent(msg), '_blank', 'noopener');
           }
@@ -560,7 +560,7 @@
       const mail = document.getElementById('successMail');
       const copyBtn = document.getElementById('copyMsgBtn');
       if (tg) tg.href = 'https://t.me/kozflow?text=' + encodeURIComponent(msg);
-      if (mail) mail.href = 'mailto:vladimirkozlov2003@gmail.com?subject=' + encodeURIComponent('Заявка с kozflow.ai') + '&body=' + encodeURIComponent(msg);
+      if (mail) mail.href = 'mailto:kozflow.ai@gmail.com?subject=' + encodeURIComponent('Заявка с kozflow.ai') + '&body=' + encodeURIComponent(msg);
       if (copyBtn) {
         copyBtn.onclick = async () => {
           try {
