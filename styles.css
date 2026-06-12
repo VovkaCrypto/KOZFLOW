@@ -5343,3 +5343,79 @@ body.fan-open .sticky-cta { display: none; }
     font-size: clamp(15px, 4.2vw, 18px);
   }
 }
+
+/* ───────────────────────────────────────────
+   SERVICES — editorial rows (variant A)
+─────────────────────────────────────────── */
+.svce { border-top: 1px solid var(--line); }
+.svce-row {
+  --acc: var(--gold);
+  position: relative;
+  display: block;
+  padding: clamp(26px, 3.6vh, 46px) 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+  transition: padding-left 480ms cubic-bezier(.2,.6,.2,1);
+}
+.svce-ai     { --acc: #C4985A; }
+.svce-auto   { --acc: #3A4A3D; }
+.svce-visual { --acc: #C26B4A; }
+.svce-main {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: clamp(16px, 3vw, 44px);
+}
+.svce-title {
+  margin: 0;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: lowercase;
+  font-size: clamp(30px, 4.4vw, 54px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  transition: color 320ms ease;
+}
+.svce-tags {
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+.svce-arrow {
+  font-size: 24px;
+  line-height: 1;
+  color: var(--acc);
+  transition: transform 420ms cubic-bezier(.2,.6,.2,1);
+}
+.svce-desc {
+  margin: 16px 0 0;
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 56ch;
+}
+.svce-items {
+  margin: 8px 0 0;
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink-mute);
+}
+@media (hover: hover) {
+  .svce-row:hover { padding-left: clamp(12px, 1.6vw, 26px); }
+  .svce-row:hover .svce-title { color: var(--acc); }
+  .svce-row:hover .svce-arrow { transform: translateX(9px); }
+}
+@media (max-width: 640px) {
+  .svce-main { grid-template-columns: 1fr auto; row-gap: 6px; }
+  .svce-tags { grid-column: 1 / -1; order: 3; white-space: normal; }
+  .svce-arrow { align-self: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .svce-row, .svce-arrow { transition: none; }
+}
