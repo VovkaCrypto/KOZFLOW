@@ -44,27 +44,29 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 2.4, 18);
+    camera.position.set(0, 1.4, 15.5);
 
     var group = new THREE.Group();
-    group.rotation.x = 0.18;
+    group.rotation.x = 0.09; // почти фронтально — как на референсе
     scene.add(group);
 
     var R = 10;
 
-    // ── gold dust particles ──
-    var PCOUNT = isMobile ? 420 : 900;
+    // ── gold dust — fills the whole panel, not just near the works ──
+    var PCOUNT = isMobile ? 700 : 1300;
+    var PR = 20; // большой объём → звёзды по всей плашке
     var pg = new THREE.BufferGeometry();
     var pos = new Float32Array(PCOUNT * 3);
     var col = new Float32Array(PCOUNT * 3);
     var c = new THREE.Color();
     for (var i = 0; i < PCOUNT; i++) {
-      var phi = Math.acos(-1 + (2 * i) / PCOUNT);
-      var theta = Math.sqrt(PCOUNT * Math.PI) * phi;
-      var rr = R + (Math.random() - 0.5) * 4;
-      pos[i * 3] = rr * Math.cos(theta) * Math.sin(phi);
-      pos[i * 3 + 1] = rr * Math.cos(phi);
-      pos[i * 3 + 2] = rr * Math.sin(theta) * Math.sin(phi);
+      var rr = PR * Math.cbrt(Math.random());          // равномерно по объёму шара
+      var u = Math.random() * 2 - 1;                    // cos(theta)
+      var th = Math.random() * Math.PI * 2;
+      var s = Math.sqrt(1 - u * u);
+      pos[i * 3] = rr * s * Math.cos(th);
+      pos[i * 3 + 1] = rr * u;
+      pos[i * 3 + 2] = rr * s * Math.sin(th);
       c.setHSL(0.09 + Math.random() * 0.04, 0.7, 0.55 + Math.random() * 0.3); // warm gold
       col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
     }
