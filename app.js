@@ -282,6 +282,17 @@
     }
   }
 
+  // ── Resume blocked autoplay on first user interaction (iOS Low Power Mode etc.)
+  (function initVideoKick() {
+    const kick = () => {
+      document.querySelectorAll('video').forEach((v) => {
+        if (v.src && v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+      });
+    };
+    window.addEventListener('touchstart', kick, { passive: true, once: true });
+    window.addEventListener('click', kick, { once: true });
+  })();
+
   // ── FAQ — categories + filter + ask
   const FAQ_CATS = [
     { id: 'all',   label: 'Все' },

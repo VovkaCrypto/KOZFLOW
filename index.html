@@ -209,8 +209,8 @@
 <!-- ─────── HERO ─────── -->
 <header class="hero kt-section" data-kt>
   <div class="hero-video-stack" id="videoStack">
-    <video id="v1" src="assets/hero.mp4" muted autoplay playsinline preload="auto"></video>
-    <video id="v2" src="assets/hero.mp4" muted playsinline class="fading" preload="metadata"></video>
+    <video id="v1" src="assets/hero.mp4?v=2" poster="assets/hero-poster.jpg" muted autoplay playsinline webkit-playsinline preload="auto"></video>
+    <video id="v2" src="assets/hero.mp4?v=2" poster="assets/hero-poster.jpg" muted playsinline webkit-playsinline class="fading" preload="metadata"></video>
   </div>
   <div class="hero-dim"></div>
 
@@ -815,7 +815,7 @@
       <!-- CENTER — video portrait + tech overlay -->
       <div class="why-center">
         <div class="why-portrait reveal">
-          <video data-lazy-src="assets/hero.mp4" muted loop playsinline aria-hidden="true" preload="none"></video>
+          <video data-lazy-src="assets/hero.mp4?v=2" muted loop playsinline aria-hidden="true" preload="none"></video>
           <div class="why-portrait-overlay">
             <div class="why-portrait-badge mono">SOLO · OPERATOR</div>
             <div class="why-portrait-name serif">— Владимир Козлов</div>
@@ -948,7 +948,7 @@
 
 <!-- ─────── CTA FORM (3 steps) ─────── -->
 <section class="cta-section kt-section" id="contact" data-kt>
-  <video class="bg-video" data-lazy-src="assets/hero.mp4" muted loop playsinline preload="none"></video>
+  <video class="bg-video" data-lazy-src="assets/hero.mp4?v=2" muted loop playsinline preload="none"></video>
   <div class="bg-fade"></div>
   <div class="wrap-narrow cta-form-wrap">
     <div class="kicker reveal">Контакт</div>
@@ -1116,7 +1116,7 @@
   </a>
 </div>
 
-<script src="app.js?v=25"></script>
+<script src="app.js?v=26"></script>
 <script src="works-orbit.js?v=8" defer></script>
 </body>
 </html>
