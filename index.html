@@ -12,7 +12,7 @@
 <meta property="og:locale" content="ru_RU" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="stylesheet" href="styles.css?v=49" />
+<link rel="stylesheet" href="styles.css?v=50" />
 <link rel="stylesheet" href="transitions.css?v=3" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js" defer></script>
@@ -290,35 +290,61 @@
       <h2 class="section-h section-h-italic">услуги</h2>
     </div>
 
-    <div class="svce">
-      <a class="svce-row svce-ai reveal delay-1" href="#contact">
-        <div class="svce-main">
-          <h3 class="svce-title serif">ai-агенты</h3>
-          <span class="svce-tags">голосовой · текстовый · гибридный</span>
-          <span class="svce-arrow" aria-hidden="true">→</span>
+    <div class="catlist">
+      <a class="cat-row cat-ai is-featured reveal delay-1" href="#contact" data-acc="ai">
+        <span class="cat-bracket cat-bracket-tl" aria-hidden="true"></span>
+        <span class="cat-bracket cat-bracket-br" aria-hidden="true"></span>
+        <div class="cat-body">
+          <div class="cat-text">
+            <h3 class="cat-title serif">ai-агенты</h3>
+            <p class="cat-sub">Голосовые и текстовые агенты: принимают звонки, фиксируют брони, отвечают на отзывы — 24/7, без участия персонала</p>
+          </div>
+          <span class="cat-ico" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" class="ico-ai">
+              <circle cx="24" cy="24" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+              <g class="spin">
+                <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="1" opacity=".45"/>
+                <circle cx="24" cy="9" r="2.6" fill="currentColor"/>
+              </g>
+            </svg>
+          </span>
         </div>
-        <p class="svce-desc">Работают вместо сотрудника: без выходных и без ошибок.</p>
-        <p class="svce-items">Голосовой агент · репутационный бот · Telegram-бот</p>
       </a>
 
-      <a class="svce-row svce-auto reveal delay-2" href="#contact">
-        <div class="svce-main">
-          <h3 class="svce-title serif">автоматизации</h3>
-          <span class="svce-tags">процессы · интеграции · отчёты</span>
-          <span class="svce-arrow" aria-hidden="true">→</span>
+      <a class="cat-row cat-auto reveal delay-2" href="#contact" data-acc="auto">
+        <span class="cat-bracket cat-bracket-tl" aria-hidden="true"></span>
+        <span class="cat-bracket cat-bracket-br" aria-hidden="true"></span>
+        <div class="cat-body">
+          <div class="cat-text">
+            <h3 class="cat-title serif">автоматизации</h3>
+            <p class="cat-sub">Рутина исчезает: интеграции CRM и мессенджеров, автоотчёты, workflow под ваши процессы</p>
+          </div>
+          <span class="cat-ico" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" class="ico-auto">
+              <path class="wave" d="M4 24 Q14 11 24 24 T44 24" stroke="currentColor" stroke-width="1.6" fill="none"/>
+              <circle cx="4" cy="24" r="2.4" fill="currentColor"/>
+              <circle cx="44" cy="24" r="2.4" fill="currentColor"/>
+            </svg>
+          </span>
         </div>
-        <p class="svce-desc">Рутина исчезает. Остаётся то, что требует человека.</p>
-        <p class="svce-items">Интеграции CRM · автоматические отчёты · workflow</p>
       </a>
 
-      <a class="svce-row svce-visual reveal delay-3" href="#contact">
-        <div class="svce-main">
-          <h3 class="svce-title serif">визуал</h3>
-          <span class="svce-tags">дизайн · инфографика · контент</span>
-          <span class="svce-arrow" aria-hidden="true">→</span>
+      <a class="cat-row cat-visual reveal delay-3" href="#contact" data-acc="visual">
+        <span class="cat-bracket cat-bracket-tl" aria-hidden="true"></span>
+        <span class="cat-bracket cat-bracket-br" aria-hidden="true"></span>
+        <div class="cat-body">
+          <div class="cat-text">
+            <h3 class="cat-title serif">визуал</h3>
+            <p class="cat-sub">Дизайн, который объясняет без слов: брендинг, инфографика и презентации, AI-контент для соцсетей</p>
+          </div>
+          <span class="cat-ico" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" class="ico-visual">
+              <rect class="sq1" x="10" y="10" width="28" height="28" stroke="currentColor" stroke-width="1.2"/>
+              <rect class="sq2" x="18" y="18" width="12" height="12" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="24" cy="24" r="2.2" fill="currentColor"/>
+            </svg>
+          </span>
         </div>
-        <p class="svce-desc">Дизайн, который объясняет без слов.</p>
-        <p class="svce-items">Брендинг · инфографика · AI-контент для соцсетей</p>
       </a>
     </div>
   </div>
@@ -1088,6 +1114,6 @@
   </a>
 </div>
 
-<script src="app.js?v=23"></script>
+<script src="app.js?v=24"></script>
 </body>
 </html>
