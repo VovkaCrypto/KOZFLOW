@@ -496,7 +496,7 @@ body.menu-open { overflow: hidden; }
   transition: opacity 1500ms ease;
 }
 @media (max-width: 720px) {
-  .hero-video-stack video { object-position: 72% center; }
+  .hero-video-stack video { object-position: 84% center; }
 }
 .hero-video-stack video.fading { opacity: 0; }
 /* cover poster — hides the native play-button when autoplay is blocked
@@ -513,7 +513,7 @@ body.menu-open { overflow: hidden; }
 }
 .hero-video-stack.is-playing .hero-poster { opacity: 0; }
 @media (max-width: 720px) {
-  .hero-poster { object-position: 72% center; }
+  .hero-poster { object-position: 84% center; }
 }
 /* kill the native mobile "play" overlay that shows when autoplay is gated */
 .hero-video-stack video::-webkit-media-controls,
@@ -5019,8 +5019,7 @@ body.fan-open .sticky-cta { display: none; }
   /* tighter rhythm — brand, headline and copy sit close together, low in frame */
   .hero-brand { margin-bottom: 10px; }
   .hero-brand-text { font-size: clamp(23px, 5.8vw, 30px); }
-  .hero h1 { font-size: clamp(26px, 6.6vw, 38px) !important; line-height: 1.04; letter-spacing: -0.02em; max-width: 78%; margin: 0 0 14px; }
-  .hero .sub { font-size: 13px; line-height: 1.5; max-width: 32ch; margin: 0 0 20px; }
+  .hero h1 { line-height: 1.04; letter-spacing: -0.02em; max-width: 66%; }
   /* svc flip title: allow wrap to avoid horizontal overflow on long words */
   .svc-flip-title { white-space: normal; line-height: 1.05; }
   .svc-flip[data-svc="auto"] .svc-flip-title { font-size: clamp(20px, 6vw, 28px); }
@@ -5407,11 +5406,15 @@ body.fan-open .sticky-cta { display: none; }
   }
   .hero h1 {
     white-space: nowrap;
-    font-size: clamp(34px, 11vw, 60px);
+    font-size: clamp(32px, 9.6vw, 52px);
+    margin: 0 0 14px;
   }
+  /* copy stays in the left safe zone — never overlaps the figure */
   .hero .sub {
-    max-width: 40ch;
-    font-size: clamp(15px, 4.2vw, 18px);
+    max-width: 54vw;
+    font-size: clamp(13px, 3.5vw, 15px);
+    line-height: 1.5;
+    margin: 0 0 20px;
   }
 }
 
