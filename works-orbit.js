@@ -44,7 +44,7 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 0, 16.5); // ровно по центру кольца — band смотрится прямо, без диагонали
+    camera.position.set(0, -1.4, 16.5); // чуть снизу — афиши приподняты в кадре, ряд остаётся ровным
 
     var group = new THREE.Group();
     group.rotation.x = 0; // ровный горизонтальный ряд, без наклона
