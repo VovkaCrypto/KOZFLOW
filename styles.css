@@ -5554,3 +5554,91 @@ body.fan-open .sticky-cta { display: none; }
   .works-orbit { border-radius: 18px; }
   .works-orbit-stage { height: clamp(320px, 46vh, 430px); cursor: default; }
 }
+
+/* ───────────────────────────────────────────
+   SERVICES — carousel-text cards (variant 6)
+─────────────────────────────────────────── */
+.c6-deck {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 26px);
+}
+.c6 {
+  --c: var(--gold);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(360px, 44vh, 460px);
+  padding: clamp(30px, 3vw, 46px);
+  border-radius: 22px;
+  background: #EFE6D2;
+  color: var(--ink);
+  transition: transform .5s cubic-bezier(.2,.6,.2,1), box-shadow .5s ease;
+}
+.c6-ai     { --c: #C4985A; background: #EFE6D2; }
+.c6-auto   { --c: #3A4A3D; background: #DCE5DD; }
+.c6-visual { --c: #C26B4A; background: #E9D8CA; }
+@media (hover: hover) {
+  .c6:hover { transform: translateY(-6px); box-shadow: 0 28px 56px -28px rgba(45,36,25,.34); }
+}
+.c6-ico {
+  position: relative; z-index: 2;
+  width: 66px; height: 66px;
+  border-radius: 16px;
+  background: #211A12;
+  color: var(--c);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: auto;
+}
+.c6-ico svg { width: 36px; height: 36px; display: block; }
+.c6-title {
+  position: relative; z-index: 2;
+  margin: 26px 0 12px;
+  font-style: italic; font-weight: 400; text-transform: lowercase;
+  font-size: clamp(30px, 3.4vw, 46px);
+  line-height: 1; letter-spacing: -0.018em;
+  color: var(--ink);
+}
+.c6-text {
+  position: relative; z-index: 2;
+  margin: 0;
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 36ch;
+}
+.c6-cta {
+  position: relative; z-index: 2;
+  margin-top: 22px;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+}
+.c6-cta span { color: var(--c); transition: transform .3s ease; }
+.c6-cta:hover span { transform: translateX(5px); }
+/* running marquees — readable, a touch faster */
+.c6-mq {
+  position: absolute; left: 0; z-index: 1;
+  display: flex; white-space: nowrap;
+  font-family: var(--sans);
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--c);
+  opacity: 0.34;
+  pointer-events: none;
+}
+.c6-mq-top { top: 18px; animation: c6-run 10s linear infinite; }
+.c6-mq-bot { bottom: 18px; animation: c6-run 12s linear infinite reverse; }
+@keyframes c6-run { to { transform: translateX(-50%); } }
+
+@media (max-width: 900px) {
+  .c6-deck { grid-template-columns: 1fr; }
+  .c6 { min-height: 320px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .c6, .c6-cta span { transition: none; }
+  .c6-mq, .ico-ai .spin, .ico-auto .wave, .ico-visual .sq1, .ico-visual .sq2 { animation: none; }
+}
