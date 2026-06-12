@@ -44,10 +44,11 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 0.35, 15.5);
+    camera.position.set(0, 0.8, 15.5);
 
     var group = new THREE.Group();
     group.rotation.x = 0.09; // почти фронтально — как на референсе
+    group.position.y = 1.8;  // приподнять афиши, чтобы не «уезжали» вниз панели
     scene.add(group);
 
     var R = 10;
