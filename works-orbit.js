@@ -87,13 +87,15 @@
         var a = (k / COUNT) * Math.PI * 2;
         var x = R * Math.sin(a), z = R * Math.cos(a);
         var name = 'assets/works/w' + (k + 1 < 10 ? '0' + (k + 1) : (k + 1)) + '.jpg';
-        // start fully transparent — no white plane before the texture arrives
-        var mat = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, transparent: true, opacity: 0 });
+        // dark placeholder card (matches the band) — visible immediately,
+        // so the orbit never looks blank or shows white planes while loading
+        var mat = new THREE.MeshBasicMaterial({
+          side: THREE.DoubleSide, transparent: true, opacity: 1, color: 0x241a11
+        });
         var mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
         mesh.position.set(x, 0, z);
         mesh.rotation.y = a;
-        mesh.scale.set(H, H, 1);
-        mesh.visible = false; // hidden until its texture is decoded
+        mesh.scale.set(H * 0.72, H, 1); // poster-ish ratio until real AR is known
         group.add(mesh);
         loader.load(name, function (tex) {
           if (THREE.sRGBEncoding) tex.encoding = THREE.sRGBEncoding;
@@ -102,12 +104,12 @@
           tex.magFilter = THREE.LinearFilter;
           tex.generateMipmaps = false;
           tex.anisotropy = maxAniso;
-          mat.map = tex; mat.needsUpdate = true;
+          mat.map = tex;
+          mat.color.set(0xffffff); // let the texture show its true colors
+          mat.needsUpdate = true;
           var img = tex.image;
-          var ar = (img && img.width && img.height) ? (img.width / img.height) : 1;
+          var ar = (img && img.width && img.height) ? (img.width / img.height) : 0.72;
           mesh.scale.set(H * ar, H, 1);
-          mesh.visible = true;
-          fading.push(mat); // fade opacity 0 → 1 in the render loop
         });
       })(k);
     }
