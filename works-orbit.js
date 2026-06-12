@@ -44,11 +44,10 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 0.8, 15.5);
+    camera.position.set(0, 0, 16.5); // ровно по центру кольца — band смотрится прямо, без диагонали
 
     var group = new THREE.Group();
-    group.rotation.x = 0.09; // почти фронтально — как на референсе
-    group.position.y = 1.8;  // приподнять афиши, чтобы не «уезжали» вниз панели
+    group.rotation.x = 0; // ровный горизонтальный ряд, без наклона
     scene.add(group);
 
     var R = 10;
@@ -108,8 +107,8 @@
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.rotateSpeed = 0.5;
-    controls.minPolarAngle = Math.PI * 0.30;
-    controls.maxPolarAngle = Math.PI * 0.62;
+    controls.minPolarAngle = Math.PI * 0.42; // узкий диапазон по вертикали — афиши не «вылетают» под заголовок
+    controls.maxPolarAngle = Math.PI * 0.58;
     if (isMobile) controls.enabled = false; // не перехватываем скролл страницы
 
     function resize() {

@@ -5542,7 +5542,7 @@ body.fan-open .sticky-cta { display: none; }
 .works-orbit-stage {
   position: relative;
   width: 100%;
-  height: clamp(380px, 56vh, 560px);
+  height: clamp(460px, 66vh, 700px);
   margin-top: clamp(34px, 5vh, 64px);
   cursor: grab;
 }
