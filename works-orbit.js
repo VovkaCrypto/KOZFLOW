@@ -44,7 +44,7 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 1.4, 15.5);
+    camera.position.set(0, 0.35, 15.5);
 
     var group = new THREE.Group();
     group.rotation.x = 0.09; // почти фронтально — как на референсе

@@ -3850,6 +3850,7 @@ body:not(.is-past-hero) .kf-pill-logo:hover .kf-mark-img {
   background: linear-gradient(160deg, #2D2419 0%, #3A2F22 100%);
   border-color: var(--ink);
   color: var(--cream);
+  padding-top: clamp(42px, 3.4vw, 56px);
 }
 .price-tier-feature::before {
   background: linear-gradient(135deg, rgba(196,152,90,0.12) 0%, rgba(194,107,74,0.10) 100%);
@@ -3862,7 +3863,7 @@ body:not(.is-past-hero) .kf-pill-logo:hover .kf-mark-img {
 
 .price-tier-badge {
   position: absolute;
-  top: -10px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   padding: 5px 14px;
