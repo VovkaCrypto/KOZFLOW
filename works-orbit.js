@@ -79,23 +79,35 @@
     var COUNT = 20;
     var H = 3.2; // height of each work; width derives from its real aspect
     var loader = new THREE.TextureLoader();
+    var maxAniso = (renderer.capabilities && renderer.capabilities.getMaxAnisotropy)
+      ? renderer.capabilities.getMaxAnisotropy() : 1;
+    var fading = []; // meshes mid fade-in
     for (var k = 0; k < COUNT; k++) {
       (function (k) {
         var a = (k / COUNT) * Math.PI * 2;
         var x = R * Math.sin(a), z = R * Math.cos(a);
         var name = 'assets/works/w' + (k + 1 < 10 ? '0' + (k + 1) : (k + 1)) + '.jpg';
-        var mat = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, transparent: true });
+        // start fully transparent — no white plane before the texture arrives
+        var mat = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, transparent: true, opacity: 0 });
         var mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
         mesh.position.set(x, 0, z);
         mesh.rotation.y = a;
         mesh.scale.set(H, H, 1);
+        mesh.visible = false; // hidden until its texture is decoded
         group.add(mesh);
         loader.load(name, function (tex) {
           if (THREE.sRGBEncoding) tex.encoding = THREE.sRGBEncoding;
+          // crisp at glancing angles, no mipmap fallback fuzz
+          tex.minFilter = THREE.LinearFilter;
+          tex.magFilter = THREE.LinearFilter;
+          tex.generateMipmaps = false;
+          tex.anisotropy = maxAniso;
           mat.map = tex; mat.needsUpdate = true;
           var img = tex.image;
           var ar = (img && img.width && img.height) ? (img.width / img.height) : 1;
           mesh.scale.set(H * ar, H, 1);
+          mesh.visible = true;
+          fading.push(mat); // fade opacity 0 → 1 in the render loop
         });
       })(k);
     }
@@ -128,6 +140,14 @@
 
     function animate() {
       requestAnimationFrame(animate);
+      // smooth opacity fade-in for freshly-loaded posters (runs even off-screen so they're ready)
+      if (fading.length) {
+        for (var fi = fading.length - 1; fi >= 0; fi--) {
+          var m = fading[fi];
+          m.opacity = Math.min(1, m.opacity + 0.06);
+          if (m.opacity >= 1) fading.splice(fi, 1);
+        }
+      }
       if (!visible) return;
       if (!reduce) group.rotation.y += isMobile ? 0.0016 : 0.0011;
       controls.update();
