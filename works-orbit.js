@@ -44,13 +44,13 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 2.4, 16);
+    camera.position.set(0, 2.4, 18);
 
     var group = new THREE.Group();
     group.rotation.x = 0.18;
     scene.add(group);
 
-    var R = 9;
+    var R = 10;
 
     // ── gold dust particles ──
     var PCOUNT = isMobile ? 420 : 900;
@@ -73,21 +73,29 @@
     var pm = new THREE.PointsMaterial({ size: 0.07, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true });
     group.add(new THREE.Points(pg, pm));
 
-    // ── orbiting works ──
+    // ── orbiting works (original aspect ratio, wider) ──
     var COUNT = 20;
-    var SIZE = 2.2;
+    var H = 3.2; // height of each work; width derives from its real aspect
     var loader = new THREE.TextureLoader();
     for (var k = 0; k < COUNT; k++) {
-      var a = (k / COUNT) * Math.PI * 2;
-      var x = R * Math.sin(a), z = R * Math.cos(a);
-      var name = 'assets/works/w' + (k + 1 < 10 ? '0' + (k + 1) : (k + 1)) + '.jpg';
-      var tex = loader.load(name);
-      if (THREE.sRGBEncoding) tex.encoding = THREE.sRGBEncoding;
-      var mat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide, transparent: true });
-      var mesh = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, SIZE), mat);
-      mesh.position.set(x, 0, z);
-      mesh.rotation.y = a;
-      group.add(mesh);
+      (function (k) {
+        var a = (k / COUNT) * Math.PI * 2;
+        var x = R * Math.sin(a), z = R * Math.cos(a);
+        var name = 'assets/works/w' + (k + 1 < 10 ? '0' + (k + 1) : (k + 1)) + '.jpg';
+        var mat = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, transparent: true });
+        var mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
+        mesh.position.set(x, 0, z);
+        mesh.rotation.y = a;
+        mesh.scale.set(H, H, 1);
+        group.add(mesh);
+        loader.load(name, function (tex) {
+          if (THREE.sRGBEncoding) tex.encoding = THREE.sRGBEncoding;
+          mat.map = tex; mat.needsUpdate = true;
+          var img = tex.image;
+          var ar = (img && img.width && img.height) ? (img.width / img.height) : 1;
+          mesh.scale.set(H * ar, H, 1);
+        });
+      })(k);
     }
 
     // ── controls ──
