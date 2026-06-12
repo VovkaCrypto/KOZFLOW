@@ -241,7 +241,31 @@
     });
     a.addEventListener('ended', () => { a.currentTime = 0; try{a.play();}catch(_){} armed = false; });
   }
-  if (v1 && v2) { setupCrossfade(v1, v2); setupCrossfade(v2, v1); }
+  const heroMobile = window.matchMedia('(max-width: 720px)').matches;
+  if (v1 && v2) {
+    if (heroMobile) {
+      // Mobile: one decoder only — native loop, drop the crossfade twin (perf)
+      v2.pause();
+      v2.remove();
+      v1.loop = true;
+      const p = v1.play(); if (p && p.catch) p.catch(() => {});
+    } else {
+      setupCrossfade(v1, v2);
+      setupCrossfade(v2, v1);
+    }
+  }
+  // Pause hero video when scrolled away — saves CPU/battery, smoother scroll
+  if (v1 && 'IntersectionObserver' in window) {
+    const heroEl = document.querySelector('.hero');
+    if (heroEl) {
+      new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { const p = v1.play(); if (p && p.catch) p.catch(() => {}); }
+          else { v1.pause(); }
+        });
+      }, { threshold: 0.04 }).observe(heroEl);
+    }
+  }
 
   // ── FAQ — categories + filter + ask
   const FAQ_CATS = [
