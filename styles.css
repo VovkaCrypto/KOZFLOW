@@ -3031,8 +3031,9 @@ body[data-glitch="off"] .glitch::after { display: none; }
 .why-stats {
   margin-top: 96px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  grid-template-columns: repeat(2, minmax(0, 260px));
+  justify-content: center;
+  gap: clamp(40px, 8vw, 120px);
   padding: 36px 0;
   border-top: 1px solid rgba(232,220,192,0.12);
   border-bottom: 1px solid rgba(232,220,192,0.12);
