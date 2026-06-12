@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>KozFlow — услуги: карточки, 6 вариантов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF7F2; --ink:#2D2419; --ink-soft:#4A3E2E; --ink-mute:#7A6B56;
+    --line:#D9CFB9; --gold:#C4985A; --sage:#3A4A3D; --terra:#C26B4A; --cream:#F5EFDF; --dark:#221B14;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  .wrap{width:min(1180px,92vw);margin-inline:auto}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 0}
+  .bar .wrap{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .bar b{font-family:var(--serif);font-style:italic;font-weight:600;font-size:20px}
+  .bar nav{display:flex;gap:6px;flex-wrap:wrap}
+  .bar a{font-size:12px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:7px 12px;border:1px solid var(--line);border-radius:999px}
+  .bar a:hover{background:var(--ink);color:var(--cream)}
+  .v{padding:clamp(56px,8vh,100px) 0;border-bottom:1px dashed var(--line)}
+  .v-flag{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .v-flag::before{content:'';width:26px;height:1px;background:var(--gold)}
+  .v-note{font-size:13px;color:var(--ink-mute);margin-bottom:36px;max-width:64ch;line-height:1.6}
+  .deck{display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+  /* accents */
+  .a-ai{--c:#C4985A}.a-auto{--c:#3A4A3D}.a-visual{--c:#C26B4A}
+
+  /* ───── V1 product card ───── */
+  .p-card{font-family:var(--sans);position:relative;width:290px;height:400px;background:var(--dark);border-radius:20px;overflow:hidden}
+  .p-card:before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:var(--c);clip-path:circle(150px at 80% 20%);transition:.5s ease-in-out;opacity:.9}
+  .p-card:hover:before{clip-path:circle(320px at 80% -20%)}
+  .p-bgt{font-family:var(--serif);font-size:8em;font-weight:700;font-style:italic;color:rgba(245,239,223,.05);position:absolute;top:-60px;left:10px;transition:.6s;white-space:nowrap}
+  .p-card:hover .p-bgt{transform:translateY(40px)}
+  .p-glyph{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%) rotate(-18deg);width:150px;height:150px;color:var(--cream);z-index:10;transition:.5s}
+  .p-card:hover .p-glyph{top:30%;transform:translate(-50%,-50%) rotate(0deg) scale(1.1)}
+  .p-glyph svg{width:100%;height:100%}
+  .p-title{position:relative;z-index:10;margin-top:14px;padding:0 22px;font-family:var(--serif);font-style:italic;font-size:30px;color:var(--cream);text-transform:lowercase}
+  .p-content{position:absolute;bottom:0;width:100%;height:96px;padding:0 22px 18px;z-index:6;transition:1s}
+  .p-card:hover .p-content{height:215px}
+  .p-feat{opacity:0;visibility:hidden;transition:.5s;display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+  .p-card:hover .p-feat{opacity:1;visibility:visible;transition-delay:.45s}
+  .p-feat span{color:rgba(245,239,223,.85);font-size:12.5px;letter-spacing:.02em}
+  .p-buy{display:inline-block;padding:9px 18px;background:var(--cream);border-radius:6px;font-weight:600;font-size:13px;color:var(--dark);text-decoration:none;opacity:0;transform:translateY(40px);transition:.5s}
+  .p-card:hover .p-buy{opacity:1;transform:none;transition-delay:.5s}
+  .p-buy:hover{background:var(--c);color:var(--cream)}
+
+  /* ───── V2 wave card ───── */
+  .w-card{position:relative;width:250px;height:340px;border-radius:18px;overflow:hidden;background:var(--dark);box-shadow:0 8px 28px -10px rgba(45,36,25,.5)}
+  .w-wave{position:absolute;width:540px;height:700px;opacity:.55;left:0;top:0;margin-left:-50%;margin-top:-70%;border-radius:42%;background:linear-gradient(744deg,var(--c),#7a6033 60%,var(--dark));animation:w-rot 8s infinite linear}
+  .w-wave:nth-child(2){top:210px;animation-duration:11s;opacity:.4}
+  .w-wave:nth-child(3){top:210px;animation-duration:14s;opacity:.3}
+  @keyframes w-rot{to{transform:rotate(360deg)}}
+  .w-body{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--cream)}
+  .w-ico{width:54px;height:54px;color:var(--cream);margin-bottom:14px}
+  .w-ico svg{width:100%;height:100%}
+  .w-name{font-family:var(--serif);font-style:italic;font-size:30px;text-transform:lowercase;margin-bottom:8px}
+  .w-sub{font-size:12.5px;color:rgba(245,239,223,.75);line-height:1.5;max-width:24ch}
+
+  /* ───── V3 small cards (hover scale, blur rest) ───── */
+  .v3-deck{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .v3-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;height:190px;width:200px;border-radius:14px;color:var(--cream);cursor:pointer;transition:400ms;background:var(--c);padding:16px}
+  .v3-card .v3-ico{width:40px;height:40px}.v3-card .v3-ico svg{width:100%;height:100%}
+  .v3-card .tip{font-family:var(--serif);font-style:italic;font-size:26px;text-transform:lowercase}
+  .v3-card .sub{font-size:12px;opacity:.85;line-height:1.4}
+  .v3-deck:hover>.v3-card:not(:hover){filter:blur(7px);transform:scale(.93)}
+  .v3-card:hover,.v3-card.active{transform:scale(1.14)}
+  .v3-deck:hover>.v3-card.active:not(:hover){filter:none;transform:scale(1.14)}
+
+  /* ───── V4 rotating beams + glass (always animated) ───── */
+  .b-card{width:220px;height:300px;background:var(--dark);display:flex;justify-content:center;align-items:center;box-shadow:0 0 4px 1px rgba(0,0,0,.4);position:relative;overflow:hidden;border-radius:14px}
+  .b-card .b-inner{border-radius:14px;background:var(--dark);width:216px;height:296px;z-index:1;padding:24px;color:var(--cream);display:flex;flex-direction:column;justify-content:flex-end;gap:8px;position:relative}
+  .b-card::before,.b-card::after{content:"";position:absolute;width:140px;height:340px;background:linear-gradient(90deg,var(--c),transparent);animation:b-rot 4s infinite linear}
+  .b-card::before{transform:rotate(0) translateY(50%)}
+  .b-card::after{background:linear-gradient(90deg,transparent,var(--c));transform:rotate(0) translateY(-50%);animation:b-rot2 4s infinite linear}
+  @keyframes b-rot{0%{transform:rotate(0) translateY(50%)}100%{transform:rotate(360deg) translateY(50%)}}
+  @keyframes b-rot2{0%{transform:rotate(0) translateY(-50%)}100%{transform:rotate(360deg) translateY(-50%)}}
+  .b-ico{width:42px;height:42px;color:var(--c)}.b-ico svg{width:100%;height:100%}
+  .b-name{font-family:var(--serif);font-style:italic;font-size:28px;text-transform:lowercase}
+  .b-sub{font-size:12px;color:rgba(245,239,223,.7);line-height:1.45}
+
+  /* ───── V5 gradient panels (shine left→right) ───── */
+  .g-deck{display:flex;flex-direction:column;gap:16px;max-width:560px;margin-inline:auto}
+  .g-btn{position:relative;z-index:1;overflow:hidden;height:130px;border:none;border-radius:14px;color:var(--cream);text-align:left;padding:24px 28px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:6px;text-decoration:none}
+  .g-ai{background:linear-gradient(90deg,#7a5a2c,#C4985A 60%,#e3c089)}
+  .g-auto{background:linear-gradient(90deg,#23302a,#3A4A3D 55%,#6f8a73)}
+  .g-visual{background:linear-gradient(90deg,#8a3f29,#C26B4A 55%,#e0a187)}
+  .g-name{font-family:var(--serif);font-style:italic;font-size:32px;text-transform:lowercase}
+  .g-sub{font-size:13px;opacity:.92}
+  .g-btn::after{content:"";position:absolute;z-index:-1;inset:0;left:-20%;right:-20%;background:rgba(245,239,223,.18);transform:skewX(-30deg) scaleX(0);transform-origin:left;transition:transform .55s ease}
+  .g-btn:hover::after{transform:skewX(-30deg) scaleX(1)}
+
+  /* ───── V6 carousel card ───── */
+  .c6-card{overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:center;gap:.7rem;padding:20px;width:230px;min-height:270px;background:var(--c);border-radius:14px;color:var(--cream)}
+  .c6-card.a-auto,.c6-card.a-visual{color:var(--cream)}
+  .c6-car{position:absolute;left:0;display:flex;gap:2rem;animation:c6 14s linear infinite;color:rgba(245,239,223,.18);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+  .c6-car.top{top:14px}.c6-car.bot{bottom:14px;animation-direction:reverse}
+  @keyframes c6{to{transform:translateX(-50%)}}
+  .c6-ico{position:relative;z-index:10;width:46px;height:46px;background:var(--dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cream)}
+  .c6-ico svg{width:24px;height:24px}
+  .c6-title{position:relative;z-index:10;font-family:var(--serif);font-style:italic;font-size:28px;text-transform:lowercase}
+  .c6-p{position:relative;z-index:10;font-size:12.5px;line-height:1.5;opacity:.92}
+
+  .foot{text-align:center;padding:46px 0 80px;color:var(--ink-mute);font-size:13px}
+  @media(max-width:560px){.deck,.v3-deck{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap"><b>Услуги — карточки, 6 вариантов</b>
+<nav><a href="#v1">1</a><a href="#v2">2</a><a href="#v3">3</a><a href="#v4">4</a><a href="#v5">5</a><a href="#v6">6</a></nav></div></div>
+
+<!-- ICON DEFS reused -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="g-ai" viewBox="0 0 48 48"><circle cx="24" cy="24" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="24" r="15" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/><circle cx="24" cy="9" r="2.6" fill="currentColor"/></symbol>
+  <symbol id="g-auto" viewBox="0 0 48 48"><path d="M5 24 Q15 10 24 24 T43 24" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="5" cy="24" r="2.4" fill="currentColor"/><circle cx="43" cy="24" r="2.4" fill="currentColor"/></symbol>
+  <symbol id="g-visual" viewBox="0 0 48 48"><rect x="11" y="11" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="18" y="18" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="24" cy="24" r="2" fill="currentColor"/></symbol>
+</svg>
+
+<!-- V1 -->
+<section class="v" id="v1"><div class="wrap">
+  <div class="v-flag">Вариант 1 · product-card</div>
+  <p class="v-note">Тёмная карточка, при наведении цветной круг раскрывается, глиф уезжает вверх, появляются пункты и кнопка «обсудить».</p>
+  <div class="deck">
+    <article class="p-card a-ai"><div class="p-bgt">AI</div><div class="p-glyph"><svg><use href="#g-ai"/></svg></div><h3 class="p-title">ai-агенты</h3><div class="p-content"><div class="p-feat"><span>· голосовой агент для звонков и броней</span><span>· репутационный бот</span><span>· Telegram-бот под задачу</span></div><a class="p-buy" href="#">обсудить →</a></div></article>
+    <article class="p-card a-auto"><div class="p-bgt">FLOW</div><div class="p-glyph"><svg><use href="#g-auto"/></svg></div><h3 class="p-title">автоматизации</h3><div class="p-content"><div class="p-feat"><span>· интеграции CRM и мессенджеров</span><span>· автоотчёты и уведомления</span><span>· workflow под процессы</span></div><a class="p-buy" href="#">обсудить →</a></div></article>
+    <article class="p-card a-visual"><div class="p-bgt">ART</div><div class="p-glyph"><svg><use href="#g-visual"/></svg></div><h3 class="p-title">визуал</h3><div class="p-content"><div class="p-feat"><span>· брендинг и фирменный стиль</span><span>· инфографика и презентации</span><span>· AI-контент для соцсетей</span></div><a class="p-buy" href="#">обсудить →</a></div></article>
+  </div>
+</div></section>
+
+<!-- V2 -->
+<section class="v" id="v2"><div class="wrap">
+  <div class="v-flag">Вариант 2 · живая волна</div>
+  <p class="v-note">Постоянная анимация: тёплая волна вращается за стеклом. Минимум текста, максимум настроения.</p>
+  <div class="deck">
+    <article class="w-card a-ai"><div class="w-wave"></div><div class="w-wave"></div><div class="w-wave"></div><div class="w-body"><span class="w-ico"><svg><use href="#g-ai"/></svg></span><div class="w-name">ai-агенты</div><div class="w-sub">Голос, боты, репутация — 24/7 без персонала</div></div></article>
+    <article class="w-card a-auto"><div class="w-wave"></div><div class="w-wave"></div><div class="w-wave"></div><div class="w-body"><span class="w-ico"><svg><use href="#g-auto"/></svg></span><div class="w-name">автоматизации</div><div class="w-sub">CRM, отчёты, workflow — рутина исчезает</div></div></article>
+    <article class="w-card a-visual"><div class="w-wave"></div><div class="w-wave"></div><div class="w-wave"></div><div class="w-body"><span class="w-ico"><svg><use href="#g-visual"/></svg></span><div class="w-name">визуал</div><div class="w-sub">Бренд, инфографика, AI-контент</div></div></article>
+  </div>
+</div></section>
+
+<!-- V3 -->
+<section class="v" id="v3"><div class="wrap">
+  <div class="v-flag">Вариант 3 · фокус наведением</div>
+  <p class="v-note">Наводишь на карточку — она растёт, остальные размываются. На телефоне: тап увеличивает, через 2.5 сек сам возвращается.</p>
+  <div class="v3-deck" id="v3deck">
+    <article class="v3-card a-ai"><span class="v3-ico"><svg><use href="#g-ai"/></svg></span><span class="tip">ai-агенты</span><span class="sub">голос · боты · 24/7</span></article>
+    <article class="v3-card a-auto"><span class="v3-ico"><svg><use href="#g-auto"/></svg></span><span class="tip">автоматизации</span><span class="sub">CRM · отчёты · flow</span></article>
+    <article class="v3-card a-visual"><span class="v3-ico"><svg><use href="#g-visual"/></svg></span><span class="tip">визуал</span><span class="sub">бренд · контент</span></article>
+  </div>
+</div></section>
+
+<!-- V4 -->
+<section class="v" id="v4"><div class="wrap">
+  <div class="v-flag">Вариант 4 · вращающиеся лучи</div>
+  <p class="v-note">Анимация всегда включена (не от наведения): цветные лучи бегут по кругу за карточкой.</p>
+  <div class="deck">
+    <article class="b-card a-ai"><div class="b-inner"><span class="b-ico"><svg><use href="#g-ai"/></svg></span><div class="b-name">ai-агенты</div><div class="b-sub">Голос, боты, репутация — без персонала</div></div></article>
+    <article class="b-card a-auto"><div class="b-inner"><span class="b-ico"><svg><use href="#g-auto"/></svg></span><div class="b-name">автоматизации</div><div class="b-sub">CRM, отчёты, workflow</div></div></article>
+    <article class="b-card a-visual"><div class="b-inner"><span class="b-ico"><svg><use href="#g-visual"/></svg></span><div class="b-name">визуал</div><div class="b-sub">Бренд, инфографика, контент</div></div></article>
+  </div>
+</div></section>
+
+<!-- V5 -->
+<section class="v" id="v5"><div class="wrap">
+  <div class="v-flag">Вариант 5 · градиент-панели</div>
+  <p class="v-note">Широкие панели с тёплым градиентом, блик проходит слева направо при наведении.</p>
+  <div class="g-deck">
+    <a class="g-btn g-ai" href="#"><span class="g-name">ai-агенты</span><span class="g-sub">Голосовые и текстовые агенты · звонки, брони, отзывы 24/7</span></a>
+    <a class="g-btn g-auto" href="#"><span class="g-name">автоматизации</span><span class="g-sub">Интеграции CRM, автоотчёты, workflow под процессы</span></a>
+    <a class="g-btn g-visual" href="#"><span class="g-name">визуал</span><span class="g-sub">Брендинг, инфографика, AI-контент для соцсетей</span></a>
+  </div>
+</div></section>
+
+<!-- V6 -->
+<section class="v" id="v6"><div class="wrap">
+  <div class="v-flag">Вариант 6 · карусель-текст</div>
+  <p class="v-note">Бегущая строка сверху и снизу (всегда в движении), иконка, заголовок, описание.</p>
+  <div class="deck">
+    <article class="c6-card a-ai"><div class="c6-car top"><span>ai · voice · telegram · ai · voice · telegram · </span><span>ai · voice · telegram · ai · voice · telegram · </span></div><div class="c6-ico"><svg><use href="#g-ai"/></svg></div><div class="c6-title">ai-агенты</div><p class="c6-p">Принимают звонки, фиксируют брони, отвечают на отзывы — круглосуточно, без персонала.</p><div class="c6-car bot"><span>kozflow · ai · kozflow · ai · kozflow · ai · </span><span>kozflow · ai · kozflow · ai · kozflow · ai · </span></div></article>
+    <article class="c6-card a-auto"><div class="c6-car top"><span>crm · n8n · api · crm · n8n · api · </span><span>crm · n8n · api · crm · n8n · api · </span></div><div class="c6-ico"><svg><use href="#g-auto"/></svg></div><div class="c6-title">автоматизации</div><p class="c6-p">Интеграции CRM и мессенджеров, автоотчёты, workflow под ваши процессы.</p><div class="c6-car bot"><span>flow · flow · flow · flow · flow · flow · </span><span>flow · flow · flow · flow · flow · flow · </span></div></article>
+    <article class="c6-card a-visual"><div class="c6-car top"><span>brand · poster · content · brand · poster · </span><span>brand · poster · content · brand · poster · </span></div><div class="c6-ico"><svg><use href="#g-visual"/></svg></div><div class="c6-title">визуал</div><p class="c6-p">Брендинг, инфографика и презентации, AI-контент для соцсетей.</p><div class="c6-car bot"><span>design · design · design · design · </span><span>design · design · design · design · </span></div></article>
+  </div>
+</div></section>
+
+<p class="foot">Выбери номер (1–6). Можно гибрид — скажи что нравится.</p>
+
+<script>
+  // V3 — mobile tap to focus, auto-return after 2.5s
+  (function(){
+    var deck=document.getElementById('v3deck');if(!deck)return;
+    var touch=window.matchMedia('(hover:none)').matches;
+    if(!touch)return;
+    var t;
+    deck.querySelectorAll('.v3-card').forEach(function(card){
+      card.addEventListener('click',function(){
+        deck.querySelectorAll('.v3-card').forEach(function(c){c.classList.remove('active')});
+        card.classList.add('active');
+        deck.style.pointerEvents='none';setTimeout(function(){deck.style.pointerEvents=''},10);
+        clearTimeout(t);
+        t=setTimeout(function(){card.classList.remove('active')},2500);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
