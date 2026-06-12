@@ -269,6 +269,20 @@
       setupCrossfade(v2, v1);
     }
   }
+  // Reveal video (fade out the cover poster) only once it actually plays.
+  // If autoplay is blocked (iOS Low Power Mode), the poster stays and hides
+  // the native play-button — clean still hero instead of a broken control.
+  if (v1) {
+    const stack = document.getElementById('videoStack');
+    const reveal = () => {
+      if (stack && !v1.paused && v1.currentTime > 0 && v1.readyState >= 2) {
+        stack.classList.add('is-playing');
+      }
+    };
+    v1.addEventListener('playing', reveal);
+    v1.addEventListener('timeupdate', reveal);
+  }
+
   // Pause hero video when scrolled away — saves CPU/battery, smoother scroll
   if (v1 && 'IntersectionObserver' in window) {
     const heroEl = document.querySelector('.hero');
