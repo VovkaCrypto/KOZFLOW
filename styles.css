@@ -5520,3 +5520,37 @@ body.fan-open .sticky-cta { display: none; }
   .cat-row, .cat-title, .cat-sub, .cat-ico, .cat-bracket { transition: none; }
   .ico-ai .spin, .ico-auto .wave, .ico-visual .sq1, .ico-visual .sq2 { animation: none; }
 }
+
+/* ───────────────────────────────────────────
+   WORKS — 3D orbit gallery (cosmos band)
+─────────────────────────────────────────── */
+.works-orbit {
+  width: min(1280px, 92vw);
+  margin: clamp(64px, 9vh, 110px) auto 0;
+  background: #171009;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  padding-top: clamp(40px, 6vh, 70px);
+}
+.works-orbit-head { padding: 0 clamp(26px, 5vw, 60px); text-align: left; }
+.works-orbit-head .kicker { color: var(--gold); }
+.works-orbit-head .section-title { color: #F0E2C0; }
+.works-orbit-hint { font-family: var(--sans); font-size: 14px; line-height: 1.5; color: #9A8E78; margin-top: 12px; max-width: 48ch; }
+.works-orbit-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 56vh, 560px);
+  margin-top: clamp(10px, 2vh, 22px);
+  cursor: grab;
+}
+.works-orbit-stage:active { cursor: grabbing; }
+.works-orbit-stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+.works-orbit-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(62% 52% at 50% 58%, transparent 52%, rgba(23,16,9,.6) 100%);
+}
+@media (max-width: 720px) {
+  .works-orbit { border-radius: 18px; }
+  .works-orbit-stage { height: clamp(320px, 46vh, 430px); cursor: default; }
+}
