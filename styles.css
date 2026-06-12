@@ -3878,7 +3878,7 @@ body:not(.is-past-hero) .kf-pill-logo:hover .kf-mark-img {
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(45,36,25,0.18);
 }
-.price-tier-feature { padding-top: clamp(28px, 2.4vw, 36px); }
+.price-tier-feature { padding-top: clamp(60px, 4.6vw, 74px); }
 
 .price-tier-head {
   display: flex;
