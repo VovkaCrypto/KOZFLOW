@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>KozFlow — услуги: 3 варианта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root{
+    --bg:#FAF7F2; --bg2:#F2ECE0; --ink:#2D2419; --ink-soft:#4A3E2E; --ink-mute:#7A6B56;
+    --line:#D9CFB9; --gold:#C4985A; --sage:#3A4A3D; --terra:#C26B4A; --cream:#F5EFDF;
+    --dark:#221B14;
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --sans:'Inter', system-ui, sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased; }
+  .wrap{ width:min(1240px,92vw); margin-inline:auto; }
+  .picker-bar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,247,242,.86); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:14px 0;
+  }
+  .picker-bar .wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .picker-bar b{ font-family:var(--serif); font-size:22px; font-weight:600; font-style:italic; }
+  .picker-bar nav{ display:flex; gap:8px; }
+  .picker-bar a{
+    font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--ink); text-decoration:none;
+    padding:8px 14px; border:1px solid var(--line); border-radius:999px;
+    transition:background .2s,color .2s,border-color .2s;
+  }
+  .picker-bar a:hover{ background:var(--ink); color:var(--cream); border-color:var(--ink); }
+
+  .variant{ padding:clamp(70px,10vh,130px) 0; border-bottom:1px dashed var(--line); }
+  .variant-flag{
+    font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:10px; display:flex; align-items:center; gap:10px;
+  }
+  .variant-flag::before{ content:''; width:28px; height:1px; background:var(--gold); }
+  .variant-note{ font-family:var(--sans); font-size:13px; color:var(--ink-mute); margin-bottom:clamp(36px,6vh,64px); max-width:60ch; line-height:1.6; }
+  .sec-title{
+    font-family:var(--serif); font-style:italic; font-weight:500;
+    font-size:clamp(34px,5vw,60px); letter-spacing:-.01em; line-height:1; text-transform:lowercase;
+    margin-bottom:clamp(28px,4vh,48px);
+  }
+
+  /* ───────── VARIANT 1 — expanding panels ───────── */
+  .v1-strip{ display:flex; gap:14px; height:clamp(420px,58vh,520px); }
+  .v1-panel{
+    position:relative; flex:1; min-width:0; overflow:hidden;
+    border-radius:18px; background:var(--dark); color:var(--cream);
+    cursor:pointer; isolation:isolate;
+    transition:flex 700ms cubic-bezier(.2,.7,.2,1);
+  }
+  .v1-panel[data-acc=ai]{ --a:var(--gold); }
+  .v1-panel[data-acc=auto]{ --a:#8FB89A; }
+  .v1-panel[data-acc=visual]{ --a:var(--terra); }
+  .v1-strip:hover .v1-panel{ flex:.7; }
+  .v1-panel:hover{ flex:3.4; }
+  .v1-glow{ position:absolute; inset:0; z-index:-1; opacity:.5;
+    background:radial-gradient(120% 80% at 0% 100%, color-mix(in oklab, var(--a) 40%, transparent), transparent 60%); }
+  .v1-inner{ position:absolute; inset:0; padding:clamp(22px,2.4vw,36px); display:flex; flex-direction:column; justify-content:space-between; }
+  .v1-idx{ font-family:var(--sans); font-size:12px; letter-spacing:.2em; color:var(--a); }
+  .v1-name{ font-family:var(--serif); font-style:italic; font-size:clamp(26px,3vw,40px); line-height:1; text-transform:lowercase; }
+  .v1-mark{ width:54px; height:54px; color:var(--a); opacity:.9; }
+  .v1-mark svg{ width:100%; height:100%; }
+  .v1-detail{ opacity:0; transform:translateY(14px); transition:opacity .4s .15s, transform .5s .15s; max-width:30ch; }
+  .v1-panel:hover .v1-detail{ opacity:1; transform:none; }
+  .v1-detail p{ font-family:var(--serif); font-size:19px; line-height:1.4; color:rgba(245,239,223,.9); margin-bottom:14px; }
+  .v1-detail ul{ list-style:none; display:flex; flex-direction:column; gap:7px; font-size:13px; color:rgba(245,239,223,.72); }
+  .v1-detail li{ display:flex; gap:9px; }
+  .v1-detail li::before{ content:''; width:5px; height:5px; margin-top:7px; border-radius:50%; background:var(--a); flex:none; }
+  .v1-cta{ display:inline-flex; gap:8px; align-items:center; font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--cream); text-decoration:none; margin-top:16px; }
+  .v1-cta span{ color:var(--a); }
+
+  /* ───────── VARIANT 2 — bento asymmetric ───────── */
+  .v2-bento{ display:grid; grid-template-columns:1.55fr 1fr; grid-auto-rows:1fr; gap:18px; min-height:520px; }
+  .v2-tile{
+    position:relative; overflow:hidden; border-radius:18px; padding:clamp(26px,2.6vw,40px);
+    display:flex; flex-direction:column; justify-content:space-between; min-height:240px;
+    transition:transform .55s cubic-bezier(.2,.6,.2,1), box-shadow .55s ease;
+    box-shadow:0 1px 2px rgba(45,36,25,.05);
+  }
+  .v2-tile:hover{ transform:translateY(-6px); box-shadow:0 28px 54px -26px rgba(45,36,25,.32); }
+  .v2-feature{ grid-row:span 2; background:var(--dark); color:var(--cream); }
+  .v2-ai{ --a:var(--gold); }
+  .v2-auto{ --a:var(--sage); background:#DBE5DC; }
+  .v2-visual{ --a:var(--terra); background:#E8D5C4; }
+  .v2-feature .v2-name{ color:var(--cream); }
+  .v2-tag{ font-family:var(--sans); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--a); }
+  .v2-name{ font-family:var(--serif); font-style:italic; font-size:clamp(28px,3.4vw,46px); line-height:1; text-transform:lowercase; margin:14px 0 12px; }
+  .v2-desc{ font-family:var(--serif); font-size:19px; line-height:1.4; color:var(--ink-soft); max-width:34ch; }
+  .v2-feature .v2-desc{ color:rgba(245,239,223,.88); }
+  .v2-list{ list-style:none; margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+  .v2-list li{ font-family:var(--sans); font-size:12px; padding:6px 12px; border:1px solid currentColor; border-radius:999px; opacity:.7; }
+  .v2-feature .v2-mark{ width:88px; height:88px; color:var(--a); opacity:.9; margin-bottom:8px; }
+  .v2-feature .v2-mark svg{ width:100%; height:100%; }
+  .v2-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:20px; }
+  .v2-cta{ font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; color:inherit; display:inline-flex; gap:8px; }
+  .v2-cta span{ color:var(--a); }
+
+  /* ───────── VARIANT 3 — editorial split index ───────── */
+  .v3{ display:grid; grid-template-columns:.85fr 1.6fr; gap:clamp(40px,6vw,90px); }
+  .v3-aside{ position:sticky; top:90px; align-self:start; }
+  .v3-aside .sec-title{ margin-bottom:18px; }
+  .v3-aside p{ font-family:var(--serif); font-size:20px; line-height:1.45; color:var(--ink-soft); max-width:30ch; }
+  .v3-list{ border-top:1px solid var(--line); }
+  .v3-row{ position:relative; display:block; padding:clamp(28px,3.6vh,46px) 0; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink); }
+  .v3-row[data-acc=ai]{ --a:var(--gold); } .v3-row[data-acc=auto]{ --a:var(--sage); } .v3-row[data-acc=visual]{ --a:var(--terra); }
+  .v3-top{ display:flex; align-items:baseline; justify-content:space-between; gap:24px; }
+  .v3-name{ font-family:var(--serif); font-style:italic; font-weight:500; font-size:clamp(30px,4.2vw,52px); line-height:1; text-transform:lowercase; transition:color .3s; }
+  .v3-tags{ font-family:var(--sans); font-size:12px; letter-spacing:.04em; color:var(--ink-mute); white-space:nowrap; }
+  .v3-desc{ font-family:var(--serif); font-size:19px; line-height:1.4; color:var(--ink-soft); margin-top:14px; max-width:52ch; }
+  .v3-underline{ position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--a); }
+  .v3-row:hover .v3-name{ color:var(--a); }
+
+  @media (max-width:820px){
+    .v1-strip{ flex-direction:column; height:auto; }
+    .v1-panel{ flex:none; min-height:96px; }
+    .v1-strip:hover .v1-panel, .v1-panel:hover{ flex:none; }
+    .v1-panel{ min-height:96px; }
+    .v1-panel.open{ min-height:340px; }
+    .v1-detail{ opacity:1; transform:none; }
+    .v2-bento{ grid-template-columns:1fr; }
+    .v2-feature{ grid-row:auto; }
+    .v3{ grid-template-columns:1fr; gap:30px; }
+    .v3-aside{ position:static; }
+  }
+  .foot-note{ text-align:center; padding:50px 0 80px; color:var(--ink-mute); font-size:13px; }
+</style>
+</head>
+<body>
+
+<div class="picker-bar">
+  <div class="wrap">
+    <b>Услуги — 3 варианта</b>
+    <nav>
+      <a href="#v1">1 · Панели</a>
+      <a href="#v2">2 · Бенто</a>
+      <a href="#v3">3 · Издательский</a>
+    </nav>
+  </div>
+</div>
+
+<!-- VARIANT 1 -->
+<section class="variant" id="v1">
+  <div class="wrap">
+    <div class="variant-flag">Вариант 1 · раскрывающиеся панели</div>
+    <h2 class="sec-title">услуги</h2>
+    <p class="variant-note">Тёмные панели. Наведи (на телефоне — тап) — панель раскрывается, остальные сжимаются. Интерактивно, дорого, не похоже на обычные карточки.</p>
+    <div class="v1-strip" id="v1strip">
+      <article class="v1-panel" data-acc="ai">
+        <div class="v1-glow"></div>
+        <div class="v1-inner">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <span class="v1-idx">01</span>
+            <span class="v1-mark"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="9" stroke="currentColor" stroke-width="1.2"/><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="1" opacity=".5"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg></span>
+          </div>
+          <div>
+            <h3 class="v1-name">ai-агенты</h3>
+            <div class="v1-detail">
+              <p>Работают вместо сотрудника: без выходных и без ошибок.</p>
+              <ul><li>Голосовой агент для звонков и броней</li><li>Репутационный бот</li><li>Telegram-бот под задачу</li></ul>
+              <a class="v1-cta" href="#">обсудить <span>→</span></a>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="v1-panel" data-acc="auto">
+        <div class="v1-glow"></div>
+        <div class="v1-inner">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <span class="v1-idx">02</span>
+            <span class="v1-mark"><svg viewBox="0 0 48 48" fill="none"><path d="M6 24 Q15 10 24 24 T42 24" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="24" r="2.4" fill="currentColor"/><circle cx="42" cy="24" r="2.4" fill="currentColor"/></svg></span>
+          </div>
+          <div>
+            <h3 class="v1-name">автоматизации</h3>
+            <div class="v1-detail">
+              <p>Рутина исчезает. Остаётся то, что требует человека.</p>
+              <ul><li>Интеграции CRM и мессенджеров</li><li>Автоотчёты и уведомления</li><li>Workflow под процессы</li></ul>
+              <a class="v1-cta" href="#">обсудить <span>→</span></a>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="v1-panel" data-acc="visual">
+        <div class="v1-glow"></div>
+        <div class="v1-inner">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <span class="v1-idx">03</span>
+            <span class="v1-mark"><svg viewBox="0 0 48 48" fill="none"><rect x="10" y="10" width="28" height="28" stroke="currentColor" stroke-width="1.1" opacity=".5"/><rect x="18" y="18" width="12" height="12" stroke="currentColor" stroke-width="1.1"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg></span>
+          </div>
+          <div>
+            <h3 class="v1-name">визуал</h3>
+            <div class="v1-detail">
+              <p>Дизайн, который объясняет без слов.</p>
+              <ul><li>Брендинг и фирменный стиль</li><li>Инфографика и презентации</li><li>AI-контент для соцсетей</li></ul>
+              <a class="v1-cta" href="#">обсудить <span>→</span></a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VARIANT 2 -->
+<section class="variant" id="v2">
+  <div class="wrap">
+    <div class="variant-flag">Вариант 2 · бенто-сетка</div>
+    <h2 class="sec-title">услуги</h2>
+    <p class="variant-note">Асимметрия: главная услуга — крупная тёмная плитка, две поменьше рядом. Разные размеры ломают монотонность «трёх одинаковых карточек».</p>
+    <div class="v2-bento">
+      <article class="v2-tile v2-feature v2-ai">
+        <div>
+          <span class="v2-mark"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="9" stroke="currentColor" stroke-width="1.1"/><circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width=".9" opacity=".5"/><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width=".8" opacity=".28"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg></span>
+          <span class="v2-tag">голосовой · текстовый · гибридный</span>
+          <h3 class="v2-name">ai-агенты</h3>
+          <p class="v2-desc">Работают вместо сотрудника: принимают звонки, отвечают, фиксируют брони — 24/7.</p>
+          <ul class="v2-list"><li>голос</li><li>репутация</li><li>Telegram</li></ul>
+        </div>
+        <div class="v2-foot"><a class="v2-cta" href="#">обсудить <span>→</span></a></div>
+      </article>
+      <article class="v2-tile v2-auto">
+        <div>
+          <span class="v2-tag">процессы · интеграции</span>
+          <h3 class="v2-name">автоматизации</h3>
+          <p class="v2-desc">Рутина исчезает: CRM, отчёты, workflow.</p>
+        </div>
+        <div class="v2-foot"><a class="v2-cta" href="#">обсудить <span>→</span></a></div>
+      </article>
+      <article class="v2-tile v2-visual">
+        <div>
+          <span class="v2-tag">дизайн · контент</span>
+          <h3 class="v2-name">визуал</h3>
+          <p class="v2-desc">Объясняет без слов: бренд, инфографика, AI-контент.</p>
+        </div>
+        <div class="v2-foot"><a class="v2-cta" href="#">обсудить <span>→</span></a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VARIANT 3 -->
+<section class="variant" id="v3">
+  <div class="wrap">
+    <div class="variant-flag">Вариант 3 · издательский сплит</div>
+    <div class="v3">
+      <aside class="v3-aside">
+        <h2 class="sec-title">услуги</h2>
+        <p>Три направления. Настраивается один раз — работает дальше без вас.</p>
+      </aside>
+      <div class="v3-list">
+        <a class="v3-row" data-acc="ai" href="#">
+          <div class="v3-top"><span class="v3-name">ai-агенты</span><span class="v3-tags">голос · текст · гибрид</span></div>
+          <p class="v3-desc">Работают вместо сотрудника. Голосовой агент, репутационный бот, Telegram-бот под задачу бизнеса.</p>
+          <span class="v3-underline"></span>
+        </a>
+        <a class="v3-row" data-acc="auto" href="#">
+          <div class="v3-top"><span class="v3-name">автоматизации</span><span class="v3-tags">процессы · интеграции</span></div>
+          <p class="v3-desc">Рутина исчезает. Интеграции CRM и мессенджеров, автоотчёты, workflow под процессы.</p>
+          <span class="v3-underline"></span>
+        </a>
+        <a class="v3-row" data-acc="visual" href="#">
+          <div class="v3-top"><span class="v3-name">визуал</span><span class="v3-tags">дизайн · контент</span></div>
+          <p class="v3-desc">Объясняет без слов. Брендинг, инфографика и презентации, AI-контент для соцсетей.</p>
+          <span class="v3-underline"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p class="foot-note">Выбери вариант (1, 2 или 3) — внедрю на сайт.</p>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // V1 — panels reveal
+  gsap.from('#v1 .v1-panel', { opacity:0, y:30, duration:.7, stagger:.1, ease:'power3.out',
+    scrollTrigger:{ trigger:'#v1strip', start:'top 80%' } });
+  // mobile tap-to-open
+  if (window.matchMedia('(max-width:820px)').matches){
+    document.querySelectorAll('#v1 .v1-panel').forEach(p=>{
+      p.addEventListener('click', ()=>{
+        const was = p.classList.contains('open');
+        document.querySelectorAll('#v1 .v1-panel').forEach(x=>x.classList.remove('open'));
+        if(!was) p.classList.add('open');
+      });
+    });
+    document.querySelector('#v1 .v1-panel')?.classList.add('open');
+  }
+
+  // V2 — bento stagger
+  gsap.from('#v2 .v2-tile', { opacity:0, y:34, duration:.7, stagger:.12, ease:'power3.out',
+    scrollTrigger:{ trigger:'.v2-bento', start:'top 78%' } });
+
+  // V3 — rows reveal + underline draw on scroll
+  gsap.utils.toArray('#v3 .v3-row').forEach((row,i)=>{
+    gsap.from(row, { opacity:0, y:24, duration:.6, delay:i*.08, ease:'power3.out',
+      scrollTrigger:{ trigger:row, start:'top 86%' } });
+    gsap.to(row.querySelector('.v3-underline'), { width:'100%', ease:'none',
+      scrollTrigger:{ trigger:row, start:'top 70%', end:'bottom 50%', scrub:true } });
+  });
+
+  // titles fade in
+  gsap.utils.toArray('.sec-title').forEach(t=>{
+    gsap.from(t, { opacity:0, y:18, duration:.6, ease:'power2.out',
+      scrollTrigger:{ trigger:t, start:'top 88%' } });
+  });
+</script>
+</body>
+</html>
