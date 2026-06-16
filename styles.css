@@ -4525,6 +4525,7 @@ body:not(.is-loading) .kf-loader {
 .client-logo--zavod   img { height: 70px;  max-width: 240px; }
 .client-logo--kegelbar img { height: 90px;  max-width: 100px; }
 .client-logo--volzhanka img { height: 90px;  max-width: 130px; }
+.client-logo--inproject img { height: 96px;  max-width: 96px; }
 @media (prefers-reduced-motion: reduce) {
   .clients-track { animation: none; flex-wrap: wrap; justify-content: center; }
 }
@@ -5041,7 +5042,10 @@ body.fan-open .sticky-cta { display: none; }
   .client-logo--zavod   img { height: 50px; max-width: 170px; }
   .client-logo--kegelbar  img { height: 64px; max-width: 70px; }
   .client-logo--volzhanka img { height: 64px; max-width: 96px; }
+  .client-logo--inproject img { height: 68px; max-width: 68px; }
   .clients-title { font-size: 18px; }
+  /* marquee speed — 3× faster on phones */
+  .clients-track { animation-duration: 4s; }
 
   /* cases chips wrap */
   .sc-row-chips { gap: 6px; }
@@ -5093,7 +5097,7 @@ body.fan-open .sticky-cta { display: none; }
 @media (max-width: 480px) {
   .why-stats { grid-template-columns: 1fr !important; }
   .price-tier-amount { font-size: 26px; }
-  .clients-track { gap: 36px; animation-duration: 15s; }
+  .clients-track { gap: 36px; animation-duration: 4s; }
   .strip-track { font-size: 11px; gap: 18px; padding-left: 18px; animation-duration: 30s; }
   .cta-chips { gap: 6px; }
   .cta-chip span { padding: 8px 12px; font-size: 12px; }
@@ -5402,7 +5406,10 @@ body.fan-open .sticky-cta { display: none; }
   .hero-content {
     max-width: 100%;
     right: 0;
-    padding: 0 22px clamp(96px, 16vh, 150px);
+    /* sit high, right under the logo — never covers the figure */
+    bottom: auto;
+    top: clamp(92px, 14vh, 132px);
+    padding: 0 22px 0;
   }
   .hero h1 {
     white-space: nowrap;
