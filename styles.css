@@ -496,7 +496,9 @@ body.menu-open { overflow: hidden; }
   transition: opacity 1500ms ease;
 }
 @media (max-width: 720px) {
-  .hero-video-stack video { object-position: 84% center; }
+  /* trim empty space below the copy + frame the boy better (shift video right) */
+  .hero { height: 84svh; min-height: 560px; }
+  .hero-video-stack video { object-position: 68% center; }
 }
 .hero-video-stack video.fading { opacity: 0; }
 /* cover poster — hides the native play-button when autoplay is blocked
@@ -513,7 +515,7 @@ body.menu-open { overflow: hidden; }
 }
 .hero-video-stack.is-playing .hero-poster { opacity: 0; }
 @media (max-width: 720px) {
-  .hero-poster { object-position: 84% center; }
+  .hero-poster { object-position: 68% center; }
 }
 /* kill the native mobile "play" overlay that shows when autoplay is gated */
 .hero-video-stack video::-webkit-media-controls,
@@ -5408,20 +5410,20 @@ body.fan-open .sticky-cta { display: none; }
     right: 0;
     /* sit high, right under the logo — never covers the figure */
     bottom: auto;
-    top: clamp(92px, 14vh, 132px);
+    top: clamp(74px, 10.5vh, 104px);
     padding: 0 22px 0;
   }
   .hero h1 {
     white-space: nowrap;
     font-size: clamp(32px, 9.6vw, 52px);
-    margin: 0 0 14px;
+    margin: 0 0 16px;
   }
-  /* copy stays in the left safe zone — never overlaps the figure */
+  /* copy stays in the left safe zone — longer column, more of what I do */
   .hero .sub {
-    max-width: 54vw;
-    font-size: clamp(13px, 3.5vw, 15px);
+    max-width: 60vw;
+    font-size: clamp(13px, 3.6vw, 15px);
     line-height: 1.5;
-    margin: 0 0 20px;
+    margin: 0 0 22px;
   }
 }
 
