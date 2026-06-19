@@ -5753,8 +5753,8 @@ body.fan-open .sticky-cta { display: none; }
 .hero .hero-mesh{position:absolute;inset:-25%;
   background:
     radial-gradient(38% 46% at 18% 22%, rgba(196,152,90,.42), transparent 70%),
-    radial-gradient(42% 50% at 82% 16%, rgba(194,107,74,.30), transparent 72%),
-    radial-gradient(55% 62% at 65% 96%, rgba(58,74,61,.55), transparent 72%);
+    radial-gradient(38% 46% at 82% 22%, rgba(196,152,90,.42), transparent 70%),
+    radial-gradient(55% 62% at 50% 98%, rgba(58,74,61,.50), transparent 72%);
   filter:blur(48px);animation:heroMesh 24s ease-in-out infinite alternate}
 @keyframes heroMesh{0%{transform:translate3d(-3%,-2%,0) scale(1.05)}100%{transform:translate3d(3%,3%,0) scale(1.16)}}
 .hero .hero-grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
@@ -5778,13 +5778,44 @@ body.fan-open .sticky-cta { display: none; }
 .why-team-name{color:var(--on-night);font-size:18px;line-height:1.2}
 .why-team-role{color:rgba(232,220,192,.62);font-size:13px;letter-spacing:.04em;margin-top:3px}
 
-/* Contact — warm bg mirroring the why-section gradient + gold/forest glow */
+/* Contact — clean warm-dark matching the footer, gold hairline, no washing glow */
+.cta-section{border-top:1px solid rgba(196,152,90,.22)}
 .cta-section .cta-bg{position:absolute;inset:0;z-index:0;overflow:hidden;
-  background:linear-gradient(180deg,#1A1410 0%,#221814 60%,#1F1612 100%)}
-.cta-section .cta-bg::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(52% 55% at 50% -6%, rgba(196,152,90,.30), transparent 70%),
-    radial-gradient(56% 52% at 90% 104%, rgba(58,74,61,.38), transparent 72%)}
+  background:linear-gradient(180deg,#1F1612 0%,#17110D 100%)}
+
+/* Contact — dark theme: every element readable on warm-dark, nothing blends */
+.cta-section .kicker{color:rgba(196,152,90,.95)}
+.cta-form-wrap h2{color:var(--on-night);font-weight:400}
+.cta-form-wrap .sub{color:rgba(232,220,192,.80)}
+.cta-section .cta-step-title{color:var(--on-night)}
+.cta-section .cta-label{color:rgba(232,220,192,.62)}
+.cta-section .cta-step-meta,
+.cta-section .cta-counter,
+.cta-section .cta-fineprint{color:rgba(232,220,192,.5)}
+.cta-section .cta-alts-label{color:rgba(232,220,192,.55)}
+.cta-section .cta-progress-step{color:rgba(232,220,192,.45);border-top-color:rgba(232,220,192,.15)}
+.cta-section .cta-progress-step.is-active,
+.cta-section .cta-progress-step.is-done{color:var(--on-night);border-top-color:var(--gold)}
+.cta-section .cta-progress-dot{background:rgba(232,220,192,.2)}
+.cta-section .field input,
+.cta-section .field textarea{color:var(--on-night);border-bottom-color:rgba(232,220,192,.28)}
+.cta-section .field input::placeholder,
+.cta-section .field textarea::placeholder{color:rgba(232,220,192,.4)}
+.cta-section .field input:focus,
+.cta-section .field textarea:focus{border-bottom-color:var(--gold)}
+.cta-section .cta-chip span{background:rgba(232,220,192,.06);border-color:rgba(232,220,192,.18);color:rgba(232,220,192,.86)}
+.cta-section .cta-chip:hover span{border-color:var(--gold);color:#fff}
+.cta-section .cta-chip input:checked + span{background:var(--gold);border-color:var(--gold);color:#1A1410}
+.cta-section .cta-step .cta-ghost{color:rgba(232,220,192,.8);border-color:rgba(232,220,192,.25)}
+.cta-section .cta-step .cta-ghost:hover{background:rgba(232,220,192,.08);color:#fff}
+.cta-section .cta-alt{background:rgba(232,220,192,.06);border-color:rgba(232,220,192,.16);color:var(--on-night)}
+.cta-section .cta-alt:hover{background:var(--gold);border-color:var(--gold);color:#1A1410}
+
+/* Remove decorative dots + why glows (per request) */
+.kt-trail{display:none!important}
+.why-icon-dot{display:none}
+.why-blob{display:none}
+.why-team::before{display:none}
 
 /* Hero — animated GLSL hills canvas (between gradient mesh and grain) */
 .hero .hero-hills{position:absolute;inset:0;width:100%;height:100%;z-index:1;
@@ -5811,9 +5842,10 @@ body.fan-open .sticky-cta { display: none; }
 }
 .hero h1 br{display:block}
 .hero .sub{
-  max-width:60ch;margin:0 auto 34px;
-  font-size:clamp(14px,1.5vw,18px);line-height:1.55;
-  color:rgba(232,220,192,0.82);
+  max-width:46ch;margin:10px auto 40px;
+  font-size:clamp(14px,1.45vw,17px);line-height:1.65;letter-spacing:0.01em;
+  text-wrap:pretty;
+  color:rgba(232,220,192,0.80);
 }
 .hero .hero-cta-row{justify-content:center}
 
