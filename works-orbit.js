@@ -39,7 +39,7 @@
     try {
       renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !isMobile, alpha: true });
     } catch (e) { return; }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2));
     if (THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
 
     var scene = new THREE.Scene();
@@ -53,7 +53,7 @@
     var R = 10;
 
     // ── gold dust — fills the whole panel, not just near the works ──
-    var PCOUNT = isMobile ? 700 : 1300;
+    var PCOUNT = isMobile ? 420 : 1300;
     var PR = 20; // большой объём → звёзды по всей плашке
     var pg = new THREE.BufferGeometry();
     var pos = new Float32Array(PCOUNT * 3);

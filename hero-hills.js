@@ -9,15 +9,25 @@
     if (!canvas || !hero) return;
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var mq = window.matchMedia || function () { return { matches: false }; };
+    var mobile = mq('(max-width: 720px)').matches || mq('(pointer: coarse)').matches;
+    // Honour data-saver / very weak devices -> skip GL, keep CSS gradient.
+    var saveData = navigator.connection && navigator.connection.saveData;
+    var weak = (navigator.deviceMemory && navigator.deviceMemory <= 2) ||
+               (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
+    if (saveData || weak) return;
 
-    var PLANE = 256;
+    var PLANE = 256;                     // world size (unchanged look)
+    var SEG = mobile ? 72 : 160;         // mesh density — 66k verts was the freeze; now 5k / 26k
     var SPEED = 0.42;
+    var FPS = mobile ? 30 : 60;          // cap mobile to halve GPU/battery
+    var frameMin = 1 / FPS;
 
     var renderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true });
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
     } catch (e) { return; } // no WebGL -> CSS fallback stays
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.5));
     renderer.setClearColor(0x000000, 0);
 
     var scene = new THREE.Scene();
@@ -94,7 +104,7 @@
       ' gl_FragColor=vec4(color,opacity);}'
     ].join('\n');
 
-    var geo = new THREE.PlaneGeometry(PLANE, PLANE, PLANE, PLANE);
+    var geo = new THREE.PlaneGeometry(PLANE, PLANE, SEG, SEG);
     var mat = new THREE.RawShaderMaterial({
       uniforms: uniforms,
       vertexShader: vertexShader,
@@ -118,11 +128,17 @@
     resize();
 
     var clock = new THREE.Clock();
-    var visible = true, raf = 0;
+    var visible = true, raf = 0, acc = 0;
 
     function frame() {
-      uniforms.time.value += clock.getDelta() * SPEED;
-      renderer.render(scene, camera);
+      var dt = clock.getDelta();
+      acc += dt;
+      // FPS cap — skip render until enough time elapsed (saves GPU on mobile)
+      if (acc >= frameMin) {
+        uniforms.time.value += acc * SPEED;
+        renderer.render(scene, camera);
+        acc = 0;
+      }
       raf = requestAnimationFrame(frame);
     }
 

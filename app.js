@@ -127,13 +127,24 @@
   window.addEventListener('load', () => requestAnimationFrame(ktInitialPass));
   window.addEventListener('resize', ktInitialPass);
 
-  // Scroll fallback — if IO is slow/disabled, this still reveals on user scroll.
+  // Scroll fallback — only as a safety net while items remain unrevealed.
+  // Reading layout every scroll frame forces sync reflow → scroll jank, so this
+  // self-removes once IO has revealed everything (the steady-state cost is zero).
   let scrollTick = false;
-  window.addEventListener('scroll', () => {
+  function allRevealed() {
+    return !document.querySelector('[data-kt]:not(.is-in)') &&
+           !document.querySelector('.reveal:not(.is-visible)');
+  }
+  function onScroll() {
     if (scrollTick) return;
     scrollTick = true;
-    requestAnimationFrame(() => { ktInitialPass(); scrollTick = false; });
-  }, { passive: true });
+    requestAnimationFrame(() => {
+      ktInitialPass();
+      scrollTick = false;
+      if (allRevealed()) window.removeEventListener('scroll', onScroll);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
 
   // Hero-pill toggle — body.is-past-hero once hero scrolled out of top of viewport
   (function initHeroPillToggle() {

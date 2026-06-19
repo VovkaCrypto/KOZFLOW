@@ -5885,3 +5885,20 @@ body.fan-open .sticky-cta { display: none; }
   .foot-grid{grid-template-columns:1fr;gap:28px}
   .foot-bottom{flex-direction:column;gap:8px}
 }
+
+/* ───── Mobile performance — kill steady-state GPU cost during scroll ─────
+   The WebGL hills already animate the hero; stacking an animated 48px-blur
+   mesh + a per-frame mix-blend grain on top is what made phones lag/freeze. */
+@media (max-width:720px){
+  /* static mesh — no continuous compositing; lighter blur surface */
+  .hero .hero-mesh{animation:none;filter:blur(34px);inset:-12%}
+  /* mix-blend over animating content forces a blend pass every frame */
+  .hero .hero-grain{display:none}
+  /* trim heavy backdrop blurs on scroll-persistent chrome */
+  .pill,.kf-pill{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+}
+@media (hover: none), (pointer: coarse){
+  /* touch devices never see hover tilt/spotlight — drop the will-change hints
+     so the compositor isn't holding extra layers while scrolling */
+  [data-card]{will-change:auto}
+}
