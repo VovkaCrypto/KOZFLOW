@@ -5745,29 +5745,49 @@ body.fan-open .sticky-cta { display: none; }
   .c6-mq, .ico-ai .spin, .ico-auto .wave, .ico-visual .sq1, .ico-visual .sq2 { animation: none; }
 }
 
-/* B2B hero — dark editorial */
-.hero .hero-bg{position:absolute;inset:0;z-index:0;background:#0b0c10;overflow:hidden}
-.hero .hero-mesh{position:absolute;inset:-20%;background:
-  radial-gradient(40% 50% at 20% 30%, rgba(80,110,160,.45), transparent 70%),
-  radial-gradient(45% 55% at 80% 25%, rgba(150,120,90,.40), transparent 70%),
-  radial-gradient(50% 60% at 60% 90%, rgba(60,70,110,.50), transparent 70%);
-  filter:blur(40px);animation:heroMesh 22s ease-in-out infinite alternate}
-@keyframes heroMesh{0%{transform:translate3d(-3%,-2%,0) scale(1.05)}100%{transform:translate3d(3%,2%,0) scale(1.15)}}
-.hero .hero-grain{position:absolute;inset:0;opacity:.06;mix-blend-mode:overlay;
+/* ───── B2B sections — warm brand identity (gold / terracotta / forest on warm-dark) ───── */
+
+/* Hero — warm editorial */
+.hero .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;
+  background:linear-gradient(165deg,#1A1410 0%,#221814 55%,#1F1612 100%)}
+.hero .hero-mesh{position:absolute;inset:-25%;
+  background:
+    radial-gradient(38% 46% at 18% 22%, rgba(196,152,90,.42), transparent 70%),
+    radial-gradient(42% 50% at 82% 16%, rgba(194,107,74,.30), transparent 72%),
+    radial-gradient(55% 62% at 65% 96%, rgba(58,74,61,.55), transparent 72%);
+  filter:blur(48px);animation:heroMesh 24s ease-in-out infinite alternate}
+@keyframes heroMesh{0%{transform:translate3d(-3%,-2%,0) scale(1.05)}100%{transform:translate3d(3%,3%,0) scale(1.16)}}
+.hero .hero-grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.hero .hero-vignette{position:absolute;inset:0;background:radial-gradient(120% 120% at 50% 30%, transparent 40%, rgba(0,0,0,.55) 100%)}
+.hero .hero-vignette{position:absolute;inset:0;background:radial-gradient(125% 120% at 50% 25%, transparent 42%, rgba(20,14,10,.62) 100%)}
 @media (prefers-reduced-motion: reduce){.hero .hero-mesh{animation:none}}
 
-/* B2B why — team block */
-.why-team{display:flex;flex-direction:column;gap:18px;justify-content:center;padding:28px;
-  background:linear-gradient(160deg,#11131a,#1b1e28);border-radius:var(--radius,22px);min-height:320px;position:relative}
-.why-team-badge{font-size:11px;letter-spacing:.22em;color:rgba(255,255,255,.55)}
-.why-team-list{display:flex;flex-direction:column;gap:16px}
+/* Why — team block: warm panel with gold hairline, sits on the warm why-section */
+.why-team{display:flex;flex-direction:column;gap:20px;justify-content:center;padding:30px;
+  position:relative;border-radius:16px;min-height:320px;
+  background:linear-gradient(155deg, rgba(52,40,29,.72), rgba(26,20,16,.55));
+  border:1px solid rgba(196,152,90,.24);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.7)}
+.why-team::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(80% 60% at 82% 0%, rgba(196,152,90,.18), transparent 70%)}
+.why-team-badge{position:relative;font-size:11px;letter-spacing:.24em;color:rgba(196,152,90,.85)}
+.why-team-list{position:relative;display:flex;flex-direction:column;gap:18px}
 .why-team-card{display:flex;align-items:center;gap:16px}
 .why-team-ini{width:56px;height:56px;flex:0 0 56px;display:grid;place-items:center;border-radius:50%;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:20px}
-.why-team-name{color:#fff;font-size:18px;line-height:1.2}
-.why-team-role{color:rgba(255,255,255,.6);font-size:13px;letter-spacing:.04em;margin-top:3px}
+  background:rgba(196,152,90,.14);border:1px solid rgba(196,152,90,.5);color:var(--gold);font-size:20px}
+.why-team-name{color:var(--on-night);font-size:18px;line-height:1.2}
+.why-team-role{color:rgba(232,220,192,.62);font-size:13px;letter-spacing:.04em;margin-top:3px}
 
-.cta-section .cta-bg{position:absolute;inset:0;z-index:0;background:
-  radial-gradient(60% 80% at 50% 0%, rgba(80,110,160,.30), transparent 70%), #0b0c10}
+/* Contact — warm bg mirroring the why-section gradient + gold/forest glow */
+.cta-section .cta-bg{position:absolute;inset:0;z-index:0;overflow:hidden;
+  background:linear-gradient(180deg,#1A1410 0%,#221814 60%,#1F1612 100%)}
+.cta-section .cta-bg::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(52% 55% at 50% -6%, rgba(196,152,90,.30), transparent 70%),
+    radial-gradient(56% 52% at 90% 104%, rgba(58,74,61,.38), transparent 72%)}
+
+/* Footer — warm dark close with gold hairline (bookends the dark contact above) */
+.foot{border-top:1px solid rgba(196,152,90,.22);
+  background:linear-gradient(180deg,#1F1612,#17110D);color:rgba(232,220,192,.62)}
+.foot a{color:rgba(232,220,192,.62)}
+.foot a:hover{color:var(--gold)}
