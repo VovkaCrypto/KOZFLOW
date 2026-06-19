@@ -5768,3 +5768,6 @@ body.fan-open .sticky-cta { display: none; }
   background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:20px}
 .why-team-name{color:#fff;font-size:18px;line-height:1.2}
 .why-team-role{color:rgba(255,255,255,.6);font-size:13px;letter-spacing:.04em;margin-top:3px}
+
+.cta-section .cta-bg{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(60% 80% at 50% 0%, rgba(80,110,160,.30), transparent 70%), #0b0c10}
