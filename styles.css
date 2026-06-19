@@ -5810,6 +5810,9 @@ body.fan-open .sticky-cta { display: none; }
 .cta-section .cta-step .cta-ghost:hover{background:rgba(232,220,192,.08);color:#fff}
 .cta-section .cta-alt{background:rgba(232,220,192,.06);border-color:rgba(232,220,192,.16);color:var(--on-night)}
 .cta-section .cta-alt:hover{background:var(--gold);border-color:var(--gold);color:#1A1410}
+/* primary form button: gold, not green */
+.cta-section .cta-fill{background:var(--gold);color:#1A1410;border-color:var(--gold)}
+.cta-section .cta-fill:hover{filter:brightness(1.06)}
 
 /* Remove decorative dots + why glows (per request) */
 .kt-trail{display:none!important}
