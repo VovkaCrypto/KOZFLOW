@@ -12,7 +12,7 @@
 <meta property="og:locale" content="ru_RU" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="stylesheet" href="styles.css?v=69" />
+<link rel="stylesheet" href="styles.css?v=71" />
 <link rel="stylesheet" href="transitions.css?v=3" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js" defer></script>
@@ -210,6 +210,7 @@
 <header class="hero kt-section" data-kt>
   <div class="hero-bg" id="heroBg" aria-hidden="true">
     <div class="hero-mesh"></div>
+    <canvas id="heroHills" class="hero-hills"></canvas>
     <div class="hero-grain"></div>
     <div class="hero-vignette"></div>
   </div>
@@ -1102,13 +1103,27 @@
 
 <!-- ─────── FOOTER ─────── -->
 <footer class="foot">
-  <div class="wrap row">
-    <div>KozFlow · студия AI и автоматизаций · Тверь · 2026</div>
-    <div class="right">
-      <a href="https://t.me/kozflow" target="_blank" rel="noopener">Telegram @kozflow</a>
-      <a href="tel:+79106407134">+7 910 640 71 34 · Макс</a>
-      <a href="mailto:kozflow.ai@gmail.com">kozflow.ai@gmail.com</a>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <div class="foot-logo serif">KozFlow</div>
+      <p class="foot-tagline">Студия AI-агентов и автоматизаций. Внедряем системы, которые работают вместо людей.</p>
     </div>
+    <nav class="foot-col" aria-label="Контакты">
+      <span class="foot-col-h">Связаться</span>
+      <a href="https://t.me/kozflow" target="_blank" rel="noopener">Telegram @kozflow</a>
+      <a href="tel:+79106407134">+7 910 640 71 34</a>
+      <a href="mailto:kozflow.ai@gmail.com">kozflow.ai@gmail.com</a>
+    </nav>
+    <nav class="foot-col" aria-label="Разделы">
+      <span class="foot-col-h">Разделы</span>
+      <a href="#services">Услуги</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#price">Стоимость</a>
+    </nav>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© KozFlow · Тверь · 2026</span>
+    <span>Работаем по договору · NDA по запросу</span>
   </div>
 </footer>
 
@@ -1122,7 +1137,9 @@
   </a>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="app.js?v=28"></script>
 <script src="works-orbit.js?v=9" defer></script>
+<script src="hero-hills.js?v=1" defer></script>
 </body>
 </html>
