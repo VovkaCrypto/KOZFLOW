@@ -92,15 +92,16 @@
   );
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-  // Section-level kirifuda-style slide in
+  // Section-level kirifuda-style slide in — ONE-SHOT.
+  // (Previously it re-armed on scroll-up, so every section slid ±8vw sideways
+  //  back and forth while wheeling → that's the "странно на колесико". Now each
+  //  section reveals once, then we drop will-change so no standing GPU layers.)
   const ktIO = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
         if (e.isIntersecting) {
           e.target.classList.add('is-in');
-        } else if (e.boundingClientRect.top > 0) {
-          // exit when scrolling back up — re-arm
-          e.target.classList.remove('is-in');
+          ktIO.unobserve(e.target);
         }
       }
     },
@@ -1008,8 +1009,12 @@
     });
   }
 
-  // ── Custom cursor (beige + soft trail) — desktop only
-  if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+  // ── Custom cursor (beige + soft trail) — desktop only, and only when the
+  //    "dot" cursor tweak is actually on. Otherwise the elements are invisible
+  //    (CSS shows them only for body[data-cursor="dot"]) yet a perpetual rAF
+  //    would still move 9 hidden nodes every frame — wasted work on every visit.
+  if (!window.matchMedia('(hover: none), (pointer: coarse)').matches &&
+      document.body.dataset.cursor === 'dot') {
     const TRAIL_LEN = 8;
     const dots = [];
     for (let i = 0; i < TRAIL_LEN; i++) {
@@ -1092,7 +1097,17 @@
     let mx = -9999, my = -9999;
     let raf = null;
 
+    // Gate: only react while the hero is on screen — otherwise every mousemove
+    // during scroll would force a reflow over all letters for nothing.
+    let heroVisible = true;
+    const heroEl = document.querySelector('.hero');
+    if (heroEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; },
+        { threshold: 0 }).observe(heroEl);
+    }
+
     document.addEventListener('mousemove', (e) => {
+      if (!heroVisible) return;
       mx = e.clientX;
       my = e.clientY;
       if (!raf) raf = requestAnimationFrame(update);

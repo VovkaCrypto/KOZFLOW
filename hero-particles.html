@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KozFlow — hero particles (превью)</title>
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="styles.css?v=76" />
+<link rel="stylesheet" href="transitions.css?v=4" />
+<style>
+  /* Preview-only: this page exists to trial the particle hero next to the live
+     site without touching index.html. Warm palette, text always readable. */
+  html, body { background: #1A1410; }
+  .hero { min-height: 100vh; }
+
+  /* particle canvas — sits as the hero background (below the text scrim) */
+  .hero .hero-particles {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    z-index: 1; display: block; pointer-events: none;
+  }
+  /* readability scrim — keeps H1/sub crisp over the moving network */
+  .hero .hero-particles-scrim {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background:
+      radial-gradient(58% 52% at 50% 46%, rgba(20,14,10,.74) 0%, rgba(20,14,10,.40) 45%, transparent 78%),
+      linear-gradient(180deg, rgba(20,14,10,.30) 0%, transparent 26%, transparent 74%, rgba(20,14,10,.55) 100%);
+  }
+  .hero .hero-vignette { z-index: 3; }
+  .hero .hero-content { z-index: 5; }
+
+  /* content visible without app.js (no reveal IO on this preview) */
+  .hero .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* allow the long B2B headline to wrap on narrow screens */
+  @media (max-width: 720px) { .hero h1 { white-space: normal; } }
+
+  .preview-tag {
+    position: fixed; top: 14px; left: 14px; z-index: 50;
+    font-family: var(--mono, monospace); font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: rgba(232,220,192,.6);
+    border: 1px solid rgba(196,152,90,.4); border-radius: 999px; padding: 6px 12px;
+    background: rgba(26,20,16,.6); backdrop-filter: blur(6px);
+  }
+</style>
+</head>
+<body data-palette="warm" data-cta="forest" data-serif="cormorant" data-herobg="particles">
+
+<span class="preview-tag">превью · particle hero</span>
+
+<header class="hero kt-section is-in" data-kt>
+  <div class="hero-bg" aria-hidden="true">
+    <canvas id="heroParticles" class="hero-particles"></canvas>
+    <div class="hero-particles-scrim"></div>
+    <div class="hero-vignette"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-brand reveal" aria-hidden="true">
+      <span class="hero-brand-text">KozFlow</span>
+    </div>
+    <h1 class="reveal delay-1"><span class="it">Меньше операционки.</span><br /><span class="it">Больше выручки.</span></h1>
+    <p class="sub reveal delay-2">
+      AI-агенты, автоматизация процессов и аналитика для бизнеса. Внедряем системы, которые работают вместо людей и окупаются.
+    </p>
+    <div class="reveal delay-3">
+      <div class="hero-cta-row">
+        <a class="cta cta-outline" href="#">Обсудить задачу <span class="arrow">→</span></a>
+        <a class="cta cta-ghost" href="#">Смотреть кейсы</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint reveal delay-4">
+    <span>Scroll</span>
+    <span class="line"></span>
+  </div>
+</header>
+
+<script src="hero-particles.js?v=2"></script>
+</body>
+</html>

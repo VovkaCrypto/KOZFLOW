@@ -3,6 +3,7 @@
    no THREE / no WebGL / reduced-motion -> hero keeps its CSS gradient background. */
 (function () {
   function start() {
+    if (document.body && document.body.getAttribute('data-herobg') === 'particles') return;
     if (!window.THREE) return;
     var canvas = document.getElementById('heroHills');
     var hero = document.querySelector('.hero');
@@ -17,15 +18,18 @@
                (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
     if (saveData || weak) return;
 
-    var PLANE = 256;                     // world size (unchanged look)
-    var SEG = mobile ? 72 : 160;         // mesh density — 66k verts was the freeze; now 5k / 26k
-    var SPEED = 0.42;
-    var FPS = mobile ? 30 : 60;          // cap mobile to halve GPU/battery
+    var PLANE = 256;                     // world size
+    // Wireframe mesh restored. Density tuned between the two failure modes:
+    // 256 = laggy, 160 = lines crawl/shimmer. 200 desktop reads as a smooth
+    // dense haze without the 256 cost; mobile thinned for the freeze fix.
+    var SEG = mobile ? 96 : 200;
+    var SPEED = 0.34;                    // slightly calmer than 0.42 = less crawl
+    var FPS = mobile ? 30 : 60;
     var frameMin = 1 / FPS;
 
     var renderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true, powerPreference: mobile ? 'low-power' : 'default' });
     } catch (e) { return; } // no WebGL -> CSS fallback stays
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.5));
     renderer.setClearColor(0x000000, 0);

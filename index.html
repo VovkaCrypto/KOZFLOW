@@ -12,12 +12,12 @@
 <meta property="og:locale" content="ru_RU" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<link rel="stylesheet" href="styles.css?v=74" />
-<link rel="stylesheet" href="transitions.css?v=3" />
+<link rel="stylesheet" href="styles.css?v=77" />
+<link rel="stylesheet" href="transitions.css?v=4" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js" defer></script>
 </head>
-<body data-palette="warm" data-cta="forest" data-navbar="pill" data-serif="cormorant" data-glitch="on" data-svcicon="abstract" data-herocta="outline" data-radius="22" data-noise="off" data-density="comfy" data-uppercase="on" data-grain="off" data-cursor="default" data-trans="kiri" class="is-loading">
+<body data-palette="warm" data-cta="forest" data-navbar="pill" data-serif="cormorant" data-glitch="on" data-svcicon="abstract" data-herocta="outline" data-radius="22" data-noise="off" data-density="comfy" data-uppercase="on" data-grain="off" data-cursor="default" data-trans="kiri" data-herobg="particles" class="is-loading">
 
 <!-- ─────── PRELOADER ─────── -->
 <div class="kf-loader" id="kfLoader" aria-hidden="true">
@@ -211,6 +211,8 @@
   <div class="hero-bg" id="heroBg" aria-hidden="true">
     <div class="hero-mesh"></div>
     <canvas id="heroHills" class="hero-hills"></canvas>
+    <canvas id="heroParticles" class="hero-particles"></canvas>
+    <div class="hero-particles-scrim"></div>
     <div class="hero-grain"></div>
     <div class="hero-vignette"></div>
   </div>
@@ -1122,8 +1124,9 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-<script src="app.js?v=29"></script>
+<script src="app.js?v=30"></script>
 <script src="works-orbit.js?v=10" defer></script>
-<script src="hero-hills.js?v=2" defer></script>
+<script src="hero-hills.js?v=5" defer></script>
+<script src="hero-particles.js?v=2" defer></script>
 </body>
 </html>

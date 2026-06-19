@@ -74,7 +74,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   transition: opacity 900ms cubic-bezier(.2,.6,.2,1), transform 900ms cubic-bezier(.2,.6,.2,1);
   will-change: opacity, transform;
 }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); will-change: auto; }
 .reveal.delay-1 { transition-delay: 80ms; }
 .reveal.delay-2 { transition-delay: 160ms; }
 .reveal.delay-3 { transition-delay: 240ms; }
@@ -5752,8 +5752,6 @@ body.fan-open .sticky-cta { display: none; }
   background:linear-gradient(165deg,#1A1410 0%,#221814 55%,#1F1612 100%)}
 .hero .hero-mesh{position:absolute;inset:-25%;
   background:
-    radial-gradient(38% 46% at 18% 22%, rgba(196,152,90,.42), transparent 70%),
-    radial-gradient(38% 46% at 82% 22%, rgba(196,152,90,.42), transparent 70%),
     radial-gradient(55% 62% at 50% 98%, rgba(58,74,61,.50), transparent 72%);
   filter:blur(48px);animation:heroMesh 24s ease-in-out infinite alternate}
 @keyframes heroMesh{0%{transform:translate3d(-3%,-2%,0) scale(1.05)}100%{transform:translate3d(3%,3%,0) scale(1.16)}}
@@ -5826,6 +5824,20 @@ body.fan-open .sticky-cta { display: none; }
 .hero .hero-mesh{z-index:0}
 .hero .hero-grain{z-index:2}
 .hero .hero-vignette{z-index:3}
+
+/* Hero — particle network variant (toggled via body[data-herobg]) */
+.hero .hero-particles{position:absolute;inset:0;width:100%;height:100%;z-index:1;
+  display:none;pointer-events:none}
+.hero .hero-particles-scrim{position:absolute;inset:0;z-index:2;display:none;pointer-events:none;
+  background:
+    radial-gradient(58% 52% at 50% 46%, rgba(20,14,10,.74) 0%, rgba(20,14,10,.40) 45%, transparent 78%),
+    linear-gradient(180deg, rgba(20,14,10,.30) 0%, transparent 26%, transparent 74%, rgba(20,14,10,.55) 100%)}
+/* particles active → show network + scrim, drop the hills/mesh/grain layers */
+body[data-herobg="particles"] .hero .hero-particles,
+body[data-herobg="particles"] .hero .hero-particles-scrim{display:block}
+body[data-herobg="particles"] .hero .hero-hills,
+body[data-herobg="particles"] .hero .hero-mesh,
+body[data-herobg="particles"] .hero .hero-grain{display:none}
 
 /* Hero — centered, elegant composition */
 .hero .hero-content{

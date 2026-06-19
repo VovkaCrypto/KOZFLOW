@@ -18,6 +18,7 @@
 .kt-section:nth-of-type(odd).is-in {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+  will-change: auto;          /* reveal done — free the compositor layer */
 }
 
 /* hero never slides */
