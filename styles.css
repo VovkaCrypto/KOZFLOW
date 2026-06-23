@@ -3850,8 +3850,8 @@ body:not(.is-past-hero) .kf-pill-logo:hover .kf-mark-img {
   flex-direction: column;
   padding: clamp(20px, 1.8vw, 28px);
   border-radius: 18px;
-  background: var(--bg-alt, #FBF6E8);
-  border: 1px solid rgba(45,36,25,0.10);
+  background: var(--bg-alt, #FBF7ED);
+  border: 1px solid rgba(196,152,90,0.16);
   transition: transform 320ms cubic-bezier(.2,.6,.2,1),
               box-shadow 320ms ease,
               border-color 320ms ease,
@@ -5128,15 +5128,17 @@ body.fan-open .sticky-cta { display: none; }
 
 /* ─────── MOBILE: TIER CARDS ACCORDION ─────── */
 @media (max-width: 720px) {
-  .price-tiers { gap: 10px; }
+  .price-tiers { gap: 12px; }
   .price-tier {
     cursor: pointer;
-    padding: 16px 44px 16px 18px;
-    border-radius: 14px;
+    padding: 18px 54px 18px 20px;
+    border-radius: 16px;
+    border-color: rgba(196,152,90,0.2);
+    box-shadow: 0 1px 2px rgba(45,36,25,0.04), 0 12px 26px -22px rgba(45,36,25,0.5);
   }
-  .price-tier:hover { transform: none; box-shadow: none; }
-  .price-tier-head { margin-bottom: 6px; }
-  .price-tier-name { font-size: 18px; margin: 0 0 6px; }
+  .price-tier:hover { transform: none; }
+  .price-tier-head { margin-bottom: 7px; }
+  .price-tier-name { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
   .price-tier-price-row { gap: 6px; }
   .price-tier-amount { font-size: 22px; }
   .price-tier-desc,
@@ -5163,25 +5165,29 @@ body.fan-open .sticky-cta { display: none; }
   .price-tier::after {
     content: '+';
     position: absolute;
-    right: 14px; top: 13px;
-    width: 28px; height: 28px;
+    right: 16px; top: 16px;
+    width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: center;
     font-family: var(--mono);
-    font-size: 19px;
+    font-size: 20px;
     line-height: 1;
-    color: var(--ink);
-    background: rgba(45,36,25,0.08);
-    border: 1px solid rgba(45,36,25,0.16);
+    color: #9A7A44;
+    background: rgba(196,152,90,0.1);
+    border: 1px solid rgba(196,152,90,0.32);
     border-radius: 999px;
-    opacity: 0.9;
-    transition: transform 320ms cubic-bezier(.2,.6,.2,1), opacity 220ms ease, background 220ms ease;
+    opacity: 1;
+    transition: transform 320ms cubic-bezier(.2,.6,.2,1), background 220ms ease, border-color 220ms ease;
     pointer-events: none;
   }
-  .price-tier.is-open::after { transform: rotate(45deg); background: rgba(45,36,25,0.14); }
+  .price-tier.is-open::after {
+    transform: rotate(45deg);
+    background: rgba(196,152,90,0.18);
+    border-color: rgba(196,152,90,0.5);
+  }
   .price-tier-feature::after {
-    color: var(--cream);
-    background: rgba(245,239,223,0.14);
-    border-color: rgba(245,239,223,0.28);
+    color: var(--gold);
+    background: rgba(196,152,90,0.16);
+    border-color: rgba(196,152,90,0.4);
   }
   /* «популярное» — keep it inside the frame, sit it to the right of the voice tag */
   .price-tier-badge {
@@ -5654,32 +5660,56 @@ body.fan-open .sticky-cta { display: none; }
   display: flex;
   flex-direction: column;
   min-height: clamp(360px, 44vh, 460px);
-  padding: clamp(48px, 5vw, 58px) clamp(28px, 3vw, 44px);
+  padding: clamp(24px, 2.6vw, 32px) clamp(28px, 3vw, 44px) clamp(40px, 4vw, 50px);
   border-radius: 22px;
-  background: #EFE6D2;
+  background:
+    radial-gradient(135% 90% at 0% 0%, rgba(196,152,90,.05), transparent 58%),
+    linear-gradient(158deg, #FBF7ED 0%, #F3ECDC 100%);
   color: var(--ink);
-  transition: transform .5s cubic-bezier(.2,.6,.2,1), box-shadow .5s ease;
+  border: 1px solid rgba(196,152,90,.16);
+  box-shadow: 0 1px 0 rgba(255,252,244,.6) inset, 0 18px 40px -28px rgba(45,36,25,.38);
+  transition: transform .55s cubic-bezier(.2,.6,.2,1), box-shadow .55s ease, border-color .55s ease;
 }
-.c6-ai     { --c: #C8912F; background: #F1E8D2; }
-.c6-auto   { --c: #4C7C5E; background: #DCEADE; }
-.c6-visual { --c: #C8542C; background: #F0D9C9; }
+/* unified — every card shares one warm-gold surface & accent */
+.c6-ai, .c6-auto, .c6-visual { --c: var(--gold); }
+/* gold sheen that sweeps across on hover */
+.c6::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(115deg, transparent 32%, rgba(255,248,228,.55) 49%, transparent 64%);
+  transform: translateX(-130%);
+  transition: transform .95s cubic-bezier(.2,.6,.2,1);
+  mix-blend-mode: soft-light;
+}
 @media (hover: hover) {
-  .c6:hover { transform: translateY(-6px); box-shadow: 0 28px 56px -28px rgba(45,36,25,.34); }
+  .c6:hover {
+    transform: translateY(-8px);
+    border-color: rgba(196,152,90,.4);
+    box-shadow: 0 1px 0 rgba(255,252,244,.7) inset, 0 34px 62px -30px rgba(45,36,25,.46);
+  }
+  .c6:hover::after { transform: translateX(130%); }
+  .c6:hover .c6-ico svg { transform: scale(1.06); }
 }
 .c6-ico {
   position: relative; z-index: 2;
-  width: 92px; height: 92px;
+  width: 76px; height: 76px;
   color: var(--c);
   display: flex; align-items: center; justify-content: flex-start;
-  margin-bottom: 0;
+  margin-bottom: clamp(16px, 2vw, 20px);
+  animation: c6-breathe 6s ease-in-out infinite;
 }
 .c6-ico svg {
   width: 100%; height: 100%; display: block;
+  transition: transform .55s cubic-bezier(.2,.6,.2,1);
   filter: drop-shadow(0 8px 16px color-mix(in oklab, var(--c) 32%, transparent));
+}
+/* one shared idle motion for all three icons → unified family feel */
+@keyframes c6-breathe {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
 }
 .c6-title {
   position: relative; z-index: 2;
-  margin: 20px 0 8px;
+  margin: 0 0 10px;
   font-style: italic; font-weight: 400; text-transform: lowercase;
   font-size: clamp(24px, 2.4vw, 33px);
   line-height: 1.04; letter-spacing: -0.02em;
@@ -5689,7 +5719,7 @@ body.fan-open .sticky-cta { display: none; }
 }
 .c6-text {
   position: relative; z-index: 2;
-  margin: 0;
+  margin: 0 0 clamp(24px, 3.2vh, 30px);
   font-family: var(--sans);
   font-size: clamp(15.5px, 1.5vw, 17.5px);
   line-height: 1.6;
@@ -5728,13 +5758,41 @@ body.fan-open .sticky-cta { display: none; }
   font-family: var(--sans);
   font-size: 14px; font-weight: 500;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--c);
-  opacity: 0.34;
+  color: #9A7A44;
+  opacity: 0.42;
   pointer-events: none;
 }
 .c6-mq-top { top: 18px; animation: c6-run 10s linear infinite; }
 .c6-mq-bot { bottom: 18px; animation: c6-run 12s linear infinite reverse; }
 @keyframes c6-run { to { transform: translateX(-50%); } }
+
+/* ───────────────────────────────────────────
+   FLOW DIVIDER — quiet editorial diamond break between sections
+─────────────────────────────────────────── */
+.flow-divider {
+  position: relative;
+  width: 100%;
+  height: clamp(72px, 9vh, 112px);
+  display: flex; align-items: center; justify-content: center;
+}
+.flow-divider-orn {
+  display: flex; align-items: center; gap: clamp(10px, 1.4vw, 16px);
+  color: var(--gold);
+  animation: fd-breathe 5.5s ease-in-out infinite;
+}
+.flow-divider-orn i { display: block; flex: none; }
+.fd-rule {
+  height: 1px; width: clamp(56px, 15vw, 190px);
+  background: linear-gradient(90deg, transparent, rgba(196,152,90,.55));
+}
+.fd-rule.fd-r { background: linear-gradient(90deg, rgba(196,152,90,.55), transparent); }
+.fd-dia { width: 7px; height: 7px; transform: rotate(45deg); background: var(--gold); }
+.fd-dia.fd-sm { width: 5px; height: 5px; background: transparent; box-shadow: inset 0 0 0 1px var(--gold); }
+@keyframes fd-breathe { 0%, 100% { opacity: .9; } 50% { opacity: .5; } }
+@media (max-width: 700px) { .flow-divider { height: clamp(58px, 8vh, 90px); } }
+@media (prefers-reduced-motion: reduce) {
+  .flow-divider-orn { animation: none; }
+}
 
 @media (max-width: 900px) {
   .c6-deck { grid-template-columns: 1fr; }
@@ -5742,7 +5800,8 @@ body.fan-open .sticky-cta { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .c6, .c6-cta span { transition: none; }
-  .c6-mq, .ico-ai .spin, .ico-auto .wave, .ico-visual .sq1, .ico-visual .sq2 { animation: none; }
+  .c6::after { display: none; }
+  .c6-mq, .c6-ico, .ico-ai .spin, .ico-auto .wave, .ico-visual .sq1, .ico-visual .sq2 { animation: none; }
 }
 
 /* ───── B2B sections — warm brand identity (gold / terracotta / forest on warm-dark) ───── */
