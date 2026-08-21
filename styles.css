@@ -5973,3 +5973,87 @@ body[data-herobg="particles"] .hero .hero-grain{display:none}
      so the compositor isn't holding extra layers while scrolling */
   [data-card]{will-change:auto}
 }
+
+/* ═══════ PRICE BANNER — переход на /dizayn ═══════ */
+.price-banner{
+  position:relative;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px 32px;
+  margin:34px 0 0;
+  padding:30px 32px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:linear-gradient(135deg, var(--cream) 0%, var(--bg-alt) 100%);
+  color:var(--ink);
+  text-decoration:none;
+  overflow:hidden;
+  isolation:isolate;
+  transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+.price-banner:hover{
+  border-color:var(--gold);
+  transform:translateY(-3px);
+  box-shadow:0 18px 44px rgba(45,36,25,.12);
+}
+.price-banner-glow{
+  position:absolute; inset:auto -18% -60% auto;
+  width:420px; height:420px; z-index:-1;
+  background:radial-gradient(circle, rgba(196,152,90,.30) 0%, rgba(196,152,90,0) 68%);
+  opacity:.85;
+  transition:opacity .3s ease, transform .5s ease;
+}
+.price-banner:hover .price-banner-glow{ opacity:1; transform:scale(1.12); }
+
+.price-banner-main{ display:block; max-width:62ch; }
+.price-banner-kicker{ display:block; color:var(--gold); }
+.price-banner-title{
+  display:block;
+  margin-top:10px;
+  font-size:clamp(21px, 2.4vw, 30px);
+  line-height:1.18;
+  letter-spacing:-.01em;
+}
+.price-banner-desc{
+  display:block;
+  margin-top:10px;
+  color:var(--ink-mute);
+  font-size:15px;
+  line-height:1.6;
+}
+.price-banner-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.price-banner-tag{
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:5px 12px;
+  font-size:13px;
+  color:var(--ink-soft);
+  background:rgba(255,255,255,.42);
+  white-space:nowrap;
+}
+
+.price-banner-cta{
+  display:inline-flex; align-items:center; gap:12px;
+  padding:14px 24px;
+  border-radius:999px;
+  background:var(--forest);
+  color:var(--bg);
+  font-size:15px;
+  white-space:nowrap;
+  transition:gap .3s ease, filter .3s ease;
+}
+.price-banner:hover .price-banner-cta{ gap:18px; filter:brightness(1.1); }
+.price-banner-arrow{ transition:transform .3s ease; }
+.price-banner:hover .price-banner-arrow{ transform:translateX(3px); }
+
+@media (max-width:760px){
+  .price-banner{ padding:24px 22px; border-radius:18px; gap:18px; }
+  .price-banner-cta{ width:100%; justify-content:center; }
+  .price-banner-glow{ width:280px; height:280px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .price-banner, .price-banner-cta, .price-banner-arrow, .price-banner-glow{ transition:none; }
+  .price-banner:hover{ transform:none; }
+}
