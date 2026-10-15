@@ -145,17 +145,31 @@
   .fact b{color:var(--ink);font-weight:500}
   .hero__fan{display:none}
   @media (min-width:1080px){
-    .hero__fan{display:block;position:absolute;right:2rem;top:50%;width:min(34vw,460px);aspect-ratio:16/11;transform:translateY(-46%);pointer-events:none}
+    .hero__fan{display:block;position:absolute;right:2rem;top:50%;width:min(37vw,530px);aspect-ratio:16/11;transform:translateY(-46%);z-index:2;pointer-events:none}
     .hero__lede{max-width:44ch}
     .hero .wrap{position:relative;z-index:1}
-    .facts{max-width:600px}
+    .facts{max-width:560px}
   }
-  .fan{position:absolute;width:74%;border-radius:10px;overflow:hidden;background:#1B140E;box-shadow:0 22px 50px rgba(45,36,25,.22);outline:1px solid rgba(45,36,25,.08)}
-  .fan::before{content:'';display:block;height:18px;background:#3B2E22}
-  .fan img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top}
-  .fan--1{left:0;top:6%;transform:rotate(-6deg)}
-  .fan--2{right:0;top:0;transform:rotate(5deg)}
-  .fan--3{left:13%;bottom:0;transform:rotate(-1deg);z-index:2}
+  /* карточки без рамок; наведение или клик выводят карточку вперёд, крупнее и с подсветкой */
+  .fan{position:absolute;width:76%;border-radius:12px;overflow:hidden;background:#1B140E;cursor:zoom-in;pointer-events:auto;
+    box-shadow:0 22px 50px rgba(45,36,25,.22);outline:1px solid rgba(45,36,25,.08);
+    transition:transform .55s var(--ease),box-shadow .4s ease,filter .4s ease,z-index 0s .55s}
+  .fan img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top}
+  .fan--1{left:0;top:6%;transform:rotate(-6deg);transform-origin:left center;z-index:1}
+  .fan--2{right:0;top:0;transform:rotate(5deg);transform-origin:right top;z-index:1}
+  .fan--3{left:13%;bottom:0;transform:rotate(-1deg);transform-origin:center bottom;z-index:2}
+  .fan.is-front{transform:rotate(0deg) scale(1.32);z-index:6;cursor:zoom-out;
+    transition:transform .55s var(--ease),box-shadow .4s ease,filter .4s ease,z-index 0s;
+    box-shadow:0 0 0 1.5px var(--gold),0 0 36px 6px rgba(216,173,104,.5),0 34px 80px rgba(45,36,25,.34)}
+  .hero__fan.has-front .fan:not(.is-front){filter:saturate(.75) brightness(.9)}
+  /* наведение — только там, где есть мышь: на планшете :hover залипает после тапа */
+  @media (hover:hover){
+    .fan:hover{transform:rotate(0deg) scale(1.32);z-index:5;
+      transition:transform .55s var(--ease),box-shadow .4s ease,filter .4s ease,z-index 0s;
+      box-shadow:0 0 0 1.5px var(--gold),0 0 36px 6px rgba(216,173,104,.5),0 34px 80px rgba(45,36,25,.34)}
+    .hero__fan:has(.fan:hover) .fan:not(:hover):not(.is-front){filter:saturate(.75) brightness(.9)}
+    .hero__fan.has-front .fan:hover{filter:none}
+  }
   .js .fan{animation:fanIn 1.1s var(--ease) both}
   .js .fan--2{animation-delay:.15s}.js .fan--3{animation-delay:.3s}
   @keyframes fanIn{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
@@ -312,6 +326,10 @@
   .opt__t{flex:1;min-width:0;line-height:1.3;font-size:var(--s--1);color:var(--ink)}
   .opt__t small{display:block;color:var(--ink-mute);font-size:.82em;margin-top:.1rem}
   .opt__p{font-family:var(--font);font-weight:500;white-space:nowrap;font-size:var(--s--1);color:var(--gold-ink);font-variant-numeric:tabular-nums}
+  .opt__more,.opt--wide{grid-column:1/-1}
+  .opt__field{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--card);border:1px solid var(--gold);border-radius:10px;padding:.7rem .9rem}
+  .opt__field::placeholder{color:var(--ink-mute)}
+  .opt__field:focus-visible{outline:2px solid var(--gold-ink);outline-offset:1px}
 
   .stepper{display:flex;align-items:center;gap:.75rem;border:1px solid var(--line);border-radius:10px;padding:.55rem .9rem;background:var(--card)}
   .stepper__t{flex:1;font-size:var(--s--1);line-height:1.3}
@@ -361,6 +379,21 @@
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rule__card--free .rule__big{color:#9CC3A0}}
   :root[data-theme="dark"] .rule__card--free .rule__big{color:#9CC3A0}
   .rule__card p{color:var(--ink-soft);font-size:var(--s--1)}
+  .once{margin-top:1rem;border:1px solid var(--gold);background:var(--cream);border-radius:14px;padding:1.5rem 1.4rem;display:grid;gap:1.4rem}
+  @media (min-width:860px){.once{grid-template-columns:1.1fr 1fr;align-items:center;gap:2.4rem;padding:1.8rem 1.9rem}}
+  .once__big{font-family:var(--font);font-size:var(--s-2);font-weight:500;line-height:1.05;color:var(--ink);margin-top:.5rem}
+  .once p{color:var(--ink-soft);font-size:var(--s--1);margin-top:.75rem;max-width:52ch}
+  .once p b{color:var(--ink);font-weight:500}
+  .chat{display:grid;gap:1.1rem}
+  @media (min-width:480px){.chat{grid-template-columns:1fr 1fr;gap:1rem}}
+  .chat__col{display:flex;flex-direction:column;gap:.4rem;align-items:flex-start;min-width:0}
+  .chat__tag{font-family:var(--font);font-size:var(--s--1);font-weight:500;margin-bottom:.15rem}
+  .chat__tag--ok{color:var(--forest)}
+  .chat__tag--no{color:var(--terracotta)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chat__tag--ok{color:#9CC3A0}}
+  :root[data-theme="dark"] .chat__tag--ok{color:#9CC3A0}
+  .bubble{background:var(--card);border:1px solid var(--line);border-radius:12px 12px 12px 4px;padding:.45rem .75rem;font-size:.78rem;line-height:1.45;color:var(--ink-soft);max-width:100%}
+  .bubble ol{margin:0;padding-left:1.05rem}
   .chips{display:flex;flex-wrap:wrap;gap:.35rem}
   .chip{font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:.2rem .6rem;color:var(--ink-mute);background:var(--bg)}
 
@@ -452,10 +485,10 @@
       <a class="btn btn--ghost" href="#works">Смотреть работы</a>
     </div>
     <div class="facts">
-      <span class="fact">Лендинг — <b>25 000 ₽</b></span>
-      <span class="fact">Сайт — <b>40 000 ₽</b></span>
-      <span class="fact">Интеграция — <b>5 000 ₽</b></span>
-      <span class="fact">Поддержка — <b>5 000 ₽/мес</b></span>
+      <span class="fact">Лендинг — <b>25 000 ₽</b></span>
+      <span class="fact">Сайт — <b>40 000 ₽</b></span>
+      <span class="fact">Интеграция — <b>5 000 ₽</b></span>
+      <span class="fact">Поддержка — <b>5 000 ₽/мес</b></span>
       <span class="fact">Договор и <b>документы по 152-ФЗ</b></span>
     </div>
   </div>
@@ -497,7 +530,7 @@
             <li>Яндекс Карта, cookies и документы по 152-ФЗ</li>
           </ul>
           <div class="work__foot">
-            <div class="work__price">40 000 ₽<small>+ поддержка 5 000 ₽ в месяц</small></div>
+            <div class="work__price">40 000 ₽<small>+ поддержка 5 000 ₽ в месяц</small></div>
             <a class="work__link" href="https://xn--24-dlc6ataui.xn--p1ai/" target="_blank" rel="noopener">Открыть сайт ↗</a>
           </div>
         </div>
@@ -523,7 +556,7 @@
             <li>Документы, реквизиты и политика обработки данных</li>
           </ul>
           <div class="work__foot">
-            <div class="work__price">30 000 ₽<small>лендинг 25 000 + форма заявки 5 000</small></div>
+            <div class="work__price">30 000 ₽<small>лендинг 25 000 + форма заявки 5 000</small></div>
             <a class="work__link" href="https://tverchefs.ru/" target="_blank" rel="noopener">Открыть сайт ↗</a>
           </div>
         </div>
@@ -549,7 +582,7 @@
             <li>Вход и заявка на доступ к сервису</li>
           </ul>
           <div class="work__foot">
-            <div class="work__price">30 000 ₽<small>лендинг 25 000 + анимация 5 000</small></div>
+            <div class="work__price">30 000 ₽<small>лендинг 25 000 + анимация 5 000</small></div>
             <a class="work__link" href="https://miravi.art/" target="_blank" rel="noopener">Открыть сайт ↗</a>
           </div>
         </div>
@@ -610,7 +643,7 @@
             <h3>Лендинг</h3>
             <p class="pack__time">Одна страница · 1–1,5 недели</p>
           </div>
-          <div class="pack__price">25 000 ₽</div>
+          <div class="pack__price">25 000 ₽</div>
         </div>
         <ul>
           <li>Одна страница: о вас, услуги, фото, отзывы, контакты</li>
@@ -630,7 +663,7 @@
             <h3>Сайт</h3>
             <p class="pack__time">До 6–7 разделов · 2–3 недели</p>
           </div>
-          <div class="pack__price">40 000 ₽</div>
+          <div class="pack__price">40 000 ₽</div>
         </div>
         <ul>
           <li>Всё, что входит в лендинг</li>
@@ -653,33 +686,35 @@
     <div class="sec-head" data-reveal>
       <p class="eyebrow">Дополнительно</p>
       <h2>Интеграции и анимация</h2>
-      <p>Добавляются к любому формату. Простая интеграция — фиксированные 5 000 ₽, сложная — считаю по задаче.</p>
+      <p>Добавляются к любому формату. Простая интеграция — фиксированные 5 000 ₽, сложная — считаю по задаче.</p>
     </div>
 
     <div class="blocks">
       <div data-reveal>
-        <div class="block__label">Интеграции — 5 000 ₽ каждая</div>
-        <div class="row"><div><div class="row__name">Заявки на почту и в Telegram</div><div class="row__desc">Форма на сайте, заявка сразу приходит вам в Telegram и на почту.</div></div><div class="row__price">5 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Яндекс Карта с маршрутом</div><div class="row__desc">Карта с вашей точкой и кнопкой «построить маршрут».</div></div><div class="row__price">5 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Отзывы с Яндекс Карт</div><div class="row__desc">Ваши реальные отзывы и рейтинг прямо на сайте.</div></div><div class="row__price">5 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Онлайн-запись</div><div class="row__desc">Виджет записи YCLIENTS, DIKIDI или похожего сервиса.</div></div><div class="row__price">5 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Яндекс Метрика и цели</div><div class="row__desc">Видно, сколько людей пришло, откуда и сколько нажали «позвонить».</div></div><div class="row__price">5 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Поиск Яндекса</div><div class="row__desc">Вебмастер, карта сайта, сайт быстрее появляется в поиске.</div></div><div class="row__price">5 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Виджеты соцсетей и чат</div><div class="row__desc">Лента ВКонтакте или Telegram-канала, онлайн-чат на сайте.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="block__label">Интеграции — 5 000 ₽ каждая</div>
+        <div class="row"><div><div class="row__name">Заявки на почту и в Telegram</div><div class="row__desc">Форма на сайте, заявка сразу приходит вам в Telegram и на почту.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Яндекс Карта с маршрутом</div><div class="row__desc">Карта с вашей точкой и кнопкой «построить маршрут».</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Отзывы с Яндекс Карт</div><div class="row__desc">Ваши реальные отзывы и рейтинг прямо на сайте.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Онлайн-запись</div><div class="row__desc">Виджет записи YCLIENTS, DIKIDI или похожего сервиса.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Яндекс Метрика и цели</div><div class="row__desc">Видно, сколько людей пришло, откуда и сколько нажали «позвонить».</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Поиск Яндекса</div><div class="row__desc">Вебмастер, карта сайта, сайт быстрее появляется в поиске.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Виджеты соцсетей и чат</div><div class="row__desc">Лента ВКонтакте или Telegram-канала, онлайн-чат на сайте.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Другая интеграция</div><div class="row__desc">Нужного сервиса нет в списке — опишите его в калькуляторе, посчитаю.</div></div><div class="row__price">от 5 000 ₽</div></div>
       </div>
 
       <div data-reveal>
         <div class="block__label">Сложные интеграции</div>
-        <div class="row"><div><div class="row__name">Онлайн-оплата</div><div class="row__desc">Приём оплаты на сайте через банк или платёжный сервис.</div></div><div class="row__price">от 10 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Каталог с корзиной</div><div class="row__desc">Товары, фильтры, корзина и оформление заказа.</div></div><div class="row__price">от 10 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Редактор контента</div><div class="row__desc">Вы сами меняете меню, цены и фото — без меня.</div></div><div class="row__price">от 10 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">CRM или учётная система</div><div class="row__desc">Заявки с сайта сразу попадают в вашу CRM или кассу.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Онлайн-оплата</div><div class="row__desc">Приём оплаты на сайте через банк или платёжный сервис.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Каталог с корзиной</div><div class="row__desc">Товары, фильтры, корзина и оформление заказа.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Редактор контента</div><div class="row__desc">Вы сами меняете меню, цены и фото — без меня.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">CRM или учётная система</div><div class="row__desc">Заявки с сайта сразу попадают в вашу CRM или кассу.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Другая сложная задача</div><div class="row__desc">Личный кабинет, связь с 1С или складом и другое — считаю по задаче.</div></div><div class="row__price">от 10 000 ₽</div></div>
 
         <div class="block__label" style="margin-top:2rem">Анимация и видео</div>
-        <div class="row"><div><div class="row__name">Немного анимации</div><div class="row__desc">Плавное появление блоков, живые кнопки, переходы между разделами.</div></div><div class="row__price">5 000 ₽</div></div>
-        <div class="row row--lead"><div><div class="row__name">Всё в движении</div><div class="row__desc">Анимация на прокрутке, параллакс, видео или живой фон на первом экране, сложные переходы — как на этой странице.</div></div><div class="row__price">10 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Дополнительный раздел</div><div class="row__desc">Ещё одна страница или большой блок сверх формата.</div></div><div class="row__price">от 3 000 ₽</div></div>
-        <div class="row"><div><div class="row__name">Тексты для сайта</div><div class="row__desc">Если своих текстов нет — напишу сам.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Немного анимации</div><div class="row__desc">Плавное появление блоков, живые кнопки, переходы между разделами.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row row--lead"><div><div class="row__name">Всё в движении</div><div class="row__desc">Анимация на прокрутке, параллакс, видео или живой фон на первом экране, сложные переходы — как на этой странице.</div></div><div class="row__price">10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Дополнительный раздел</div><div class="row__desc">Ещё одна страница или большой блок сверх формата.</div></div><div class="row__price">от 3 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Тексты для сайта</div><div class="row__desc">Если своих текстов нет — напишу сам.</div></div><div class="row__price">5 000 ₽</div></div>
         <p class="row__desc" style="margin-top:.8rem">Нужен ролик или анимированная графика для сайта — смотрите <a href="/dizayn">прайс на дизайн и анимацию</a>.</p>
       </div>
     </div>
@@ -698,11 +733,11 @@
       <div class="calc__opts" id="calcOpts"></div>
       <aside class="calc__sum" id="calcSum">
         <p class="eyebrow">Итого</p>
-        <div class="calc__total" id="calcTotal"><span id="calcFrom"></span><b id="calcNum">40 000</b> ₽</div>
+        <div class="calc__total" id="calcTotal"><span id="calcFrom"></span><b id="calcNum">40 000</b> ₽</div>
         <ul class="calc__lines" id="calcLines"></ul>
         <div class="calc__meta">
-          <span>Предоплата 50% — <b id="calcPre">20 000 ₽</b></span>
-          <span id="calcSupLine" hidden>Поддержка — <b>5 000 ₽ в месяц</b></span>
+          <span>Предоплата 50% — <b id="calcPre">20 000 ₽</b></span>
+          <span id="calcSupLine" hidden>Поддержка — <b>5 000 ₽ в месяц</b></span>
         </div>
         <div class="calc__btns">
           <a class="btn btn--gold" id="calcSend" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">Отправить в Telegram</a>
@@ -715,7 +750,7 @@
   </div>
 </section>
 
-<div class="calc__mini" id="calcMini" aria-hidden="true"><span>Итого</span><b id="calcMiniNum">40 000 ₽</b><a href="#calcSum" tabindex="-1">Подробнее</a></div>
+<div class="calc__mini" id="calcMini" aria-hidden="true"><span>Итого</span><b id="calcMiniNum">40 000 ₽</b><a href="#calcSum" tabindex="-1">Подробнее</a></div>
 
 <section id="support">
   <div class="wrap">
@@ -732,7 +767,7 @@
             <h3>Поддержка</h3>
             <p class="pack__time">Оплата за месяц вперёд</p>
           </div>
-          <div class="pack__price">5 000 ₽<span style="font-size:.42em;font-weight:300;color:var(--ink-mute)"> / мес</span></div>
+          <div class="pack__price">5 000 ₽<span style="font-size:.42em;font-weight:300;color:var(--ink-mute)"> / мес</span></div>
         </div>
         <ul>
           <li>Сервер и хостинг</li>
@@ -746,8 +781,8 @@
 
       <div data-reveal>
         <div class="block__label">Без поддержки</div>
-        <div class="row"><div><div class="row__name">Мелкая правка</div><div class="row__desc">Заменить телефон, фото, текст или цену, добавить мелкую функцию.</div></div><div class="row__price">500 ₽</div></div>
-        <div class="row"><div><div class="row__name">Новая функция или блок</div><div class="row__desc">Всё, что больше мелкой правки.</div></div><div class="row__price">1 500 ₽<small>в час</small></div></div>
+        <div class="row"><div><div class="row__name">Мелкая правка</div><div class="row__desc">Заменить телефон, фото, текст или цену, добавить мелкую функцию.</div></div><div class="row__price">500 ₽</div></div>
+        <div class="row"><div><div class="row__name">Новая функция или блок</div><div class="row__desc">Всё, что больше мелкой правки.</div></div><div class="row__price">1 500 ₽<small>в час</small></div></div>
         <div class="row"><div><div class="row__name">Хостинг и домен</div><div class="row__desc">Оплачиваете сами, помогу всё оформить.</div></div><div class="row__price">по тарифу</div></div>
         <p class="note"><b>Домен оформляем на вас</b> с первого дня, права на сайт переходят к вам после полной оплаты.</p>
       </div>
@@ -767,7 +802,7 @@
       <article class="rule__card rule__card--free" data-reveal>
         <span class="eyebrow">Бесплатно</span>
         <div class="rule__big">Два круга правок по пунктам ТЗ</div>
-        <p>Правки того, что уже записано в техническом задании: доработать, поменять, поправить.</p>
+        <p>Правки того, что уже записано в техническом задании: доработать, поменять, поправить. Каждый круг — одним сообщением.</p>
         <div class="chips"><span class="chip">поменять цвет</span><span class="chip">переставить блоки</span><span class="chip">заменить фото</span><span class="chip">поправить текст</span><span class="chip">подвинуть кнопку</span></div>
       </article>
       <article class="rule__card rule__card--paid" data-reveal>
@@ -778,7 +813,27 @@
       </article>
     </div>
 
-    <p class="note" data-reveal><b>Круг правок</b> — это один общий список замечаний, присланный одним сообщением. Так ничего не теряется, и сайт быстрее доходит до запуска. Третий и следующие круги по пунктам ТЗ — 3 000 ₽ за круг.</p>
+    <div class="once" data-reveal>
+      <div>
+        <span class="eyebrow">Важно</span>
+        <div class="once__big">Правки — одним сообщением</div>
+        <p>Посмотрите сайт целиком, соберите все замечания в один список и пришлите разом. <b>Каждое новое сообщение с правками считается новым кругом.</b> Так ничего не теряется, и сайт быстрее доходит до запуска.</p>
+      </div>
+      <div class="chat" aria-label="Пример: один список правок — один круг, три отдельных сообщения — три круга">
+        <div class="chat__col">
+          <span class="chat__tag chat__tag--ok">1 сообщение = 1 круг</span>
+          <div class="bubble"><ol><li>Телефон в шапке — другой</li><li>Фото на главной посветлее</li><li>Кнопку «Записаться» крупнее</li></ol></div>
+        </div>
+        <div class="chat__col">
+          <span class="chat__tag chat__tag--no">3 сообщения = 3 круга</span>
+          <div class="bubble">Телефон в шапке — другой</div>
+          <div class="bubble">И фото посветлее</div>
+          <div class="bubble">Ой, и кнопку крупнее</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="note" data-reveal><b>Третий и следующие круги</b> по пунктам ТЗ — 3 000 ₽ за круг.</p>
   </div>
 </section>
 
@@ -832,9 +887,9 @@
         <li class="step"><span class="step__n">2</span><div><h3>Техническое задание</h3><p>Записываю разделы, функции, интеграции и анимацию — вместе с их стоимостью по прайсу. Итоговая цена фиксируется в ТЗ.</p></div></li>
         <li class="step"><span class="step__n">3</span><div><h3>Договор</h3><p>Присылаю договор, вы читаете и подписываете.</p></div></li>
         <li class="step step--money"><span class="step__n">4</span><div><h3>Предоплата 50%</h3><p>После неё начинаю работу. Сроки согласуем, когда утвердим ТЗ.</p></div></li>
-        <li class="step"><span class="step__n">5</span><div><h3>Разработка и правки</h3><p>Показываю сайт по рабочей ссылке. Два круга правок по пунктам ТЗ.</p></div></li>
+        <li class="step"><span class="step__n">5</span><div><h3>Разработка и правки</h3><p>Показываю сайт по рабочей ссылке. Два круга правок по пунктам ТЗ — каждый круг одним сообщением.</p></div></li>
         <li class="step step--money"><span class="step__n">6</span><div><h3>Приёмка и 50%</h3><p>После оплаты сайт выходит на ваш домен.</p></div></li>
-        <li class="step"><span class="step__n">7</span><div><h3>Поддержка</h3><p>По желанию — 5 000 ₽ в месяц, и сайт всегда в порядке.</p></div></li>
+        <li class="step"><span class="step__n">7</span><div><h3>Поддержка</h3><p>По желанию — 5 000 ₽ в месяц, и сайт всегда в порядке.</p></div></li>
       </ol>
 
       <aside class="pay" data-reveal>
@@ -860,8 +915,9 @@
       <details><summary>Сколько по времени делается сайт?</summary><div>Лендинг — 1–1,5 недели, сайт — 2–3 недели. Точный срок фиксируем после утверждения ТЗ: он зависит от объёма и от того, как быстро придут тексты и фото.</div></details>
       <details><summary>Что нужно от меня?</summary><div>Логотип, фото, тексты, пара сайтов, которые нравятся, и реквизиты для документов. Если текстов нет — напишу сам. Точный список пришлю после обсуждения.</div></details>
       <details><summary>Чей будет сайт и домен?</summary><div>Ваш. Домен оформляем на вас, права на сайт переходят к вам после полной оплаты.</div></details>
-      <details><summary>Можно без поддержки?</summary><div>Да. Тогда хостинг и домен оплачиваете сами, а правки — по прайсу: мелкая 500 ₽, остальное 1 500 ₽ в час.</div></details>
-      <details><summary>А если нужно то, чего нет в прайсе?</summary><div>Напишите — посчитаю отдельно. Сложные вещи вроде оплаты, каталога или связки с CRM считаю по задаче, от 10 000 ₽.</div></details>
+      <details><summary>Можно без поддержки?</summary><div>Да. Тогда хостинг и домен оплачиваете сами, а правки — по прайсу: мелкая 500 ₽, остальное 1 500 ₽ в час.</div></details>
+      <details><summary>А если нужно то, чего нет в прайсе?</summary><div>Напишите — посчитаю отдельно. Сложные вещи вроде оплаты, каталога или связки с CRM считаю по задаче, от 10 000 ₽.</div></details>
+      <details><summary>Как присылать правки?</summary><div>Одним сообщением, все замечания списком. Каждое новое сообщение с правками считается новым кругом, поэтому лучше сначала посмотреть сайт целиком и прислать всё разом.</div></details>
       <details><summary>Почему правки только по ТЗ?</summary><div>Так честно для обеих сторон: вы заранее знаете, за что платите, а работа не растягивается на месяцы. Новое по ходу тоже можно добавить — по прайсу и с вашего согласия.</div></details>
     </div>
   </div>
@@ -887,7 +943,7 @@
       </a>
       <a class="contact" href="tel:+79106407134">
         <svg class="contact__ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2Z"/></svg>
-        <span class="contact__t"><b>+7 910 640-71-34</b><small>Позвонить</small></span>
+        <span class="contact__t"><b>+7 910 640-71-34</b><small>Позвонить</small></span>
       </a>
     </div>
 
@@ -908,6 +964,19 @@
     }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
     rv.forEach(function(el){ io.observe(el); });
   } else { rv.forEach(function(el){ el.classList.add('is-in'); }); }
+
+  /* ── hero: карточка по клику выходит вперёд, повторный клик или клик мимо — обратно ── */
+  var fanBox = document.querySelector('.hero__fan');
+  function fanFront(card){
+    fanBox.querySelectorAll('.fan').forEach(function(f){ f.classList.toggle('is-front', f === card); });
+    fanBox.classList.toggle('has-front', !!card);
+  }
+  fanBox.addEventListener('click', function(e){
+    var c = e.target.closest('.fan');
+    if (c) fanFront(c.classList.contains('is-front') ? null : c);
+  });
+  document.addEventListener('click', function(e){ if (!fanBox.contains(e.target)) fanFront(null); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fanFront(null); });
 
   /* ── works: carousel (по умолчанию) ── */
   var track = document.getElementById('track');
@@ -1025,13 +1094,17 @@
     {id:'booking', name:'Онлайн-запись', price:5000},
     {id:'metrika', name:'Яндекс Метрика и цели', price:5000},
     {id:'seo', name:'Поиск Яндекса', price:5000},
-    {id:'social', name:'Виджеты соцсетей и чат', price:5000}
+    {id:'social', name:'Виджеты соцсетей и чат', price:5000},
+    {id:'integOther', name:'Другая интеграция', note:'напишите, что подключить', price:5000, from:true,
+      ph:'Например: доставка через iiko, виджет бронирования', label:'Какую интеграцию подключить'}
   ];
   var HARD = [
     {id:'pay', name:'Онлайн-оплата', price:10000, from:true},
     {id:'shop', name:'Каталог с корзиной', price:10000, from:true},
     {id:'cms', name:'Редактор контента', price:10000, from:true},
-    {id:'crm', name:'CRM или учётная система', price:10000, from:true}
+    {id:'crm', name:'CRM или учётная система', price:10000, from:true},
+    {id:'hardOther', name:'Другая сложная задача', note:'опишите, что нужно', price:10000, from:true, wide:true,
+      ph:'Например: личный кабинет, связь с 1С или складом', label:'Какая сложная задача нужна'}
   ];
   var ANIM = [
     {id:'a0', name:'Без анимации', price:0, on:true},
@@ -1046,10 +1119,14 @@
   function opt(type, group, o){
     var p = o.price === 0 ? '—' : (o.from ? 'от ' : '+ ') + fmt(o.price) + ' ₽' + (o.monthly ? '/мес' : '');
     if (type === 'radio' && group === 'base') p = fmt(o.price) + ' ₽';
-    return '<label class="opt"><input type="' + type + '" name="' + group + '" value="' + o.id + '"' + (o.on ? ' checked' : '') + '>' +
+    return '<label class="opt' + (o.wide ? ' opt--wide' : '') + '"><input type="' + type + '" name="' + group + '" value="' + o.id + '"' + (o.on ? ' checked' : '') +
+      (o.ph ? ' aria-controls="more-' + o.id + '" aria-expanded="false"' : '') + '>' +
       '<span><i class="opt__box" aria-hidden="true"></i><span class="opt__t">' + o.name + (o.note ? '<small>' + o.note + '</small>' : '') +
-      '</span><b class="opt__p">' + p + '</b></span></label>';
+      '</span><b class="opt__p">' + p + '</b></span></label>' +
+      (o.ph ? '<div class="opt__more" id="more-' + o.id + '" hidden><input class="opt__field" type="text" id="txt-' + o.id + '" maxlength="140"' +
+        ' placeholder="' + o.ph + '" aria-label="' + o.label + '"></div>' : '');
   }
+  function esc(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function fs(title, html, cls){ return '<fieldset><legend>' + title + '</legend><div class="opts ' + (cls || '') + '">' + html + '</div></fieldset>'; }
   var box = document.getElementById('calcOpts');
   box.innerHTML =
@@ -1077,7 +1154,9 @@
       var o = ALL[inp.value];
       if (o.monthly){ support = true; return; }
       if (!o.price) return;
-      items.push([o.name, o.price, o.from]); total += o.price; if (o.from) from = true;
+      var name = o.name, txt = o.ph ? document.getElementById('txt-' + o.id).value.trim() : '';
+      if (txt) name += ': ' + txt;
+      items.push([name, o.price, o.from]); total += o.price; if (o.from) from = true;
     });
     if (extra > 0){ items.push(['Доп. разделы × ' + extra, extra * 3000, true]); total += extra * 3000; from = true; }
     return {items:items, total:total, from:from, support:support};
@@ -1096,7 +1175,9 @@
   function summary(s){
     var lines = s.items.map(function(it){ return '• ' + it[0] + ' — ' + (it[2] ? 'от ' : '') + fmt(it[1]) + ' ₽'; });
     return 'Здравствуйте! Посчитал сайт на kozflow.ru/sayty:\n' + lines.join('\n') +
-      '\nИтого: ' + (s.from ? 'от ' : '') + fmt(s.total) + ' ₽' + (s.support ? '\n+ поддержка 5 000 ₽ в месяц' : '');
+      '\nИтого: ' + (s.from ? 'от ' : '') + fmt(s.total) + ' ₽' +
+      '\nПредоплата 50%: ' + (s.from ? 'от ' : '') + fmt(Math.round(s.total / 2)) + ' ₽' +
+      (s.support ? '\n+ поддержка 5 000 ₽ в месяц' : '');
   }
   function render(){
     var s = state();
@@ -1104,12 +1185,22 @@
     elFrom.textContent = s.from ? 'от' : '';
     elPre.textContent = (s.from ? 'от ' : '') + fmt(Math.round(s.total / 2)) + ' ₽';
     elSup.hidden = !s.support;
-    elLines.innerHTML = s.items.map(function(it){ return '<li><span>' + it[0] + '</span><b>' + (it[2] ? 'от ' : '') + fmt(it[1]) + ' ₽</b></li>'; }).join('');
+    elLines.innerHTML = s.items.map(function(it){ return '<li><span>' + esc(it[0]) + '</span><b>' + (it[2] ? 'от ' : '') + fmt(it[1]) + ' ₽</b></li>'; }).join('');
     document.getElementById('calcSend').dataset.text = summary(s);
     document.getElementById('calcMiniNum').textContent = (s.from ? 'от ' : '') + fmt(s.total) + ' ₽';
     document.getElementById('calcLive').textContent = 'Итого ' + (s.from ? 'от ' : '') + fmt(s.total) + ' рублей';
   }
-  box.addEventListener('change', render);
+  box.addEventListener('change', function(e){
+    var more = e.target.type === 'checkbox' && document.getElementById('more-' + e.target.value);
+    if (more){
+      more.hidden = !e.target.checked;
+      e.target.setAttribute('aria-expanded', e.target.checked ? 'true' : 'false');
+      /* с мышью сразу ставим курсор в поле; на телефоне не выдёргиваем клавиатуру */
+      if (e.target.checked && window.matchMedia('(hover: hover) and (pointer: fine)').matches) more.querySelector('input').focus();
+    }
+    render();
+  });
+  box.addEventListener('input', function(e){ if (e.target.classList.contains('opt__field')) render(); });
   box.addEventListener('click', function(e){
     var b = e.target.closest('[data-step]'); if (!b) return;
     extra = Math.max(0, Math.min(10, extra + Number(b.dataset.step)));
