@@ -131,8 +131,11 @@
   .topbar__links{display:none;gap:1.4rem;font-size:var(--s--1);color:var(--ink-mute)}
   .topbar__links a{color:inherit;text-decoration:none}
   .topbar__links a:hover{color:var(--gold-ink)}
-  @media (min-width:900px){.topbar__links{display:flex}}
+  @media (min-width:1100px){.topbar__links{display:flex}}
   .topbar .btn{padding:.6rem 1.2rem}
+  .topbar .topbar__home{gap:.45rem;padding-inline:1rem}
+  .topbar__home svg{width:18px;height:18px;flex:0 0 18px}
+  @media (max-width:479px){.topbar .topbar__home{padding-inline:.7rem}.topbar__home span{display:none}}
 
   /* ───────── hero ───────── */
   .hero{padding-block:clamp(2.6rem,7vw,5rem) clamp(2.2rem,5vw,3.4rem);position:relative;overflow:hidden}
@@ -442,6 +445,7 @@
   .foot__cta h2{color:var(--on-night)}
   .foot__cta p{color:var(--on-night-mute);max-width:44ch;font-size:var(--s--1);margin-top:.6rem}
   .foot__note{margin-top:2.2rem;padding-top:1.2rem;border-top:1px solid #46362A;color:#8E7B5C;font-size:var(--s--1)}
+  .foot__note a{color:var(--on-night)}
   .contacts{display:grid;gap:.8rem;margin-top:2rem}
   @media (min-width:720px){.contacts{grid-template-columns:repeat(3,1fr)}}
   .contact{display:flex;align-items:center;gap:.85rem;padding:1rem 1.15rem;border:1px solid #4E3D2E;border-radius:10px;background:#33271C;color:var(--on-night);
@@ -458,10 +462,10 @@
   }
 </style>
 </head>
-<body>
+<body id="top">
 <div class="topbar">
   <div class="wrap topbar__in">
-    <a class="brand" href="/"><img src="assets/logo.webp" alt="" width="34" height="34">KozFlow</a>
+    <a class="brand" href="#top" aria-label="KozFlow — наверх страницы"><img src="assets/logo.webp" alt="" width="34" height="34">KozFlow</a>
     <span class="topbar__spacer"></span>
     <nav class="topbar__links" aria-label="Разделы">
       <a href="#works">Работы</a>
@@ -471,6 +475,7 @@
       <a href="#edits">Правки</a>
       <a href="#how">Как работаем</a>
     </nav>
+    <a class="btn btn--ghost topbar__home" href="/" aria-label="Главный сайт KozFlow"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5M10 20v-5.5h4V20"/></svg><span>Главная</span></a>
     <a class="btn" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">Написать</a>
   </div>
 </div>
@@ -947,7 +952,7 @@
       </a>
     </div>
 
-    <p class="foot__note">KozFlow · сайты под ключ · Тверь и удалённо по РФ · цены действуют с 15.10.2026</p>
+    <p class="foot__note">KozFlow · сайты под ключ · Тверь и удалённо по РФ · цены действуют с 15.10.2026 · <a href="/">главный сайт KozFlow</a></p>
   </div>
 </footer>
 
@@ -1242,6 +1247,8 @@
     var t = document.querySelector(a.getAttribute('href'));
     if (!t) return;
     e.preventDefault();
+    /* доводка сцены «Работы» (snap) иначе перебивает плавную прокрутку, если клик сразу после скролла */
+    if (window.gsap) gsap.killTweensOf(window);
     t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
   });
 })();
