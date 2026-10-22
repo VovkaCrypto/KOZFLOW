@@ -221,6 +221,8 @@ dl.pass dd b{font:500 22px/1.1 var(--disp)}
   .pg-tabs a{background:var(--bg-alt)}
   html{scroll-padding-top:120px}
   .sec-h{flex-direction:column;align-items:flex-start;gap:12px}
+  h1,h2,h3{overflow-wrap:break-word}
+  .sec-h h2,.pg-contact h2{font-size:clamp(28px,8.2vw,34px)}
   .total .lg{display:none}
   .opt-row{flex-wrap:wrap}
   .opt-row .opt{flex:1 1 100%}
@@ -271,4 +273,119 @@ dl.pass dd b{font:500 22px/1.1 var(--disp)}
   .rv{opacity:1;transform:none;transition:none}
   .btn,.card,.opt{transition:none}
   .btn:hover,.card:hover{transform:none}
+}
+
+/* ══ блоки страницы «Автоматизации» (переиспользуемые) ══ */
+
+/* экран-карточка: переписка с ботом и экран Платёжного календаря */
+.screens{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:end}
+.scr{position:relative;border-radius:22px;background:var(--night);color:var(--cream);box-shadow:0 40px 80px -34px rgba(45,36,25,.55);overflow:hidden}
+.scr-cap{margin-top:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute)}
+.chat{display:flex;flex-direction:column;height:420px;padding:18px}
+.chat .hd{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid #3A2E22}
+.chat .av{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--night);font:500 17px/1 var(--disp)}
+.chat .who{display:block;font-weight:500}
+.chat .where{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#B7A88F}
+.chat .live{margin-left:auto;font-size:11px;color:#8FBF8A}
+.chat .live::before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:#8FBF8A;animation:pulse 1.6s infinite}
+.chat .msgs{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;flex:1;padding-top:14px;overflow:hidden;font-size:15px;line-height:1.35}
+.chat .mg{max-width:84%;padding:9px 13px;opacity:0;transform:translateY(10px) scale(.97);transition:opacity .45s var(--ease),transform .6s var(--ease)}
+.chat .mg.on{opacity:1;transform:none}
+.chat .q{align-self:flex-start;background:#2E241A;border-radius:14px 14px 14px 4px}
+.chat .a{align-self:flex-end;background:var(--gold);color:var(--night);border-radius:14px 14px 4px 14px}
+.chat .ty{display:flex;gap:4px;padding:12px 14px}
+.chat .ty i{width:6px;height:6px;border-radius:50%;background:var(--night);animation:ty 1s infinite}
+.chat .ty i:nth-child(2){animation-delay:.15s}.chat .ty i:nth-child(3){animation-delay:.3s}
+@keyframes ty{0%,100%{opacity:.3;transform:none}50%{opacity:1;transform:translateY(-3px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.cal{padding:18px;font-size:14px}
+.cal .file{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:10px 12px;border-radius:12px;background:#2E241A}
+.cal .file i{display:grid;place-items:center;width:30px;height:36px;border-radius:4px;background:var(--terracotta);color:#fff;font:600 10px/1 var(--text);font-style:normal}
+.cal .file small{display:block;color:#B7A88F;font-size:12px}
+.cal .reply{padding:12px 14px;border-radius:14px 14px 4px 14px;background:#2E241A;border:1px solid #3A2E22}
+.cal dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:8px 0 10px}
+.cal dt{color:#B7A88F}
+.cal dd{text-align:right;font-weight:500}
+.cal .due{display:flex;justify-content:space-between;align-items:baseline;padding-top:9px;border-top:1px solid #3A2E22}
+.cal .due b{font:400 22px/1 var(--disp);color:var(--gold)}
+.cal .mon{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px;font-size:11px;text-align:center;color:#8C7D66}
+.cal .mon span{padding:5px 0;border-radius:6px}
+.cal .mon .r{background:#3A2E22;color:var(--cream)}
+.cal .mon .d{background:var(--gold);color:var(--night);font-weight:600}
+.cal .note{margin-top:10px;font-size:12px;color:#B7A88F}
+
+/* работы без видео: карточки с цепочкой «на входе → на выходе» */
+.wk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.wk article{display:flex;flex-direction:column;gap:12px;padding:26px 24px;border:1px solid #3A2E22;border-radius:18px;background:var(--night-2);
+  transition:transform .45s var(--ease),border-color .45s var(--ease)}
+.wk article:hover{transform:translateY(-5px);border-color:#5A4A38}
+.wk .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.wk h3{font-size:clamp(24px,2.2vw,30px);color:var(--cream)}
+.wk p{color:#CDBB98;font-size:15px}
+.wk .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:auto;padding-top:6px;font-size:13px;color:#B7A88F}
+.wk .flow span{padding:5px 10px;border:1px solid #3A2E22;border-radius:999px}
+.wk .flow em{font-style:normal;color:var(--gold)}
+.wk .lnk{align-self:flex-start;font-size:14px;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(196,152,90,.4)}
+.wk article.soon{border-style:dashed;background:none}
+
+/* «Где вы выигрываете» */
+.wins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.wins article{display:flex;flex-direction:column;gap:10px;padding:24px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.wins .ex{align-self:flex-start;padding:4px 10px;border-radius:999px;background:var(--bg-alt);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute)}
+.wins h3{font-size:22px}
+.wins .big{font:400 30px/1.05 var(--disp);color:var(--terracotta)}
+.wins p{font-size:15px;color:var(--ink-soft)}
+.wins .as{margin-top:auto;padding-top:10px;border-top:1px dotted var(--line);font-size:13px;color:var(--ink-mute)}
+
+/* калькулятор выгоды */
+.gain{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;margin-top:28px;padding:clamp(22px,3vw,36px);border-radius:22px;background:var(--bg-alt)}
+.gain h3{font-size:clamp(26px,2.6vw,34px);margin-bottom:6px}
+.gain .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.gain label{display:grid;gap:6px;font-size:13px;color:var(--ink-mute)}
+.gain input[type=number]{width:100%;height:48px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font:500 16px var(--text);color:var(--ink)}
+.gain .chk{display:flex;align-items:center;gap:10px;grid-column:1/-1;font-size:14px;color:var(--ink-soft)}
+.gain .chk input{width:18px;height:18px;accent-color:var(--ink)}
+.gain .res{display:grid;align-content:center;gap:4px;padding:24px;border-radius:18px;background:var(--night);color:var(--cream)}
+.gain .res div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #3A2E22;font-size:14px;color:#CDBB98}
+.gain .res div:first-of-type{border-top:0}
+.gain .res b{font-weight:500;color:var(--cream);white-space:nowrap}
+.gain .res .hl b{font:400 30px/1 var(--disp);color:var(--gold)}
+.gain .res small{margin-top:8px;font-size:12px;color:#8C7D66}
+
+/* «Ежемесячно» */
+.monthly{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:start}
+.monthly .big{font:400 clamp(34px,3.6vw,48px)/1 var(--disp)}
+.monthly ul{display:grid;gap:8px;margin-top:16px;font-size:15px;color:var(--ink-soft)}
+.monthly li{padding-left:18px;position:relative}
+.monthly li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+.monthly .ex-list{display:grid;padding:22px 24px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.monthly .ex-list div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px dotted var(--line);font-size:15px}
+.monthly .ex-list div:last-child{border-bottom:0}
+.monthly .ex-list b{font-weight:500;white-space:nowrap}
+.pack-h{margin:36px 0 16px;font:500 13px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute)}
+.pack-h.first{margin-top:0}
+.card .price small{font-size:.5em;letter-spacing:0}
+.cards.c3{--cols:3}
+
+@media (max-width:1100px){
+  .wk,.wins{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cards.c3{--cols:3}
+}
+@media (max-width:900px){
+  .cards.c3{--cols:1}
+}
+@media (max-width:900px){
+  .gain,.monthly{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .screens{grid-template-columns:minmax(0,1fr)}
+  .chat{height:340px}
+  .wk,.wins{grid-template-columns:minmax(0,1fr)}
+  .gain .fields{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  .chat .mg{transition:none}
+  .chat .live::before,.chat .ty i{animation:none}
+  .wk article{transition:none}
 }

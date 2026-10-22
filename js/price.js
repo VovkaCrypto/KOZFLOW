@@ -35,7 +35,12 @@ if (cfgEl && calc) {
   // группы: пакеты (выбор одного) → допы по группам → скидки → срочно
   const groups = [];
   const packs = cfg.items.filter(isPack);
-  if (packs.length) groups.push(`<div class="calc-group"><h3>${esc(cfg.packTitle || 'Пакет')}</h3><div class="calc-list" role="group" aria-label="${esc(cfg.packTitle || 'Пакет')}: можно выбрать один">${packs.map((it) => optHtml(it, 'radio')).join('')}</div></div>`);
+  // пакеты группами (боты / автоматизации); в каждой группе выбирается один
+  const packGroup = (it) => it.group || cfg.packTitle || 'Пакет';
+  for (const g of [...new Set(packs.map(packGroup))]) {
+    const list = packs.filter((it) => packGroup(it) === g);
+    groups.push(`<div class="calc-group"><h3>${esc(g)}</h3><div class="calc-list" role="group" aria-label="${esc(g)}: можно выбрать один">${list.map((it) => optHtml(it, 'radio')).join('')}</div></div>`);
+  }
   const extraGroups = [...new Set(cfg.items.filter((it) => !isPack(it)).map((it) => it.group || 'Дополнительно'))];
   for (const g of extraGroups) {
     const list = cfg.items.filter((it) => !isPack(it) && (it.group || 'Дополнительно') === g);
@@ -81,7 +86,8 @@ if (cfgEl && calc) {
     if (dnote) dnote.hidden = !!pack;
 
     const q = computeQuote(cfg, state);
-    const term = pack?.term ? (state.items.urgent != null ? `вдвое короче, чем ${pack.term}` : pack.term) : '';
+    const terms = packs.filter((it) => state.items[it.id] != null && it.term).map((it) => it.term).join(' + ');
+    const term = terms ? (state.items.urgent != null ? `вдвое короче, чем ${terms}` : terms) : '';
     $('.sum').textContent = q.empty ? formatRub(0) : (q.from ? 'от ' : '') + formatRub(q.total);
     $('.hint').textContent = q.empty ? 'Отметьте пакет или нужные позиции' : q.from ? '«от» — точную цену назову после разговора' : '';
     const rows = q.lines.map((l) => `<div class="${l.amount < 0 ? 'neg' : ''}"><span>${esc(l.name)}</span><b>${l.amount < 0 ? '−' + formatRub(-l.amount) : (l.from ? 'от ' : '') + formatRub(l.amount)}</b></div>`);
@@ -100,7 +106,7 @@ if (cfgEl && calc) {
     const it = cfg.items.find((x) => x.id === id);
     if (!it) return;
     const on = force ?? state.items[id] == null;
-    if (isPack(it)) for (const p of packs) delete state.items[p.id];
+    if (isPack(it)) for (const p of packs) if (packGroup(p) === packGroup(it)) delete state.items[p.id];
     if (on) state.items[id] = it.kind === 'perUnit' || it.counter ? qtyVal(id) : true;
     else delete state.items[id];
     render();
@@ -147,6 +153,48 @@ document.addEventListener('click', (e) => {
   pick(b.dataset.pick);
   document.getElementById('calc')?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
 });
+
+/* ── переписка с ботом: [data-chat] с <script type="application/json"> внутри — диалоги по кругу ── */
+for (const el of document.querySelectorAll('[data-chat]')) {
+  const dialogs = JSON.parse(el.querySelector('script').textContent);
+  const av = el.querySelector('.av'), who = el.querySelector('.who'), where = el.querySelector('.where'), box = el.querySelector('.msgs');
+  const show = (d) => { av.textContent = d.who[0]; who.textContent = d.who; where.textContent = d.where; };
+  const bubble = (c, t) => { const b = document.createElement('div'); b.className = 'mg ' + c; b.textContent = t; box.appendChild(b); requestAnimationFrame(() => b.classList.add('on')); return b; };
+  if (reduced) { show(dialogs[0]); dialogs[0].m.forEach(([c, t]) => bubble(c, t).classList.add('on')); continue; }
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  (async () => {
+    for (let k = 0; ; k = (k + 1) % dialogs.length) {
+      const d = dialogs[k];
+      box.replaceChildren(); show(d);
+      await wait(500);
+      for (const [c, t] of d.m) {
+        if (c === 'a') { const ty = bubble('a ty', ''); ty.innerHTML = '<i></i><i></i><i></i>'; await wait(1100); ty.remove(); }
+        bubble(c, t);
+        await wait(c === 'a' ? 1500 : 1000);
+      }
+      await wait(2600);
+    }
+  })();
+}
+
+/* ── калькулятор выгоды: #gain — зарплата × ставки (+ взносы) против расхода на бота ── */
+const gain = document.getElementById('gain');
+if (gain) {
+  const out = (k) => gain.querySelector(`[data-out="${k}"]`);
+  const num = (n) => { const v = Number(String(gain.elements[n].value).replace(/\s/g, '')); return Number.isFinite(v) && v > 0 ? v : 0; };
+  const calcGain = () => {
+    const staff = num('salary') * num('rates') * (gain.elements.taxes.checked ? 1.3 : 1);
+    const diff = Math.round(staff - num('bot'));
+    out('staff').textContent = formatRub(staff);
+    out('month').textContent = (diff < 0 ? '−' : '') + formatRub(Math.abs(diff));
+    out('year').textContent = (diff < 0 ? '−' : '') + formatRub(Math.abs(diff * 12));
+    const pack = Number(gain.dataset.pack) || 0;
+    out('payback').textContent = diff > 0 && pack ? `${Math.max(1, Math.ceil(pack / diff))} мес.` : '—';
+  };
+  gain.addEventListener('input', calcGain);
+  gain.addEventListener('submit', (e) => e.preventDefault());
+  calcGain();
+}
 
 /* ── видео: играют только на экране; при reduced-motion — постер и кнопка ── */
 const vids = [...document.querySelectorAll('video[data-play]')];
