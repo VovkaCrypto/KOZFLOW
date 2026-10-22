@@ -86,6 +86,50 @@ test('telegramLink: кириллица и ₽ кодируются, текст �
   assert.ok(long.length <= 2000);
 });
 
+test('ревью: длинный расчёт не теряет «Итого» и предоплату', () => {
+  const many = { items: Array.from({ length: 200 }, (_, i) => ({ id: 'x' + i, name: 'Доп ' + i, price: 1000, kind: 'extra' })), prepay: { mode: 'half' } };
+  const q = computeQuote(many, { items: Object.fromEntries(many.items.map((it) => [it.id, 1])) });
+  const text = decodeURIComponent(telegramLink(q, 'Дизайн').split('?text=')[1]);
+  assert.ok(text.length <= 2000);
+  assert.ok(text.endsWith(`Итого: ${formatRub(200000)}\nПредоплата 50 %`));
+  assert.ok(text.includes('— …'));
+});
+
+test('ревью: странное количество не ломает расчёт', () => {
+  assert.equal(computeQuote(reel, { items: { promo: true, urgent: '0' } }).total, 10000);
+  assert.equal(computeQuote(reel, { items: { promo: true, urgent: -1 } }).total, 10000);
+  assert.equal(computeQuote(reel, { items: { promo: true, urgent: 1 } }).total, 15000);
+  assert.equal(computeQuote(reel, { items: { format: Infinity } }).empty, true);
+  assert.equal(computeQuote(reel, { items: { promo: true }, discount: 'nope' }).total, 10000);
+});
+
+test('ревью: заголовок без текста и из эмодзи', () => {
+  const q = computeQuote(reel, { items: { promo: true } });
+  assert.ok(!decodeURIComponent(telegramLink(q).split('?text=')[1]).includes('undefined'));
+  for (let n = 1; n < 6; n++) assert.doesNotThrow(() => telegramLink(q, 'x'.repeat(n) + '🎬'.repeat(400)));
+});
+
+test('ревью: скидка действует и на видеоменю (это пакет)', () => {
+  assert.equal(computeQuote(reel, { items: { menu: 85 }, discount: 'first' }).total, 28000);
+});
+
+test('ревью: этапы в сумме 100 %, бот + приложение — каждый по своей схеме', () => {
+  const app = { items: [{ id: 'app', name: 'Приложение', price: 70000, kind: 'package' }], prepay: { mode: 'stages', stagePct: 20 } };
+  assert.match(computeQuote(app, { items: { app: true } }).prepayLabel, /20\s%\s\/\s60\s%\s\/\s20\s%/);
+  const auto = {
+    items: [
+      { id: 'voice', name: 'Голосовой бот', price: 50000, from: true, kind: 'package', prepay: { mode: 'half' } },
+      { id: 'app', name: 'Приложение', price: 70000, from: true, kind: 'package', prepay: { mode: 'stages', stagePct: 30 } },
+    ],
+    prepay: { mode: 'half' },
+  };
+  const q = computeQuote(auto, { items: { voice: true, app: true } });
+  assert.equal(q.total, 120000);
+  assert.equal(q.prepay, 25000 + 21000);
+  assert.match(q.prepayLabel, /Голосовой бот: предоплата 50\s%/);
+  assert.match(q.prepayLabel, /Приложение: оплата этапами: 30\s%/);
+});
+
 test('formatRub: неразрывные пробелы', () => {
   assert.equal(formatRub(12000), '12 000 ₽');
   assert.equal(formatRub(500), '500 ₽');
