@@ -31,3 +31,6 @@ kozflow-landing-site/
 
 # Server secrets (Timeweb) — токен бота, не коммитим
 api/config.php
+
+# Скриншоты проверок (tests/shot.mjs)
+tests/shots/

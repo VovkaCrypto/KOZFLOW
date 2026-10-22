@@ -1,1 +1,38 @@
-/* Старые разделы главной в стиле новой главной — Task 2 */
+/* Старые разделы главной (кейсы, как работаем, почему, вопросы, контакт, подвал) в стиле новой главной.
+   Временный слой: разделы заменяются секциями 3–7 (этап 3). Старые стили лежат ниже в @layer legacy. */
+
+html, body { overflow-x: clip; }
+
+/* появление старых разделов держалось на загрузчике старой главной — его нет, показываем сразу */
+.legacy .kt-section, .legacy .reveal { opacity: 1 !important; transform: none !important; visibility: visible !important; filter: none !important; }
+
+.legacy {
+  --bg: #FAF7F2; --bg-alt: #EFEAE0; --ink: #2D2419; --ink-soft: #4A3E2E; --ink-mute: #7A6B56;
+  --line: #D9CFB9; --gold: #C4985A; --terracotta: #C26B4A; --cream: #F5EFDF; --night: #17120D; --night-2: #2A2018;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  background: var(--bg); color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.legacy h2, .legacy h3, .legacy .serif, .legacy .services-head h2, .legacy .foot-logo {
+  font-family: "STRome", Georgia, serif !important; font-weight: 400; text-transform: uppercase; letter-spacing: .01em; color: inherit;
+}
+.legacy .kt-section { padding-top: clamp(72px, 9vw, 128px); padding-bottom: clamp(72px, 9vw, 128px); }
+.legacy .kicker, .legacy .services-head .kicker { color: var(--gold); letter-spacing: .18em; }
+
+/* блок «обруч с работами» держался на works-orbit.js старой главной — на новой главной работы показывает hero-v3 */
+.legacy .works-orbit { display: none; }
+
+/* контейнеры старых разделов: ширина и поля как у новой главной */
+.legacy .wrap, .legacy .wrap-narrow { max-width: 1200px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 40px); box-sizing: border-box; }
+.legacy .wrap-narrow { max-width: 960px; }
+.legacy p, .legacy li, .legacy span, .legacy a, .legacy label, .legacy input, .legacy textarea, .legacy button { text-transform: none; }
+.legacy .section-h-italic, .legacy .section-h { font-style: normal; }
+
+/* как работаем: шаги шире и воздушнее */
+.legacy .pr-flow { gap: clamp(16px, 3vw, 40px); }
+.legacy .pr-step-name { font-family: "STRome", Georgia, serif; font-size: 20px; line-height: 1.15; text-transform: uppercase; font-style: normal; }
+
+/* контакт: заголовок и поля читаемы на тёмном */
+.legacy .cta-section { background: var(--night); color: var(--cream); }
+.legacy .cta-section h2, .legacy .cta-section .section-title { color: var(--cream) !important; opacity: 1 !important; -webkit-text-fill-color: currentColor; background: none; }
+.legacy .cta-section .field input, .legacy .cta-section .field textarea { background: var(--night-2); border: 1px solid #3a2e22; color: var(--cream); }
