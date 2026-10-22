@@ -36,3 +36,9 @@ html, body { overflow-x: clip; }
 .legacy .cta-section { background: var(--night); color: var(--cream); }
 .legacy .cta-section h2, .legacy .cta-section .section-title { color: var(--cream) !important; opacity: 1 !important; -webkit-text-fill-color: currentColor; background: none; }
 .legacy .cta-section .field input, .legacy .cta-section .field textarea { background: var(--night-2); border: 1px solid #3a2e22; color: var(--cream); }
+
+/* Класс .svc занят старой карточкой услуг в styles.css: её overflow:hidden ломает sticky у .svc-pin
+   (секция «Услуги» уезжала, оставляя пустой экран), плюс flex, радиус, тень и hover-сдвиг. */
+#services.svc { overflow: visible; display: block; border-radius: 0; padding: 0; min-height: 0;
+  box-shadow: none; transition: none; }
+#services.svc:hover { transform: none; box-shadow: none; }
