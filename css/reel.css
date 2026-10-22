@@ -1,0 +1,128 @@
+/* reel.css — каркас hero v3: раскладка 10-го варианта (шапка, центр, полоса глав, край секции) + HUD видоискателя и зерно. */
+@font-face{font-family:'STRome';src:url('../assets/fonts/STRomeTrial-Thin.otf') format('opentype');font-weight:100;font-display:swap}
+@font-face{font-family:'STRome';src:url('../assets/fonts/STRomeTrial-Light.otf') format('opentype');font-weight:300;font-display:swap}
+@font-face{font-family:'STRome';src:url('../assets/fonts/STRomeTrial-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'STRome';src:url('../assets/fonts/STRomeTrial-Medium.otf') format('opentype');font-weight:500;font-display:swap}
+@font-face{font-family:'STRome';src:url('../assets/fonts/STRomeTrial-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+@font-face{font-family:'STRome';src:url('../assets/fonts/STRomeTrial-Black.otf') format('opentype');font-weight:900;font-display:swap}
+
+:root{
+  --bg:#FAF7F2; --bg-alt:#EFEAE0; --ink:#2D2419; --ink-soft:#4A3E2E; --ink-mute:#7A6B56; --line:#D9CFB9;
+  --gold:#C4985A; --terracotta:#C26B4A; --forest:#3A4A3D; --sky:#A8C5D9; --cream:#F5EFDF;
+  --night:#17120D; --night-2:#2A2018;
+  /* цвета, которые меняются на тёмной сцене (их тянет таймлайн на body) */
+  --fg:#2D2419; --fgi:#F5EFDF; --fg-soft:#4A3E2E; --fg-mute:#7A6B56; --fg-line:#D9CFB9; --veil:250,247,242; --va:.94; --vb:.84;
+  --acc:var(--gold);
+  --peek:clamp(72px,10.5svh,100px);
+  --w:clamp(84px,14vw,280px);              /* кегль самого крупного слова; каждое слово подгоняется по ширине */
+  --pad:clamp(16px,2.6vw,40px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:'STRome',Georgia,serif;font-weight:400;overflow-x:hidden;min-height:100svh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.caps{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;font-variant-numeric:tabular-nums}
+
+/* ───────── шапка ───────── */
+.nav{position:absolute;z-index:20;left:0;right:0;top:0;height:76px;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;color:var(--fg)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:500;font-size:21px;letter-spacing:-.01em}
+.brand img{width:46px;height:46px;mix-blend-mode:multiply;margin-left:-6px;transition:filter .3s}
+body.dark .brand img{filter:invert(1);mix-blend-mode:screen}
+.nav ul{display:flex;gap:clamp(18px,3vw,44px);list-style:none}
+.nav ul a{position:relative;font-size:15px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:6px 0;display:block}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:1px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+
+/* ───────── hero ───────── */
+.hero{position:relative;height:calc(100svh - var(--peek));min-height:600px;overflow:hidden;background:var(--bg);isolation:isolate}
+.stage{position:absolute;inset:0;z-index:1;perspective:1600px}
+.scene,.cam{position:absolute;inset:0}
+.scene{visibility:hidden}
+.it{position:absolute;opacity:0;will-change:transform,opacity}
+/* ночь: тёмный кадр раскрывается кругом из центра слова (сцена «Моушен») */
+.night{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--night-2),var(--night) 70%);clip-path:circle(0% at 50% 46%);z-index:0}
+.veil{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 30% 36% at 50% 50%,rgba(var(--veil),var(--va)) 0%,rgba(var(--veil),var(--vb)) 52%,rgba(var(--veil),0) 100%)}
+
+/* холст эффектов центра: слово и знак как частицы и пиксели (js/fx.js) */
+.fx{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+.word.fxh b{opacity:0!important}
+.mark.fxh{opacity:0}
+/* плёночное зерно — едва заметное */
+.grain{position:absolute;inset:-60px;z-index:8;pointer-events:none;opacity:.045;will-change:transform;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain .9s steps(6) infinite}
+body.dark .grain{opacity:.06}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-40px,26px)}40%{transform:translate(28px,-38px)}60%{transform:translate(-24px,-12px)}80%{transform:translate(38px,36px)}100%{transform:translate(0,0)}}
+
+/* ───────── центр: знак → слово → подпись → кнопка ───────── */
+.copy{position:absolute;z-index:5;left:0;right:0;top:50%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;color:var(--fg)}
+.copy a{pointer-events:auto}
+h1{font-weight:300;line-height:1;display:flex;flex-direction:column;align-items:center}
+.mark{display:block;height:calc(var(--w)*.46);aspect-ratio:630/350;color:var(--fg)}
+.mark svg{display:block;width:100%;height:100%;overflow:visible}
+.words{display:grid;place-items:center;height:calc(var(--w)*.98);margin-top:calc(var(--w)*.22);letter-spacing:-.045em;width:100vw}
+.word{grid-area:1/1;white-space:nowrap;display:flex;visibility:hidden;font-weight:900;line-height:.95;will-change:transform}
+/* буква: контур цвета слова, заливка поднимается снизу (--f) — «красятся буквы» */
+.word b{display:inline-block;font-weight:900;opacity:0;color:transparent;-webkit-text-stroke:max(1.2px,.012em) var(--wc);
+  background:linear-gradient(to top,var(--wc) var(--f,0%),transparent var(--f,0%));-webkit-background-clip:text;background-clip:text;
+  padding:.12em .015em;margin:-.12em 0;will-change:transform,opacity}
+.sub{margin-top:clamp(14px,2.2svh,24px);display:flex;flex-direction:column;gap:.35em;font-size:clamp(12px,1.02vw,15px);font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-soft);opacity:0;line-height:1.3}
+.sub span:first-child{color:var(--fg);letter-spacing:.24em}
+.cta{margin-top:clamp(16px,3svh,30px);display:inline-flex;align-items:center;gap:16px;height:56px;padding:0 8px 0 28px;border-radius:100px;background:var(--fg);color:var(--fgi);font-size:16px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;opacity:0;position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.34,1.7,.5,1)}
+.cta .t{position:relative;display:block;height:1.2em;overflow:hidden}
+.cta .t span{display:block;line-height:1.2em;transition:transform .6s var(--ease)}
+.cta:hover .t span{transform:translateY(-100%)}
+.cta:active{transform:scale(.95);transition-duration:.08s}
+.cta .chip{width:40px;height:40px;border-radius:50%;background:var(--acc);display:grid;place-items:center;color:var(--ink);flex:none;transition:transform .6s var(--ease)}
+.cta:hover .chip{transform:rotate(45deg)}
+.cta svg{width:16px;height:16px}
+.cta:focus-visible,.nav a:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
+
+.dot{width:6px;height:6px;border-radius:50%;background:var(--acc);display:inline-block}
+
+/* ───────── край следующей секции ───────── */
+.peek{height:var(--peek);border-top:1px solid var(--line);display:flex;align-items:center;overflow:hidden;background:var(--bg);position:relative;color:var(--ink);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+/* бегущая строка: две одинаковые группы, сдвиг на половину — бесшовно */
+.mq{display:flex;width:max-content;animation:mq 26s linear infinite}
+.peek:hover .mq{animation-play-state:paused}
+.mq-g{display:flex;align-items:center;gap:clamp(26px,3.4vw,52px);padding-right:clamp(26px,3.4vw,52px);flex:none}
+.mq-g img{height:30px;width:auto;opacity:.62;filter:brightness(0)}
+.mq-g img.tall{height:40px}
+.mq-t{color:var(--terracotta);white-space:nowrap;font-size:12px}
+.mq-n{font-size:clamp(20px,1.9vw,28px);font-weight:500;letter-spacing:-.01em;white-space:nowrap;color:var(--ink)}
+.mq-n i{font-style:italic;font-weight:300}
+.mq-s{width:14px;height:14px;fill:var(--gold);flex:none;animation:spin 6s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.nav{animation:up .8s var(--ease) .1s both}
+.peek{animation:up .8s var(--ease) .4s both}
+
+/* ───────── телефон: своя композиция ───────── */
+@media (max-width:760px){
+  :root{--w:min(25.4vw,112px);--peek:96px;--pad:16px}
+  .nav{height:60px}
+  .brand{font-size:19px}.brand img{width:38px;height:38px}
+  .nav ul{gap:16px}.nav ul a{font-size:12px;letter-spacing:.1em}
+  .nav ul li:nth-child(2){display:none}
+  .veil{background:radial-gradient(ellipse 80% 24% at 50% 65%,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 50%,rgba(var(--veil),0) 100%)}
+  .copy{top:65%}
+  .sub{font-size:10.5px;letter-spacing:.14em;margin-top:12px}
+  .cta{height:52px;font-size:14px}
+  .mq{animation-duration:18s}.mq-g img{height:24px}.mq-g img.tall{height:32px}.mq-n{font-size:19px}
+  .hero{touch-action:pan-y}
+}
+@media (max-height:700px) and (min-width:761px){:root{--w:clamp(84px,13vw,300px)}}
+
+@media (prefers-reduced-motion:reduce){
+  .nav,.peek{animation:none;opacity:1}
+  .mq,.mq-s{animation:none}
+  .grain{animation:none}
+  .cta .t span,.cta .chip{transition:none}
+}

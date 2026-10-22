@@ -1,0 +1,552 @@
+[
+ {
+  "id": 1,
+  "file": "works/01.webp",
+  "thumb": "works/thumb/01.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\КИНЗА БОНУС АФИША.png"
+ },
+ {
+  "id": 2,
+  "file": "works/02.webp",
+  "thumb": "works/thumb/02.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\image_2026-02-27_11-54-24.png"
+ },
+ {
+  "id": 3,
+  "file": "works/03.webp",
+  "thumb": "works/thumb/03.webp",
+  "w": 1200,
+  "h": 509,
+  "kind": "соцсети",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\ЗАБЕГ ЗАВОД дата.png"
+ },
+ {
+  "id": 4,
+  "file": "works/04.webp",
+  "thumb": "works/thumb/04.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Щукин и дети",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\png (1) (5) (1).png"
+ },
+ {
+  "id": 5,
+  "file": "works/05.webp",
+  "thumb": "works/thumb/05.webp",
+  "w": 1200,
+  "h": 509,
+  "kind": "соцсети",
+  "client": "Проект П",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\ПРОЕКТ П\\банер проект п 4.png"
+ },
+ {
+  "id": 6,
+  "file": "works/06.webp",
+  "thumb": "works/thumb/06.webp",
+  "w": 1200,
+  "h": 1200,
+  "kind": "постер",
+  "client": null,
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\2a2dd94b-c8e8-4ecd-b758-732c3286b13d.png"
+ },
+ {
+  "id": 7,
+  "file": "works/07.webp",
+  "thumb": "works/thumb/07.webp",
+  "w": 1200,
+  "h": 805,
+  "kind": "визитка",
+  "client": "KozFlow",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\KOZFLOW ВИЗИТКА ОБОРОТКА.png"
+ },
+ {
+  "id": 8,
+  "file": "works/08.webp",
+  "thumb": "works/thumb/08.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Завод × Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\LAGERYa_2.png"
+ },
+ {
+  "id": 9,
+  "file": "works/09.webp",
+  "thumb": "works/thumb/09.webp",
+  "w": 1200,
+  "h": 1200,
+  "kind": "айдентика",
+  "client": "Волжанка",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\CSPEAXxbM0cE5q7qq3Uga3bfUVz5-yto3rYuccf_r-asv-2ylaxIaY0LpsCdw16MXlLBLLFVoyiuTMgp37DMlkZZ.png"
+ },
+ {
+  "id": 10,
+  "file": "works/10.webp",
+  "thumb": "works/thumb/10.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "меню",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\2631d7588718d680667dc3653411bba3_746d3657-64b7-45c0-ba6e-8001ebffaf25.jpg"
+ },
+ {
+  "id": 11,
+  "file": "works/11.webp",
+  "thumb": "works/thumb/11.webp",
+  "w": 1200,
+  "h": 547,
+  "kind": "айдентика",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кегель.png"
+ },
+ {
+  "id": 12,
+  "file": "works/12.webp",
+  "thumb": "works/thumb/12.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\завод кафе мороженое 2.png"
+ },
+ {
+  "id": 13,
+  "file": "works/13.webp",
+  "thumb": "works/thumb/13.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Щукин и дети",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\афиша 4.png"
+ },
+ {
+  "id": 14,
+  "file": "works/14.webp",
+  "thumb": "works/thumb/14.webp",
+  "w": 1200,
+  "h": 805,
+  "kind": "визитка",
+  "client": "Проект П",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\ПРОЕКТ П\\визитка лицева.jpg"
+ },
+ {
+  "id": 15,
+  "file": "works/15.webp",
+  "thumb": "works/thumb/15.webp",
+  "w": 1200,
+  "h": 757,
+  "kind": "постер",
+  "client": null,
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\Untitled design (34).png"
+ },
+ {
+  "id": 16,
+  "file": "works/16.webp",
+  "thumb": "works/thumb/16.webp",
+  "w": 1200,
+  "h": 805,
+  "kind": "визитка",
+  "client": "KozFlow",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\KOZFLOW ВИЗИТКА.png"
+ },
+ {
+  "id": 17,
+  "file": "works/17.webp",
+  "thumb": "works/thumb/17.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\винный вечер кинза 2.png"
+ },
+ {
+  "id": 18,
+  "file": "works/18.webp",
+  "thumb": "works/thumb/18.webp",
+  "w": 597,
+  "h": 800,
+  "kind": "афиша",
+  "client": "Кегель-бар",
+  "source": "C:\\МЕГАМОЗГИ\\Мастерская\\Проекты\\kozflow-редизайн\\hero-варианты\\assets\\works\\w12.jpg"
+ },
+ {
+  "id": 19,
+  "file": "works/19.webp",
+  "thumb": "works/thumb/19.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "постер",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\6396b0e64738e2505bcf26b9aee58f2d_3c4a89e7-430d-4c93-a3fe-050ec57a1536 (1).png"
+ },
+ {
+  "id": 20,
+  "file": "works/20.webp",
+  "thumb": "works/thumb/20.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Щукин и дети",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\cdba6db098461d5e9f073b73dff38168_e5910144-ffce-4917-b0de-9b2bcac32859 (1).png"
+ },
+ {
+  "id": 21,
+  "file": "works/21.webp",
+  "thumb": "works/thumb/21.webp",
+  "w": 1200,
+  "h": 1200,
+  "kind": "айдентика",
+  "client": "Проект П",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\ПРОЕКТ П\\лого 2.png"
+ },
+ {
+  "id": 22,
+  "file": "works/22.webp",
+  "thumb": "works/thumb/22.webp",
+  "w": 1200,
+  "h": 1200,
+  "kind": "айдентика",
+  "client": null,
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\ac9160789be4325536d17c1d0fc095b5_2111cab1-cc95-42b1-a383-1e448ad38de1 (2).png"
+ },
+ {
+  "id": 23,
+  "file": "works/23.webp",
+  "thumb": "works/thumb/23.webp",
+  "w": 1200,
+  "h": 805,
+  "kind": "визитка",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\визиткаыф.png"
+ },
+ {
+  "id": 24,
+  "file": "works/24.webp",
+  "thumb": "works/thumb/24.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кегель ночь.png"
+ },
+ {
+  "id": 25,
+  "file": "works/25.webp",
+  "thumb": "works/thumb/25.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "меню",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\завод коктейли.png"
+ },
+ {
+  "id": 26,
+  "file": "works/26.webp",
+  "thumb": "works/thumb/26.webp",
+  "w": 907,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Щукин и дети",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\афиша.png"
+ },
+ {
+  "id": 27,
+  "file": "works/27.webp",
+  "thumb": "works/thumb/27.webp",
+  "w": 1024,
+  "h": 1024,
+  "kind": "постер",
+  "client": "Проект П",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\image_2026-05-05_17-58-07.png"
+ },
+ {
+  "id": 28,
+  "file": "works/28.webp",
+  "thumb": "works/thumb/28.webp",
+  "w": 1200,
+  "h": 1200,
+  "kind": "постер",
+  "client": null,
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\efe6c7860e6a61c05411a46220e48173_8b48a78a-abbe-4bd9-b8d5-d36e8e072148.jpg"
+ },
+ {
+  "id": 29,
+  "file": "works/29.webp",
+  "thumb": "works/thumb/29.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\09443618b8e9efb60f9178ad49db3c8a_0cc72c45-6a7f-4191-bd9e-a1c2bef80533.png"
+ },
+ {
+  "id": 30,
+  "file": "works/30.webp",
+  "thumb": "works/thumb/30.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\detektivny_kvest_kegel.png"
+ },
+ {
+  "id": 31,
+  "file": "works/31.webp",
+  "thumb": "works/thumb/31.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\детктив завод 3.png"
+ },
+ {
+  "id": 32,
+  "file": "works/32.webp",
+  "thumb": "works/thumb/32.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "соцсети",
+  "client": "Щукин и дети",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\image (6).png"
+ },
+ {
+  "id": 33,
+  "file": "works/33.webp",
+  "thumb": "works/thumb/33.webp",
+  "w": 1024,
+  "h": 1024,
+  "kind": "постер",
+  "client": "Проект П",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\image_2026-05-05_18-04-47.png"
+ },
+ {
+  "id": 34,
+  "file": "works/34.webp",
+  "thumb": "works/thumb/34.webp",
+  "w": 1032,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кинза постер33.png"
+ },
+ {
+  "id": 35,
+  "file": "works/35.webp",
+  "thumb": "works/thumb/35.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\мафия.png"
+ },
+ {
+  "id": 36,
+  "file": "works/36.webp",
+  "thumb": "works/thumb/36.webp",
+  "w": 1200,
+  "h": 509,
+  "kind": "соцсети",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\48cd4266d6ee8dc58df662cbe71c8adc_29861b67-66cb-4b82-bcf6-f1b7c2806933.jpg"
+ },
+ {
+  "id": 37,
+  "file": "works/37.webp",
+  "thumb": "works/thumb/37.webp",
+  "w": 805,
+  "h": 1200,
+  "kind": "упаковка",
+  "client": "Щукин и дети",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\паспорт ЩУКИН\\10.png"
+ },
+ {
+  "id": 38,
+  "file": "works/38.webp",
+  "thumb": "works/thumb/38.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\КИНЗА ХИНКАЛИ.png"
+ },
+ {
+  "id": 39,
+  "file": "works/39.webp",
+  "thumb": "works/thumb/39.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "постер",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\Gemini_Generated_Image_22toli22toli22to (1).png"
+ },
+ {
+  "id": 40,
+  "file": "works/40.webp",
+  "thumb": "works/thumb/40.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\завод детективная история.png"
+ },
+ {
+  "id": 41,
+  "file": "works/41.webp",
+  "thumb": "works/thumb/41.webp",
+  "w": 805,
+  "h": 1200,
+  "kind": "упаковка",
+  "client": "Щукин и дети",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\паспорт ЩУКИН\\1.png"
+ },
+ {
+  "id": 42,
+  "file": "works/42.webp",
+  "thumb": "works/thumb/42.webp",
+  "w": 1200,
+  "h": 670,
+  "kind": "соцсети",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\забег в кинзу.png"
+ },
+ {
+  "id": 43,
+  "file": "works/43.webp",
+  "thumb": "works/thumb/43.webp",
+  "w": 1200,
+  "h": 670,
+  "kind": "соцсети",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кегель сертификат.png"
+ },
+ {
+  "id": 44,
+  "file": "works/44.webp",
+  "thumb": "works/thumb/44.webp",
+  "w": 1000,
+  "h": 1001,
+  "kind": "айдентика",
+  "client": "Завод",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\0PTkwGdU_xpbIOqurBGM2OoBCq45p4QRY7Q1KUFzauqCPOfJMO39ZgsRxuKL9qRo6Nj0Q4AVV8hMfUycsN5m7tRS (1).jpg"
+ },
+ {
+  "id": 45,
+  "file": "works/45.webp",
+  "thumb": "works/thumb/45.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\ВИННЫЙ ВЕЧЕР КИНЗА 3.png"
+ },
+ {
+  "id": 46,
+  "file": "works/46.webp",
+  "thumb": "works/thumb/46.webp",
+  "w": 600,
+  "h": 800,
+  "kind": "афиша",
+  "client": "Кегель-бар",
+  "source": "C:\\МЕГАМОЗГИ\\Мастерская\\Проекты\\kozflow-редизайн\\hero-варианты\\assets\\works\\w11.jpg"
+ },
+ {
+  "id": 47,
+  "file": "works/47.webp",
+  "thumb": "works/thumb/47.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\6abd6ce0f41d4a666fcbafc2b73a49cc_d218108c-93e9-4e4e-b768-23d91eb637f2.jpg"
+ },
+ {
+  "id": 48,
+  "file": "works/48.webp",
+  "thumb": "works/thumb/48.webp",
+  "w": 896,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\image_2026-02-11_19-21-25.png"
+ },
+ {
+  "id": 49,
+  "file": "works/49.webp",
+  "thumb": "works/thumb/49.webp",
+  "w": 660,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кинза40002200.png"
+ },
+ {
+  "id": 50,
+  "file": "works/50.webp",
+  "thumb": "works/thumb/50.webp",
+  "w": 1200,
+  "h": 1200,
+  "kind": "айдентика",
+  "client": "Кегель-бар",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\image (13).png"
+ },
+ {
+  "id": 51,
+  "file": "works/51.webp",
+  "thumb": "works/thumb/51.webp",
+  "w": 1200,
+  "h": 670,
+  "kind": "упаковка",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\11111.png"
+ },
+ {
+  "id": 52,
+  "file": "works/52.webp",
+  "thumb": "works/thumb/52.webp",
+  "w": 813,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кинза флаер.png"
+ },
+ {
+  "id": 53,
+  "file": "works/53.webp",
+  "thumb": "works/thumb/53.webp",
+  "w": 849,
+  "h": 1200,
+  "kind": "афиша",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кинза винный вечер 2.png"
+ },
+ {
+  "id": 54,
+  "file": "works/54.webp",
+  "thumb": "works/thumb/54.webp",
+  "w": 1200,
+  "h": 1183,
+  "kind": "упаковка",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\наклейка кинза.png"
+ },
+ {
+  "id": 55,
+  "file": "works/55.webp",
+  "thumb": "works/thumb/55.webp",
+  "w": 900,
+  "h": 1200,
+  "kind": "меню",
+  "client": "Кинза",
+  "source": "C:\\Users\\Admin\\OneDrive\\Рабочий стол\\МОИ ДИЗАЙН РАБОТЫ\\кинза-летнее-предложение-HD.png"
+ }
+]
