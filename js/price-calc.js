@@ -37,6 +37,8 @@ export function computeQuote(config, selection = {}) {
       ? it.price + Math.max(0, q - (it.included || 0)) * (it.unitPrice || 0)
       : it.price * q;
     const name = it.kind === 'perUnit' ? `${it.name}, ${q}${it.unit ? ' ' + plural(it.unit, q) : ''}` : q > 1 ? `${it.name} ×${q}` : it.name;
+    // только ежемесячная позиция (поддержка 5 000 ₽/мес): строки «0 ₽» нет, идёт в «Ежемесячно»
+    if (amount === 0 && it.monthly) { monthly = { min: (monthly?.min || 0) + it.monthly.min, max: (monthly?.max || 0) + it.monthly.max }; continue; }
     if (it.kind === 'extra') rest += amount; else packages += amount;
     lines.push({ name, amount, from: !!it.from });
     parts.push({ name: it.name, amount, prepay: it.prepay });
@@ -104,12 +106,14 @@ function prepayFor(page, total, parts) {
 // Обрезка по кодовым точкам, чтобы не разрезать эмодзи (одиночный суррогат ломает encodeURIComponent).
 const cut = (s, n) => (s.length <= n ? s : Array.from(s.slice(0, n + 1)).reduce((a, ch) => (a.length + ch.length <= n ? a + ch : a), ''));
 
+export const monthlyText = (m) => (m.min === m.max ? formatRub(m.min) : `${formatRub(m.min)} – ${formatRub(m.max)}`);
+
 export function telegramLink(quote, pageTitle = '') {
   const ot = (f) => (f ? 'от ' : '');
   const head = cut(pageTitle ? `Здравствуйте! Мой расчёт на странице «${pageTitle}»:` : 'Здравствуйте! Мой расчёт стоимости:', 300);
   const tail = cut([
     `Итого: ${ot(quote.from)}${formatRub(quote.total)}`,
-    quote.monthly ? `Ежемесячно: ${formatRub(quote.monthly.min)} – ${formatRub(quote.monthly.max)}` : '',
+    quote.monthly ? `Ежемесячно: ${monthlyText(quote.monthly)}` : '',
     quote.prepayLabel ? `${quote.prepayLabel}: ${formatRub(quote.prepay)}` : '',
   ].filter(Boolean).join('\n'), 600);
 

@@ -144,3 +144,15 @@ test('formatRub: неразрывные пробелы', () => {
   assert.equal(formatRub(500), '500 ₽');
   assert.equal(formatRub(1250000), '1 250 000 ₽');
 });
+
+test('только ежемесячная позиция: без строки «0 ₽», в «Ежемесячно»', () => {
+  const cfg = { items: [
+    { id: 'site', name: 'Сайт', price: 40000, kind: 'package' },
+    { id: 'support', name: 'Поддержка', price: 0, kind: 'extra', monthly: { min: 5000, max: 5000 } },
+  ], prepay: { mode: 'half' } };
+  const q = computeQuote(cfg, { items: { site: true, support: true } });
+  assert.equal(q.total, 40000);
+  assert.equal(q.lines.length, 1);
+  assert.deepEqual(q.monthly, { min: 5000, max: 5000 });
+  assert.ok(decodeURIComponent(telegramLink(q, 'Сайты').split('?text=')[1]).includes('Ежемесячно: 5\u00a0000\u00a0₽\n'));
+});

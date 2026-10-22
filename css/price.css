@@ -367,6 +367,7 @@ dl.pass dd b{font:500 22px/1.1 var(--disp)}
 .pack-h.first{margin-top:0}
 .card .price small{font-size:.5em;letter-spacing:0}
 .cards.c3{--cols:3}
+.cards.c2{--cols:2}
 
 @media (max-width:1100px){
   .wk,.wins{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -388,4 +389,51 @@ dl.pass dd b{font:500 22px/1.1 var(--disp)}
   .chat .mg{transition:none}
   .chat .live::before,.chat .ty i{animation:none}
   .wk article{transition:none}
+}
+
+/* ══ блоки страницы «Сайты» ══ */
+
+/* первый экран: снимок сайта на компьютере и поверх него — на телефоне */
+.devices{position:relative;padding:0 0 9% 0}
+.devices .desk{width:90%;margin-left:auto;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--night-2);box-shadow:0 40px 80px -34px rgba(45,36,25,.55)}
+.devices .mob{position:absolute;left:0;bottom:0;width:23%;aspect-ratio:780/1688;border-radius:18px;overflow:hidden;background:var(--night-2);
+  box-shadow:0 0 0 6px var(--bg),0 30px 60px -28px rgba(45,36,25,.6)}
+.devices img{width:100%;height:100%;object-fit:contain}
+.devices figcaption{position:absolute;right:0;bottom:calc(9% - 26px);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute)}
+
+/* работы: карточка сайта — снимок целиком, ниже описание */
+.sites{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.site{display:flex;flex-direction:column;gap:12px;padding:16px 16px 24px;border:1px solid #3A2E22;border-radius:20px;background:var(--night-2)}
+.site .shot{display:block;aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:var(--night)}
+.site .shot img{width:100%;height:100%;object-fit:contain;transition:transform .8s var(--ease)}
+.site .shot:hover img{transform:scale(1.02)}
+.site .body{display:flex;flex-direction:column;gap:10px;padding:4px 8px 0}
+.site .dom{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.site h3{font-size:clamp(24px,2.2vw,32px);color:var(--cream)}
+.site p{font-size:15px;color:#CDBB98}
+.site ul{display:grid;gap:5px;font-size:14px;color:#B7A88F}
+.site li{position:relative;padding-left:18px}
+.site li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+.site .foot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:6px;padding-top:12px;border-top:1px solid #3A2E22}
+.site .foot b{font:400 20px/1.1 var(--disp);color:var(--cream)}
+.site .foot small{display:block;font-size:12px;color:#8C7D66}
+.site .foot a{font-size:14px;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(196,152,90,.4)}
+
+/* документы и поддержка — сетка коротких пунктов */
+.pts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pts div{padding:20px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:14px;color:var(--ink-soft)}
+.pts b{display:block;margin-bottom:6px;font:400 18px/1.15 var(--disp);text-transform:uppercase;color:var(--ink)}
+.pg-sub{margin:44px 0 18px;font-size:clamp(26px,2.8vw,38px)}
+
+@media (max-width:900px){
+  .sites{grid-template-columns:minmax(0,1fr)}
+  .pts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .cards.c2{--cols:1}
+  .pts{grid-template-columns:minmax(0,1fr)}
+  .devices .mob{width:30%}
+}
+@media (prefers-reduced-motion:reduce){
+  .site .shot img{transition:none}
 }

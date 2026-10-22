@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Сайты под ключ — работы и цены | KozFlow</title>
+<meta name="description" content="Сайты для бизнеса под ключ: лендинг от 25 000 ₽, сайт от 40 000 ₽. Интеграции, анимация, поддержка, правки по ТЗ, договор и документы по 152-ФЗ. Работы и калькулятор стоимости. Тверь и удалённо по РФ." />
+<meta name="theme-color" content="#FAF7F2" />
+<link rel="canonical" href="https://kozflow.ru/sayty" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Сайты под ключ — работы и цены" />
+<meta property="og:description" content="Лендинг от 25 000 ₽, сайт от 40 000 ₽. Интеграции, анимация, поддержка, договор и документы по 152-ФЗ." />
+<meta property="og:url" content="https://kozflow.ru/sayty" />
+<meta property="og:image" content="https://kozflow.ru/assets/sites/vostok-desk.webp" />
+<meta property="og:locale" content="ru_RU" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="assets/logo.webp" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script>document.documentElement.classList.add('js')</script>
+
+<style>
+  @font-face{font-family:'STRome';src:url('assets/fonts/STRomeTrial-Light.otf') format('opentype');font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:'STRome';src:url('assets/fonts/STRomeTrial-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'STRome';src:url('assets/fonts/STRomeTrial-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+
+  :root{
+    --bg:#FAF7F2;
+    --bg-alt:#EFEAE0;
+    --card:#FFFDF9;
+    --ink:#2D2419;
+    --ink-soft:#4A3E2E;
+    --ink-mute:#7A6B56;
+    --line:#D9CFB9;
+    --line-soft:#E7DFCE;
+    --gold:#C4985A;
+    --gold-ink:#8A6620;
+    --gold-soft:rgba(196,152,90,.14);
+    --forest:#3A4A3D;
+    --forest-ink:#FAF7F2;
+    --terracotta:#C26B4A;
+    --cream:#F5EFDF;
+    --night:#2A2018;
+    --night-2:#34281D;
+    --on-night:#E8DCC0;
+    --on-night-mute:#B9A785;
+
+    --font:'STRome',Georgia,'Times New Roman',serif;
+    --font-body:'Golos Text','Segoe UI',Roboto,system-ui,sans-serif;
+
+    --s--1:clamp(.8rem,.78rem + .1vw,.88rem);
+    --s-0:clamp(1rem,.96rem + .18vw,1.11rem);
+    --s-1:clamp(1.16rem,1.08rem + .34vw,1.38rem);
+    --s-2:clamp(1.4rem,1.2rem + .72vw,1.95rem);
+    --s-3:clamp(1.8rem,1.42rem + 1.5vw,2.9rem);
+    --s-4:clamp(2.3rem,1.5rem + 3.6vw,4.6rem);
+
+    --wrap:1120px;
+    --gut:clamp(1rem,4vw,2.8rem);
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#241B14;--bg-alt:#2E241A;--card:#31261B;
+      --ink:#EFE3C8;--ink-soft:#D3C3A0;--ink-mute:#A08E70;
+      --line:#4B3B2A;--line-soft:#3B2E21;
+      --gold:#D8AD68;--gold-ink:#E7C288;--gold-soft:rgba(216,173,104,.14);
+      --forest:#5E7A61;--forest-ink:#F4EFE2;--cream:#3A2D20;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#241B14;--bg-alt:#2E241A;--card:#31261B;
+    --ink:#EFE3C8;--ink-soft:#D3C3A0;--ink-mute:#A08E70;
+    --line:#4B3B2A;--line-soft:#3B2E21;
+    --gold:#D8AD68;--gold-ink:#E7C288;--gold-soft:rgba(216,173,104,.14);
+    --forest:#5E7A61;--forest-ink:#F4EFE2;--cream:#3A2D20;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-padding-top:72px}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--font-body);font-size:var(--s-0);line-height:1.62;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+
+  /* STRome — заголовки, названия, цены и метки. Текст — читаемым шрифтом. */
+  h1,h2,h3,h4,.eyebrow,.block__label,.brand,.btn,.row__name,.row__price,
+  .pack__price,.badge,.fact,.work__count,.work__price,.calc__total,.step__n,.rule__big{
+    font-family:var(--font);
+  }
+  h1,h2,h3,h4{margin:0;font-weight:400;line-height:1.1;text-wrap:balance}
+  h1{font-size:var(--s-4);letter-spacing:-.02em;font-weight:300}
+  h2{font-size:var(--s-3);letter-spacing:-.015em;font-weight:300}
+  h3{font-size:var(--s-1);letter-spacing:-.01em;font-weight:500}
+  p{margin:0}
+
+  .eyebrow{font-size:var(--s--1);letter-spacing:.22em;text-transform:uppercase;color:var(--gold-ink);font-weight:500}
+  a{color:var(--gold-ink);text-underline-offset:3px}
+  a:focus-visible,button:focus-visible,input:focus-visible+span,summary:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px;border-radius:3px}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+    background:var(--forest);color:var(--forest-ink);
+    border:0;border-radius:999px;padding:.8rem 1.6rem;
+    font-size:var(--s-0);font-weight:500;text-decoration:none;cursor:pointer;
+    transition:transform .18s ease,filter .18s ease,background .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+  .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn--gold{background:var(--gold);color:#241A11}
+
+  /* ───────── topbar ───────── */
+  .topbar{
+    position:sticky;top:0;z-index:40;
+    background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .topbar__in{display:flex;align-items:center;gap:1rem;padding-block:.7rem}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:500;letter-spacing:.02em;color:var(--ink);text-decoration:none}
+  .brand:hover{color:var(--gold-ink)}
+  .brand img{width:34px;height:34px;border-radius:8px;object-fit:contain;background:#FAF7F2;padding:3px;border:1px solid var(--line)}
+  .topbar__spacer{flex:1}
+  .topbar__links{display:none;gap:1.4rem;font-size:var(--s--1);color:var(--ink-mute)}
+  .topbar__links a{color:inherit;text-decoration:none}
+  .topbar__links a:hover{color:var(--gold-ink)}
+  @media (min-width:1100px){.topbar__links{display:flex}}
+  .topbar .btn{padding:.6rem 1.2rem}
+  .topbar .topbar__home{gap:.45rem;padding-inline:1rem}
+  .topbar__home svg{width:18px;height:18px;flex:0 0 18px}
+  @media (max-width:479px){.topbar .topbar__home{padding-inline:.7rem}.topbar__home span{display:none}}
+
+  /* ───────── hero ───────── */
+  .hero{padding-block:clamp(2.6rem,7vw,5rem) clamp(2.2rem,5vw,3.4rem);position:relative;overflow:hidden}
+  .hero h1{margin-top:.8rem}
+  .hero h1 em{font-style:normal;color:var(--gold-ink)}
+  .hero__lede{margin-top:1.4rem;max-width:56ch;font-size:var(--s-1);color:var(--ink-soft);line-height:1.5;font-weight:300}
+  .hero__cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.9rem}
+  .facts{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.7rem}
+  .fact{font-size:var(--s--1);border:1px solid var(--line);border-radius:999px;padding:.38rem .9rem;color:var(--ink-mute);background:var(--card)}
+  .fact b{color:var(--ink);font-weight:500}
+  .hero__fan{display:none}
+  @media (min-width:1080px){
+    .hero__fan{display:block;position:absolute;right:2rem;top:50%;width:min(37vw,530px);aspect-ratio:16/11;transform:translateY(-46%);z-index:2;pointer-events:none}
+    .hero__lede{max-width:44ch}
+    .hero .wrap{position:relative;z-index:1}
+    .facts{max-width:560px}
+  }
+  /* карточки без рамок; наведение или клик выводят карточку вперёд, крупнее и с подсветкой */
+  .fan{position:absolute;width:76%;border-radius:12px;overflow:hidden;background:#1B140E;cursor:zoom-in;pointer-events:auto;
+    box-shadow:0 22px 50px rgba(45,36,25,.22);outline:1px solid rgba(45,36,25,.08);
+    transition:transform .55s var(--ease),box-shadow .4s ease,filter .4s ease,z-index 0s .55s}
+  .fan img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top}
+  .fan--1{left:0;top:6%;transform:rotate(-6deg);transform-origin:left center;z-index:1}
+  .fan--2{right:0;top:0;transform:rotate(5deg);transform-origin:right top;z-index:1}
+  .fan--3{left:13%;bottom:0;transform:rotate(-1deg);transform-origin:center bottom;z-index:2}
+  .fan.is-front{transform:rotate(0deg) scale(1.32);z-index:6;cursor:zoom-out;
+    transition:transform .55s var(--ease),box-shadow .4s ease,filter .4s ease,z-index 0s;
+    box-shadow:0 0 0 1.5px var(--gold),0 0 36px 6px rgba(216,173,104,.5),0 34px 80px rgba(45,36,25,.34)}
+  .hero__fan.has-front .fan:not(.is-front){filter:saturate(.75) brightness(.9)}
+  /* наведение — только там, где есть мышь: на планшете :hover залипает после тапа */
+  @media (hover:hover){
+    .fan:hover{transform:rotate(0deg) scale(1.32);z-index:5;
+      transition:transform .55s var(--ease),box-shadow .4s ease,filter .4s ease,z-index 0s;
+      box-shadow:0 0 0 1.5px var(--gold),0 0 36px 6px rgba(216,173,104,.5),0 34px 80px rgba(45,36,25,.34)}
+    .hero__fan:has(.fan:hover) .fan:not(:hover):not(.is-front){filter:saturate(.75) brightness(.9)}
+    .hero__fan.has-front .fan:hover{filter:none}
+  }
+  .js .fan{animation:fanIn 1.1s var(--ease) both}
+  .js .fan--2{animation-delay:.15s}.js .fan--3{animation-delay:.3s}
+  @keyframes fanIn{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
+  .hero__line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+  .hero__line > span{display:inline-block}
+  .js .hero__line > span{animation:rise 1s var(--ease) both}
+  .js .hero__line:nth-child(2) > span{animation-delay:.12s}
+  .js .hero .eyebrow,.js .hero__lede,.js .hero__cta,.js .facts{animation:fade .9s var(--ease) both}
+  .js .hero__lede{animation-delay:.25s}.js .hero__cta{animation-delay:.35s}.js .facts{animation-delay:.45s}
+  @keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+  @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ───────── works showcase ───────── */
+  .show{background:var(--night);color:var(--on-night);position:relative;overflow:hidden;
+    border-block:1px solid #16100B}
+  .show::before{content:'';position:absolute;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:900px;max-height:900px;
+    background:radial-gradient(closest-side,rgba(216,173,104,.16),transparent);pointer-events:none}
+  .show__head{padding-block:clamp(2.6rem,7vw,4.4rem) 1.4rem;position:relative}
+  .show__head .eyebrow{color:var(--gold)}
+  .show__head h2{color:var(--on-night);margin-top:.55rem}
+  .show__head p{color:var(--on-night-mute);max-width:56ch;margin-top:.8rem;font-size:var(--s--1)}
+
+  .show__stage{position:relative;padding-bottom:clamp(2.4rem,6vw,4rem)}
+  .show__track{
+    display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:.5rem var(--gut) 1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .show__track::-webkit-scrollbar{display:none}
+  @media (min-width:1200px){.show__track{padding-inline:calc((100vw - var(--wrap))/2 + var(--gut))}}
+
+  .work{
+    flex:0 0 min(88vw,980px);scroll-snap-align:center;
+    background:var(--night-2);border:1px solid #4A3A2B;border-radius:16px;
+    padding:1rem 1rem 1.3rem;display:grid;gap:1.2rem;
+  }
+  @media (min-width:760px){.work{grid-template-columns:7fr 5fr;align-items:center;padding:1.6rem}}
+  .work__media{position:relative;padding:0 12% 12% 0}
+  @media (min-width:760px){.work__media{order:2;padding:0 9% 12% 0}}
+  .browser{border-radius:10px;overflow:hidden;background:#1B140E;box-shadow:0 24px 60px rgba(0,0,0,.45);outline:1px solid rgba(232,220,192,.12);outline-offset:-1px}
+  .browser__bar{display:flex;align-items:center;gap:.36rem;padding:.5rem .7rem;background:#3B2E22;border-bottom:1px solid #4E3D2E}
+  .browser__bar i{width:9px;height:9px;border-radius:50%;background:#6B5641;flex:0 0 9px}
+  .browser__url{margin-left:.6rem;flex:1;min-width:0;font-size:.72rem;color:#C9B892;background:#2A2018;border-radius:999px;padding:.12rem .7rem;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em}
+  .browser__screen{overflow:hidden;aspect-ratio:16/10;background:#120D09}
+  .browser__screen img{width:100%;height:100%;object-fit:cover;object-position:top}
+  .phone{position:absolute;right:0;bottom:0;width:27%;min-width:92px;max-width:170px;
+    border-radius:18px;padding:5px;background:#120D09;box-shadow:0 18px 40px rgba(0,0,0,.55);outline:1px solid rgba(232,220,192,.18);outline-offset:-1px}
+  .phone__screen{border-radius:14px;overflow:hidden;aspect-ratio:600/1299;background:#000}
+  .phone__screen img{width:100%;height:100%;object-fit:cover;object-position:top}
+
+  .work__info{display:flex;flex-direction:column;gap:.7rem;min-width:0}
+  @media (min-width:760px){.work__info{order:1}}
+  .work__count{font-size:var(--s--1);letter-spacing:.2em;color:var(--gold)}
+  .work__type{font-size:var(--s--1);color:var(--on-night-mute);letter-spacing:.02em}
+  .work h3{font-size:var(--s-3);font-weight:300;color:var(--on-night);line-height:1.02}
+  .work__desc{color:#D9CBAB;font-size:var(--s--1);line-height:1.6;max-width:44ch}
+  .work ul{margin:.1rem 0 0;padding-left:1.05rem;color:var(--on-night-mute);font-size:var(--s--1);line-height:1.6}
+  .work li::marker{color:var(--gold)}
+  .work__foot{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin-top:.4rem;padding-top:.9rem;border-top:1px solid #4A3A2B}
+  .work__price{font-size:var(--s-2);font-weight:500;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+  .work__price small{display:block;font-family:var(--font-body);font-size:.75rem;font-weight:400;color:var(--on-night-mute);margin-top:.35rem;letter-spacing:0}
+  .work__link{margin-left:auto;display:inline-flex;align-items:center;gap:.4rem;color:var(--on-night);text-decoration:none;
+    border:1px solid #5A4734;border-radius:999px;padding:.5rem 1rem;font-size:var(--s--1);transition:border-color .18s ease,background .18s ease}
+  .work__link:hover{border-color:var(--gold);background:#3A2D20}
+  .badge{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;border-radius:999px;padding:.16rem .55rem;
+    background:var(--gold-soft);color:var(--gold-ink);border:1px solid var(--gold);align-self:flex-start}
+  .show .badge{color:var(--gold);background:rgba(216,173,104,.12)}
+
+  .show__ctrl{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:.6rem;padding-inline:var(--gut)}
+  .show__arrow{width:44px;height:44px;border-radius:50%;border:1px solid #5A4734;background:transparent;color:var(--on-night);cursor:pointer;font-size:1.1rem;
+    display:grid;place-items:center;transition:border-color .18s ease,background .18s ease}
+  .show__arrow:hover{border-color:var(--gold);background:#3A2D20}
+  .show__dots{display:flex;gap:.45rem}
+  .show__dot{width:28px;height:4px;border-radius:4px;border:0;padding:0;background:#5A4734;cursor:pointer;transition:background .25s ease,width .25s ease}
+  .show__dot.is-on{background:var(--gold);width:44px}
+
+  /* pinned mode — desktop, включается скриптом при наличии GSAP */
+  .show--pin .show__stage{height:100vh;min-height:640px;padding:76px 0 0;display:flex;flex-direction:column}
+  .show--pin .show__track{position:relative;flex:1;display:block;overflow:visible;padding:0;margin-inline:auto;width:100%;max-width:1320px}
+  .show--pin .work{position:absolute;inset:0 var(--gut);background:none;border:0;padding:0 0 1rem;
+    grid-template-columns:4fr 7fr;gap:clamp(2rem,4vw,4.5rem);align-items:center}
+  .show--pin .work__media{order:2}
+  .show--pin .show__ctrl{display:none}
+  .show__progress{display:none}
+  .show--pin .show__progress{display:flex;gap:.6rem;max-width:1320px;width:100%;margin:0 auto;padding:0 var(--gut) 1.6rem}
+  .prog{flex:1;text-align:left;background:none;border:0;padding:.6rem 0 0;cursor:pointer;color:var(--on-night-mute);
+    font-family:var(--font-body);font-size:.8rem;position:relative;transition:color .25s ease}
+  .prog::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:#4A3A2B}
+  .prog i{position:absolute;left:0;top:0;height:2px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left}
+  .prog.is-on{color:var(--on-night)}
+  .prog:hover{color:var(--on-night)}
+
+  /* ───────── sections ───────── */
+  section{padding-block:clamp(2.6rem,7vw,4.6rem)}
+  main > section + section{border-top:1px solid var(--line-soft)}
+  .sec-head{display:flex;flex-direction:column;gap:.65rem;margin-bottom:clamp(1.5rem,4vw,2.5rem)}
+  .sec-head p{max-width:62ch;color:var(--ink-soft);font-weight:300}
+
+  .js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .js [data-reveal].is-in{opacity:1;transform:none}
+
+  /* packs */
+  .packs{display:grid;gap:1rem}
+  @media (min-width:820px){.packs{grid-template-columns:repeat(2,1fr)}}
+  .pack{border:1px solid var(--line);border-radius:14px;padding:1.6rem 1.45rem;display:flex;flex-direction:column;gap:.9rem;background:var(--card);
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s ease}
+  .pack:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(45,36,25,.08);border-color:var(--gold)}
+  .pack--hero{border-color:var(--gold);background:var(--cream)}
+  .pack__top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+  .pack__price{font-size:var(--s-3);font-weight:500;color:var(--gold-ink);line-height:1;font-variant-numeric:tabular-nums}
+  .pack__time{font-size:var(--s--1);color:var(--ink-mute)}
+  .pack ul{margin:0;padding-left:1.05rem;color:var(--ink-soft);font-size:var(--s--1);line-height:1.72}
+  .pack li::marker{color:var(--gold)}
+  .pack__ex{font-size:var(--s--1);color:var(--ink-mute)}
+
+  .note{border-left:2px solid var(--gold);background:var(--gold-soft);padding:.95rem 1.15rem;border-radius:0 6px 6px 0;
+    font-size:var(--s--1);color:var(--ink-soft);margin-top:1.4rem;max-width:76ch}
+  .note b{color:var(--ink);font-weight:500}
+
+  /* price rows */
+  .blocks{display:grid;gap:clamp(1.6rem,4vw,2.4rem)}
+  @media (min-width:960px){.blocks{grid-template-columns:1fr 1fr;gap:2.4rem 3rem}}
+  .block__label{font-size:var(--s--1);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink);font-weight:500;
+    padding-bottom:.55rem;border-bottom:1.5px solid var(--gold);margin-bottom:.3rem}
+  .row{display:grid;grid-template-columns:1fr auto;gap:.3rem 1.2rem;align-items:baseline;padding:.95rem 0;border-bottom:1px solid var(--line-soft)}
+  .row:last-child{border-bottom:0}
+  .row__name{font-weight:500;margin-bottom:.15rem}
+  .row__desc{color:var(--ink-mute);font-size:var(--s--1);line-height:1.55;max-width:52ch}
+  .row__price{font-size:var(--s-0);font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .row__price small{display:block;font-weight:300;font-size:.72em;color:var(--ink-mute);text-align:right}
+  .row--lead{background:var(--cream);border-radius:8px;padding:1rem 1.1rem;border-bottom:0;margin-bottom:.4rem}
+  .row--lead .row__price{color:var(--gold-ink)}
+
+  /* calculator */
+  .calc{display:grid;gap:1.4rem;align-items:start}
+  @media (min-width:960px){.calc{grid-template-columns:1.25fr 1fr;gap:2.4rem}}
+  .calc__opts{display:grid;gap:1.6rem}
+  .calc fieldset{border:0;margin:0;padding:0;min-width:0}
+  .calc legend{font-family:var(--font);font-size:var(--s--1);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink);font-weight:500;margin-bottom:.6rem;padding:0}
+  .opts{display:grid;gap:.5rem}
+  @media (min-width:600px){.opts--2{grid-template-columns:1fr 1fr}}
+  .opt{position:relative;display:block;cursor:pointer}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt > span{display:flex;align-items:center;gap:.75rem;border:1px solid var(--line);border-radius:10px;padding:.75rem .9rem;background:var(--card);
+    transition:border-color .2s ease,background .2s ease,transform .2s var(--ease);min-height:52px}
+  .opt:hover > span{border-color:var(--gold)}
+  .opt input:checked + span{border-color:var(--gold);background:var(--cream)}
+  .opt__box{width:20px;height:20px;flex:0 0 20px;border:1.5px solid var(--line);border-radius:5px;display:grid;place-items:center;transition:background .2s ease,border-color .2s ease}
+  .opt input[type=radio] + span .opt__box{border-radius:50%}
+  .opt input:checked + span .opt__box{background:var(--forest);border-color:var(--forest)}
+  .opt__box::after{content:'';width:9px;height:5px;border:2px solid var(--forest-ink);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+  .opt input[type=radio] + span .opt__box::after{width:8px;height:8px;border:0;border-radius:50%;background:var(--forest-ink);transform:none}
+  .opt input:checked + span .opt__box::after{opacity:1}
+  .opt__t{flex:1;min-width:0;line-height:1.3;font-size:var(--s--1);color:var(--ink)}
+  .opt__t small{display:block;color:var(--ink-mute);font-size:.82em;margin-top:.1rem}
+  .opt__p{font-family:var(--font);font-weight:500;white-space:nowrap;font-size:var(--s--1);color:var(--gold-ink);font-variant-numeric:tabular-nums}
+  .opt__more,.opt--wide{grid-column:1/-1}
+  .opt__field{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--card);border:1px solid var(--gold);border-radius:10px;padding:.7rem .9rem}
+  .opt__field::placeholder{color:var(--ink-mute)}
+  .opt__field:focus-visible{outline:2px solid var(--gold-ink);outline-offset:1px}
+
+  .stepper{display:flex;align-items:center;gap:.75rem;border:1px solid var(--line);border-radius:10px;padding:.55rem .9rem;background:var(--card)}
+  .stepper__t{flex:1;font-size:var(--s--1);line-height:1.3}
+  .stepper__t small{display:block;color:var(--ink-mute)}
+  .stepper button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.1rem;cursor:pointer}
+  .stepper button:hover{border-color:var(--gold)}
+  .stepper output{min-width:1.6rem;text-align:center;font-family:var(--font);font-weight:500;font-variant-numeric:tabular-nums}
+
+  .calc__sum{position:relative;z-index:5;background:var(--night);color:var(--on-night);border-radius:16px;padding:1.2rem 1.2rem 1.3rem;
+    box-shadow:0 20px 50px rgba(30,22,15,.28);display:grid;gap:.8rem}
+  @media (min-width:960px){.calc__sum{position:sticky;top:88px}}
+  .calc__mini{position:fixed;left:12px;right:12px;bottom:12px;z-index:30;display:flex;align-items:center;gap:.8rem;
+    background:var(--night);color:var(--on-night);border-radius:999px;padding:.55rem .6rem .55rem 1.1rem;
+    box-shadow:0 14px 34px rgba(30,22,15,.35);transform:translateY(160%);transition:transform .35s var(--ease);font-size:var(--s--1)}
+  .calc__mini.is-on{transform:none}
+  .calc__mini b{font-family:var(--font);font-size:1.25rem;font-weight:500;font-variant-numeric:tabular-nums;flex:1}
+  .calc__mini a{background:var(--gold);color:#241A11;text-decoration:none;border-radius:999px;padding:.5rem .9rem;font-family:var(--font);font-weight:500}
+  @media (min-width:960px){.calc__mini{display:none}}
+  .calc__sum .eyebrow{color:var(--gold)}
+  .calc__total{font-size:clamp(2rem,1.5rem + 2.4vw,3.2rem);font-weight:500;line-height:1;color:var(--on-night);font-variant-numeric:tabular-nums}
+  .calc__total span{font-size:.45em;color:var(--on-night-mute);font-weight:300;margin-right:.3rem}
+  .calc__lines{display:none;margin:0;padding:0;list-style:none;font-size:.82rem;color:var(--on-night-mute);border-top:1px solid #46362A;padding-top:.7rem}
+  .calc__lines li{display:flex;justify-content:space-between;gap:1rem;padding:.18rem 0}
+  .calc__lines li b{font-weight:500;color:var(--on-night);white-space:nowrap;font-variant-numeric:tabular-nums}
+  @media (min-width:960px){.calc__lines{display:block}}
+  .calc__meta{display:grid;gap:.25rem;font-size:.82rem;color:var(--on-night-mute)}
+  .calc__meta b{color:var(--on-night);font-weight:500}
+  .calc__btns{display:flex;flex-wrap:wrap;gap:.5rem}
+  .calc__btns .btn{padding:.65rem 1.1rem;font-size:var(--s--1)}
+  .calc__btns .btn--ghost{color:var(--on-night);border-color:#5A4734}
+  .calc__toast{font-size:.8rem;color:var(--gold);min-height:1.2em}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* support */
+  .sup{display:grid;gap:1rem}
+  @media (min-width:880px){.sup{grid-template-columns:1.2fr 1fr;align-items:start}}
+
+  /* edits rule */
+  .rule{display:grid;gap:1rem}
+  @media (min-width:820px){.rule{grid-template-columns:1fr 1fr}}
+  .rule__card{border-radius:14px;padding:1.5rem 1.4rem;display:flex;flex-direction:column;gap:.7rem;border:1px solid var(--line);background:var(--card)}
+  .rule__card--free{border-color:var(--forest);background:color-mix(in srgb,var(--forest) 7%,var(--card))}
+  .rule__card--paid{border-color:var(--terracotta);background:color-mix(in srgb,var(--terracotta) 6%,var(--card))}
+  .rule__big{font-size:var(--s-2);font-weight:500;line-height:1.05}
+  .rule__card--free .rule__big{color:var(--forest)}
+  .rule__card--paid .rule__big{color:var(--terracotta)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .rule__card--free .rule__big{color:#9CC3A0}}
+  :root[data-theme="dark"] .rule__card--free .rule__big{color:#9CC3A0}
+  .rule__card p{color:var(--ink-soft);font-size:var(--s--1)}
+  .once{margin-top:1rem;border:1px solid var(--gold);background:var(--cream);border-radius:14px;padding:1.5rem 1.4rem;display:grid;gap:1.4rem}
+  @media (min-width:860px){.once{grid-template-columns:1.1fr 1fr;align-items:center;gap:2.4rem;padding:1.8rem 1.9rem}}
+  .once__big{font-family:var(--font);font-size:var(--s-2);font-weight:500;line-height:1.05;color:var(--ink);margin-top:.5rem}
+  .once p{color:var(--ink-soft);font-size:var(--s--1);margin-top:.75rem;max-width:52ch}
+  .once p b{color:var(--ink);font-weight:500}
+  .chat{display:grid;gap:1.1rem}
+  @media (min-width:480px){.chat{grid-template-columns:1fr 1fr;gap:1rem}}
+  .chat__col{display:flex;flex-direction:column;gap:.4rem;align-items:flex-start;min-width:0}
+  .chat__tag{font-family:var(--font);font-size:var(--s--1);font-weight:500;margin-bottom:.15rem}
+  .chat__tag--ok{color:var(--forest)}
+  .chat__tag--no{color:var(--terracotta)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chat__tag--ok{color:#9CC3A0}}
+  :root[data-theme="dark"] .chat__tag--ok{color:#9CC3A0}
+  .bubble{background:var(--card);border:1px solid var(--line);border-radius:12px 12px 12px 4px;padding:.45rem .75rem;font-size:.78rem;line-height:1.45;color:var(--ink-soft);max-width:100%}
+  .bubble ol{margin:0;padding-left:1.05rem}
+  .chips{display:flex;flex-wrap:wrap;gap:.35rem}
+  .chip{font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:.2rem .6rem;color:var(--ink-mute);background:var(--bg)}
+
+  /* legal */
+  .legal{display:grid;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden}
+  @media (min-width:720px){.legal{grid-template-columns:repeat(2,1fr)}}
+  @media (min-width:1020px){.legal{grid-template-columns:repeat(3,1fr)}}
+  .legal__cell{background:var(--bg);padding:1.4rem 1.3rem;display:flex;flex-direction:column;gap:.5rem}
+  .legal__cell h3{font-size:var(--s-0);font-weight:500;color:var(--gold-ink);display:flex;gap:.55rem;align-items:center}
+  .legal__cell h3 svg{width:20px;height:20px;flex:0 0 20px;color:var(--gold)}
+  .legal__cell p{color:var(--ink-soft);font-size:var(--s--1);line-height:1.6}
+  .legal__cell--accent{background:var(--cream)}
+
+  /* steps */
+  .steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s;position:relative}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:1rem;padding:0 0 1.5rem;position:relative}
+  .step::before{content:'';position:absolute;left:21px;top:44px;bottom:0;width:1px;background:var(--line)}
+  .step:last-child::before{display:none}
+  .step__n{width:43px;height:43px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold-ink);
+    font-weight:500;background:var(--card);position:relative;z-index:1}
+  .step h3{font-size:var(--s-0);font-weight:500;padding-top:.55rem}
+  .step p{color:var(--ink-mute);font-size:var(--s--1);margin-top:.25rem;max-width:60ch}
+  .step--money .step__n{background:var(--forest);border-color:var(--forest);color:var(--forest-ink)}
+  .how{display:grid;gap:2rem}
+  @media (min-width:960px){.how{grid-template-columns:1.3fr 1fr;gap:3rem;align-items:start}}
+  .pay{border:1px solid var(--gold);background:var(--cream);border-radius:14px;padding:1.5rem 1.4rem;display:grid;gap:1rem}
+  .pay__bar{display:grid;grid-template-columns:1fr 1fr;border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+  .pay__bar span{padding:.55rem .8rem;font-family:var(--font);font-weight:500;font-size:var(--s--1);text-align:center}
+  .pay__bar span:first-child{background:var(--forest);color:var(--forest-ink)}
+  .pay__bar span:last-child{background:var(--gold);color:#241A11}
+  .pay dl{margin:0;display:grid;gap:.6rem}
+  .pay dt{font-weight:500;font-size:var(--s--1)}
+  .pay dd{margin:.1rem 0 0;color:var(--ink-mute);font-size:var(--s--1)}
+
+  /* faq */
+  .faq{display:grid;gap:.5rem;max-width:860px}
+  .faq details{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
+  .faq summary{list-style:none;cursor:pointer;padding:1rem 1.2rem;font-weight:500;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:'+';font-family:var(--font);font-size:1.4rem;line-height:1;color:var(--gold-ink);transition:transform .25s var(--ease)}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq details > div{padding:0 1.2rem 1.1rem;color:var(--ink-soft);font-size:var(--s--1);max-width:70ch}
+
+  /* footer */
+  footer{background:var(--night);color:var(--on-night);padding-block:clamp(2.6rem,7vw,4.4rem)}
+  .foot__cta h2{color:var(--on-night)}
+  .foot__cta p{color:var(--on-night-mute);max-width:44ch;font-size:var(--s--1);margin-top:.6rem}
+  .foot__note{margin-top:2.2rem;padding-top:1.2rem;border-top:1px solid #46362A;color:#8E7B5C;font-size:var(--s--1)}
+  .foot__note a{color:var(--on-night)}
+  .contacts{display:grid;gap:.8rem;margin-top:2rem}
+  @media (min-width:720px){.contacts{grid-template-columns:repeat(3,1fr)}}
+  .contact{display:flex;align-items:center;gap:.85rem;padding:1rem 1.15rem;border:1px solid #4E3D2E;border-radius:10px;background:#33271C;color:var(--on-night);
+    text-decoration:none;font-size:var(--s-0);transition:border-color .18s ease,transform .18s ease,background .18s ease}
+  .contact:hover{border-color:var(--gold);transform:translateY(-2px);background:#3A2D20}
+  .contact__ic{width:24px;height:24px;flex:0 0 24px;color:var(--gold)}
+  .contact__t{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+  .contact__t b{font-family:var(--font);font-weight:500;letter-spacing:.01em}
+  .contact__t small{color:#A8946F;font-size:.78rem;margin-top:.15rem;overflow-wrap:anywhere}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+    .js [data-reveal]{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body id="top">
+<div class="topbar">
+  <div class="wrap topbar__in">
+    <a class="brand" href="#top" aria-label="KozFlow — наверх страницы"><img src="assets/logo.webp" alt="" width="34" height="34">KozFlow</a>
+    <span class="topbar__spacer"></span>
+    <nav class="topbar__links" aria-label="Разделы">
+      <a href="#works">Работы</a>
+      <a href="#price">Цены</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#support">Поддержка</a>
+      <a href="#edits">Правки</a>
+      <a href="#how">Как работаем</a>
+    </nav>
+    <a class="btn btn--ghost topbar__home" href="/" aria-label="Главный сайт KozFlow"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5M10 20v-5.5h4V20"/></svg><span>Главная</span></a>
+    <a class="btn" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">Написать</a>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Сайты под ключ · Тверь</p>
+    <h1><span class="hero__line"><span>Сайты,</span></span><span class="hero__line"><span>работы и <em>цены</em></span></span></h1>
+    <p class="hero__lede">Делаю сайты для бизнеса — от одной страницы до сайта с интеграциями, анимацией и поддержкой. Здесь всё сразу: мои работы, цены и условия — что входит, сколько правок и как платить.</p>
+    <div class="hero__cta">
+      <a class="btn" href="#calc">Посчитать стоимость</a>
+      <a class="btn btn--ghost" href="#works">Смотреть работы</a>
+    </div>
+    <div class="facts">
+      <span class="fact">Лендинг — <b>25 000 ₽</b></span>
+      <span class="fact">Сайт — <b>40 000 ₽</b></span>
+      <span class="fact">Интеграция — <b>5 000 ₽</b></span>
+      <span class="fact">Поддержка — <b>5 000 ₽/мес</b></span>
+      <span class="fact">Договор и <b>документы по 152-ФЗ</b></span>
+    </div>
+  </div>
+  <div class="hero__fan" aria-hidden="true">
+    <div class="fan fan--1"><img src="assets/sites/tverchefs-desk.webp" alt="" width="1600" height="1000"></div>
+    <div class="fan fan--2"><img src="assets/sites/miravi-desk.webp" alt="" width="1600" height="1000"></div>
+    <div class="fan fan--3"><img src="assets/sites/vostok-desk.webp" alt="" width="1600" height="1000"></div>
+  </div>
+</header>
+
+<section class="show" id="works" aria-label="Работы">
+  <div class="wrap show__head">
+    <p class="eyebrow">Работы</p>
+    <h2>Сайты, которые уже работают</h2>
+    <p>Четыре проекта: три для заказчиков и один мой собственный продукт. Листайте — каждый сайт открывается по ссылке, его можно посмотреть вживую.</p>
+  </div>
+
+  <div class="show__stage">
+    <div class="show__track" id="track">
+
+      <article class="work" data-name="Восток 24">
+        <div class="work__media">
+          <div class="browser">
+            <div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">восток24.рф</span></div>
+            <div class="browser__screen"><img src="assets/sites/vostok-desk.webp" alt="Сайт ресторана «Восток 24» на компьютере" width="1600" height="1000" decoding="async"></div>
+          </div>
+          <div class="phone"><div class="phone__screen"><img src="assets/sites/vostok-mob.webp" alt="Сайт ресторана «Восток 24» на телефоне" width="600" height="1299" decoding="async"></div></div>
+        </div>
+        <div class="work__info">
+          <span class="work__count">01 / 04</span>
+          <span class="work__type">Ресторан восточной кухни · Тверь · 24/7</span>
+          <h3>Восток 24</h3>
+          <p class="work__desc">Сайт круглосуточного ресторана на набережной Тьмаки: меню, доставка, бронь стола и банкеты — в один звонок.</p>
+          <ul>
+            <li>Видео и сторис на первом экране</li>
+            <li>Меню, завтраки, веранда, банкеты</li>
+            <li>Книга отзывов: обращения приходят руководителю на почту и в Telegram</li>
+            <li>Редактор, в котором ресторан сам меняет меню</li>
+            <li>Яндекс Карта, cookies и документы по 152-ФЗ</li>
+          </ul>
+          <div class="work__foot">
+            <div class="work__price">40 000 ₽<small>+ поддержка 5 000 ₽ в месяц</small></div>
+            <a class="work__link" href="https://xn--24-dlc6ataui.xn--p1ai/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work" data-name="Ассоциация кулинаров">
+        <div class="work__media">
+          <div class="browser">
+            <div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">tverchefs.ru</span></div>
+            <div class="browser__screen"><img src="assets/sites/tverchefs-desk.webp" alt="Сайт Тверской ассоциации кулинаров на компьютере" width="1600" height="1000" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="phone"><div class="phone__screen"><img src="assets/sites/tverchefs-mob.webp" alt="Сайт Тверской ассоциации кулинаров на телефоне" width="600" height="1299" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="work__info">
+          <span class="work__count">02 / 04</span>
+          <span class="work__type">Ассоциация шефов и заведений · Тверь</span>
+          <h3>Тверская ассоциация кулинаров</h3>
+          <p class="work__desc">Лендинг объединения шеф-поваров и заведений Твери: зачем ассоциация, как вступить, взносы и документы.</p>
+          <ul>
+            <li>Живой первый экран: слои расходятся при прокрутке</li>
+            <li>Взносы, оформленные как меню</li>
+            <li>Заявка для шефа, заведения и партнёра — в Telegram и на почту</li>
+            <li>Документы, реквизиты и политика обработки данных</li>
+          </ul>
+          <div class="work__foot">
+            <div class="work__price">30 000 ₽<small>лендинг 25 000 + форма заявки 5 000</small></div>
+            <a class="work__link" href="https://tverchefs.ru/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work" data-name="Miravi">
+        <div class="work__media">
+          <div class="browser">
+            <div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">miravi.art</span></div>
+            <div class="browser__screen"><img src="assets/sites/miravi-desk.webp" alt="Сайт сервиса Miravi на компьютере" width="1600" height="1000" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="phone"><div class="phone__screen"><img src="assets/sites/miravi-mob.webp" alt="Сайт сервиса Miravi на телефоне" width="600" height="1299" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="work__info">
+          <span class="work__count">03 / 04</span>
+          <span class="work__type">Сервис для дизайнеров интерьера</span>
+          <h3>Miravi</h3>
+          <p class="work__desc">Сайт сервиса, который превращает 3D-макет, чертёж или фото комнаты в готовые фотореалистичные виды интерьера.</p>
+          <ul>
+            <li>Подача слайдами с плавными переходами</li>
+            <li>Авторская типографика под характер бренда</li>
+            <li>Возможности сервиса и 20 стилей интерьера</li>
+            <li>Вход и заявка на доступ к сервису</li>
+          </ul>
+          <div class="work__foot">
+            <div class="work__price">30 000 ₽<small>лендинг 25 000 + анимация 5 000</small></div>
+            <a class="work__link" href="https://miravi.art/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work" data-name="DeepDiver">
+        <div class="work__media">
+          <div class="browser">
+            <div class="browser__bar"><i></i><i></i><i></i><span class="browser__url">deepdiver.tech</span></div>
+            <div class="browser__screen"><img src="assets/sites/deepdiver-desk.webp" alt="Сайт DeepDiver на компьютере" width="1600" height="1000" loading="lazy" decoding="async"></div>
+          </div>
+          <div class="phone"><div class="phone__screen"><img src="assets/sites/deepdiver-mob.webp" alt="Сайт DeepDiver на телефоне" width="600" height="1299" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="work__info">
+          <span class="work__count">04 / 04</span>
+          <span class="badge">Мой продукт</span>
+          <span class="work__type">AI-аналитика для ресторанов</span>
+          <h3>DeepDiver</h3>
+          <p class="work__desc">Сайт моего собственного продукта: сервис собирает продажи, меню, команду и склад заведения в одну картину.</p>
+          <ul>
+            <li>Интерактивная схема заведения: зал, кухня, склад</li>
+            <li>Демо на примере данных и ролик о продукте</li>
+            <li>Тарифы и ответы на частые вопросы</li>
+            <li>Cookies и политика обработки данных</li>
+          </ul>
+          <div class="work__foot">
+            <div class="work__price">Свой проект<small>сайт для моего приложения</small></div>
+            <a class="work__link" href="https://deepdiver.tech/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="show__ctrl">
+      <button class="show__arrow" type="button" data-dir="-1" aria-label="Предыдущая работа">←</button>
+      <div class="show__dots" id="dots"></div>
+      <button class="show__arrow" type="button" data-dir="1" aria-label="Следующая работа">→</button>
+    </div>
+    <div class="show__progress" id="progress"></div>
+  </div>
+</section>
+
+<main>
+
+<section id="price">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Цены</p>
+      <h2>Два формата сайта</h2>
+      <p>Цена фиксированная и входит всё, что перечислено. Интеграции и анимация добавляются отдельно — ниже есть прайс и калькулятор.</p>
+    </div>
+
+    <div class="packs">
+      <article class="pack" data-reveal>
+        <div class="pack__top">
+          <div>
+            <h3>Лендинг</h3>
+            <p class="pack__time">Одна страница · 1–1,5 недели</p>
+          </div>
+          <div class="pack__price">25 000 ₽</div>
+        </div>
+        <ul>
+          <li>Одна страница: о вас, услуги, фото, отзывы, контакты</li>
+          <li>Свой дизайн под ваш бизнес, без шаблонов</li>
+          <li>Мобильная версия</li>
+          <li>Кнопки звонка и мессенджеров</li>
+          <li>Подключение домена и защищённого соединения (https)</li>
+          <li>Политика конфиденциальности, согласие и cookies по 152-ФЗ</li>
+          <li>Два круга правок по пунктам ТЗ</li>
+        </ul>
+        <p class="pack__ex">Подходит мастеру, студии, кафе, небольшой услуге.</p>
+      </article>
+
+      <article class="pack pack--hero" data-reveal>
+        <div class="pack__top">
+          <div>
+            <h3>Сайт</h3>
+            <p class="pack__time">До 6–7 разделов · 2–3 недели</p>
+          </div>
+          <div class="pack__price">40 000 ₽</div>
+        </div>
+        <ul>
+          <li>Всё, что входит в лендинг</li>
+          <li>До 6–7 разделов: меню или услуги, о вас, галерея, контакты и другие</li>
+          <li>Структура и навигация под ваш бизнес</li>
+          <li>Заголовки и описания страниц для поиска</li>
+          <li>Документы по 152-ФЗ под каждую форму на сайте</li>
+          <li>Два круга правок по пунктам ТЗ</li>
+        </ul>
+        <p class="pack__ex">Пример — сайт ресторана «Восток 24» в разделе «Работы».</p>
+      </article>
+    </div>
+
+    <p class="note" data-reveal><b>Сроки — ориентир.</b> Точный срок фиксируем после того, как утвердим техническое задание: он зависит от объёма и от того, как быстро придут тексты и фото.</p>
+  </div>
+</section>
+
+<section id="extras">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Дополнительно</p>
+      <h2>Интеграции и анимация</h2>
+      <p>Добавляются к любому формату. Простая интеграция — фиксированные 5 000 ₽, сложная — считаю по задаче.</p>
+    </div>
+
+    <div class="blocks">
+      <div data-reveal>
+        <div class="block__label">Интеграции — 5 000 ₽ каждая</div>
+        <div class="row"><div><div class="row__name">Заявки на почту и в Telegram</div><div class="row__desc">Форма на сайте, заявка сразу приходит вам в Telegram и на почту.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Яндекс Карта с маршрутом</div><div class="row__desc">Карта с вашей точкой и кнопкой «построить маршрут».</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Отзывы с Яндекс Карт</div><div class="row__desc">Ваши реальные отзывы и рейтинг прямо на сайте.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Онлайн-запись</div><div class="row__desc">Виджет записи YCLIENTS, DIKIDI или похожего сервиса.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Яндекс Метрика и цели</div><div class="row__desc">Видно, сколько людей пришло, откуда и сколько нажали «позвонить».</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Поиск Яндекса</div><div class="row__desc">Вебмастер, карта сайта, сайт быстрее появляется в поиске.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Виджеты соцсетей и чат</div><div class="row__desc">Лента ВКонтакте или Telegram-канала, онлайн-чат на сайте.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Другая интеграция</div><div class="row__desc">Нужного сервиса нет в списке — опишите его в калькуляторе, посчитаю.</div></div><div class="row__price">от 5 000 ₽</div></div>
+      </div>
+
+      <div data-reveal>
+        <div class="block__label">Сложные интеграции</div>
+        <div class="row"><div><div class="row__name">Онлайн-оплата</div><div class="row__desc">Приём оплаты на сайте через банк или платёжный сервис.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Каталог с корзиной</div><div class="row__desc">Товары, фильтры, корзина и оформление заказа.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Редактор контента</div><div class="row__desc">Вы сами меняете меню, цены и фото — без меня.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">CRM или учётная система</div><div class="row__desc">Заявки с сайта сразу попадают в вашу CRM или кассу.</div></div><div class="row__price">от 10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Другая сложная задача</div><div class="row__desc">Личный кабинет, связь с 1С или складом и другое — считаю по задаче.</div></div><div class="row__price">от 10 000 ₽</div></div>
+
+        <div class="block__label" style="margin-top:2rem">Анимация и видео</div>
+        <div class="row"><div><div class="row__name">Немного анимации</div><div class="row__desc">Плавное появление блоков, живые кнопки, переходы между разделами.</div></div><div class="row__price">5 000 ₽</div></div>
+        <div class="row row--lead"><div><div class="row__name">Всё в движении</div><div class="row__desc">Анимация на прокрутке, параллакс, видео или живой фон на первом экране, сложные переходы — как на этой странице.</div></div><div class="row__price">10 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Дополнительный раздел</div><div class="row__desc">Ещё одна страница или большой блок сверх формата.</div></div><div class="row__price">от 3 000 ₽</div></div>
+        <div class="row"><div><div class="row__name">Тексты для сайта</div><div class="row__desc">Если своих текстов нет — напишу сам.</div></div><div class="row__price">5 000 ₽</div></div>
+        <p class="row__desc" style="margin-top:.8rem">Нужен ролик или анимированная графика для сайта — смотрите <a href="/dizayn">прайс на дизайн и анимацию</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calc">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Калькулятор</p>
+      <h2>Соберите свой сайт</h2>
+      <p>Отметьте, что нужно, — сумма посчитается сразу. Расчёт можно отправить мне в Telegram одной кнопкой.</p>
+    </div>
+
+    <div class="calc" data-reveal>
+      <div class="calc__opts" id="calcOpts"></div>
+      <aside class="calc__sum" id="calcSum">
+        <p class="eyebrow">Итого</p>
+        <div class="calc__total" id="calcTotal"><span id="calcFrom"></span><b id="calcNum">40 000</b> ₽</div>
+        <ul class="calc__lines" id="calcLines"></ul>
+        <div class="calc__meta">
+          <span>Предоплата 50% — <b id="calcPre">20 000 ₽</b></span>
+          <span id="calcSupLine" hidden>Поддержка — <b>5 000 ₽ в месяц</b></span>
+        </div>
+        <div class="calc__btns">
+          <a class="btn btn--gold" id="calcSend" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">Отправить в Telegram</a>
+          <button class="btn btn--ghost" type="button" id="calcCopy">Скопировать</button>
+        </div>
+        <p class="calc__toast" id="calcToast" aria-live="polite"></p>
+        <span class="sr-only" id="calcLive" aria-live="polite"></span>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="calc__mini" id="calcMini" aria-hidden="true"><span>Итого</span><b id="calcMiniNum">40 000 ₽</b><a href="#calcSum" tabindex="-1">Подробнее</a></div>
+
+<section id="support">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Поддержка</p>
+      <h2>Сайт работает — я за ним слежу</h2>
+      <p>После запуска можно не искать, кто поменяет телефон или цены. Поддержка по желанию: без неё сайт тоже ваш.</p>
+    </div>
+
+    <div class="sup">
+      <article class="pack pack--hero" data-reveal>
+        <div class="pack__top">
+          <div>
+            <h3>Поддержка</h3>
+            <p class="pack__time">Оплата за месяц вперёд</p>
+          </div>
+          <div class="pack__price">5 000 ₽<span style="font-size:.42em;font-weight:300;color:var(--ink-mute)"> / мес</span></div>
+        </div>
+        <ul>
+          <li>Сервер и хостинг</li>
+          <li>Продление домена и сертификата https</li>
+          <li>Резервные копии сайта</li>
+          <li>Слежу за работой сайта и чиню, если что-то сломалось</li>
+          <li>До 5 мелких правок в месяц: телефон, цены, фото, текст</li>
+        </ul>
+        <p class="pack__ex">Отказаться можно, предупредив за месяц: передам файлы и доступы, помогу переехать.</p>
+      </article>
+
+      <div data-reveal>
+        <div class="block__label">Без поддержки</div>
+        <div class="row"><div><div class="row__name">Мелкая правка</div><div class="row__desc">Заменить телефон, фото, текст или цену, добавить мелкую функцию.</div></div><div class="row__price">500 ₽</div></div>
+        <div class="row"><div><div class="row__name">Новая функция или блок</div><div class="row__desc">Всё, что больше мелкой правки.</div></div><div class="row__price">1 500 ₽<small>в час</small></div></div>
+        <div class="row"><div><div class="row__name">Хостинг и домен</div><div class="row__desc">Оплачиваете сами, помогу всё оформить.</div></div><div class="row__price">по тарифу</div></div>
+        <p class="note"><b>Домен оформляем на вас</b> с первого дня, права на сайт переходят к вам после полной оплаты.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="edits">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Правки</p>
+      <h2>Правки — по ТЗ, без сюрпризов</h2>
+      <p>До начала работы мы вместе пишем техническое задание. Всё, что в нём записано, правлю бесплатно. Всё, чего в нём нет, — новая работа.</p>
+    </div>
+
+    <div class="rule">
+      <article class="rule__card rule__card--free" data-reveal>
+        <span class="eyebrow">Бесплатно</span>
+        <div class="rule__big">Два круга правок по пунктам ТЗ</div>
+        <p>Правки того, что уже записано в техническом задании: доработать, поменять, поправить. Каждый круг — одним сообщением.</p>
+        <div class="chips"><span class="chip">поменять цвет</span><span class="chip">переставить блоки</span><span class="chip">заменить фото</span><span class="chip">поправить текст</span><span class="chip">подвинуть кнопку</span></div>
+      </article>
+      <article class="rule__card rule__card--paid" data-reveal>
+        <span class="eyebrow">Платно сразу</span>
+        <div class="rule__big">Всё, чего нет в ТЗ</div>
+        <p>Такая правка не относится к пунктам задания — это доп. услуга. Считаю по прайсу и делаю после вашего согласия.</p>
+        <div class="chips"><span class="chip">новый раздел</span><span class="chip">новая форма</span><span class="chip">ещё интеграция</span><span class="chip">другой дизайн</span><span class="chip">новая функция</span></div>
+      </article>
+    </div>
+
+    <div class="once" data-reveal>
+      <div>
+        <span class="eyebrow">Важно</span>
+        <div class="once__big">Правки — одним сообщением</div>
+        <p>Посмотрите сайт целиком, соберите все замечания в один список и пришлите разом. <b>Каждое новое сообщение с правками считается новым кругом.</b> Так ничего не теряется, и сайт быстрее доходит до запуска.</p>
+      </div>
+      <div class="chat" aria-label="Пример: один список правок — один круг, три отдельных сообщения — три круга">
+        <div class="chat__col">
+          <span class="chat__tag chat__tag--ok">1 сообщение = 1 круг</span>
+          <div class="bubble"><ol><li>Телефон в шапке — другой</li><li>Фото на главной посветлее</li><li>Кнопку «Записаться» крупнее</li></ol></div>
+        </div>
+        <div class="chat__col">
+          <span class="chat__tag chat__tag--no">3 сообщения = 3 круга</span>
+          <div class="bubble">Телефон в шапке — другой</div>
+          <div class="bubble">И фото посветлее</div>
+          <div class="bubble">Ой, и кнопку крупнее</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="note" data-reveal><b>Третий и следующие круги</b> по пунктам ТЗ — 3 000 ₽ за круг.</p>
+  </div>
+</section>
+
+<section id="legal">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Юридическая часть</p>
+      <h2>Документы — на мне</h2>
+      <p>Скажу, какие данные нужны от вас, — сам подготовлю документы по 152-ФЗ и размещу их на сайте. Разбираться в этом самим не придётся.</p>
+    </div>
+
+    <div class="legal" data-reveal>
+      <div class="legal__cell">
+        <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M7 3h7l4 4v14H7zM14 3v4h4M9.5 12h6M9.5 15.5h6"/></svg>Политика конфиденциальности</h3>
+        <p>Составлю по 152-ФЗ с вашими реквизитами и размещу на сайте.</p>
+      </div>
+      <div class="legal__cell">
+        <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M4 5h16v14H4zM8 12l2.5 2.5L16 9"/></svg>Согласие на обработку данных</h3>
+        <p>Отдельное согласие у каждой формы на сайте, где оставляют имя или телефон.</p>
+      </div>
+      <div class="legal__cell">
+        <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 3a9 9 0 1 0 9 9 4 4 0 0 1-4-4 4 4 0 0 1-5-5ZM8.5 11h.01M12 15.5h.01M15.5 13h.01M9 16h.01"/></svg>Cookies</h3>
+        <p>Баннер и раздел о cookies, если на сайте есть счётчики, карты или видео.</p>
+      </div>
+      <div class="legal__cell legal__cell--accent">
+        <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M6 3h12v18H6zM9 8h6M9 11.5h6M9 15h3.5"/></svg>Договор</h3>
+        <p>Составлю договор и техническое задание. Вы читаете, подписываете, вносите предоплату — и тогда я начинаю работу.</p>
+      </div>
+      <div class="legal__cell">
+        <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z"/></svg>Роскомнадзор</h3>
+        <p>Подскажу, как подать уведомление об обработке персональных данных, и помогу его заполнить.</p>
+      </div>
+      <div class="legal__cell">
+        <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M5 12.5 9.5 17 19 7.5"/></svg>Чеки и документы</h3>
+        <p>Чек на каждый платёж. Для ИП и компаний — оплата по счёту.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Как работаем</p>
+      <h2>От первого сообщения до запуска</h2>
+    </div>
+
+    <div class="how">
+      <ol class="steps" data-reveal>
+        <li class="step"><span class="step__n">1</span><div><h3>Обсуждаем задачу</h3><p>Что за бизнес, зачем сайт, что на нём должно быть, какие сайты нравятся.</p></div></li>
+        <li class="step"><span class="step__n">2</span><div><h3>Техническое задание</h3><p>Записываю разделы, функции, интеграции и анимацию — вместе с их стоимостью по прайсу. Итоговая цена фиксируется в ТЗ.</p></div></li>
+        <li class="step"><span class="step__n">3</span><div><h3>Договор</h3><p>Присылаю договор, вы читаете и подписываете.</p></div></li>
+        <li class="step step--money"><span class="step__n">4</span><div><h3>Предоплата 50%</h3><p>После неё начинаю работу. Сроки согласуем, когда утвердим ТЗ.</p></div></li>
+        <li class="step"><span class="step__n">5</span><div><h3>Разработка и правки</h3><p>Показываю сайт по рабочей ссылке. Два круга правок по пунктам ТЗ — каждый круг одним сообщением.</p></div></li>
+        <li class="step step--money"><span class="step__n">6</span><div><h3>Приёмка и 50%</h3><p>После оплаты сайт выходит на ваш домен.</p></div></li>
+        <li class="step"><span class="step__n">7</span><div><h3>Поддержка</h3><p>По желанию — 5 000 ₽ в месяц, и сайт всегда в порядке.</p></div></li>
+      </ol>
+
+      <aside class="pay" data-reveal>
+        <p class="eyebrow">Оплата</p>
+        <div class="pay__bar"><span>50% на старте</span><span>50% при сдаче</span></div>
+        <dl>
+          <div><dt>Как платить</dt><dd>Переводом с чеком или по счёту для ИП и компаний.</dd></div>
+          <div><dt>Когда сайт выходит в свет</dt><dd>После полной оплаты — на ваш домен. До этого он доступен по рабочей ссылке.</dd></div>
+          <div><dt>Если передумаете</dt><dd>Оплачивается уже сделанная часть работы — порядок расчётов прописан в договоре.</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Вопросы</p>
+      <h2>Частые вопросы</h2>
+    </div>
+    <div class="faq" data-reveal>
+      <details><summary>Сколько по времени делается сайт?</summary><div>Лендинг — 1–1,5 недели, сайт — 2–3 недели. Точный срок фиксируем после утверждения ТЗ: он зависит от объёма и от того, как быстро придут тексты и фото.</div></details>
+      <details><summary>Что нужно от меня?</summary><div>Логотип, фото, тексты, пара сайтов, которые нравятся, и реквизиты для документов. Если текстов нет — напишу сам. Точный список пришлю после обсуждения.</div></details>
+      <details><summary>Чей будет сайт и домен?</summary><div>Ваш. Домен оформляем на вас, права на сайт переходят к вам после полной оплаты.</div></details>
+      <details><summary>Можно без поддержки?</summary><div>Да. Тогда хостинг и домен оплачиваете сами, а правки — по прайсу: мелкая 500 ₽, остальное 1 500 ₽ в час.</div></details>
+      <details><summary>А если нужно то, чего нет в прайсе?</summary><div>Напишите — посчитаю отдельно. Сложные вещи вроде оплаты, каталога или связки с CRM считаю по задаче, от 10 000 ₽.</div></details>
+      <details><summary>Как присылать правки?</summary><div>Одним сообщением, все замечания списком. Каждое новое сообщение с правками считается новым кругом, поэтому лучше сначала посмотреть сайт целиком и прислать всё разом.</div></details>
+      <details><summary>Почему правки только по ТЗ?</summary><div>Так честно для обеих сторон: вы заранее знаете, за что платите, а работа не растягивается на месяцы. Новое по ходу тоже можно добавить — по прайсу и с вашего согласия.</div></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot__cta">
+      <h2>Напишите, что нужно —<br>отвечу ценой и сроком</h2>
+      <p>Достаточно одной фразы вроде «нужен сайт для кафе с меню и картой». Дальше уточню сам.</p>
+    </div>
+
+    <div class="contacts">
+      <a class="contact" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">
+        <svg class="contact__ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.3 1.5Z"/></svg>
+        <span class="contact__t"><b>Telegram</b><small>@Vovka_Kozisss</small></span>
+      </a>
+      <a class="contact" href="https://max.ru/u/f9LHodD0cOJoJGpSL33th8fRBsgIyN5HT7tEYYQwDxlcfIcouNZKYDbA02k" target="_blank" rel="noopener">
+        <svg class="contact__ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 20V4h3.4l5.6 8.2L17.6 4H21v16h-3.3V9.4l-5 7.2h-1.4l-5-7.2V20H3Z"/></svg>
+        <span class="contact__t"><b>MAX</b><small>Написать в мессенджере MAX</small></span>
+      </a>
+      <a class="contact" href="tel:+79106407134">
+        <svg class="contact__ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2Z"/></svg>
+        <span class="contact__t"><b>+7 910 640-71-34</b><small>Позвонить</small></span>
+      </a>
+    </div>
+
+    <p class="foot__note">KozFlow · сайты под ключ · Тверь и удалённо по РФ · цены действуют с 15.10.2026 · <a href="/">главный сайт KozFlow</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fmt(n){ return n.toLocaleString('ru-RU').replace(/ /g,' '); }
+
+  /* ── reveal on scroll ── */
+  var rv = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    rv.forEach(function(el){ io.observe(el); });
+  } else { rv.forEach(function(el){ el.classList.add('is-in'); }); }
+
+  /* ── hero: карточка по клику выходит вперёд, повторный клик или клик мимо — обратно ── */
+  var fanBox = document.querySelector('.hero__fan');
+  function fanFront(card){
+    fanBox.querySelectorAll('.fan').forEach(function(f){ f.classList.toggle('is-front', f === card); });
+    fanBox.classList.toggle('has-front', !!card);
+  }
+  fanBox.addEventListener('click', function(e){
+    var c = e.target.closest('.fan');
+    if (c) fanFront(c.classList.contains('is-front') ? null : c);
+  });
+  document.addEventListener('click', function(e){ if (!fanBox.contains(e.target)) fanFront(null); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fanFront(null); });
+
+  /* ── works: carousel (по умолчанию) ── */
+  var track = document.getElementById('track');
+  var works = Array.prototype.slice.call(track.querySelectorAll('.work'));
+  var dotsBox = document.getElementById('dots');
+  var dots = works.map(function(w, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'show__dot' + (i === 0 ? ' is-on' : '');
+    b.setAttribute('aria-label', w.dataset.name);
+    b.addEventListener('click', function(){ goCard(i); });
+    dotsBox.appendChild(b); return b;
+  });
+  var cur = 0;
+  function goCard(i){
+    i = Math.max(0, Math.min(works.length - 1, i));
+    var w = works[i];
+    track.scrollTo({left: w.offsetLeft - (track.clientWidth - w.clientWidth) / 2, behavior: reduce ? 'auto' : 'smooth'});
+  }
+  function setDot(i){ cur = i; dots.forEach(function(d, k){ d.classList.toggle('is-on', k === i); }); }
+  track.addEventListener('scroll', function(){
+    var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bd = 1e9;
+    works.forEach(function(w, i){ var c = w.offsetLeft + w.clientWidth / 2, d = Math.abs(c - mid); if (d < bd){ bd = d; best = i; } });
+    if (best !== cur) setDot(best);
+  }, {passive:true});
+  document.querySelectorAll('.show__arrow').forEach(function(b){
+    b.addEventListener('click', function(){ goCard(cur + Number(b.dataset.dir)); });
+  });
+
+  /* ── works: pinned scroll-scene на десктопе (GSAP) ── */
+  document.addEventListener('DOMContentLoaded', function(){
+    if (!window.gsap || !window.ScrollTrigger || reduce) return;
+    gsap.registerPlugin(ScrollTrigger);
+    var show = document.getElementById('works');
+    var stage = show.querySelector('.show__stage');
+    var prog = document.getElementById('progress');
+    var mm = gsap.matchMedia();
+
+    mm.add('(min-width: 1000px) and (min-height: 640px)', function(){
+      show.classList.add('show--pin');
+      prog.innerHTML = '';
+      var bars = works.map(function(w){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'prog'; b.innerHTML = '<i></i>' + w.dataset.name;
+        prog.appendChild(b); return b;
+      });
+      var n = works.length;
+      var info = works.map(function(w){ return w.querySelector('.work__info'); });
+      var browsers = works.map(function(w){ return w.querySelector('.browser'); });
+      var shots = works.map(function(w){ return w.querySelector('.browser__screen img'); });
+      var phones = works.map(function(w){ return w.querySelector('.phone'); });
+      works.forEach(function(w, i){ w.style.zIndex = i + 1; });
+      gsap.set(info.slice(1), {autoAlpha:0, y:40});
+      gsap.set(browsers.slice(1), {clipPath:'inset(0% 0% 100% 0%)'});
+      gsap.set(phones.slice(1), {autoAlpha:0, y:90});
+      gsap.set(info[0], {autoAlpha:1, y:0});
+
+      var tl = gsap.timeline({defaults:{ease:'power2.inOut'}});
+      tl.addLabel('w0', 0).to({}, {duration:.35});
+      for (var i = 1; i < n; i++) {
+        var at = 'm' + i;
+        tl.addLabel(at)
+          .to(info[i-1], {autoAlpha:0, y:-36, duration:.45, ease:'power2.in'}, at)
+          .to(phones[i-1], {autoAlpha:0, y:-50, duration:.45, ease:'power2.in'}, at)
+          .to(browsers[i], {clipPath:'inset(0% 0% 0% 0%)', duration:1}, at)
+          .fromTo(shots[i], {scale:1.14}, {scale:1, duration:1.1, ease:'power3.out'}, at)
+          .to(phones[i], {autoAlpha:1, y:0, duration:.7, ease:'power3.out'}, at + '+=0.4')
+          .to(info[i], {autoAlpha:1, y:0, duration:.6, ease:'power3.out'}, at + '+=0.45')
+          .addLabel('w' + i)
+          .to({}, {duration:.35});
+      }
+      var labels = works.map(function(_, i){ return tl.labels['w' + i]; });
+      var total = tl.duration();
+
+      var st = ScrollTrigger.create({
+        trigger: stage, start: 'top top', end: '+=' + (n - 1) * 95 + '%',
+        pin: true, scrub: 0.7, animation: tl,
+        snap: {snapTo: labels.map(function(t){ return t / total; }), duration:{min:.25, max:.7}, delay:.08, ease:'power1.inOut', inertia:false},
+        onUpdate: function(self){
+          var t = self.progress * total, act = 0;
+          for (var k = 1; k < n; k++){ if (t >= tl.labels['m' + k] + .5) act = k; }
+          bars.forEach(function(b, k){
+            b.classList.toggle('is-on', k === act);
+            var a = k === 0 ? 0 : tl.labels['m' + k], z = k === n - 1 ? total : tl.labels['m' + (k + 1)];
+            var p = Math.max(0, Math.min(1, (t - a) / (z - a)));
+            b.firstChild.style.transform = 'scaleX(' + (k < act ? 1 : k === act ? Math.max(p, .04) : 0) + ')';
+          });
+        }
+      });
+      bars.forEach(function(b, k){
+        b.addEventListener('click', function(){
+          var y = st.start + (labels[k] / total) * (st.end - st.start);
+          window.scrollTo({top: y + 2, behavior:'smooth'});
+        });
+      });
+      st.update && st.update();
+
+      return function(){
+        show.classList.remove('show--pin');
+        prog.innerHTML = '';
+        gsap.set([].concat(info, browsers, shots, phones), {clearProps:'all'});
+        works.forEach(function(w){ w.style.zIndex = ''; });
+      };
+    });
+  });
+
+  /* ── calculator ── */
+  var BASE = [
+    {id:'landing', name:'Лендинг', note:'одна страница', price:25000},
+    {id:'site', name:'Сайт', note:'до 6–7 разделов', price:40000, on:true}
+  ];
+  var INTEG = [
+    {id:'form', name:'Заявки на почту и в Telegram', price:5000},
+    {id:'map', name:'Яндекс Карта с маршрутом', price:5000},
+    {id:'reviews', name:'Отзывы с Яндекс Карт', price:5000},
+    {id:'booking', name:'Онлайн-запись', price:5000},
+    {id:'metrika', name:'Яндекс Метрика и цели', price:5000},
+    {id:'seo', name:'Поиск Яндекса', price:5000},
+    {id:'social', name:'Виджеты соцсетей и чат', price:5000},
+    {id:'integOther', name:'Другая интеграция', note:'напишите, что подключить', price:5000, from:true,
+      ph:'Например: доставка через iiko, виджет бронирования', label:'Какую интеграцию подключить'}
+  ];
+  var HARD = [
+    {id:'pay', name:'Онлайн-оплата', price:10000, from:true},
+    {id:'shop', name:'Каталог с корзиной', price:10000, from:true},
+    {id:'cms', name:'Редактор контента', price:10000, from:true},
+    {id:'crm', name:'CRM или учётная система', price:10000, from:true},
+    {id:'hardOther', name:'Другая сложная задача', note:'опишите, что нужно', price:10000, from:true, wide:true,
+      ph:'Например: личный кабинет, связь с 1С или складом', label:'Какая сложная задача нужна'}
+  ];
+  var ANIM = [
+    {id:'a0', name:'Без анимации', price:0, on:true},
+    {id:'a1', name:'Немного анимации', price:5000},
+    {id:'a2', name:'Всё в движении', price:10000}
+  ];
+  var MORE = [
+    {id:'texts', name:'Тексты для сайта', note:'если своих нет', price:5000},
+    {id:'support', name:'Поддержка', note:'сервер, домен, копии, правки', price:5000, monthly:true}
+  ];
+
+  function opt(type, group, o){
+    var p = o.price === 0 ? '—' : (o.from ? 'от ' : '+ ') + fmt(o.price) + ' ₽' + (o.monthly ? '/мес' : '');
+    if (type === 'radio' && group === 'base') p = fmt(o.price) + ' ₽';
+    return '<label class="opt' + (o.wide ? ' opt--wide' : '') + '"><input type="' + type + '" name="' + group + '" value="' + o.id + '"' + (o.on ? ' checked' : '') +
+      (o.ph ? ' aria-controls="more-' + o.id + '" aria-expanded="false"' : '') + '>' +
+      '<span><i class="opt__box" aria-hidden="true"></i><span class="opt__t">' + o.name + (o.note ? '<small>' + o.note + '</small>' : '') +
+      '</span><b class="opt__p">' + p + '</b></span></label>' +
+      (o.ph ? '<div class="opt__more" id="more-' + o.id + '" hidden><input class="opt__field" type="text" id="txt-' + o.id + '" maxlength="140"' +
+        ' placeholder="' + o.ph + '" aria-label="' + o.label + '"></div>' : '');
+  }
+  function esc(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function fs(title, html, cls){ return '<fieldset><legend>' + title + '</legend><div class="opts ' + (cls || '') + '">' + html + '</div></fieldset>'; }
+  var box = document.getElementById('calcOpts');
+  box.innerHTML =
+    fs('Формат', BASE.map(function(o){ return opt('radio','base',o); }).join(''), 'opts--2') +
+    fs('Интеграции — 5 000 ₽', INTEG.map(function(o){ return opt('checkbox','integ',o); }).join(''), 'opts--2') +
+    fs('Сложные интеграции', HARD.map(function(o){ return opt('checkbox','hard',o); }).join(''), 'opts--2') +
+    fs('Анимация', ANIM.map(function(o){ return opt('radio','anim',o); }).join(''), '') +
+    '<fieldset><legend>Ещё</legend><div class="opts">' +
+      '<div class="stepper"><span class="stepper__t">Дополнительные разделы<small>от 3 000 ₽ за раздел</small></span>' +
+      '<button type="button" data-step="-1" aria-label="Меньше разделов">−</button><output id="extraN">0</output>' +
+      '<button type="button" data-step="1" aria-label="Больше разделов">+</button></div>' +
+      MORE.map(function(o){ return opt('checkbox','more',o); }).join('') +
+    '</div></fieldset>';
+
+  var ALL = {};
+  [].concat(BASE, INTEG, HARD, ANIM, MORE).forEach(function(o){ ALL[o.id] = o; });
+  var extra = 0, shown = 40000, raf = 0;
+  var elNum = document.getElementById('calcNum'), elFrom = document.getElementById('calcFrom');
+  var elPre = document.getElementById('calcPre'), elLines = document.getElementById('calcLines');
+  var elSup = document.getElementById('calcSupLine');
+
+  function state(){
+    var items = [], total = 0, from = false, support = false;
+    box.querySelectorAll('input:checked').forEach(function(inp){
+      var o = ALL[inp.value];
+      if (o.monthly){ support = true; return; }
+      if (!o.price) return;
+      var name = o.name, txt = o.ph ? document.getElementById('txt-' + o.id).value.trim() : '';
+      if (txt) name += ': ' + txt;
+      items.push([name, o.price, o.from]); total += o.price; if (o.from) from = true;
+    });
+    if (extra > 0){ items.push(['Доп. разделы × ' + extra, extra * 3000, true]); total += extra * 3000; from = true; }
+    return {items:items, total:total, from:from, support:support};
+  }
+  function animateTo(v){
+    cancelAnimationFrame(raf);
+    if (reduce){ shown = v; elNum.textContent = fmt(v); return; }
+    var a = shown, t0 = performance.now(), d = 450;
+    (function f(t){
+      var k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3);
+      shown = Math.round(a + (v - a) * e);
+      elNum.textContent = fmt(shown);
+      if (k < 1) raf = requestAnimationFrame(f);
+    })(t0);
+  }
+  function summary(s){
+    var lines = s.items.map(function(it){ return '• ' + it[0] + ' — ' + (it[2] ? 'от ' : '') + fmt(it[1]) + ' ₽'; });
+    return 'Здравствуйте! Посчитал сайт на kozflow.ru/sayty:\n' + lines.join('\n') +
+      '\nИтого: ' + (s.from ? 'от ' : '') + fmt(s.total) + ' ₽' +
+      '\nПредоплата 50%: ' + (s.from ? 'от ' : '') + fmt(Math.round(s.total / 2)) + ' ₽' +
+      (s.support ? '\n+ поддержка 5 000 ₽ в месяц' : '');
+  }
+  function render(){
+    var s = state();
+    animateTo(s.total);
+    elFrom.textContent = s.from ? 'от' : '';
+    elPre.textContent = (s.from ? 'от ' : '') + fmt(Math.round(s.total / 2)) + ' ₽';
+    elSup.hidden = !s.support;
+    elLines.innerHTML = s.items.map(function(it){ return '<li><span>' + esc(it[0]) + '</span><b>' + (it[2] ? 'от ' : '') + fmt(it[1]) + ' ₽</b></li>'; }).join('');
+    document.getElementById('calcSend').dataset.text = summary(s);
+    document.getElementById('calcMiniNum').textContent = (s.from ? 'от ' : '') + fmt(s.total) + ' ₽';
+    document.getElementById('calcLive').textContent = 'Итого ' + (s.from ? 'от ' : '') + fmt(s.total) + ' рублей';
+  }
+  box.addEventListener('change', function(e){
+    var more = e.target.type === 'checkbox' && document.getElementById('more-' + e.target.value);
+    if (more){
+      more.hidden = !e.target.checked;
+      e.target.setAttribute('aria-expanded', e.target.checked ? 'true' : 'false');
+      /* с мышью сразу ставим курсор в поле; на телефоне не выдёргиваем клавиатуру */
+      if (e.target.checked && window.matchMedia('(hover: hover) and (pointer: fine)').matches) more.querySelector('input').focus();
+    }
+    render();
+  });
+  box.addEventListener('input', function(e){ if (e.target.classList.contains('opt__field')) render(); });
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('[data-step]'); if (!b) return;
+    extra = Math.max(0, Math.min(10, extra + Number(b.dataset.step)));
+    document.getElementById('extraN').textContent = extra; render();
+  });
+  render();
+
+  /* мини-итог на телефоне: виден, пока листаешь варианты, а большая карточка ещё внизу */
+  var mini = document.getElementById('calcMini'), optsIn = false, sumIn = false;
+  function miniUpd(){ mini.classList.toggle('is-on', optsIn && !sumIn); }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.target === box) optsIn = e.isIntersecting; else sumIn = e.isIntersecting; }); miniUpd(); },
+      {threshold:0}).observe(box);
+    var io2 = new IntersectionObserver(function(es){ es.forEach(function(e){ sumIn = e.isIntersecting; }); miniUpd(); }, {threshold:0.25});
+    io2.observe(document.getElementById('calcSum'));
+  }
+
+  var toast = document.getElementById('calcToast'), tt = 0;
+  function say(t){ toast.textContent = t; clearTimeout(tt); tt = setTimeout(function(){ toast.textContent = ''; }, 4000); }
+  function copy(text){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function(ok, no){
+      var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy') ? ok() : no(); } catch (e) { no(e); } finally { ta.remove(); }
+    });
+  }
+  document.getElementById('calcCopy').addEventListener('click', function(){
+    copy(document.getElementById('calcSend').dataset.text).then(function(){ say('Расчёт скопирован.'); }, function(){ say('Не получилось скопировать — выделите сумму вручную.'); });
+  });
+  document.getElementById('calcSend').addEventListener('click', function(){
+    copy(this.dataset.text).then(function(){ say('Расчёт скопирован — вставьте его в чат.'); }, function(){});
+  });
+
+  /* ── smooth anchors ── */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    /* доводка сцены «Работы» (snap) иначе перебивает плавную прокрутку, если клик сразу после скролла */
+    if (window.gsap) gsap.killTweensOf(window);
+    t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+  });
+})();
+</script>
+</body>
+</html>

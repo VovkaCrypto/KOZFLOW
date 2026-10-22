@@ -1,6 +1,6 @@
 // price.js — общий скрипт страниц услуг: калькулятор из #calc-config, кнопки [data-pick],
 // ленивые видео (играют только на экране), появление блоков каскадом.
-import { computeQuote, telegramLink, formatRub, plural } from './price-calc.js';
+import { computeQuote, telegramLink, formatRub, plural, monthlyText } from './price-calc.js';
 
 document.documentElement.classList.remove('no-js');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -20,6 +20,7 @@ if (cfgEl && calc) {
 
   const priceLabel = (it) => {
     if (it.kind === 'percent') return `+${it.price} %`;
+    if (!it.price && it.monthly) return monthlyText(it.monthly) + ' / мес';
     const p = (it.from ? 'от ' : '') + formatRub(it.price);
     return it.kind === 'extra' && !it.from && it.plus ? '+' + p : p;
   };
@@ -92,7 +93,7 @@ if (cfgEl && calc) {
     $('.hint').textContent = q.empty ? 'Отметьте пакет или нужные позиции' : q.from ? '«от» — точную цену назову после разговора' : '';
     const rows = q.lines.map((l) => `<div class="${l.amount < 0 ? 'neg' : ''}"><span>${esc(l.name)}</span><b>${l.amount < 0 ? '−' + formatRub(-l.amount) : (l.from ? 'от ' : '') + formatRub(l.amount)}</b></div>`);
     if (!q.empty) rows.push(`<div><span>${esc(q.prepayLabel)}</span><b>${formatRub(q.prepay)}</b></div>`);
-    if (q.monthly) rows.push(`<div><span>Ежемесячно</span><b>${formatRub(q.monthly.min)} – ${formatRub(q.monthly.max)}</b></div>`);
+    if (q.monthly) rows.push(`<div><span>Ежемесячно</span><b>${monthlyText(q.monthly)}</b></div>`);
     if (term) rows.push(`<div><span>Срок</span><b>${esc(term)}</b></div>`);
     $('.tl').innerHTML = rows.join('');
     const tg = $('.tg');
