@@ -99,11 +99,11 @@ const cut = (s, n) => (s.length <= n ? s : Array.from(s.slice(0, n + 1)).reduce(
 
 export function telegramLink(quote, pageTitle = '') {
   const ot = (f) => (f ? 'от ' : '');
-  const head = cut(pageTitle ? `Здравствуйте! Посчитал на странице «${pageTitle}»:` : 'Здравствуйте! Посчитал стоимость:', 300);
+  const head = cut(pageTitle ? `Здравствуйте! Мой расчёт на странице «${pageTitle}»:` : 'Здравствуйте! Мой расчёт стоимости:', 300);
   const tail = cut([
     `Итого: ${ot(quote.from)}${formatRub(quote.total)}`,
     quote.monthly ? `Ежемесячно: ${formatRub(quote.monthly.min)} – ${formatRub(quote.monthly.max)}` : '',
-    quote.prepayLabel,
+    quote.prepayLabel ? `${quote.prepayLabel}: ${formatRub(quote.prepay)}` : '',
   ].filter(Boolean).join('\n'), 600);
 
   const room = TG_MAX - head.length - tail.length - 2;

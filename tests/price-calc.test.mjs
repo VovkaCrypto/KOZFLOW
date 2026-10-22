@@ -91,7 +91,7 @@ test('ревью: длинный расчёт не теряет «Итого» �
   const q = computeQuote(many, { items: Object.fromEntries(many.items.map((it) => [it.id, 1])) });
   const text = decodeURIComponent(telegramLink(q, 'Дизайн').split('?text=')[1]);
   assert.ok(text.length <= 2000);
-  assert.ok(text.endsWith(`Итого: ${formatRub(200000)}\nПредоплата 50 %`));
+  assert.ok(text.endsWith(`Итого: ${formatRub(200000)}\nПредоплата 50 %: ${formatRub(100000)}`));
   assert.ok(text.includes('— …'));
 });
 
