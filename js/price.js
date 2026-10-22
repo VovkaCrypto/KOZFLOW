@@ -1,6 +1,6 @@
 // price.js — общий скрипт страниц услуг: калькулятор из #calc-config, кнопки [data-pick],
 // ленивые видео (играют только на экране), появление блоков каскадом.
-import { computeQuote, telegramLink, formatRub } from './price-calc.js';
+import { computeQuote, telegramLink, formatRub, plural } from './price-calc.js';
 
 document.documentElement.classList.remove('no-js');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -25,27 +25,27 @@ if (cfgEl && calc) {
   };
   const optHtml = (it, role) => {
     const q = it.kind === 'perUnit' || it.counter;
-    return `<div class="opt-row"><button type="button" class="opt${role === 'checkbox' ? ' box' : ''}" role="${role}" aria-checked="false" data-id="${esc(it.id)}">` +
+    return `<div class="opt-row"><button type="button" class="opt${role === 'checkbox' ? ' box' : ''}" aria-pressed="false" data-id="${esc(it.id)}">` +
       `<span class="mk"></span><span class="nm">${esc(it.name)}${it.note ? `<br><small style="color:var(--ink-mute)">${esc(it.note)}</small>` : ''}</span><span class="pr">${priceLabel(it)}</span></button>` +
       (q ? `<div class="qty" data-for="${esc(it.id)}"><button type="button" aria-label="Меньше">−</button>` +
         `<input type="number" inputmode="numeric" min="1" max="999" value="${it.kind === 'perUnit' ? it.included || 1 : 1}" aria-label="Количество">` +
-        `<button type="button" aria-label="Больше">+</button>${it.unit ? `<small>${esc(it.unit)}</small>` : ''}</div>` : '') + '</div>';
+        `<button type="button" aria-label="Больше">+</button>${it.unit ? `<small>${esc(plural(it.unit, 5))}</small>` : ''}</div>` : '') + '</div>';
   };
 
   // группы: пакеты (выбор одного) → допы по группам → скидки → срочно
   const groups = [];
   const packs = cfg.items.filter(isPack);
-  if (packs.length) groups.push(`<div class="calc-group"><h3>${esc(cfg.packTitle || 'Пакет')}</h3><div class="calc-list" role="radiogroup">${packs.map((it) => optHtml(it, 'radio')).join('')}</div></div>`);
+  if (packs.length) groups.push(`<div class="calc-group"><h3>${esc(cfg.packTitle || 'Пакет')}</h3><div class="calc-list" role="group" aria-label="${esc(cfg.packTitle || 'Пакет')}: можно выбрать один">${packs.map((it) => optHtml(it, 'radio')).join('')}</div></div>`);
   const extraGroups = [...new Set(cfg.items.filter((it) => !isPack(it)).map((it) => it.group || 'Дополнительно'))];
   for (const g of extraGroups) {
     const list = cfg.items.filter((it) => !isPack(it) && (it.group || 'Дополнительно') === g);
-    groups.push(`<div class="calc-group"><h3>${esc(g)}</h3><div class="calc-list">${list.map((it) => optHtml(it, 'checkbox')).join('')}</div></div>`);
+    groups.push(`<div class="calc-group"><h3>${esc(g)}</h3><div class="calc-list" role="group" aria-label="${esc(g)}">${list.map((it) => optHtml(it, 'checkbox')).join('')}</div></div>`);
   }
   if (cfg.discounts?.length) {
-    groups.push(`<div class="calc-group"><h3>Скидка к пакету</h3><div class="chips" role="radiogroup">` +
+    groups.push(`<div class="calc-group"><h3>Скидка к пакету</h3><div class="chips" role="group" aria-label="Скидка к пакету">` +
       [{ id: '', name: 'Без скидки' }, ...cfg.discounts].map((d) =>
-        `<button type="button" class="chip" role="radio" aria-checked="${d.id === '' ? 'true' : 'false'}" data-disc="${esc(d.id)}">${esc(d.name)}${d.pct ? ` −${d.pct} %` : ''}</button>`).join('') +
-      `</div>${cfg.discountNote ? `<p class="pg-note">${esc(cfg.discountNote)}</p>` : ''}</div>`);
+        `<button type="button" class="chip" aria-pressed="${d.id === '' ? 'true' : 'false'}" data-disc="${esc(d.id)}">${esc(d.name)}${d.pct ? ` −${d.pct} %` : ''}</button>`).join('') +
+      `</div><p class="pg-note disc-hint">Скидка действует на пакет — сначала выберите его.</p>${cfg.discountNote ? `<p class="pg-note">${esc(cfg.discountNote)}</p>` : ''}</div>`);
   }
   opts.innerHTML = groups.join('');
 
@@ -56,22 +56,32 @@ if (cfgEl && calc) {
   const $ = (s) => total.querySelector(s);
   $('.more').addEventListener('click', () => $('.tl').classList.toggle('open'));
 
-  const qtyVal = (id) => {
+  // количество из поля: 1…999, целое; то, что посчитано, возвращается в поле
+  const norm = (v) => { const n = Math.floor(Number(v)); return Number.isFinite(n) ? Math.max(1, Math.min(999, n)) : 1; };
+  const qtyVal = (id, write) => {
     const inp = opts.querySelector(`.qty[data-for="${CSS.escape(id)}"] input`);
-    return inp ? Math.max(1, Math.min(999, parseInt(inp.value, 10) || 1)) : true;
+    if (!inp) return true;
+    const n = norm(inp.value);
+    if (write) inp.value = n;
+    return n;
   };
 
   const render = () => {
     for (const b of opts.querySelectorAll('.opt')) {
       const on = state.items[b.dataset.id] != null;
-      b.setAttribute('aria-checked', on);
+      b.setAttribute('aria-pressed', on);
       b.parentElement.querySelector('.qty')?.classList.toggle('on', on);
     }
-    for (const c of opts.querySelectorAll('.chip')) c.setAttribute('aria-checked', c.dataset.disc === state.discount);
+    const pack = packs.find((it) => state.items[it.id] != null);
+    for (const c of opts.querySelectorAll('.chip')) {
+      c.setAttribute('aria-pressed', c.dataset.disc === state.discount);
+      c.disabled = !pack && c.dataset.disc !== '';
+    }
+    const dnote = opts.querySelector('.disc-hint');
+    if (dnote) dnote.hidden = !!pack;
 
     const q = computeQuote(cfg, state);
-    const pack = packs.find((it) => state.items[it.id] != null);
-    const term = pack?.term ? pack.term + (state.items.urgent != null ? ', срочно — вдвое быстрее' : '') : '';
+    const term = pack?.term ? (state.items.urgent != null ? `вдвое короче, чем ${pack.term}` : pack.term) : '';
     $('.sum').textContent = q.empty ? formatRub(0) : (q.from ? 'от ' : '') + formatRub(q.total);
     $('.hint').textContent = q.empty ? 'Отметьте пакет или нужные позиции' : q.from ? '«от» — точную цену назову после разговора' : '';
     const rows = q.lines.map((l) => `<div class="${l.amount < 0 ? 'neg' : ''}"><span>${esc(l.name)}</span><b>${l.amount < 0 ? '−' + formatRub(-l.amount) : (l.from ? 'от ' : '') + formatRub(l.amount)}</b></div>`);
@@ -105,7 +115,7 @@ if (cfgEl && calc) {
     const s = e.target.closest('.qty button');
     if (s) {
       const box = s.closest('.qty'), inp = box.querySelector('input');
-      inp.value = Math.max(1, Math.min(999, (parseInt(inp.value, 10) || 1) + (s.textContent === '+' ? 1 : -1)));
+      inp.value = norm(norm(inp.value) + (s.textContent === '+' ? 1 : -1));
       state.items[box.dataset.for] = qtyVal(box.dataset.for);
       render();
     }
@@ -113,6 +123,12 @@ if (cfgEl && calc) {
   opts.addEventListener('input', (e) => {
     const box = e.target.closest('.qty');
     if (box && state.items[box.dataset.for] != null) { state.items[box.dataset.for] = qtyVal(box.dataset.for); render(); }
+  });
+  opts.addEventListener('change', (e) => {
+    const box = e.target.closest('.qty');
+    if (!box) return;
+    const n = qtyVal(box.dataset.for, true);
+    if (state.items[box.dataset.for] != null) { state.items[box.dataset.for] = n; render(); }
   });
   $('.copy').addEventListener('click', async () => {
     const href = $('.tg').getAttribute('href');

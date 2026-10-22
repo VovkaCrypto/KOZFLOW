@@ -12,6 +12,13 @@ export function formatRub(n) {
   return s + NBSP + '₽';
 }
 
+// unit — строка или три формы: ['блюдо', 'блюда', 'блюд']
+export function plural(unit, n) {
+  if (!Array.isArray(unit)) return unit;
+  const a = n % 100, b = n % 10;
+  return unit[a > 10 && a < 20 ? 2 : b === 1 ? 0 : b >= 2 && b <= 4 ? 1 : 2];
+}
+
 const qtyOf = (v) => {
   const n = v === true ? 1 : Number(v);
   return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0;
@@ -29,7 +36,7 @@ export function computeQuote(config, selection = {}) {
     const amount = it.kind === 'perUnit'
       ? it.price + Math.max(0, q - (it.included || 0)) * (it.unitPrice || 0)
       : it.price * q;
-    const name = it.kind === 'perUnit' ? `${it.name}, ${q}${it.unit ? ' ' + it.unit : ''}` : q > 1 ? `${it.name} ×${q}` : it.name;
+    const name = it.kind === 'perUnit' ? `${it.name}, ${q}${it.unit ? ' ' + plural(it.unit, q) : ''}` : q > 1 ? `${it.name} ×${q}` : it.name;
     if (it.kind === 'extra') rest += amount; else packages += amount;
     lines.push({ name, amount, from: !!it.from });
     parts.push({ name: it.name, amount, prepay: it.prepay });

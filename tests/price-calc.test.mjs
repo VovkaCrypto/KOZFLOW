@@ -130,6 +130,15 @@ test('ревью: этапы в сумме 100 %, бот + приложение 
   assert.match(q.prepayLabel, /Приложение: оплата этапами: 30\s%/);
 });
 
+test('ревью: склонение единиц у поштучного пакета', () => {
+  const cfg = { ...reel, items: reel.items.map((it) => (it.id === 'menu' ? { ...it, unit: ['блюдо', 'блюда', 'блюд'] } : it)) };
+  const name = (n) => computeQuote(cfg, { items: { menu: n } }).lines[0].name;
+  assert.equal(name(1), 'Видеоменю, 1 блюдо');
+  assert.equal(name(3), 'Видеоменю, 3 блюда');
+  assert.equal(name(11), 'Видеоменю, 11 блюд');
+  assert.equal(name(85), 'Видеоменю, 85 блюд');
+});
+
 test('formatRub: неразрывные пробелы', () => {
   assert.equal(formatRub(12000), '12 000 ₽');
   assert.equal(formatRub(500), '500 ₽');
