@@ -437,3 +437,53 @@ dl.pass dd b{font:500 22px/1.1 var(--disp)}
 @media (prefers-reduced-motion:reduce){
   .site .shot img{transition:none}
 }
+
+/* ══ блоки страницы «Дизайн» ══ */
+
+/* первый экран: веер из трёх макетов, при наведении расходится */
+.fan{position:relative;width:100%;max-width:640px;margin-left:auto;aspect-ratio:5/4}
+.fan .f{position:absolute;width:44%;aspect-ratio:3/4;border-radius:16px;overflow:hidden;background:var(--night-2);
+  box-shadow:0 40px 80px -34px rgba(45,36,25,.55);transition:transform .7s var(--ease)}
+.fan img{width:100%;height:100%;object-fit:cover}
+.fan .f1{left:0;top:13%;transform:rotate(-7deg)}
+.fan .f2{left:27%;top:0;width:46%;z-index:2;box-shadow:0 0 0 6px var(--bg),0 40px 80px -30px rgba(45,36,25,.6)}
+.fan .f3{right:0;top:15%;transform:rotate(6deg)}
+.fan:hover .f1{transform:rotate(-10deg) translateX(-4%)}
+.fan:hover .f3{transform:rotate(9deg) translateX(4%)}
+.fan figcaption{position:absolute;right:0;bottom:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute)}
+
+/* работы: остальные макеты — лентой-кладкой под кнопкой */
+.all-works{margin-top:28px}
+.all-works summary{list-style:none;cursor:pointer;border-color:var(--gold);color:var(--gold)}
+.all-works summary::-webkit-details-marker{display:none}
+.all-works[open] summary{display:none}
+.mason{columns:4 220px;column-gap:14px}
+.mason img{width:100%;height:auto;margin:0 0 14px;border-radius:12px;break-inside:avoid;background:var(--night-2)}
+.works-foot{margin-top:24px;color:#B7A88F}
+.works-foot a{color:var(--gold)}
+.card .btn{margin-top:auto}
+
+@media (max-width:640px){
+  .fan .f{width:47%}
+  .fan .f2{left:26.5%;width:49%}
+  .mason{columns:2;column-gap:10px}
+  .mason img{margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  .fan .f{transition:none}
+}
+
+/* «Дизайн»: подпись под макетом, а не поверх — у афиш внизу даты и условия */
+.pg-works.cap .w{aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
+.pg-works.cap .w img{position:static;height:auto;aspect-ratio:var(--a);border-radius:14px;background:var(--night-2)}
+.pg-works.cap .w figcaption{position:static;padding:12px 2px 0;background:none}
+.pg-works.cap .w figcaption b{font-size:19px}
+@media (max-width:640px){
+  .pg-works.cap .rows{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:dense;gap:22px 12px}
+  .pg-works.cap .row{display:contents}
+  .pg-works.cap .w{width:auto}
+  .pg-works.cap .w.wide{grid-column:span 2}
+  .pg-works.cap .w figcaption{flex-direction:column;align-items:flex-start;gap:2px;padding-top:8px;font-size:12px}
+  .pg-works.cap .w figcaption b{font-size:16px}
+  .pg-works.cap .w figcaption .pr{font-size:13px}
+}

@@ -1,1048 +1,318 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="ru" class="no-js">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Дизайн и анимация — возможности и цены | KozFlow</title>
-<meta name="description" content="Полный прайс на анимированные афиши и ролики, графику, печать, презентации и AI-фото. Сроки, правки, комплекты и действующие акции. Тверь и удалённо по РФ." />
-<meta name="theme-color" content="#FAF7F2" />
-<link rel="canonical" href="https://kozflow.ru/dizayn" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Дизайн и анимация — возможности и цены" />
-<meta property="og:description" content="Анимированные афиши, ролики, графика и печать. Прайс, сроки и комплекты." />
-<meta property="og:url" content="https://kozflow.ru/dizayn" />
-<meta property="og:locale" content="ru_RU" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="assets/logo.webp" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Дизайн для заведений в Твери — афиши, меню, соцсети | KozFlow</title>
+<meta name="description" content="Пост 1 200 ₽, афиша 3 000 ₽, меню от 6 000 ₽, логотип 5 000 ₽, фото блюда без фотосессии 1 200 ₽. Работы, комплекты, калькулятор.">
+<meta name="theme-color" content="#FAF7F2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Дизайн — KozFlow">
+<meta property="og:description" content="Афиши, меню, соцсети и бренд для заведений: работы, цены, калькулятор.">
+<meta property="og:image" content="https://kozflow.ru/assets/works/02.webp">
+<meta property="og:locale" content="ru_RU">
+<link rel="canonical" href="https://kozflow.ru/dizayn">
+<link rel="icon" href="assets/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap">
-
-<style>
-  @font-face{font-family:'STRome';src:url('assets/fonts/STRomeTrial-Light.otf') format('opentype');font-weight:300;font-style:normal;font-display:swap}
-  @font-face{font-family:'STRome';src:url('assets/fonts/STRomeTrial-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
-  @font-face{font-family:'STRome';src:url('assets/fonts/STRomeTrial-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
-  @font-face{font-family:'STRome';src:url('assets/fonts/STRomeTrial-Bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
-
-  :root{
-    --bg:#FAF7F2;
-    --bg-alt:#EFEAE0;
-    --card:#FFFDF9;
-    --ink:#2D2419;
-    --ink-soft:#4A3E2E;
-    --ink-mute:#7A6B56;
-    --line:#D9CFB9;
-    --line-soft:#E7DFCE;
-    --gold:#C4985A;
-    --gold-ink:#8A6620;
-    --gold-soft:rgba(196,152,90,.14);
-    --forest:#3A4A3D;
-    --forest-ink:#FAF7F2;
-    --terracotta:#C26B4A;
-    --cream:#F5EFDF;
-    --night:#2A2018;
-    --night-2:#34281D;
-    --on-night:#E8DCC0;
-
-    --font:'STRome',Georgia,'Times New Roman',serif;
-    --font-body:'Golos Text','Segoe UI',Roboto,system-ui,sans-serif;
-
-    --s--1:clamp(.8rem,.78rem + .1vw,.88rem);
-    --s-0:clamp(1rem,.96rem + .18vw,1.11rem);
-    --s-1:clamp(1.16rem,1.08rem + .34vw,1.38rem);
-    --s-2:clamp(1.4rem,1.2rem + .72vw,1.95rem);
-    --s-3:clamp(1.8rem,1.42rem + 1.5vw,2.9rem);
-    --s-4:clamp(2.3rem,1.5rem + 3.6vw,4.6rem);
-
-    --wrap:1120px;
-    --gut:clamp(1.1rem,4vw,2.8rem);
-  }
-
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --bg:#241B14;
-      --bg-alt:#2E241A;
-      --card:#31261B;
-      --ink:#EFE3C8;
-      --ink-soft:#D3C3A0;
-      --ink-mute:#A08E70;
-      --line:#4B3B2A;
-      --line-soft:#3B2E21;
-      --gold:#D8AD68;
-      --gold-ink:#E7C288;
-      --gold-soft:rgba(216,173,104,.14);
-      --forest:#5E7A61;
-      --forest-ink:#F4EFE2;
-      --cream:#3A2D20;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#241B14;
-    --bg-alt:#2E241A;
-    --card:#31261B;
-    --ink:#EFE3C8;
-    --ink-soft:#D3C3A0;
-    --ink-mute:#A08E70;
-    --line:#4B3B2A;
-    --line-soft:#3B2E21;
-    --gold:#D8AD68;
-    --gold-ink:#E7C288;
-    --gold-soft:rgba(216,173,104,.14);
-    --forest:#5E7A61;
-    --forest-ink:#F4EFE2;
-    --cream:#3A2D20;
-  }
-
-  *{box-sizing:border-box}
-
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:var(--font-body);
-    font-size:var(--s-0);
-    line-height:1.62;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
-
-  /* STRome — только заголовки, названия, цены и метки. Текст — читаемым шрифтом. */
-  h1,h2,h3,h4,.eyebrow,.block__label,.brand,.btn,.row__name,.row__price,
-  .pack__price,.promo__big,.promo__tag,.badge,.fact,.frame span{
-    font-family:var(--font);
-  }
-
-  h1,h2,h3,h4{margin:0;font-weight:400;line-height:1.1;text-wrap:balance}
-  h1{font-size:var(--s-4);letter-spacing:-.02em;font-weight:300}
-  h2{font-size:var(--s-3);letter-spacing:-.015em;font-weight:300}
-  h3{font-size:var(--s-1);letter-spacing:-.01em;font-weight:500}
-  p{margin:0}
-
-  .eyebrow{
-    font-size:var(--s--1);
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--gold-ink);
-    font-weight:500;
-  }
-
-  a{color:var(--gold-ink);text-underline-offset:3px}
-  a:focus-visible,button:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px;border-radius:3px}
-
-  .btn{
-    display:inline-flex;align-items:center;gap:.5rem;
-    background:var(--forest);color:var(--forest-ink);
-    border:0;border-radius:999px;
-    padding:.8rem 1.6rem;
-    font-family:var(--font);font-size:var(--s-0);font-weight:500;
-    text-decoration:none;cursor:pointer;
-    transition:transform .18s ease,filter .18s ease;
-  }
-  .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
-  .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-
-  /* ───────── topbar ───────── */
-  .topbar{
-    position:sticky;top:0;z-index:40;
-    background:color-mix(in srgb,var(--bg) 88%,transparent);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line-soft);
-  }
-  .topbar__in{display:flex;align-items:center;gap:1rem;padding-block:.7rem}
-  .brand{display:flex;align-items:center;gap:.6rem;font-weight:500;letter-spacing:.02em;color:var(--ink);text-decoration:none}
-  .brand:hover{color:var(--gold-ink)}
-  .brand img{
-    width:34px;height:34px;border-radius:8px;object-fit:contain;display:block;
-    background:#FAF7F2;padding:3px;border:1px solid var(--line);
-  }
-  .topbar__spacer{flex:1}
-  .topbar__links{display:none;gap:1.4rem;font-size:var(--s--1);color:var(--ink-mute)}
-  .topbar__links a{color:inherit;text-decoration:none}
-  .topbar__links a:hover{color:var(--gold-ink)}
-  @media (min-width:860px){.topbar__links{display:flex}}
-
-  /* ───────── hero ───────── */
-  .hero{padding-block:clamp(2.8rem,8vw,5.6rem) clamp(2rem,5vw,3.4rem)}
-  .hero h1{margin-top:.8rem}
-  .hero h1 em{font-style:normal;color:var(--gold-ink)}
-  .hero__lede{margin-top:1.5rem;max-width:54ch;font-size:var(--s-1);color:var(--ink-soft);line-height:1.5;font-weight:300}
-  .hero__cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem}
-
-  .facts{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.8rem}
-  .fact{
-    font-size:var(--s--1);border:1px solid var(--line);border-radius:999px;
-    padding:.38rem .9rem;color:var(--ink-mute);background:var(--card);
-  }
-  .fact b{color:var(--ink);font-weight:500}
-
-  /* ───────── orbit band ───────── */
-  .band{
-    position:relative;
-    background:var(--night);
-    color:var(--on-night);
-    overflow:hidden;
-    padding-block:clamp(2.4rem,6vw,4rem);
-    border-block:1px solid #16100B;
-  }
-  .band__head{position:relative;z-index:3;text-align:center;margin-bottom:1.4rem}
-  .band__head .eyebrow{color:var(--gold)}
-  .band__head h2{color:var(--on-night);margin-top:.55rem}
-  .band__head p{color:#B9A785;max-width:52ch;margin:.9rem auto 0;font-size:var(--s--1)}
-
-  #dust{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
-
-  .stage{
-    position:relative;z-index:2;
-    height:clamp(230px,30vw,320px);
-    perspective:1250px;
-    perspective-origin:50% 50%;
-    touch-action:pan-y;
-    cursor:grab;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-  }
-  .stage:active{cursor:grabbing}
-  .ring{
-    position:absolute;left:50%;top:50%;width:0;height:0;
-    transform-style:preserve-3d;
-    transform:translateZ(-460px) rotateY(var(--rot,0deg));
-  }
-  .ring figure{
-    position:absolute;margin:0;
-    width:180px;height:254px;
-    left:-90px;top:-127px;
-    border-radius:5px;
-    overflow:hidden;
-    background:#241A11;
-    box-shadow:0 14px 34px rgba(0,0,0,.5);
-    outline:1px solid rgba(232,220,192,.14);
-    outline-offset:-1px;
-  }
-  .ring img{width:100%;height:100%;object-fit:cover;display:block}
-  @media (max-width:640px){
-    .ring figure{width:116px;height:164px;left:-58px;top:-82px}
-  }
-
-  .band__foot{
-    position:relative;z-index:3;text-align:center;margin-top:1.5rem;
-    font-size:var(--s--1);color:#A8946F;
-  }
-
-  /* ───────── promo ───────── */
-  .promos{display:grid;gap:1rem;margin-top:1.6rem}
-  @media (min-width:700px){.promos{grid-template-columns:repeat(2,1fr)}}
-  @media (min-width:1000px){.promos{grid-template-columns:repeat(4,1fr)}}
-  .promo{
-    position:relative;
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:1.5rem 1.25rem 1.25rem;
-    background:var(--card);
-    display:flex;flex-direction:column;gap:.55rem;
-    overflow:hidden;
-  }
-  .promo::before{
-    content:'';position:absolute;inset:0 0 auto 0;height:3px;
-    background:linear-gradient(90deg,var(--gold),var(--terracotta));
-  }
-  .promo--main{background:var(--cream);border-color:var(--gold)}
-  .promo__tag{
-    align-self:flex-start;
-    font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
-    background:var(--gold-soft);color:var(--gold-ink);
-    border:1px solid var(--gold);border-radius:999px;
-    padding:.2rem .6rem;font-weight:500;
-  }
-  .promo__big{font-size:var(--s-2);line-height:1;font-weight:500;color:var(--ink)}
-  .promo p{font-size:var(--s--1);color:var(--ink-mute);line-height:1.55}
-
-  /* ───────── sections ───────── */
-  section{padding-block:clamp(2.6rem,7vw,4.6rem)}
-  section + section{border-top:1px solid var(--line-soft)}
-  .sec-head{display:flex;flex-direction:column;gap:.65rem;margin-bottom:clamp(1.5rem,4vw,2.5rem)}
-  .sec-head p{max-width:62ch;color:var(--ink-soft);font-weight:300}
-
-  /* capabilities */
-  .caps{display:grid;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:10px;overflow:hidden}
-  @media (min-width:720px){.caps{grid-template-columns:repeat(2,1fr)}}
-  @media (min-width:1020px){.caps{grid-template-columns:repeat(3,1fr)}}
-  .cap{background:var(--bg);padding:1.4rem 1.35rem;display:flex;flex-direction:column;gap:.65rem}
-  .cap h3{font-size:var(--s-0);font-weight:500;color:var(--gold-ink)}
-  .cap ul{margin:0;padding-left:1.05rem;color:var(--ink-soft);font-size:var(--s--1);line-height:1.72}
-  .cap li::marker{color:var(--gold)}
-
-  /* price rows */
-  .block{margin-bottom:clamp(1.7rem,4vw,2.6rem)}
-  .block__label{
-    font-size:var(--s--1);letter-spacing:.18em;text-transform:uppercase;
-    color:var(--gold-ink);font-weight:500;
-    padding-bottom:.55rem;border-bottom:1.5px solid var(--gold);margin-bottom:.3rem;
-  }
-  .row{
-    display:grid;grid-template-columns:1fr auto;gap:.5rem 1.5rem;align-items:baseline;
-    padding:1.05rem 0;border-bottom:1px solid var(--line-soft);
-  }
-  .row:last-child{border-bottom:0}
-  .row__name{font-weight:500;margin-bottom:.22rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-  .row__desc{color:var(--ink-mute);font-size:var(--s--1);line-height:1.58;max-width:60ch}
-  .row__price{font-size:var(--s-0);font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
-  .row__price small{display:block;font-weight:300;font-size:.7em;color:var(--ink-mute);text-align:right}
-  .row--lead{background:var(--cream);border-radius:8px;padding:1.15rem 1.15rem;border-bottom:0;margin-bottom:.5rem}
-  .row--lead .row__price{color:var(--gold-ink);font-size:var(--s-1)}
-
-  .badge{
-    font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
-    border-radius:999px;padding:.14rem .5rem;
-    background:var(--gold-soft);color:var(--gold-ink);border:1px solid var(--gold);
-  }
-  .badge--hot{background:rgba(194,107,74,.13);color:var(--terracotta);border-color:var(--terracotta)}
-
-  .tags{display:flex;flex-wrap:wrap;gap:.32rem;margin-top:.55rem}
-  .tag{font-size:.68rem;letter-spacing:.03em;border:1px solid var(--line);border-radius:4px;padding:.14rem .44rem;color:var(--ink-mute)}
-  .tag--on{border-color:var(--gold);color:var(--gold-ink);background:var(--gold-soft)}
-
-  /* aspect frames */
-  .frames{display:flex;align-items:flex-end;gap:.7rem;margin-top:1.2rem}
-  .frame{
-    height:clamp(56px,9vw,86px);border:1.5px solid var(--gold);border-radius:3px;
-    background:var(--gold-soft);display:flex;align-items:flex-end;justify-content:center;padding-bottom:.25rem;
-  }
-  .frame span{font-size:.6rem;letter-spacing:.06em;color:var(--gold-ink)}
-  .frame--916{aspect-ratio:9/16}.frame--45{aspect-ratio:4/5}.frame--11{aspect-ratio:1/1}.frame--169{aspect-ratio:16/9}
-
-  /* packs */
-  .packs{display:grid;gap:1rem}
-  @media (min-width:820px){.packs{grid-template-columns:repeat(2,1fr)}}
-  .pack{
-    border:1px solid var(--line);border-radius:12px;padding:1.6rem 1.45rem;
-    display:flex;flex-direction:column;gap:.85rem;background:var(--card);
-  }
-  .pack--hero{border-color:var(--gold);background:var(--cream)}
-  .pack__price{font-size:var(--s-2);font-weight:500;color:var(--gold-ink);line-height:1;font-variant-numeric:tabular-nums}
-  .pack__price span{font-size:.42em;font-weight:300;color:var(--ink-mute)}
-  .pack ul{margin:0;padding-left:1.05rem;color:var(--ink-soft);font-size:var(--s--1);line-height:1.68}
-  .pack li::marker{color:var(--gold)}
-  .pack__save{font-size:var(--s--1);color:var(--ink-mute)}
-
-  /* process */
-  .proc{display:grid;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:10px;overflow:hidden}
-  @media (min-width:760px){.proc{grid-template-columns:repeat(2,1fr)}}
-  .proc__cell{background:var(--bg);padding:1.4rem 1.3rem;display:flex;flex-direction:column;gap:.5rem}
-  .proc__cell h3{font-size:var(--s-0);font-weight:500;color:var(--gold-ink)}
-  .proc__cell ul{margin:0;padding-left:1.05rem;color:var(--ink-soft);font-size:var(--s--1);line-height:1.65}
-  .proc__cell li::marker{color:var(--gold)}
-
-  .note{
-    border-left:2px solid var(--gold);background:var(--gold-soft);
-    padding:.95rem 1.15rem;border-radius:0 6px 6px 0;
-    font-size:var(--s--1);color:var(--ink-soft);margin-top:1.4rem;max-width:74ch;
-  }
-  .note b{color:var(--ink);font-weight:500}
-
-  footer{background:var(--night);color:var(--on-night);padding-block:clamp(2.6rem,7vw,4.4rem)}
-  .foot__cta{display:flex;flex-wrap:wrap;gap:1.4rem 2.5rem;align-items:center;justify-content:space-between}
-  .foot__cta h2{color:var(--on-night)}
-  .foot__cta p{color:#B9A785;max-width:38ch;font-size:var(--s--1);margin-top:.6rem}
-  .foot__note{margin-top:2.2rem;padding-top:1.2rem;border-top:1px solid #46362A;color:#8E7B5C;font-size:var(--s--1)}
-  footer .btn{background:var(--gold);color:#241A11}
-
-  .contacts{display:grid;gap:.8rem;margin-top:2rem}
-  @media (min-width:720px){.contacts{grid-template-columns:repeat(3,1fr)}}
-  .contact{
-    display:flex;align-items:center;gap:.85rem;
-    padding:1rem 1.15rem;
-    border:1px solid #4E3D2E;border-radius:10px;
-    background:#33271C;color:var(--on-night);
-    text-decoration:none;text-align:left;
-    font-family:var(--font-body);font-size:var(--s-0);
-    cursor:pointer;width:100%;
-    transition:border-color .18s ease,transform .18s ease,background .18s ease;
-  }
-  .contact:hover{border-color:var(--gold);transform:translateY(-2px);background:#3A2D20}
-  .contact__ic{width:24px;height:24px;flex:0 0 24px;color:var(--gold)}
-  .contact__t{display:flex;flex-direction:column;line-height:1.25;min-width:0}
-  .contact__t b{font-family:var(--font);font-weight:500;letter-spacing:.01em}
-  .contact__t small{color:#A8946F;font-size:.78rem;margin-top:.15rem}
-  .contact__t small{overflow-wrap:anywhere}
-
-  @media (prefers-reduced-motion:reduce){
-    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
-  }
-</style>
+<link rel="stylesheet" href="css/price.css">
 </head>
 <body>
-<div class="topbar">
-  <div class="wrap topbar__in">
-    <a class="brand" href="/"><img src="assets/logo.webp" alt="">KozFlow</a>
-    <span class="topbar__spacer"></span>
-    <nav class="topbar__links">
-      <a href="#works">Работы</a>
-      <a href="#promo">Акции</a>
-      <a href="#video">Видео</a>
-      <a href="#design">Графика</a>
-      <a href="#packs">Комплекты</a>
-      <a href="/">На сайт</a>
-    </nav>
-    <a class="btn" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">Написать</a>
-  </div>
-</div>
 
-<header class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Дизайн и анимация · Тверь</p>
-    <h1>Возможности<br>и <em>цены</em></h1>
-    <p class="hero__lede">Всё, что можно заказать, и сколько это стоит. Наверху — видео и анимация: макет не остаётся картинкой, а превращается в ролик для сторис, для ленты и для экрана в зале. Ниже — обычная графика, презентации и фото.</p>
-    <div class="hero__cta">
-      <a class="btn" href="#video">Смотреть прайс</a>
-      <a class="btn btn--ghost" href="#works">Мои работы</a>
-    </div>
-    <div class="facts">
-      <span class="fact">Ролик — от <b>5 000 ₽</b></span>
-      <span class="fact">Макет — от <b>1 200 ₽</b></span>
-      <span class="fact">Срок — <b>2–3 дня</b></span>
-      <span class="fact">Правки <b>включены</b></span>
-      <span class="fact">Всё <b>письменно</b>, без созвонов</span>
-    </div>
-    <div class="frames" aria-hidden="true">
-      <div class="frame frame--916"><span>9:16</span></div>
-      <div class="frame frame--45"><span>4:5</span></div>
-      <div class="frame frame--11"><span>1:1</span></div>
-      <div class="frame frame--169"><span>16:9</span></div>
-    </div>
-  </div>
-</header>
-
-<!-- ═══════ WORKS ORBIT ═══════ -->
-<div class="band" id="works">
-  <canvas id="dust"></canvas>
-  <div class="wrap band__head">
-    <p class="eyebrow">Сделано</p>
-    <h2>Больше сотни макетов<br>для заведений Твери</h2>
-    <p>Афиши, меню, соцсети, наружка. Рестораны, бары, боулинги, детский центр. Потяни обруч мышкой, чтобы покрутить.</p>
-  </div>
-  <div class="stage" id="stage">
-    <div class="ring" id="ring"></div>
-  </div>
-  <div class="wrap band__foot">Любую из этих работ можно оживить — цены ниже</div>
-</div>
+<header class="pg-top"><div class="wrap">
+  <a class="pg-logo" href="/">KozFlow</a>
+  <nav class="pg-tabs" aria-label="Услуги">
+    <a href="/sayty">Сайты</a><a href="/dizayn" aria-current="page">Дизайн</a><a href="/moushen">Моушен</a><a href="/avtomatizacii">Автоматизации</a>
+  </nav>
+  <a class="btn fill" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">Написать</a>
+</div></header>
 
 <main>
-
-<!-- ═══════ PROMO ═══════ -->
-<section id="promo">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Сейчас действует</p>
-      <h2>Специальные предложения</h2>
-      <p>Складываются с любыми позициями прайса, кроме случаев, где написано иначе.</p>
-    </div>
-
-    <div class="promos">
-      <div class="promo promo--main">
-        <span class="promo__tag">Первый заказ</span>
-        <div class="promo__big">−30 %</div>
-        <p>На первый ролик, если раньше не работали. Один раз, на любую позицию из блока «Видео и движение».</p>
-      </div>
-
-      <div class="promo">
-        <span class="promo__tag">Пакет форматов</span>
-        <div class="promo__big">3 по цене 2</div>
-        <p>Берёшь ролик сразу в трёх пропорциях кадра — платишь за два дополнительных как за один.</p>
-      </div>
-
-      <div class="promo">
-        <span class="promo__tag">Серия</span>
-        <div class="promo__big">−40 %</div>
-        <p>Второй и каждый следующий ролик в том же оформлении. Шаблон уже собран — меняется текст, дата и фото.</p>
-      </div>
-
-      <div class="promo">
-        <span class="promo__tag">За рекомендацию</span>
-        <div class="promo__big">2 000 ₽</div>
-        <p>Привёл знакомого, он заказал — две тысячи уходят в счёт твоего следующего заказа.</p>
-      </div>
-    </div>
-
-    <div class="note"><b>Комплект выгоднее поштучного всегда.</b> Если задача звучит как «нужно оформить акцию» или «нужно вести соцсети», смотри блок «Комплекты» — там то же самое, но собрано и дешевле.</div>
+<section class="pg-hero"><div class="wrap">
+  <div>
+    <div class="eyebrow rv">Дизайн для заведений · Тверь</div>
+    <h1 class="rv">Афиши и меню, <em>которые</em> замечают</h1>
+    <p class="pg-lead rv">Афиши, меню, посты, упаковка и логотипы для ресторанов, баров и детских центров. Готово под печать и под соцсети сразу.</p>
+    <dl class="pass rv">
+      <div><dt>Делаю</dt><dd>Афиши · меню · соцсети · бренд</dd></div>
+      <div><dt>Срок</dt><dd>макет — 1–2 рабочих дня</dd></div>
+      <div><dt>Цена</dt><dd><b>от 1 200 ₽</b></dd></div>
+    </dl>
+    <div class="pg-cta rv"><a class="btn fill" href="#calc">Посчитать стоимость <span class="ar">→</span></a><a class="btn" href="#works">Смотреть работы</a></div>
   </div>
-</section>
+  <figure class="fan rv">
+    <div class="f f1"><img src="assets/works/55.webp" alt="Летнее меню Кинзы" width="900" height="1200"></div>
+    <div class="f f2"><img src="assets/works/02.webp" alt="Афиша Кегельбара «Бесплатный боулинг»" width="896" height="1200"></div>
+    <div class="f f3"><img src="assets/works/12.webp" alt="Афиша Завода «Мягкое мороженое»" width="896" height="1200"></div>
+    <figcaption>Кинза · Кегельбар · Завод</figcaption>
+  </figure>
+</div></section>
 
-<!-- ═══════ CAPABILITIES ═══════ -->
-<section id="what">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Что вообще бывает</p>
-      <h2>Возможности движения</h2>
-      <p>Чтобы не гадать, что можно попросить — полный список того, что умею оживлять. Комбинируется как угодно: почти любой ролик собирается из нескольких пунктов ниже.</p>
+<section class="pg-sec pg-works cap dark" id="works"><div class="wrap">
+  <div class="sec-h"><h2 class="rv">Больше сотни макетов для заведений Твери</h2><p class="rv">Рестораны, бары, боулинг, детский центр, производство. В подписи — от скольки стоит такая работа.</p></div>
+  <div class="rows">
+    <div class="row">
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/45.webp" alt="Афиша Кинзы «Винный вечер»" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Кинза</b>афиша</span><span class="pr">3 000 ₽</span></figcaption></figure>
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/08.webp" alt="Афиша «Боулинг для лагерей» Завода и Кегельбара" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Завод × Кегельбар</b>афиша</span><span class="pr">3 000 ₽</span></figcaption></figure>
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/04.webp" alt="Афиша «День космонавтики» детского центра «Щукин и дети»" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Щукин и дети</b>афиша</span><span class="pr">3 000 ₽</span></figcaption></figure>
     </div>
-
-    <div class="caps">
-      <div class="cap"><h3>Текст</h3><ul>
-        <li>появление по буквам, словам, строкам</li>
-        <li>эффект набора на печатной машинке</li>
-        <li>разлёт и сборка из частей</li>
-        <li>подсветка слов в такт голосу</li>
-        <li>счётчики: цены, проценты, суммы, очки</li>
-        <li>бегущая строка и лента</li>
-        <li>твой фирменный шрифт, кириллица чётко</li>
-      </ul></div>
-
-      <div class="cap"><h3>Логотип и знаки</h3><ul>
-        <li>логотип прорисовывается линией</li>
-        <li>сборка из элементов, разворот в объёме</li>
-        <li>заставка на 2–4 секунды под все ролики</li>
-        <li>версия с прозрачным фоном</li>
-        <li>анимированные иконки и пиктограммы</li>
-        <li>печати, штампы, значки, медали</li>
-      </ul></div>
-
-      <div class="cap"><h3>Цифры и данные</h3><ul>
-        <li>графики и диаграммы, которые растут</li>
-        <li>гонка столбиков за период</li>
-        <li>кольцевые проценты и прогресс</li>
-        <li>таблицы и рейтинги с подсветкой строки</li>
-        <li>карта: подсветить город, показать маршрут</li>
-        <li>таймер обратного отсчёта до события</li>
-      </ul></div>
-
-      <div class="cap"><h3>Кадр и переходы</h3><ul>
-        <li>шторки, вспышки, наплывы, размытие</li>
-        <li>зум, плавный проезд, лёгкая тряска</li>
-        <li>замедление и стоп-кадр на кульминации</li>
-        <li>цветокоррекция и единый тон серии</li>
-        <li>разделение экрана на части</li>
-        <li>бесшовный цикл без видимого стыка</li>
-      </ul></div>
-
-      <div class="cap"><h3>Поверх видео</h3><ul>
-        <li>плашки с именем и должностью</li>
-        <li>подписи-выноски к предметам в кадре</li>
-        <li>субтитры, в том числе с подсветкой слова</li>
-        <li>картинка в картинке, рамка телефона</li>
-        <li>затемнение фона, чтобы читался текст</li>
-        <li>ценники и стрелки прямо на блюде</li>
-      </ul></div>
-
-      <div class="cap"><h3>Соцсети и экраны</h3><ul>
-        <li>анимированная карточка поста или отзыва</li>
-        <li>всплывающее уведомление</li>
-        <li>счётчик подписчиков и реакций</li>
-        <li>показ сайта или приложения в движении</li>
-        <li>курсор, который сам кликает и листает</li>
-        <li>заголовок из новости или статьи</li>
-      </ul></div>
-
-      <div class="cap"><h3>Звук</h3><ul>
-        <li>музыка без авторских прав — блокировок не будет</li>
-        <li>звуковые эффекты под каждое движение</li>
-        <li>озвучка синтетическим голосом</li>
-        <li>монтаж строго под ритм трека</li>
-        <li>визуализация звуковой волны</li>
-        <li>чистка звука и выравнивание громкости</li>
-      </ul></div>
-
-      <div class="cap"><h3>Откуда берётся картинка</h3><ul>
-        <li>твои фото и видео</li>
-        <li>готовый макет — оживляю как есть</li>
-        <li>съёмка на телефон плюс графика поверх</li>
-        <li>собираю кадр, которого не существует</li>
-        <li>предметка блюд и товаров без фотосессии</li>
-        <li>старое фото или логотип — восстанавливаю</li>
-      </ul></div>
-
-      <div class="cap"><h3>Что на выходе</h3><ul>
-        <li>1080p или 4K</li>
-        <li>обычный файл, прозрачный, гифка</li>
-        <li>со звуком и немая версия</li>
-        <li>зацикленная версия для телевизора</li>
-        <li>любые пропорции кадра</li>
-        <li>серия по одному шаблону — меняется текст</li>
-      </ul></div>
+    <div class="row">
+      <figure class="w rv" style="--a:1/1"><img src="assets/works/09.webp" alt="Логотип кулинарии «Волжанка»" loading="lazy" width="1200" height="1200">
+        <figcaption><span><b>Волжанка</b>логотип</span><span class="pr">5 000 ₽</span></figcaption></figure>
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/10.webp" alt="Страница меню Кинзы «Окрошка на квасе»" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Кинза</b>меню</span><span class="pr">от 6 000 ₽</span></figcaption></figure>
+      <figure class="w wide rv" style="--a:1200/509"><img src="assets/works/03.webp" alt="Баннер Завода «Забег» для соцсетей" loading="lazy" width="1200" height="509">
+        <figcaption><span><b>Завод</b>обложка для соцсетей</span><span class="pr">1 200 ₽</span></figcaption></figure>
     </div>
-
-    <div class="note"><b>Про форматы.</b> Один ролик режется под разные места без пересборки с нуля: вертикально в сторис и Клипы, квадратом в ленту, горизонтально на телевизор в зале. Считается как доплата, а не как новый ролик.</div>
-  </div>
-</section>
-
-<!-- ═══════ VIDEO PRICE ═══════ -->
-<section id="video">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Основное направление</p>
-      <h2>Видео и движение</h2>
-      <p>Цены за готовый файл: сделал, показал, поправил, отдал. Всё ниже — в одном формате кадра, если не написано другое.</p>
+    <div class="row">
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/39.webp" alt="Афиша Кегельбара «Игра в аэрохоккей»" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Кегельбар</b>афиша</span></figcaption></figure>
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/31.webp" alt="Афиша Завода «Детективная история»" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Завод</b>афиша</span></figcaption></figure>
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/38.webp" alt="Афиша Кинзы «Хинкали 65 ₽»" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Кинза</b>афиша</span></figcaption></figure>
+      <figure class="w rv" style="--a:896/1200"><img src="assets/works/24.webp" alt="Афиша Кегельбара «Ночи боулинга»" loading="lazy" width="896" height="1200">
+        <figcaption><span><b>Кегельбар</b>афиша</span></figcaption></figure>
     </div>
-
-    <div class="block">
-      <div class="block__label">Короткое — до 10 секунд</div>
-
-      <div class="row row--lead">
-        <div>
-          <div class="row__name">Оживить готовую афишу <span class="badge badge--hot">хит</span></div>
-          <div class="row__desc">Макет уже есть и утверждён — добавляю движение: элементы влетают, текст собирается, фон живёт. Самый частый заказ.</div>
-          <div class="tags"><span class="tag tag--on">до 10 сек</span><span class="tag">1 формат</span><span class="tag">1 круг правок</span></div>
-        </div>
-        <div class="row__price">5 000 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Анимированная афиша под ключ</div>
-          <div class="row__desc">Рисую макет с нуля и сразу анимирую. Статичная версия остаётся у тебя тоже — можно печатать.</div>
-          <div class="tags"><span class="tag tag--on">до 10 сек</span><span class="tag">+ макет</span><span class="tag">2 круга правок</span></div>
-        </div>
-        <div class="row__price">6 500 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Анимированный пост или сторис</div>
-          <div class="row__desc">Без видео-подложки: чистая графика, текст и движение. Дешевле афиши, делается за день.</div>
-          <div class="tags"><span class="tag tag--on">5–8 сек</span><span class="tag">1 формат</span></div>
-        </div>
-        <div class="row__price">3 500 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Заставка с логотипом <span class="badge">один раз</span></div>
-          <div class="row__desc">Делается однажды, дальше ставится в начало или конец любого ролика. Отдаю с прозрачным фоном — клеится на что угодно.</div>
-          <div class="tags"><span class="tag tag--on">2–4 сек</span><span class="tag">+ прозрачная версия</span></div>
-        </div>
-        <div class="row__price">5 000 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Дополнительный формат кадра</div>
-          <div class="row__desc">Тот же ролик, перевёрстанный под другую площадку. Не растянутый, а именно пересобранный, чтобы ничего не обрезалось.</div>
-          <div class="tags"><span class="tag">9:16</span><span class="tag">4:5</span><span class="tag">1:1</span><span class="tag">16:9</span></div>
-        </div>
-        <div class="row__price">+2 500 ₽<small>за формат</small></div>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="block__label">Рекламные ролики</div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Ролик 15 секунд</div>
-          <div class="row__desc">Несколько сцен, переходы, музыка, звуковые эффекты. Под таргет, Клипы, Shorts.</div>
-          <div class="tags"><span class="tag tag--on">15 сек</span><span class="tag">2–4 сцены</span><span class="tag">со звуком</span></div>
-        </div>
-        <div class="row__price">12 000 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Ролик 30 секунд</div>
-          <div class="row__desc">Полноценный сюжет: завязка, показ, предложение, куда идти. С озвучкой или без.</div>
-          <div class="tags"><span class="tag tag--on">30 сек</span><span class="tag">4–7 сцен</span><span class="tag">озвучка опц.</span></div>
-        </div>
-        <div class="row__price">20 000 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Ролик до минуты</div>
-          <div class="row__desc">Презентация заведения, услуги или запуска. Сценарий пишу сам, согласовываем до сборки.</div>
-          <div class="tags"><span class="tag tag--on">40–60 сек</span><span class="tag">сценарий</span></div>
-        </div>
-        <div class="row__price">от 30 000 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Клип под музыку</div>
-          <div class="row__desc">Монтаж строго под ритм: каждая склейка на долю. Хорошо заходит для атмосферных роликов и афтерпати.</div>
-          <div class="tags"><span class="tag tag--on">15–60 сек</span><span class="tag">по битам</span></div>
-        </div>
-        <div class="row__price">от 15 000 ₽</div>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="block__label">Работа с твоим материалом</div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Видео для экрана в зале <span class="badge">редкое</span></div>
-          <div class="row__desc">Зацикленный ролик без видимого стыка, немой — на телевизор или проектор. Меню дня, акция, атмосфера.</div>
-          <div class="tags"><span class="tag tag--on">20–30 сек</span><span class="tag">луп</span><span class="tag">без звука</span></div>
-        </div>
-        <div class="row__price">9 000 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Слайдшоу из фото</div>
-          <div class="row__desc">«Как прошло» после события, подборка блюд, до и после. Из твоих снимков, с музыкой и переходами.</div>
-          <div class="tags"><span class="tag tag--on">15–30 сек</span><span class="tag">твои фото</span></div>
-        </div>
-        <div class="row__price">6 000 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Монтаж сырого видео</div>
-          <div class="row__desc">Присылаешь как снял. Убираю паузы, оговорки и дубли, выравниваю звук, добавляю музыку.</div>
-          <div class="tags"><span class="tag">до 3 мин исходника</span></div>
-        </div>
-        <div class="row__price">от 4 500 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Субтитры на готовое видео</div>
-          <div class="row__desc">Расшифровка речи и субтитры в твоём стиле, вплоть до подсветки каждого слова в момент произнесения.</div>
-          <div class="tags"><span class="tag">до 2 мин</span><span class="tag">караоке-режим</span></div>
-        </div>
-        <div class="row__price">2 500 ₽</div>
-      </div>
-
-      <div class="row">
-        <div>
-          <div class="row__name">Обвязка человека в кадре графикой</div>
-          <div class="row__desc">Говорящий в кадре, а вокруг появляются плашки, цифры, подписи и иллюстрации ровно в нужные секунды.</div>
-          <div class="tags"><span class="tag">до 2 мин</span><span class="tag">синхрон по словам</span></div>
-        </div>
-        <div class="row__price">от 11 000 ₽</div>
-      </div>
-    </div>
-
-    <div class="note"><b>Серия дешевле.</b> Первый ролик — это ещё и сборка шаблона под твой стиль. Второй и следующие в том же оформлении идут <b>−40 %</b>: меняется текст, дата и фото, вся механика уже готова.</div>
-  </div>
-</section>
-
-<!-- ═══════ STATIC ═══════ -->
-<section id="design">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Всё остальное</p>
-      <h2>Графика и печать</h2>
-      <p>Обычный дизайн: то, что висит, лежит на столе и стоит в ленте. Любое из этого потом можно оживить по ценам выше.</p>
-    </div>
-
-    <div class="block">
-      <div class="block__label">Соцсети</div>
-      <div class="row"><div><div class="row__name">Пост или сторис</div><div class="row__desc">Один макет под конкретную площадку.</div></div><div class="row__price">1 200 ₽</div></div>
-      <div class="row"><div><div class="row__name">Серия из пяти в одном стиле <span class="badge">выгодно</span></div><div class="row__desc">Дешевле поштучного: стиль задаётся один раз.</div></div><div class="row__price">4 500 ₽</div></div>
-      <div class="row"><div><div class="row__name">Карусель</div><div class="row__desc">До восьми слайдов, сквозная вёрстка и логика.</div></div><div class="row__price">3 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Оформление группы</div><div class="row__desc">Обложка, аватар, кнопки меню, обложки актуального.</div></div><div class="row__price">2 800 ₽</div></div>
-      <div class="row"><div><div class="row__name">Креатив под рекламу</div><div class="row__desc">Баннер под таргет, включая варианты для теста.</div></div><div class="row__price">1 500 ₽</div></div>
-    </div>
-
-    <div class="block">
-      <div class="block__label">Заведение и печать</div>
-      <div class="row"><div><div class="row__name">Афиша или постер</div><div class="row__desc">Под печать и под соцсети сразу, в двух пропорциях.</div></div><div class="row__price">3 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Меню — основное или барное</div><div class="row__desc">Вёрстка с вычиткой цен и позиций, готово в типографию.</div></div><div class="row__price">от 6 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">QR-меню</div><div class="row__desc">Страница под телефон, обновляется без перепечатки.</div></div><div class="row__price">от 4 500 ₽</div></div>
-      <div class="row"><div><div class="row__name">Тейбл-тент, флаер, листовка</div><div class="row__desc">Настольная табличка с акцией или раздатка.</div></div><div class="row__price">2 200 ₽</div></div>
-      <div class="row"><div><div class="row__name">Комплект мелочей</div><div class="row__desc">Наклейки, номерки столов, таблички, ценники, бейджи — набор в одном стиле.</div></div><div class="row__price">2 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Сертификат или ваучер</div><div class="row__desc">Подарочный, с местом под номер и срок.</div></div><div class="row__price">2 200 ₽</div></div>
-      <div class="row"><div><div class="row__name">Этикетка или упаковка</div><div class="row__desc">Банка, бутылка, коробка, стакан, пакет доставки.</div></div><div class="row__price">от 4 500 ₽</div></div>
-      <div class="row"><div><div class="row__name">Наружка</div><div class="row__desc">Билборд, штендер, реклама в лифте, вывеска-концепт.</div></div><div class="row__price">3 500 ₽</div></div>
-    </div>
-
-    <div class="block">
-      <div class="block__label">Бренд</div>
-      <div class="row"><div><div class="row__name">Логотип</div><div class="row__desc">Три направления на выбор, финал в векторе — не размывается на любом размере.</div></div><div class="row__price">5 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Логотип и мини-брендбук</div><div class="row__desc">Логотип, палитра, шрифты, правила использования. После этого всё остальное собирается быстрее и дешевле.</div></div><div class="row__price">14 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Визитки и бланки</div><div class="row__desc">Двусторонние, готовые в печать.</div></div><div class="row__price">2 000 ₽</div></div>
+    <div class="row">
+      <figure class="w wide rv" style="--a:1200/670"><img src="assets/works/42.webp" alt="Баннер Кинзы «Забег в Кинзу»" loading="lazy" width="1200" height="670">
+        <figcaption><span><b>Кинза</b>пост</span><span class="pr">1 200 ₽</span></figcaption></figure>
+      <figure class="w rv" style="--a:849/1200"><img src="assets/works/53.webp" alt="Афиша Кинзы «Винный вечер и бесплатное караоке»" loading="lazy" width="849" height="1200">
+        <figcaption><span><b>Кинза</b>афиша</span></figcaption></figure>
+      <figure class="w wide rv" style="--a:1/1"><img src="assets/works/50.webp" alt="Логотип Кегельбара в стиле ретровейв" loading="lazy" width="1200" height="1200">
+        <figcaption><span><b>Кегельбар</b>айдентика</span></figcaption></figure>
     </div>
   </div>
-</section>
 
-<!-- ═══════ DECKS & WEB ═══════ -->
-<section id="web">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Показать и продать</p>
-      <h2>Презентации и страницы</h2>
-      <p>Когда надо не пост, а документ или ссылку: показать инвестору, партнёру, франчайзи или гостю.</p>
+  <details class="all-works rv">
+    <summary class="btn">Показать ещё 42 работы</summary>
+    <div class="mason">
+      <img src="assets/works/01.webp" alt="Кинза: бонусная программа" loading="lazy" width="896" height="1200">
+      <img src="assets/works/17.webp" alt="Кинза: презентация от шеф-бармена" loading="lazy" width="896" height="1200">
+      <img src="assets/works/11.webp" alt="Кегельбар: логотип" loading="lazy" width="1200" height="547">
+      <img src="assets/works/13.webp" alt="Щукин и дети: подарки на 8 Марта" loading="lazy" width="896" height="1200">
+      <img src="assets/works/18.webp" alt="Кегельбар: детективный квест" loading="lazy" width="597" height="800">
+      <img src="assets/works/20.webp" alt="Щукин и дети: розыгрыш подарков" loading="lazy" width="896" height="1200">
+      <img src="assets/works/21.webp" alt="Проект П: логотип" loading="lazy" width="1200" height="1200">
+      <img src="assets/works/25.webp" alt="Завод: коктейльная карта" loading="lazy" width="896" height="1200">
+      <img src="assets/works/26.webp" alt="Щукин и дети: День защитника" loading="lazy" width="907" height="1200">
+      <img src="assets/works/29.webp" alt="Кинза: бесплатное караоке" loading="lazy" width="896" height="1200">
+      <img src="assets/works/30.webp" alt="Кегельбар: детективный квест" loading="lazy" width="896" height="1200">
+      <img src="assets/works/14.webp" alt="Проект П: визитка" loading="lazy" width="1200" height="805">
+      <img src="assets/works/32.webp" alt="Щукин и дети: торт на 12 апреля" loading="lazy" width="896" height="1200">
+      <img src="assets/works/34.webp" alt="Кинза: доставка" loading="lazy" width="1032" height="1200">
+      <img src="assets/works/35.webp" alt="Кегельбар: городская мафия" loading="lazy" width="896" height="1200">
+      <img src="assets/works/36.webp" alt="Завод: обложка для соцсетей" loading="lazy" width="1200" height="509">
+      <img src="assets/works/37.webp" alt="Щукин и дети: «Твои достижения»" loading="lazy" width="805" height="1200">
+      <img src="assets/works/40.webp" alt="Завод: детективная история" loading="lazy" width="896" height="1200">
+      <img src="assets/works/41.webp" alt="Щукин и дети: паспорт чемпиона" loading="lazy" width="805" height="1200">
+      <img src="assets/works/43.webp" alt="Кегельбар: забег до Кегельбара" loading="lazy" width="1200" height="670">
+      <img src="assets/works/46.webp" alt="Кегельбар: чемпионат мира" loading="lazy" width="600" height="800">
+      <img src="assets/works/47.webp" alt="Кинза: винный вечер" loading="lazy" width="896" height="1200">
+      <img src="assets/works/48.webp" alt="Кегельбар: шот" loading="lazy" width="896" height="1200">
+      <img src="assets/works/49.webp" alt="Кинза: бизнес-ланчи" loading="lazy" width="660" height="1200">
+      <img src="assets/works/51.webp" alt="Кинза: подарочный сертификат" loading="lazy" width="1200" height="670">
+      <img src="assets/works/52.webp" alt="Кинза: доставка с сайта" loading="lazy" width="813" height="1200">
+      <img src="assets/works/54.webp" alt="Кинза: логотип" loading="lazy" width="1200" height="1183">
+      <img src="assets/works/05.webp" alt="Проект П: баннер" loading="lazy" width="1200" height="509">
+      <img src="assets/works/19.webp" alt="Завод: мороженое" loading="lazy" width="896" height="1200">
+      <img src="assets/works/22.webp" alt="Беспроигрышная лотерея: знак" loading="lazy" width="1200" height="1200">
+      <img src="assets/works/23.webp" alt="Кинза: визитка" loading="lazy" width="1200" height="805">
+      <img src="assets/works/27.webp" alt="Проект П: постер" loading="lazy" width="1024" height="1024">
+      <img src="assets/works/33.webp" alt="Проект П: леттеринг" loading="lazy" width="1024" height="1024">
+      <img src="assets/works/44.webp" alt="Завод: логотип" loading="lazy" width="1000" height="1001">
+      <img src="assets/works/06.webp" alt="Бургер с картошкой" loading="lazy" width="1200" height="1200">
+      <img src="assets/works/28.webp" alt="Пицца" loading="lazy" width="1200" height="1200">
+      <img src="assets/works/15.webp" alt="Шуточное удостоверение" loading="lazy" width="1200" height="757">
+      <img src="assets/works/07.webp" alt="Визитка KozFlow" loading="lazy" width="1200" height="805">
+      <img src="assets/works/16.webp" alt="Логотип KozFlow" loading="lazy" width="1200" height="805">
+      <img src="assets/works/12.webp" alt="Завод: мягкое мороженое" loading="lazy" width="896" height="1200">
+      <img src="assets/works/02.webp" alt="Кегельбар: бесплатный боулинг" loading="lazy" width="896" height="1200">
+      <img src="assets/works/55.webp" alt="Кинза: летнее меню" loading="lazy" width="900" height="1200">
     </div>
-    <div class="block">
-      <div class="row"><div><div class="row__name">Презентация до 15 слайдов</div><div class="row__desc">Отдаю файлом — открывается везде, редактируется, печатается.</div></div><div class="row__price">9 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Интерактивная презентация</div><div class="row__desc">Ссылка, а не файл: кликабельные разделы, переходы между блоками, режим для выступающего.</div></div><div class="row__price">15 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Презентация в виде видео</div><div class="row__desc">Тот же материал, но роликом: отправляешь в мессенджер и не объясняешь словами.</div></div><div class="row__price">от 18 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Промо-страница</div><div class="row__desc">Одностраничный сайт под акцию, событие или заведение. С анимацией и адаптацией под телефон.</div></div><div class="row__price">от 25 000 ₽</div></div>
-      <div class="row"><div><div class="row__name">Страница с формой и заявками</div><div class="row__desc">Плюс приём заявок, бронь и подключение аналитики.</div></div><div class="row__price">от 35 000 ₽</div></div>
-    </div>
+  </details>
+  <p class="pg-note rv works-foot">Любой макет можно оживить: ролики и анимация — на странице <a href="/moushen">Моушен ↗</a></p>
+</div></section>
+
+<section class="pg-sec pg-packs" id="packs"><div class="wrap">
+  <div class="sec-h"><h2 class="rv">Комплекты</h2><p class="rv">Типовые задачи одним заходом. Стиль задаётся один раз, поэтому выходит дешевле, чем по частям.</p></div>
+  <div class="cards">
+    <div class="card rv"><h3>Акция под ключ</h3><div class="price">9 000 ₽</div><div class="meta">разово</div>
+      <ul><li>макет афиши</li><li>анимированная версия</li><li>три формата кадра</li><li>пост и сторис под запуск</li><li>версия для экрана в зале</li></ul>
+      <p class="pg-note" style="margin:0 0 14px">По отдельности — около 10 400 ₽.</p>
+      <a class="btn" href="#calc" data-pick="kit-promo">В калькулятор</a></div>
+    <div class="card rv"><h3>Месяц контента</h3><div class="price">20 000 ₽ <small>/ мес</small></div><div class="meta">каждый месяц</div>
+      <ul><li>4 ролика: афиши, акции, атмосфера</li><li>8 макетов в одном стиле</li><li>все нужные форматы кадра</li><li>правки без ограничения по кругам</li><li>ваши задачи — первыми в очереди</li></ul>
+      <p class="pg-note" style="margin:0 0 14px">По отдельности — около 25 600 ₽.</p>
+      <a class="btn" href="#calc" data-pick="kit-month">В калькулятор</a></div>
+    <div class="card rv"><h3>Меню-комплект</h3><div class="price">от 15 000 ₽</div><div class="meta">разово</div>
+      <ul><li>основное и барное меню</li><li>QR-версия под телефон</li><li>тейбл-тенты и таблички</li><li>единая вёрстка и вычитка цен</li></ul>
+      <a class="btn" href="#calc" data-pick="kit-menu" style="margin-top:auto">В калькулятор</a></div>
+    <div class="card rv"><h3>Запуск точки</h3><div class="price">от 35 000 ₽</div><div class="meta">с нуля</div>
+      <ul><li>логотип и фирменный стиль</li><li>меню и навигация по залу</li><li>стартовый набор для соцсетей</li><li>заставка с логотипом для роликов</li><li>концепт вывески</li></ul>
+      <a class="btn" href="#calc" data-pick="kit-start" style="margin-top:auto">В калькулятор</a></div>
   </div>
-</section>
+</div></section>
 
-<!-- ═══════ PHOTO ═══════ -->
-<section id="photo">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Без фотосессии</p>
-      <h2>Фото и картинки</h2>
-      <p>Когда снимать некогда, дорого или уже нечего: собираю нужный кадр или чиню тот, что есть.</p>
-    </div>
-    <div class="block">
-      <div class="row"><div><div class="row__name">Фото блюда или товара с нуля</div><div class="row__desc">Кадра не существовало — делаю. Подача, свет, фон под твой стиль.</div><div class="tags"><span class="tag tag--on">от 5 штук — 1 000 ₽ за кадр</span></div></div><div class="row__price">1 200 ₽<small>за кадр</small></div></div>
-      <div class="row"><div><div class="row__name">Ретушь и «аппетитность»</div><div class="row__desc">Твоё фото блюда становится тем, ради чего заходят.</div></div><div class="row__price">800 ₽<small>за фото</small></div></div>
-      <div class="row"><div><div class="row__name">Убрать или заменить фон</div><div class="row__desc">Аккуратно, по контуру, без ореола.</div></div><div class="row__price">400 ₽<small>за фото</small></div></div>
-      <div class="row"><div><div class="row__name">Убрать лишнее из кадра</div><div class="row__desc">Провод, урна, случайный человек, старая вывеска.</div></div><div class="row__price">600 ₽<small>за фото</small></div></div>
-      <div class="row"><div><div class="row__name">Восстановить старое фото или логотип</div><div class="row__desc">Мелкий мутный файл превращается в пригодный для печати.</div></div><div class="row__price">600 ₽<small>за файл</small></div></div>
-      <div class="row"><div><div class="row__name">Концепт-рендер</div><div class="row__desc">Как будет выглядеть зал, подача, витрина или новая зона — до того, как её сделали.</div></div><div class="row__price">3 000 ₽</div></div>
-    </div>
+<section class="pg-sec pg-extras" id="extras" style="padding-top:0"><div class="wrap">
+  <div class="sec-h"><h2 class="rv">Прайс на графику</h2><p class="rv">Цена за готовый макет: сделал, показал, поправил, отдал. Два круга правок уже в цене.</p></div>
+  <div class="acc rv">
+    <details open><summary><span class="t">Соцсети</span><small>от 1 200 ₽</small></summary>
+      <div class="lines">
+        <div>Пост или сторис<b>1 200 ₽</b></div>
+        <div>Серия из пяти в одном стиле<b>4 500 ₽</b></div>
+        <div>Карусель до восьми слайдов<b>3 000 ₽</b></div>
+        <div>Оформление группы: обложка, аватар, меню<b>2 800 ₽</b></div>
+        <div>Креатив под рекламу с вариантами для теста<b>1 500 ₽</b></div>
+      </div>
+    </details>
+    <details><summary><span class="t">Печать и зал</span><small>от 2 000 ₽</small></summary>
+      <div class="lines">
+        <div>Афиша или постер, под печать и соцсети<b>3 000 ₽</b></div>
+        <div>Меню — основное или барное<b>от 6 000 ₽</b></div>
+        <div>QR-меню под телефон<b>от 4 500 ₽</b></div>
+        <div>Тейбл-тент, флаер, листовка<b>2 200 ₽</b></div>
+        <div>Мелочи в одном стиле: наклейки, номерки, ценники<b>2 000 ₽</b></div>
+        <div>Сертификат или ваучер<b>2 200 ₽</b></div>
+        <div>Этикетка или упаковка<b>от 4 500 ₽</b></div>
+        <div>Наружка: билборд, штендер, реклама в лифте<b>3 500 ₽</b></div>
+      </div>
+    </details>
+    <details><summary><span class="t">Бренд</span><small>от 2 000 ₽</small></summary>
+      <div class="lines">
+        <div>Логотип: три направления, финал в векторе<b>5 000 ₽</b></div>
+        <div>Логотип и мини-брендбук: палитра, шрифты, правила<b>14 000 ₽</b></div>
+        <div>Визитки и бланки<b>2 000 ₽</b></div>
+      </div>
+    </details>
+    <details><summary><span class="t">Презентации</span><small>от 9 000 ₽</small></summary>
+      <div class="lines">
+        <div>Презентация до 15 слайдов, файлом<b>9 000 ₽</b></div>
+        <div>Интерактивная презентация, ссылкой<b>15 000 ₽</b></div>
+      </div>
+      <p class="pg-note">Презентация роликом — на странице <a href="/moushen">Моушен ↗</a> Промо-страница или сайт с заявками — на странице <a href="/sayty">Сайты ↗</a></p>
+    </details>
+    <details><summary><span class="t">Фото без фотосессии</span><small>от 400 ₽</small></summary>
+      <div class="lines">
+        <div>Фото блюда или товара с нуля<b>1 200 ₽ за кадр</b></div>
+        <div>То же от пяти кадров<b>1 000 ₽ за кадр</b></div>
+        <div>Ретушь: фото блюда аппетитнее<b>800 ₽</b></div>
+        <div>Убрать или заменить фон<b>400 ₽</b></div>
+        <div>Убрать лишнее из кадра<b>600 ₽</b></div>
+        <div>Восстановить старое фото или логотип<b>600 ₽</b></div>
+        <div>Концепт-рендер зала, витрины, подачи<b>3 000 ₽</b></div>
+      </div>
+    </details>
   </div>
-</section>
+  <p class="pg-note rv">Срочно, за сутки — +50 %. Правки сверх двух кругов — 500 ₽ за круг. Ролики и анимация — на странице <a href="/moushen">Моушен ↗</a></p>
+</div></section>
 
-<!-- ═══════ PACKS ═══════ -->
-<section id="packs">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Выгоднее, чем по частям</p>
-      <h2>Комплекты</h2>
-      <p>Собранные наборы под типовые задачи. Внутри то же самое, что выше, но дешевле — делается одним заходом.</p>
-    </div>
-
-    <div class="packs">
-      <div class="pack pack--hero">
-        <div><p class="eyebrow">Каждый месяц</p><h3>Месяц контента</h3></div>
-        <div class="pack__price">25 000 ₽<span> / мес</span></div>
-        <ul>
-          <li>4 ролика — афиши, акции, атмосфера</li>
-          <li>8 статичных макетов в едином стиле</li>
-          <li>все нужные форматы кадра включены</li>
-          <li>правки без ограничения по кругам</li>
-          <li>очередь без ожидания — ты первый в работе</li>
-        </ul>
-        <p class="pack__save">По отдельности то же самое стоило бы около 37 000 ₽.</p>
-      </div>
-
-      <div class="pack">
-        <div><p class="eyebrow">Разово</p><h3>Акция под ключ</h3></div>
-        <div class="pack__price">11 000 ₽</div>
-        <ul>
-          <li>макет афиши</li>
-          <li>анимированная версия</li>
-          <li>три формата кадра</li>
-          <li>пост и сторис под запуск</li>
-          <li>версия для экрана в зале</li>
-        </ul>
-        <p class="pack__save">По отдельности — около 15 000 ₽.</p>
-      </div>
-
-      <div class="pack">
-        <div><p class="eyebrow">Разово</p><h3>Меню-комплект</h3></div>
-        <div class="pack__price">от 15 000 ₽</div>
-        <ul>
-          <li>основное и барное меню</li>
-          <li>QR-версия под телефон</li>
-          <li>тейбл-тенты и таблички</li>
-          <li>единая вёрстка и вычитка цен</li>
-        </ul>
-      </div>
-
-      <div class="pack">
-        <div><p class="eyebrow">С нуля</p><h3>Запуск точки</h3></div>
-        <div class="pack__price">от 35 000 ₽</div>
-        <ul>
-          <li>логотип и фирменный стиль</li>
-          <li>меню и навигация по залу</li>
-          <li>стартовый набор для соцсетей</li>
-          <li>заставка с логотипом для всех роликов</li>
-          <li>концепт вывески</li>
-        </ul>
-      </div>
-    </div>
+<section class="pg-sec pg-calc" id="calc"><div class="wrap">
+  <div class="sec-h"><h2 class="rv">Посчитайте заказ</h2><p class="rv">Отметьте, что нужно, у штучного укажите количество. Расчёт уходит мне в Telegram одной кнопкой.</p></div>
+  <div class="calc">
+    <div class="calc-opts"></div>
+    <aside class="total" aria-label="Итог расчёта"></aside>
   </div>
-</section>
+<script type="application/json" id="calc-config">
+{
+  "title": "Дизайн",
+  "items": [
+    { "id": "kit-promo", "group": "Комплект", "name": "Акция под ключ", "price": 9000, "kind": "package" },
+    { "id": "kit-month", "group": "Комплект", "name": "Месяц контента", "note": "цена за месяц", "price": 20000, "kind": "package", "term": "каждый месяц" },
+    { "id": "kit-menu", "group": "Комплект", "name": "Меню-комплект", "price": 15000, "from": true, "kind": "package" },
+    { "id": "kit-start", "group": "Комплект", "name": "Запуск точки", "price": 35000, "from": true, "kind": "package" },
+    { "id": "post", "group": "Соцсети", "name": "Пост или сторис", "price": 1200, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "series", "group": "Соцсети", "name": "Серия из пяти", "price": 4500, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "carousel", "group": "Соцсети", "name": "Карусель до 8 слайдов", "price": 3000, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "group", "group": "Соцсети", "name": "Оформление группы", "price": 2800, "kind": "extra" },
+    { "id": "ad", "group": "Соцсети", "name": "Креатив под рекламу", "price": 1500, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "poster", "group": "Печать и зал", "name": "Афиша или постер", "price": 3000, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "menu", "group": "Печать и зал", "name": "Меню", "note": "основное или барное", "price": 6000, "from": true, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "qr", "group": "Печать и зал", "name": "QR-меню", "price": 4500, "from": true, "kind": "extra" },
+    { "id": "tent", "group": "Печать и зал", "name": "Тейбл-тент, флаер, листовка", "price": 2200, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "small", "group": "Печать и зал", "name": "Мелочи в одном стиле", "price": 2000, "kind": "extra" },
+    { "id": "cert", "group": "Печать и зал", "name": "Сертификат или ваучер", "price": 2200, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "pack", "group": "Печать и зал", "name": "Этикетка или упаковка", "price": 4500, "from": true, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "outdoor", "group": "Печать и зал", "name": "Наружка", "price": 3500, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "logo", "group": "Бренд", "name": "Логотип", "price": 5000, "kind": "extra" },
+    { "id": "brandbook", "group": "Бренд", "name": "Логотип и мини-брендбук", "price": 14000, "kind": "extra" },
+    { "id": "cards", "group": "Бренд", "name": "Визитки и бланки", "price": 2000, "kind": "extra" },
+    { "id": "pres", "group": "Презентации", "name": "Презентация до 15 слайдов", "price": 9000, "kind": "extra" },
+    { "id": "presi", "group": "Презентации", "name": "Интерактивная презентация", "price": 15000, "kind": "extra" },
+    { "id": "photo", "group": "Фото без фотосессии", "name": "Фото блюда или товара с нуля", "note": "от 5 кадров — по 1 000 ₽", "price": 1200, "bulk": { "from": 5, "price": 1000 }, "counter": true, "unit": ["кадр", "кадра", "кадров"], "kind": "extra" },
+    { "id": "retouch", "group": "Фото без фотосессии", "name": "Ретушь", "price": 800, "counter": true, "unit": "фото", "kind": "extra" },
+    { "id": "bg", "group": "Фото без фотосессии", "name": "Убрать или заменить фон", "price": 400, "counter": true, "unit": "фото", "kind": "extra" },
+    { "id": "clean", "group": "Фото без фотосессии", "name": "Убрать лишнее из кадра", "price": 600, "counter": true, "unit": "фото", "kind": "extra" },
+    { "id": "restore", "group": "Фото без фотосессии", "name": "Восстановить фото или логотип", "price": 600, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "render", "group": "Фото без фотосессии", "name": "Концепт-рендер", "price": 3000, "counter": true, "unit": "шт", "kind": "extra" },
+    { "id": "rounds", "group": "Сроки и правки", "name": "Круги правок сверх двух", "price": 500, "counter": true, "unit": ["круг", "круга", "кругов"], "kind": "extra" },
+    { "id": "urgent", "group": "Сроки и правки", "name": "Срочно — за сутки", "price": 50, "kind": "percent" }
+  ],
+  "prepay": { "mode": "threshold", "threshold": 10000 }
+}
+</script>
+</div></section>
 
-<!-- ═══════ PROCESS ═══════ -->
-<section id="how">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Правила игры</p>
-      <h2>Как работаем</h2>
-    </div>
-
-    <div class="proc">
-      <div class="proc__cell"><h3>Сроки</h3><ul>
-        <li>макет — 1–2 рабочих дня</li>
-        <li>ролик до 10 секунд — 3 рабочих дня, черновик на второй</li>
-        <li>ролик 15–30 секунд — 5–7 рабочих дней</li>
-        <li>сайт или большая презентация — от двух недель</li>
-        <li>срочно, за сутки — плюс 50 % к цене</li>
-      </ul></div>
-
-      <div class="proc__cell"><h3>Правки</h3><ul>
-        <li>в графике — 500 ₽ за круг сверх включённых</li>
-        <li>в видео — 1 000 ₽ за круг сверх включённых</li>
-        <li>круг правок — это один список замечаний целиком, а не по одному сообщению</li>
-        <li>если промахнулся я — правлю бесплатно и вне очереди</li>
-      </ul></div>
-
-      <div class="proc__cell"><h3>Порядок</h3><ul>
-        <li>говоришь задачу — присылаю цену и срок в тот же день</li>
-        <li>показываю 2–3 варианта подачи на выбор, это бесплатно</li>
-        <li>собираю, показываю черновик, правим</li>
-        <li>отдаю готовые файлы, исходники храню — вернуться можно в любой момент</li>
-      </ul></div>
-
-      <div class="proc__cell"><h3>Что нужно от тебя</h3><ul>
-        <li>финальный текст: что за событие, дата, условия</li>
-        <li>логотип, лучше в векторе</li>
-        <li>фирменные цвета и шрифты, если есть</li>
-        <li>фото зала, блюд или товара — если хочешь настоящие, а не собранные</li>
-        <li>примеры того, что нравится — хоть чужие</li>
-      </ul></div>
-    </div>
-
-    <div class="note"><b>Один важный момент.</b> Текст фиксируем до анимации. Поменять надпись в готовом ролике — это пересборка, а не правка: движение считается под конкретные слова и их длину. В макете поменять слово легко, в видео — нет.</div>
-
-    <div class="note"><b>Работаю письменно.</b> Задача, правки и результат — в переписке. Ничего не теряется, всё можно поднять и перечитать. Созвоны не нужны.</div>
+<section class="pg-sec pg-how" id="how"><div class="wrap">
+  <div class="sec-h"><h2 class="rv">Как работаем</h2><p class="rv">Письменно, без созвонов: задача, правки и файлы остаются в переписке.</p></div>
+  <ol class="steps rv" style="padding:0;list-style:none">
+    <li><b>Обсуждаем</b>что за событие, дата, где будет висеть</li>
+    <li><b>Цена и срок</b>в тот же день, по прайсу</li>
+    <li><b>Предоплата</b>до 10 000 ₽ — 100 %, дороже — 50 %</li>
+    <li><b>Варианты</b>2–3 подачи на выбор, бесплатно</li>
+    <li><b>Макет</b>показываю, правим два круга</li>
+    <li><b>Остаток</b>если была предоплата 50 %</li>
+    <li><b>Файлы</b>под печать и соцсети</li>
+  </ol>
+  <div class="trio">
+    <div class="rv"><h3>Оплата</h3>Заказ до 10 000 ₽ — <b>100 % вперёд</b>. Дороже — 50 % на старте и 50 % при сдаче, с договором. Переводом с чеком или по счёту для ИП и компаний.</div>
+    <div class="rv"><h3>Правки</h3>В цене <b>два круга</b>, каждый — одним списком замечаний. Дальше — <b>500 ₽</b> за круг. Если ошибся я, правлю бесплатно и вне очереди.</div>
+    <div class="rv"><h3>Файлы</h3>Отдаю файл для типографии и картинки под каждую площадку, логотип — в векторе. Исходник — по запросу. Макеты храню: к ним можно вернуться позже.</div>
   </div>
-</section>
 
+  <h3 class="pg-sub rv">Что нужно от вас</h3>
+  <div class="pts">
+    <div class="rv"><b>Текст</b>Что за событие, дата, условия. Текст фиксируем до того, как оживлять макет.</div>
+    <div class="rv"><b>Логотип</b>Лучше в векторе. Если есть только картинка, восстановлю.</div>
+    <div class="rv"><b>Цвета и шрифты</b>Если есть фирменные. Нет — подберу под заведение.</div>
+    <div class="rv"><b>Фото</b>Зала, блюд или товара, если нужны настоящие. Нет — соберу кадр сам.</div>
+    <div class="rv"><b>Примеры</b>Что нравится, хоть чужое. Так быстрее попасть в ваш вкус.</div>
+    <div class="rv"><b>Где будет</b>Соцсети, печать, экран в зале — от этого зависят размеры и форматы.</div>
+  </div>
+</div></section>
+
+<section class="pg-sec pg-faq" id="faq"><div class="wrap">
+  <div class="sec-h"><h2 class="rv">Вопросы</h2></div>
+  <div class="faq rv">
+    <details><summary>Сколько делается макет?</summary><p>Пост или афиша — 1–2 рабочих дня. Меню, упаковка и бренд — дольше, срок назову вместе с ценой. Срочно, за сутки, — плюс 50 %.</p></details>
+    <details><summary>Можно потом оживить афишу?</summary><p>Да. Любой макет превращается в ролик для сторис, ленты и экрана в зале — от 2 000 ₽. Подробности на странице «Моушен».</p></details>
+    <details><summary>Обязательно устраивать фотосессию?</summary><p>Нет. Фото блюда или товара соберу с нуля: 1 200 ₽ за кадр, от пяти кадров — по 1 000 ₽. Своё фото отретуширую, поменяю фон или уберу лишнее.</p></details>
+    <details><summary>Почему комплект дешевле?</summary><p>Стиль задаётся один раз, и все макеты делаются одним заходом. Внутри то же самое, что в прайсе, только собрано под задачу.</p></details>
+    <details><summary>Как присылать правки?</summary><p>Одним сообщением, все замечания списком. Каждое новое сообщение с правками считается новым кругом, поэтому лучше посмотреть макет целиком и прислать всё разом.</p></details>
+    <details><summary>Нужно созваниваться?</summary><p>Нет. Работаю письменно: задача, правки и файлы остаются в переписке, их всегда можно перечитать.</p></details>
+    <details><summary>А если нужна промо-страница или сайт?</summary><p>Это на странице «Сайты»: лендинг от 25 000 ₽, сайт до 6–7 разделов — 40 000 ₽, заявки и интеграции считаются отдельно.</p></details>
+  </div>
+</div></section>
+
+<section class="pg-sec pg-contact dark" id="contact"><div class="wrap">
+  <h2 class="rv">Напишите, что нужно, — отвечу ценой и сроком</h2>
+  <div class="acts rv">
+    <a class="btn" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">Telegram</a>
+    <a class="btn" href="https://max.ru/u/f9LHodD0cOJoJGpSL33th8fRBsgIyN5HT7tEYYQwDxlcfIcouNZKYDbA02k" target="_blank" rel="noopener">MAX</a>
+    <a class="btn gold" href="tel:+79106407134">+7 910 640-71-34</a>
+  </div>
+</div></section>
 </main>
 
-<footer id="contact">
-  <div class="wrap">
-    <div class="foot__cta">
-      <div>
-        <h2>Напиши, что нужно —<br>отвечу ценой и сроком</h2>
-        <p>Достаточно одной фразы вроде «нужна афиша на пятницу, оживить». Дальше уточню сам.</p>
-      </div>
-    </div>
+<footer class="pg-foot"><div class="wrap">
+  <span>© KozFlow · Владимир Козлов · Тверь</span>
+  <span><a href="/">Главная</a> · <a href="/sayty">Сайты</a> · <a href="/moushen">Моушен</a> · <a href="/avtomatizacii">Автоматизации</a></span>
+</div></footer>
 
-    <div class="contacts">
-      <a class="contact contact--tg" href="https://t.me/Vovka_Kozisss" target="_blank" rel="noopener">
-        <svg class="contact__ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.3 1.5Z"/></svg>
-        <span class="contact__t"><b>Telegram</b><small>@Vovka_Kozisss</small></span>
-      </a>
-
-      <a class="contact contact--max" href="https://max.ru/u/f9LHodD0cOJoJGpSL33th8fRBsgIyN5HT7tEYYQwDxlcfIcouNZKYDbA02k" target="_blank" rel="noopener">
-        <svg class="contact__ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 20V4h3.4l5.6 8.2L17.6 4H21v16h-3.3V9.4l-5 7.2h-1.4l-5-7.2V20H3Z"/></svg>
-        <span class="contact__t"><b>MAX</b><small>Написать в мессенджере MAX</small></span>
-      </a>
-
-      <a class="contact contact--tel" href="tel:+79106407134">
-        <svg class="contact__ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2Z"/></svg>
-        <span class="contact__t"><b>+7 910 640-71-34</b><small>Позвонить</small></span>
-      </a>
-    </div>
-
-    <p class="foot__note">KozFlow · дизайн и анимация · Тверь · цены действуют с 21.08.2026 · оплата после согласования черновика</p>
-  </div>
-</footer>
-
-<script>
-(function(){
-  var POSTERS = ["assets/works/w01.jpg","assets/works/w02.jpg","assets/works/w03.jpg","assets/works/w04.jpg","assets/works/w05.jpg","assets/works/w06.jpg","assets/works/w07.jpg","assets/works/w08.jpg","assets/works/w09.jpg","assets/works/w10.jpg","assets/works/w11.jpg","assets/works/w12.jpg","assets/works/w13.jpg","assets/works/w14.jpg","assets/works/w15.jpg","assets/works/w16.jpg","assets/works/w17.jpg","assets/works/w18.jpg","assets/works/w19.jpg","assets/works/w20.jpg"];
-
-  /* ── ring of works ── */
-  var ring = document.getElementById('ring');
-  var stage = document.getElementById('stage');
-  if (ring && stage) {
-    var n = POSTERS.length;
-    var small = window.matchMedia('(max-width:640px)').matches;
-    var W = small ? 116 : 180;
-    var R = Math.round((W / 2) / Math.tan(Math.PI / n) * 1.16);
-    for (var i = 0; i < n; i++) {
-      var fig = document.createElement('figure');
-      fig.style.transform = 'rotateY(' + (i * 360 / n) + 'deg) translateZ(' + R + 'px)';
-      var img = document.createElement('img');
-      img.src = POSTERS[i];
-      img.alt = 'Работа ' + (i + 1);
-      img.loading = i < 6 ? 'eager' : 'lazy';
-      img.decoding = 'async';
-      fig.appendChild(img);
-      ring.appendChild(fig);
-    }
-    ring.style.transform = 'translateZ(-' + (R * 1.02) + 'px) rotateY(var(--rot,0deg))';
-
-    var rot = 0, vel = 0.055, drag = false, lastX = 0, paused = false;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    stage.addEventListener('pointerdown', function(e){
-      drag = true; lastX = e.clientX; vel = 0;
-      stage.setPointerCapture(e.pointerId);
-    });
-    stage.addEventListener('pointermove', function(e){
-      if (!drag) return;
-      var dx = e.clientX - lastX; lastX = e.clientX;
-      rot += dx * 0.28; vel = dx * 0.09;
-    });
-    function release(){ drag = false; }
-    stage.addEventListener('pointerup', release);
-    stage.addEventListener('pointercancel', release);
-    stage.addEventListener('mouseenter', function(){ paused = true; });
-    stage.addEventListener('mouseleave', function(){ paused = false; });
-
-    var vis = true;
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function(es){ es.forEach(function(e){ vis = e.isIntersecting; }); },
-        {threshold:0.01}).observe(stage);
-    }
-
-    (function tick(){
-      requestAnimationFrame(tick);
-      if (!vis) return;
-      if (!drag) {
-        if (Math.abs(vel) > 0.06) { rot += vel; vel *= 0.94; }
-        else if (!reduce && !paused) { rot += 0.055; }
-      }
-      ring.style.setProperty('--rot', rot.toFixed(2) + 'deg');
-    })();
-  }
-
-  /* ── gold dust ── */
-  var cv = document.getElementById('dust');
-  if (cv && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    var ctx = cv.getContext('2d'), parts = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    function size(){
-      var r = cv.getBoundingClientRect();
-      w = r.width; h = r.height;
-      cv.width = w * dpr; cv.height = h * dpr;
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      var count = Math.round(Math.min(190, w / 7));
-      parts = [];
-      for (var i=0;i<count;i++){
-        parts.push({
-          x: Math.random()*w, y: Math.random()*h,
-          r: 0.4 + Math.random()*1.5,
-          a: 0.16 + Math.random()*0.5,
-          vx: (Math.random()-0.5)*0.14,
-          vy: -0.05 - Math.random()*0.16,
-          hue: 34 + Math.random()*14
-        });
-      }
-    }
-    size();
-    window.addEventListener('resize', size);
-    (function draw(){
-      requestAnimationFrame(draw);
-      ctx.clearRect(0,0,w,h);
-      for (var i=0;i<parts.length;i++){
-        var p = parts[i];
-        p.x += p.vx; p.y += p.vy;
-        if (p.y < -4){ p.y = h + 4; p.x = Math.random()*w; }
-        if (p.x < -4) p.x = w + 4; else if (p.x > w + 4) p.x = -4;
-        ctx.beginPath();
-        ctx.fillStyle = 'hsla(' + p.hue + ',70%,64%,' + p.a + ')';
-        ctx.arc(p.x, p.y, p.r, 0, 6.284);
-        ctx.fill();
-      }
-    })();
-  }
-
-  /* ── smooth anchors ── */
-  document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var t = document.querySelector(a.getAttribute('href'));
-    if (!t) return;
-    e.preventDefault();
-    t.scrollIntoView({behavior:'smooth', block:'start'});
-  });
-})();
-</script>
+<script type="module" src="js/price.js"></script>
 </body>
 </html>

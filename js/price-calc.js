@@ -35,7 +35,7 @@ export function computeQuote(config, selection = {}) {
     if (!q || it.kind === 'percent') continue;
     const amount = it.kind === 'perUnit'
       ? it.price + Math.max(0, q - (it.included || 0)) * (it.unitPrice || 0)
-      : it.price * q;
+      : (it.bulk && q >= it.bulk.from ? it.bulk.price : it.price) * q; // bulk: фото от 5 шт — дешевле за штуку
     const name = it.kind === 'perUnit' ? `${it.name}, ${q}${it.unit ? ' ' + plural(it.unit, q) : ''}` : q > 1 ? `${it.name} ×${q}` : it.name;
     // только ежемесячная позиция (поддержка 5 000 ₽/мес): строки «0 ₽» нет, идёт в «Ежемесячно»
     if (amount === 0 && it.monthly) { monthly = { min: (monthly?.min || 0) + it.monthly.min, max: (monthly?.max || 0) + it.monthly.max }; continue; }

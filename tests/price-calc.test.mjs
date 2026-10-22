@@ -156,3 +156,13 @@ test('только ежемесячная позиция: без строки «
   assert.deepEqual(q.monthly, { min: 5000, max: 5000 });
   assert.ok(decodeURIComponent(telegramLink(q, 'Сайты').split('?text=')[1]).includes('Ежемесячно: 5\u00a0000\u00a0₽\n'));
 });
+
+test('оптовая цена: фото от 5 штук — по 1 000 ₽ за кадр', () => {
+  const cfg = { items: [
+    { id: 'photo', name: 'Фото блюда с нуля', price: 1200, counter: true, bulk: { from: 5, price: 1000 }, kind: 'extra' },
+  ], prepay: { mode: 'threshold', threshold: 10000 } };
+  assert.equal(computeQuote(cfg, { items: { photo: 4 } }).total, 4800);
+  assert.equal(computeQuote(cfg, { items: { photo: 5 } }).total, 5000);
+  assert.equal(computeQuote(cfg, { items: { photo: 12 } }).total, 12000);
+  assert.equal(computeQuote(cfg, { items: { photo: 5 } }).lines[0].name, 'Фото блюда с нуля ×5');
+});
