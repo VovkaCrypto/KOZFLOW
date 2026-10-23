@@ -455,15 +455,8 @@
     <div class="faq-ask reveal delay-2" id="faqAsk">
       <div class="faq-ask-head">
         <span class="kicker">Не нашли ответ?</span>
-        <h3 class="faq-ask-title serif">Задайте вопрос — отвечу лично за день</h3>
+        <h3 class="faq-ask-title serif">Напишите вопрос — отвечу лично за день</h3>
       </div>
-      <form class="faq-ask-form" id="faqAskForm" novalidate>
-        <input type="text" name="aq" id="faqAskInput" placeholder="Например: подключите ли YClients?" autocomplete="off" required />
-        <button type="submit" class="faq-ask-btn">
-          <span>Спросить</span>
-          <span aria-hidden="true">→</span>
-        </button>
-      </form>
       <div class="faq-ask-alts">
         <a href="https://t.me/kozflow" target="_blank" rel="noopener">Telegram @kozflow</a>
         <span class="faq-ask-sep" aria-hidden="true">·</span>
@@ -482,126 +475,10 @@
     <h2 class="reveal delay-1" style="margin-top:14px">Расскажите о задаче</h2>
     <p class="sub reveal delay-2">Отвечаем в течение дня · работаем по договору · NDA по запросу</p>
 
-    <div class="cta-steps-wrap reveal delay-3">
-      <!-- progress -->
-      <ol class="cta-progress" aria-label="Шаги формы">
-        <li class="cta-progress-step is-active" data-step="1"><span class="cta-progress-dot"></span><span class="cta-progress-label">Тип</span></li>
-        <li class="cta-progress-step" data-step="2"><span class="cta-progress-dot"></span><span class="cta-progress-label">Бюджет · Сроки</span></li>
-        <li class="cta-progress-step" data-step="3"><span class="cta-progress-dot"></span><span class="cta-progress-label">Контакт</span></li>
-      </ol>
 
-      <form class="cta-form" id="ctaForm" novalidate>
-        <!-- honeypot -->
-        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
-
-        <!-- STEP 1 -->
-        <fieldset class="cta-step is-active" data-step="1">
-          <legend class="cta-step-title">Что нужно автоматизировать?</legend>
-          <div class="cta-chips" role="radiogroup" aria-label="Тип задачи">
-            <label class="cta-chip"><input type="radio" name="type" value="Голосовой агент"><span>Голосовой агент</span></label>
-            <label class="cta-chip"><input type="radio" name="type" value="Telegram-бот"><span>Telegram-бот</span></label>
-            <label class="cta-chip"><input type="radio" name="type" value="Workflow / интеграции"><span>Workflow / интеграции</span></label>
-            <label class="cta-chip"><input type="radio" name="type" value="Дизайн / визуал"><span>Дизайн / визуал</span></label>
-            <label class="cta-chip"><input type="radio" name="type" value="Ещё не знаю"><span>Ещё не знаю</span></label>
-          </div>
-          <div class="cta-step-nav">
-            <span class="cta-step-meta">шаг 1 из 3</span>
-            <button type="button" class="cta cta-fill" data-step-next>Дальше <span class="arrow">→</span></button>
-          </div>
-        </fieldset>
-
-        <!-- STEP 2 -->
-        <fieldset class="cta-step" data-step="2">
-          <legend class="cta-step-title">Ориентир по бюджету и срокам</legend>
-          <div class="cta-block">
-            <div class="cta-label">Бюджет</div>
-            <div class="cta-chips" role="radiogroup" aria-label="Бюджет">
-              <label class="cta-chip"><input type="radio" name="budget" value="до 150 тыс ₽"><span>до 150к</span></label>
-              <label class="cta-chip"><input type="radio" name="budget" value="150 — 400 тыс ₽"><span>150 — 400к</span></label>
-              <label class="cta-chip"><input type="radio" name="budget" value="400 тыс+ ₽"><span>400к+</span></label>
-              <label class="cta-chip"><input type="radio" name="budget" value="обсудим"><span>обсудим</span></label>
-            </div>
-          </div>
-          <div class="cta-block">
-            <div class="cta-label">Сроки</div>
-            <div class="cta-chips" role="radiogroup" aria-label="Сроки">
-              <label class="cta-chip"><input type="radio" name="urgency" value="срочно — за неделю"><span>срочно</span></label>
-              <label class="cta-chip"><input type="radio" name="urgency" value="в течение месяца"><span>в течение месяца</span></label>
-              <label class="cta-chip"><input type="radio" name="urgency" value="не горит"><span>не горит</span></label>
-            </div>
-          </div>
-          <div class="cta-step-nav">
-            <button type="button" class="cta cta-ghost" data-step-prev>← Назад</button>
-            <span class="cta-step-meta">шаг 2 из 3</span>
-            <button type="button" class="cta cta-fill" data-step-next>Дальше <span class="arrow">→</span></button>
-          </div>
-        </fieldset>
-
-        <!-- STEP 3 -->
-        <fieldset class="cta-step" data-step="3">
-          <legend class="cta-step-title">Как с вами связаться?</legend>
-          <div class="cta-block">
-            <div class="cta-label">Имя</div>
-            <div class="field"><input type="text" name="name" id="fName" placeholder="Как к вам обращаться" autocomplete="given-name" required /></div>
-          </div>
-          <div class="cta-block">
-            <div class="cta-label">Канал связи</div>
-            <div class="cta-chips cta-chips-channel" role="radiogroup" aria-label="Канал связи">
-              <label class="cta-chip"><input type="radio" name="channel" value="tg" checked><span>Telegram</span></label>
-              <label class="cta-chip"><input type="radio" name="channel" value="email"><span>Email</span></label>
-              <label class="cta-chip"><input type="radio" name="channel" value="phone"><span>Телефон</span></label>
-            </div>
-            <div class="field">
-              <input type="text" name="contact" id="fContact"
-                     placeholder="@username, email или +7…"
-                     autocomplete="off" required
-                     inputmode="text" />
-            </div>
-          </div>
-          <div class="cta-block">
-            <div class="cta-label">Опишите задачу</div>
-            <div class="field"><textarea name="task" id="fTask" placeholder="Что хотите автоматизировать. 2-3 предложения хватит" required maxlength="800"></textarea></div>
-            <div class="cta-counter"><span id="fTaskCount">0</span> / 800</div>
-          </div>
-
-          <details class="cta-preview">
-            <summary>Предпросмотр сообщения</summary>
-            <pre id="ctaPreview"></pre>
-          </details>
-
-          <div class="cta-step-nav">
-            <button type="button" class="cta cta-ghost" data-step-prev>← Назад</button>
-            <button type="submit" class="cta cta-fill cta-submit">Отправить <span class="arrow">→</span></button>
-          </div>
-          <p class="cta-fineprint">отвечаем за день · по договору · NDA по запросу</p>
-        </fieldset>
-
-        <!-- SUCCESS -->
-        <div class="cta-success" data-step="success" hidden>
-          <div class="cta-success-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5"/><path d="M14 24l7 7 14-14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="cta-success-title serif">Заявка готова</h3>
-          <p class="cta-success-sub">Открываю выбранный канал. Если что-то не открылось — используйте резерв или скопируйте сообщение.</p>
-          <div class="cta-success-alts">
-            <a class="cta-success-btn" href="https://t.me/kozflow" target="_blank" rel="noopener" id="successTg">
-              <span>Открыть Telegram</span><span aria-hidden="true">→</span>
-            </a>
-            <a class="cta-success-btn" href="mailto:kozflow.ai@gmail.com" id="successMail">
-              <span>Написать на email</span><span aria-hidden="true">→</span>
-            </a>
-            <button type="button" class="cta-success-btn" id="copyMsgBtn">
-              <span>Скопировать сообщение</span><span aria-hidden="true">⎘</span>
-            </button>
-          </div>
-          <button type="button" class="cta-success-restart" id="ctaRestart">← Отправить ещё одну</button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Always-visible fallback contacts -->
+    <!-- контакты напрямую: формы на сайте нет -->
     <div class="cta-alts reveal">
-      <span class="cta-alts-label">Или сразу напрямую</span>
+      <span class="cta-alts-label">Напишите или позвоните напрямую</span>
       <div class="cta-alts-row">
         <a class="cta-alt" href="https://t.me/kozflow" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.96c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" fill="currentColor"/></svg>
@@ -642,7 +519,8 @@
     </nav>
   </div>
   <div class="wrap foot-bottom">
-    <span>© KozFlow · Тверь · 2026</span>
+    <span>© KozFlow · Козлов Владимир Георгиевич, самозанятый, ИНН 695016731464 · Тверь</span>
+    <span><a href="/politika">Политика обработки персональных данных</a></span>
     <span>Работаем по договору · NDA по запросу</span>
   </div>
 </footer>
@@ -658,8 +536,8 @@
 
 <!-- legacy:end -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/CustomEase.min.js"></script>
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/CustomEase.min.js"></script>
 <script src="js/reel.js"></script>
 <script src="js/fx.js"></script>
 <script src="js/mobile.js"></script>

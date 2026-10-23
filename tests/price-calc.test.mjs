@@ -73,7 +73,7 @@ test('пусто: итог 0, empty; только допы — не пусто',
 test('telegramLink: кириллица и ₽ кодируются, текст ≤ 2000', () => {
   const q = computeQuote(reel, { items: { promo: true, format: 2 }, discount: 'first', urgent: true });
   const link = telegramLink(q, 'Моушен');
-  assert.ok(link.startsWith('https://t.me/Vovka_Kozisss?text='));
+  assert.ok(link.startsWith('https://t.me/kozflow?text='));
   assert.ok(link.includes('%E2%82%BD'));
   const text = decodeURIComponent(link.split('?text=')[1]);
   assert.ok(text.includes('Моушен'));

@@ -59,6 +59,7 @@ if (cfgEl && calc) {
     `<button type="button" class="more">Подробнее</button><div class="tl"></div>` +
     `<div class="acts"><a class="btn gold tg" target="_blank" rel="noopener"><span class="lg">Отправить в </span>Telegram <span class="ar">→</span></a>` +
     `<button type="button" class="btn copy">Скопировать</button></div><div class="ok" aria-live="polite"></div>`;
+  calc.insertAdjacentHTML('afterend', '<p class="pg-note calc-offer">Расчёт ориентировочный и не является публичной офертой: итоговая цена — в ТЗ и договоре.</p>');
   const $ = (s) => total.querySelector(s);
   $('.more').addEventListener('click', () => $('.tl').classList.toggle('open'));
 

@@ -3,7 +3,7 @@
 // Поштучный пакет (видеоменю) — тоже пакет: скидка к нему применяется.
 
 const NBSP = ' ';
-const TG = 'https://t.me/Vovka_Kozisss?text=';
+const TG = 'https://t.me/kozflow?text=';
 const TG_MAX = 2000;
 const MORE = '— …\n';
 
