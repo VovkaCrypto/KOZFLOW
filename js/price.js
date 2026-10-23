@@ -218,6 +218,20 @@ for (const v of vids) {
     b.addEventListener('click', () => { fig.classList.remove('paused'); fig.dataset.user = '1'; v.play().catch(() => {}); });
     (fig.querySelector('.clip') || fig).appendChild(b);
   }
+  // у роликов со звуком — кнопка звука; включённый звук глушит остальные ролики
+  if (fig && v.hasAttribute('data-sound') && !fig.querySelector('.snd')) {
+    const s = document.createElement('button');
+    s.type = 'button'; s.className = 'snd'; s.setAttribute('aria-label', 'Звук'); s.setAttribute('aria-pressed', 'false');
+    s.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="off" d="m16 9 5 6m0-6-5 6"/><path class="on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>';
+    s.addEventListener('click', () => {
+      const on = v.muted;
+      for (const o of vids) { o.muted = true; o.closest('figure')?.querySelector('.snd')?.setAttribute('aria-pressed', 'false'); }
+      v.muted = !on;
+      s.setAttribute('aria-pressed', String(on));
+      if (on) { fig.classList.remove('paused'); v.play().catch(() => {}); }
+    });
+    (fig.querySelector('.clip') || fig).appendChild(s);
+  }
 }
 if (!reduced && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver((es) => es.forEach((e) => startStop(e.target, e.isIntersecting)), { rootMargin: '150px 0px' });
