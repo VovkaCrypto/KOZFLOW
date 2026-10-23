@@ -80,7 +80,7 @@ const ANIM = {
 const mini = (p) => `<div class="mini">${p.mini.map((k, i) => (i ? '<em></em>' : '') + `<span class="${k === 'ai' ? 'ai' : ''}">${svg(k)}</span>`).join('')}<i></i></div>`;
 const card = (w, i) => {
   if (w.cat === 'auto') return `<button class="card auto" style="--a:${w.a}" data-i="${i}" aria-label="${esc(w.t)}: схема работы">
-    <span class="who">${esc(w.who)}</span><h3>${esc(w.t)}</h3><p>${esc(w.k)}</p>${ANIM[w.anim]?.() || ''}
+    <span class="who">${esc(w.who)}</span>${w.call ? '<span class="live">на линии<span> · можно позвонить</span></span>' : ''}<h3>${esc(w.t)}</h3><p>${esc(w.k)}</p>${ANIM[w.anim]?.() || ''}
     <span class="ft">${mini(w)}<span class="more">Схема ${ARR}</span></span></button>`;
   const play = w.cat === 'sites' ? `<span class="play">${ARR}</span>` : '';
   return `<button class="card" style="--a:${w.a}" data-i="${i}" aria-label="${esc(w.t + ', ' + w.k)}">${w.cat === 'sites' ? `<span class="shot"><img src="${A}${w.desk[0]}" alt="${esc(w.t + ' — ' + w.k)}" loading="lazy" draggable="false" style="--dur:${18 + (i % 3) * 4}s"></span>` : media(w)}<span class="tag">${CAT[w.cat]}</span>${play}<span class="cap"><b>${esc(w.t)}</b>${esc(w.k)}</span></button>`;
@@ -292,7 +292,10 @@ function openPipe(p) {
   const bands = p.stages.map((_, c) => p.nodes.filter((n) => n.c === c).length * 96 + 70);
   const ph = bands.reduce((a, b) => a + b, 0);
   dlg.pv.querySelector('.pv').innerHTML = `
-    <div class="top"><div><div class="who">${esc(p.who)}</div><h3>${esc(p.t)}</h3></div><p>${esc(p.long || p.k)}</p></div>
+    <div class="top"><div><div class="who">${esc(p.who)}</div><h3>${esc(p.t)}</h3>
+      ${p.nums ? `<div class="nums">${p.nums.map(([v, l]) => `<span><b>${esc(v)}</b>${esc(l)}</span>`).join('')}</div>` : ''}
+      ${p.call ? `<a class="call" href="tel:${p.call.tel}">${svg('phone')}Позвонить ${esc(p.call.who)} · <span class="nw">${esc(p.call.show)}</span></a><span class="callh">бот ответит вживую — это рабочая линия</span>` : ''}</div>
+      <p>${esc(p.long || p.k)}</p></div>
     <div class="sc"><span>Сценарий</span>${p.scen.map((s, i) => `<button data-s="${i}" aria-pressed="${!i}">${esc(s.t)}<u></u></button>`).join('')}</div>
     <div class="stage" style="--ph:${ph}px">
       <div class="cols" style="grid-template-columns:repeat(${nc},1fr);grid-template-rows:${vert ? bands.map((b) => b + 'px').join(' ') : '1fr'}">${p.stages.map((s) => `<div>${esc(s)}</div>`).join('')}</div>
