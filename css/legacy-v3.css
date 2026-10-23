@@ -42,3 +42,6 @@ html, body { overflow-x: clip; }
 #services.svc { overflow: visible; display: block; border-radius: 0; padding: 0; min-height: 0;
   box-shadow: none; transition: none; }
 #services.svc:hover { transform: none; box-shadow: none; }
+
+/* после секции «Работы» (#works) кейсы начинаются с отступа, а не вплотную к тёмному блоку */
+.legacy #cases { padding-top: clamp(64px, 8vw, 104px) !important; }
