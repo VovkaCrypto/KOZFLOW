@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const errors = [];
 
-for (const id of ['services', 'works', 'process', 'why', 'faq', 'contact']) {
+for (const id of ['services', 'works', 'process', 'about', 'faq', 'contact']) {
   if (!html.includes(`id="${id}"`)) errors.push(`нет секции #${id}`);
 }
 if (html.includes('id="cases"')) errors.push('остались старые кейсы — их заменили «Работы»');
