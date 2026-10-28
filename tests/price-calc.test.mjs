@@ -1,7 +1,7 @@
 // node --test tests/price-calc.test.mjs — логика калькулятора страниц услуг (значения из спеки)
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { computeQuote, telegramLink, formatRub } from '../js/price-calc.js';
+import { computeQuote, telegramLink, formatRub, monthlyText } from '../js/price-calc.js';
 
 const threshold = { mode: 'threshold', threshold: 10000 };
 const reel = {
@@ -165,4 +165,9 @@ test('оптовая цена: фото от 5 штук — по 1 000 ₽ за 
   assert.equal(computeQuote(cfg, { items: { photo: 5 } }).total, 5000);
   assert.equal(computeQuote(cfg, { items: { photo: 12 } }).total, 12000);
   assert.equal(computeQuote(cfg, { items: { photo: 5 } }).lines[0].name, 'Фото блюда с нуля ×5');
+});
+
+test('monthlyText: нижняя граница 0 — «до»', () => {
+  assert.equal(monthlyText({ min: 0, max: 20000 }), `до ${formatRub(20000)}`);
+  assert.equal(monthlyText({ min: 5000, max: 5000 }), formatRub(5000));
 });

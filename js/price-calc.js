@@ -106,7 +106,7 @@ function prepayFor(page, total, parts) {
 // Обрезка по кодовым точкам, чтобы не разрезать эмодзи (одиночный суррогат ломает encodeURIComponent).
 const cut = (s, n) => (s.length <= n ? s : Array.from(s.slice(0, n + 1)).reduce((a, ch) => (a.length + ch.length <= n ? a + ch : a), ''));
 
-export const monthlyText = (m) => (m.min === m.max ? formatRub(m.min) : `${formatRub(m.min)} – ${formatRub(m.max)}`);
+export const monthlyText = (m) => (m.min === m.max ? formatRub(m.min) : m.min === 0 ? `до ${formatRub(m.max)}` : `${formatRub(m.min)} – ${formatRub(m.max)}`);
 
 export function telegramLink(quote, pageTitle = '') {
   const ot = (f) => (f ? 'от ' : '');
