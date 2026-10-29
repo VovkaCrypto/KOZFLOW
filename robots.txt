@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /_legacy/
+Disallow: /docs/
+Disallow: /tests/
+Disallow: /yandex-function/
+Disallow: /hero-particles.html
+
+Sitemap: https://kozflow.ru/sitemap.xml
