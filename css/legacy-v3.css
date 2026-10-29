@@ -43,3 +43,6 @@ html, body { overflow-x: clip; }
   box-shadow: none; transition: none; }
 #services.svc:hover { transform: none; box-shadow: none; }
 
+
+/* .wrap{margin:0 auto} перебивал отступ над нижней строкой подвала — последняя ссылка «Дизайн и цены» садилась на черту */
+.foot .foot-bottom { margin-top: clamp(36px, 5vh, 56px); }
