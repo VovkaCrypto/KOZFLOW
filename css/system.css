@@ -1,0 +1,61 @@
+/* Сквозная система главной — грузится последней и сводит секции к одному виду (PRODUCT.md → Visual System, решения владельца 28–29.10).
+   Секции «Обо мне», «Цех», «Контакт» переносятся скриптами из МЕГАМОЗГИ и перезаписывают свои css при переносе —
+   поэтому общие правила живут здесь, а не в их файлах. */
+
+/* цвета ремёсел (js/services.js): тёмные — для светлого фона, светлые — для тёмного */
+:root{
+  --k-design:#C26B4A;--k-motion:#4F7896;--k-sites:#3A4A3D;--k-auto:#B0844A;
+  --k-design-l:#DB8664;--k-motion-l:#A3BCCB;--k-sites-l:#93AC93;--k-auto-l:#C4985A;
+  --eb-on-night:#C4985A;--eb-on-cream:#8F6430; /* 7.1:1 и 4.9:1 */
+}
+
+/* ---------- подпись над заголовком: STRome 12px, разрядка .16em, черта 34px ---------- */
+#services .svc-kicker,#works .head .kick,#process .cv-h .kick,#about .head .kick,#faq .kicker,#contact .eb{
+  display:flex;align-items:center;gap:12px;margin:0 0 18px;
+  font:400 12px/1 'STRome',Georgia,serif;letter-spacing:.16em;text-transform:uppercase;color:var(--eb-on-cream)}
+#services .svc-kicker::before,#works .head .kick::before,#process .cv-h .kick::before,#about .head .kick::before,#faq .kicker::before,#contact .eb::before{
+  content:'';flex:none;width:34px;height:1px;background:currentColor}
+#works .head .kick,#about .head .kick,#contact .eb{color:var(--eb-on-night)}
+#faq .faq-ask .kicker{margin:0 0 10px}
+
+/* FAQ — легаси-заголовок в общий ритм: лид обычным текстом, как в остальных секциях */
+#faq .faq-lede{margin-top:22px;max-width:560px;font:400 clamp(16px,1.25vw,18px)/1.55 'Golos Text',system-ui,sans-serif;font-style:normal;text-transform:none;letter-spacing:normal;color:#4A3E2E}
+
+/* ---------- кнопка Telegram: золотая пилюля с тёмным кругом-значком (эталон — .btn в #contact) ---------- */
+#about .tg{display:inline-flex;align-items:center;gap:12px;padding:8px 26px 8px 8px;border-radius:999px;background:#C4985A;color:#17120D;
+  font:400 15px/1 'STRome',Georgia,serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s}
+#about .tg:hover{transform:translateY(-2px);background:#D4A86A}
+#about .tg svg{flex:none;box-sizing:border-box;width:38px;height:38px;padding:10.5px;border-radius:50%;background:#17120D;fill:#F3D9A9}
+
+/* ---------- цвета ремёсел ---------- */
+/* «Работы» (тёмный фон): точка ремесла на фильтре и на ярлыке карточки */
+#works .chip[data-c=design],#works .tag[data-c=design]{--c:var(--k-design-l)}
+#works .chip[data-c=motion],#works .tag[data-c=motion]{--c:var(--k-motion-l)}
+#works .chip[data-c=sites],#works .tag[data-c=sites]{--c:var(--k-sites-l)}
+#works .chip[data-c=auto],#works .tag[data-c=auto]{--c:var(--k-auto-l)}
+#works .chip[data-c]:not([data-c=all])::before,#works .tag[data-c]::before{content:'';display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:var(--c);vertical-align:.08em}
+#works .tag[data-c]::before{width:6px;height:6px;margin-right:6px}
+#works .chip[data-c]:not([data-c=all])[aria-pressed=true]{background:var(--c);border-color:var(--c);color:#17120D}
+#works .chip[data-c]:not([data-c=all])[aria-pressed=true]::before{background:#17120D}
+
+/* «Цех» (светлый фон): пакет подсвечивается цветом своего ремесла */
+#process .pk[data-p=poster]{--c:var(--k-design)}
+#process .pk[data-p=video]{--c:var(--k-motion)}
+#process .pk[data-p=site]{--c:var(--k-sites)}
+#process .pk[data-p=bot]{--c:var(--k-auto)}
+#process .pk[data-p] .pk-ic{background:radial-gradient(circle at 50% 70%,color-mix(in srgb,var(--c) 26%,transparent),transparent 72%)}
+#process .pk[data-p][aria-selected=true]{border-color:var(--c);box-shadow:0 0 0 1px var(--c) inset,0 14px 30px -18px rgba(45,36,25,.45)}
+
+/* глобальный .cta героя (reel.css: тёмная пилюля 56px) задевает обёртку кнопки в «Обо мне» — там это просто ряд */
+#about .cta{background:none;padding:0;border-radius:0;color:inherit;font-weight:inherit;letter-spacing:normal;text-transform:none;overflow:visible}
+
+/* кнопка героя «Связаться» — та же пилюля: золото, тёмный круг со стрелкой слева; прокрутка текста и поворот стрелки остаются */
+.copy > .cta{flex-direction:row-reverse;gap:12px;height:auto;padding:8px 26px 8px 8px;background:#C4985A;color:#17120D;
+  font:400 15px/1 'STRome',Georgia,serif;letter-spacing:.06em;text-transform:uppercase}
+.copy > .cta .chip{width:38px;height:38px;background:#17120D;color:#F3D9A9}
+.copy > .cta:hover{background:#D4A86A}
+
+/* «Работы» → «Прайс-листы»: та же подпись, по центру */
+#works .plh > span{display:flex;align-items:center;justify-content:center;gap:12px;font:400 12px/1 'STRome',Georgia,serif;letter-spacing:.16em;text-transform:uppercase;color:var(--eb-on-night)}
+#works .plh > span::before{content:'';flex:none;width:34px;height:1px;background:currentColor}

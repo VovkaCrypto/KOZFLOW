@@ -83,7 +83,7 @@ const card = (w, i) => {
     <span class="who">${esc(w.who)}</span>${w.call ? '<span class="live">на линии<span> · можно позвонить</span></span>' : ''}<h3>${esc(w.t)}</h3><p>${esc(w.k)}</p>${ANIM[w.anim]?.() || ''}
     <span class="ft">${mini(w)}<span class="more">Схема ${ARR}</span></span></button>`;
   const play = w.cat === 'sites' ? `<span class="play">${ARR}</span>` : '';
-  return `<button class="card" style="--a:${w.a}" data-i="${i}" aria-label="${esc(w.t + ', ' + w.k)}">${w.cat === 'sites' ? `<span class="shot"><img src="${A}${w.desk[0]}" alt="${esc(w.t + ' — ' + w.k)}" loading="lazy" draggable="false" style="--dur:${18 + (i % 3) * 4}s"></span>` : media(w)}<span class="tag">${CAT[w.cat]}</span>${play}<span class="cap"><b>${esc(w.t)}</b>${esc(w.k)}</span></button>`;
+  return `<button class="card" style="--a:${w.a}" data-i="${i}" aria-label="${esc(w.t + ', ' + w.k)}">${w.cat === 'sites' ? `<span class="shot"><img src="${A}${w.desk[0]}" alt="${esc(w.t + ' — ' + w.k)}" loading="lazy" draggable="false" style="--dur:${18 + (i % 3) * 4}s"></span>` : media(w)}<span class="tag" data-c="${w.cat}">${CAT[w.cat]}</span>${play}<span class="cap"><b>${esc(w.t)}</b>${esc(w.k)}</span></button>`;
 };
 
 // ряды: высота на компьютере / телефоне, направление, скорость (px/с)
