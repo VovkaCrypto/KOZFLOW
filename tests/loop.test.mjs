@@ -43,6 +43,18 @@ test('runs only while visible', () => {
   assert.ok(calls.every((d) => d > 0));
 });
 
+test('a throwing callback stops neither the others nor the loop', () => {
+  const r = rig(); const el = {}; const calls = [];
+  const err = console.error; console.error = () => {};
+  r.L.add(el, () => { throw new Error('секция сломалась'); });
+  r.L.add(el, () => calls.push(1));
+  r.see(el, true);
+  r.frames(3);
+  console.error = err;
+  assert.equal(calls.length, 3);
+  assert.equal(r.queued, true);
+});
+
 test('stops when all hidden', () => {
   const r = rig(); const a = {}, b = {};
   r.L.add(a, () => {}); r.L.add(b, () => {});

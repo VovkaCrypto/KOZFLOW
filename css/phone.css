@@ -15,6 +15,9 @@
   .dock .tg{padding:0 19px 0 15px;background:var(--gold);color:#17120D}
   .dock .tg svg{width:15px;height:15px;flex:none}
 
+  /* узкий экран: три пункта не влезают с обычными полями, Telegram уезжал за край */
+  @media (max-width:340px){.dock a{padding:0 12px;font-size:12px;letter-spacing:.06em}.dock .tg{padding:0 13px 0 11px}}
+
   /* цели касания контактов и финала: строки по 44 px вместо зазоров между мелкими ссылками */
   #contact .cs .lnk,#final .cts .lnk,#contact .cs .bots a,#final .bots a,#final .ln6 a,#final .bot6 a,#final .more a,#final .bot6 .up{display:inline-flex;align-items:center;min-height:44px}
   #contact .cs .bots a,#final .bots a{display:flex}

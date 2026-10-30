@@ -108,7 +108,52 @@ html{scroll-snap-type:y proximity}
   .svc-nav svg{width:28px;height:28px}
   .svc-nav span{display:none}
 }
+/* ── телефон: стопка карточек ремёсел (js/services.js). Класс, а не media: ветка выбирается при загрузке и держится при повороте ── */
+.svc.svc--stack{height:auto;padding:52px 12px 28px;background:var(--bg)}
+.sk-wrap{max-width:560px;margin-inline:auto}
+.sk{position:sticky;top:calc(14px + env(safe-area-inset-top) + var(--i) * 10px);min-height:calc(100svh - 104px);display:flex;flex-direction:column;margin-bottom:14px;border-radius:24px;overflow:hidden;background:var(--cream);color:var(--ink);box-shadow:0 -6px 24px rgba(23,18,13,.14);--ink-k:var(--k)}
+.sk[data-c=auto]{--k:var(--k-auto);--ink-k:var(--eb-on-cream)}.sk[data-c=sites]{--k:var(--k-sites)}.sk[data-c=motion]{--k:var(--k-motion)}.sk[data-c=design]{--k:var(--k-design)}
+.sk-top{flex:1;display:flex;flex-direction:column;min-height:0;padding:20px 18px 0;background:var(--k);color:var(--cream)}
+.sk[data-c=auto] .sk-top{color:var(--night)}
+.sk h3{margin:0;font:400 clamp(30px,10vw,44px)/1 'STRome',Georgia,serif;letter-spacing:.01em;text-transform:uppercase;color:inherit}
+.sk[data-c=auto] h3{font-size:clamp(26px,8.2vw,40px)}
+.sk-what{margin:8px 0 0;font:400 11.5px/1.3 'STRome',Georgia,serif;letter-spacing:.12em;text-transform:uppercase;opacity:.86}
+.sk-art{position:relative;flex:1;min-height:112px;margin-top:14px;overflow:hidden;border-radius:12px 12px 0 0}
+.sk-who{display:flex;align-items:center;gap:10px}
+.sk-who i{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--night);color:var(--gold);font:400 17px/1 'STRome',Georgia,serif}
+.sk-who b{display:block;font:500 15px/1.2 'Golos Text',system-ui,sans-serif}
+.sk-who small{display:block;font:400 12.5px/1.25 'Golos Text',system-ui,sans-serif;opacity:.82}
+.sk-chat{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding-bottom:12px}
+.sk-chat p{max-width:84%;margin:0;padding:7px 11px;font:400 13.5px/1.3 'Golos Text',system-ui,sans-serif;color:var(--ink);opacity:0;transform:translateY(10px);transition:opacity .45s,transform .6s var(--ease);transition-delay:calc(var(--i) * .32s)}
+.sk.in .sk-chat p{opacity:1;transform:none}
+.sk-chat .q{align-self:flex-start;background:rgba(245,239,223,.5);border-radius:12px 12px 12px 3px}
+.sk-chat .a{align-self:flex-end;background:var(--cream);border-radius:12px 12px 3px 12px}
+.sk-br{position:absolute;inset:0;background:#fff}
+.sk-br i{display:block;height:20px;background:var(--cream)}
+.sk-br img{width:100%;height:calc(100% - 20px);object-fit:cover;object-position:50% 0}
+.sk-art video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--night)} /* ролик целиком, без обрезки (правило владельца) */
+.sk[data-c=design] .sk-art img{position:absolute;left:50%;top:6%;width:38%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;box-shadow:0 8px 20px rgba(23,18,13,.3);transform:translateX(-50%);transition:transform .8s var(--ease)}
+.sk[data-c=design].in .sk-art img:nth-child(1){transform:translateX(-118%) rotate(-9deg)}
+.sk[data-c=design].in .sk-art img:nth-child(3){transform:translateX(18%) rotate(9deg)}
+.sk[data-c=design] .sk-art img:nth-child(2){z-index:1}
+.sk-bot{padding:16px 18px 16px}
+.sk-lead{margin:0;font:400 15px/1.45 'Golos Text',system-ui,sans-serif;letter-spacing:normal;text-transform:none}
+.sk-fact{margin:10px 0 0;font:400 13.5px/1.35 'Golos Text',system-ui,sans-serif;color:var(--ink-soft)}
+.sk-fact span{margin-right:8px;color:var(--ink-mute)}
+.sk-pr{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.sk-pr p{margin:0;min-width:0}
+.sk-pr b{display:block;font:400 24px/1.05 'STRome',Georgia,serif;white-space:nowrap;color:var(--ink-k)}
+.sk-pr small{display:block;margin-top:4px;font:400 12.5px/1.25 'Golos Text',system-ui,sans-serif;color:var(--ink-mute)}
+.sk-more{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 16px;border:1px solid var(--ink);border-radius:999px;font:400 13px/1 'STRome',Georgia,serif;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.sk-more:active{transform:scale(.97)}
+.sk-more svg{width:14px;height:14px}
+.sk-more path{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@media (max-height:620px){.sk-who{display:none}.sk-art{min-height:84px}.sk[data-c=auto] .sk-art{min-height:168px}.sk-lead{font-size:14px}}
+/* альбомная и самый маленький экран: карточка выше кадра, прилипнув, она ушла бы под следующую непрочитанной */
+@media (max-height:480px),(max-width:340px) and (max-height:620px){.sk{position:relative;top:auto;min-height:0}.sk-art{min-height:170px}.sk[data-c=auto] .sk-art{min-height:236px}}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-snap-type:none}
+  .sk-chat p,.sk .sk-art img{transition:none!important}
   .svc-word .w i,.svc-stackp>*,.m .sl,.m-chat .mg{transition:none!important}
 }

@@ -1,4 +1,4 @@
-/* services.js — секция «Услуги», вариант A. Генерируется из sections-v3/uslugi/template-A.html: node export.mjs */
+/* services.js — секция «Услуги», вариант A. Перенесена из sections-v3/uslugi/template-A.html, дальше источник правды — этот файл: export.mjs его перезапишет. */
 (() => {
 'use strict';
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -83,6 +83,38 @@ const MEDIA = {
   design: `<div class="m m-sl"><img class="sl" src="assets/services/w02.webp" alt="Афиша Кегельбара" data-cap="Кегельбар"><img class="sl" src="assets/services/w12.webp" alt="Афиша Завода" data-cap="Завод"><img class="sl" src="assets/services/w09.webp" alt="Айдентика Волжанки" data-cap="Волжанка"><img class="sl" src="assets/services/w37.webp" alt="Упаковка «Щукин и дети»" data-cap="Щукин и дети"><span class="cap"></span></div>`
 };
 
+const nb = (t) => t.replace(/(\d) (?=\d{3})/g, '$1 ').replace(/ ₽/g, ' ₽'); // цены не рвутся по строкам
+
+/* ── телефон: стопка карточек ремёсел вместо экрана с частицами, код частиц ниже не исполняется.
+ * Решается один раз при загрузке и по экрану устройства, а не окна: поворот в альбомную не должен оставить пустую секцию. ── */
+if (innerWidth <= 760 || Math.min(screen.width, screen.height) <= 760) {
+  const el = document.getElementById('services');
+  const ART = {
+    auto: `<div class="sk-who"><i>${CHATS[0].who[0]}</i><span><b>${CHATS[0].who}</b><small>${CHATS[0].where}</small></span></div><div class="sk-chat">${CHATS[0].m.map(([c, t], i) => `<p class="${c}" style="--i:${i}">${t}</p>`).join('')}</div>`,
+    sites: '<div class="sk-br"><i></i><img src="assets/services/vostok-desk-hero.webp" alt="Сайт ресторана «Восток 24»" loading="lazy"></div>',
+    motion: '<video muted playsinline loop preload="none" poster="assets/services/dish-poster.jpg" aria-label="Видеоменю ресторана «Восток 24»"></video>',
+    design: [['w02', 'Афиша Кегельбара'], ['w12', 'Афиша Завода'], ['w37', 'Упаковка «Щукин и дети»']].map(([f, a]) => `<img src="assets/services/${f}.webp" alt="${a}" loading="lazy">`).join('')
+  };
+  el.classList.add('svc--stack');
+  document.documentElement.style.scrollSnapType = 'none';
+  el.querySelector('.svc-pin').remove();
+  el.insertAdjacentHTML('beforeend', `<div class="sk-wrap"><p class="sk-kick">Один человек, четыре ремесла</p><h2 class="sr">Услуги: ${SV.map((s) => s.word).join(', ')}</h2>` + SV.map((s, i) => `<article class="sk" data-c="${s.id}" style="--i:${i}">
+    <div class="sk-top"><h3>${s.word}</h3><p class="sk-what">${s.what.join(' · ')}</p><div class="sk-art">${ART[s.id]}</div></div>
+    <div class="sk-bot"><p class="sk-lead">${s.lead}</p><p class="sk-fact"><span>${s.fact[0]}</span>${s.fact[1]}</p>
+      <div class="sk-pr"><p><b>${nb(s.cost[0])}</b><small>${nb(s.cost[1])}</small></p><a class="sk-more" href="${s.price}" target="_blank" rel="noopener">Прайс<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a></div></div>
+  </article>`).join('') + '</div>');
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.35 });
+  el.querySelectorAll('.sk').forEach((c) => io.observe(c));
+  // ролик играет, только пока карточка в кадре и следующая её не накрыла: прилипшая карточка для браузера остаётся видимой
+  const v = el.querySelector('video'), next = v.closest('.sk').nextElementSibling;
+  let seen = false, covered = false;
+  const sync = () => { if (seen && !covered && !reduce) v.play().catch(() => {}); else v.pause(); };
+  v.src = 'assets/services/dish.mp4';
+  new IntersectionObserver(([e]) => { seen = e.isIntersecting; sync(); }).observe(v);
+  new IntersectionObserver(([e]) => { covered = e.isIntersecting; sync(); }, { rootMargin: '0px 0px -70% 0px' }).observe(next);
+  return;
+}
+
 /* ── семплинг контуров в точки ── */
 const kPts = (document.getElementById('svc-kpts').textContent.trim() || '').split(/\s+/).map((p) => p.split(',').map(Number)).filter((p) => p.length === 2 && !isNaN(p[0]));
 const SH = (() => {
@@ -138,7 +170,6 @@ const pin = document.querySelector('.svc-pin'), el = document.getElementById('se
 const letters = (s) => [...s].map((ch, k) => `<i style="--d:${k}">${ch}</i>`).join('');
 el.querySelector('.svc-ww').innerHTML = `<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Услуги: ${SV.map((s) => s.word).join(', ')}</h2><div class="svc-word">` +
   SV.map((s, i) => `<span class="w" data-i="${i}" style="--wc:${s.acl};--wcd:${s.acd}">${letters(s.word)}</span>`).join('') + '</div>';
-const nb = (t) => t.replace(/(\d) (?=\d{3})/g, '$1 ').replace(/ ₽/g, ' ₽'); // цены не рвутся по строкам
 // описание и паспорт услуги — один блок, чтобы высоты не расходились и не оставляли дыр
 el.querySelector('.svc-body').innerHTML = SV.map((s) => `<div class="svc-b"><p class="svc-lead">${s.lead}</p><dl class="svc-spec">` +
   `<div class="r r-what"><dt>Делаю</dt><dd>${s.what.join('<i>·</i>')}</dd></div>` +

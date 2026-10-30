@@ -293,16 +293,18 @@ if (window.LOOP.coarse && !reduce) {
   });
 }
 // слово под пальцем: дырка маской, точки снимка летят из неё. Окно — пока слово собрано; сцена «Моушен» рисует слово сама (fxh)
-let holeEl = null;
+let holeEl = null, holeSnap = null, holeBox = null;
 function flee(t) {
   const s = touch.k ? WORDS.find((w) => t >= w.a + 1.4 && t < w.b - 0.5) : null, el = s ? wordEl[s.id] : null, on = el && !el.classList.contains('fxh');
   if (holeEl && (holeEl !== el || !on)) { holeEl.classList.remove('hole'); holeEl = null; }
   if (!on) return;
-  REEL.fx.flee(REEL.fx.word(s.id, getComputedStyle(el).getPropertyValue('--wc').trim()), touch.x, touch.y, touch.k, touch.R);
-  if (holeEl !== el) { el.classList.add('hole'); holeEl = el; }
-  const r = REEL.fx.place(el);
-  el.style.setProperty('--hx', (touch.x - r.x).toFixed(1) + 'px');
-  el.style.setProperty('--hy', (touch.y - r.y).toFixed(1) + 'px');
+  if (holeEl !== el) {
+    holeSnap = REEL.fx.word(s.id, getComputedStyle(el).getPropertyValue('--wc').trim());
+    el.classList.add('hole'); holeEl = el; holeBox = REEL.fx.place(el);
+  }
+  REEL.fx.flee(holeSnap, touch.x, touch.y, touch.k, touch.R);
+  el.style.setProperty('--hx', (touch.x - holeBox.x).toFixed(1) + 'px');
+  el.style.setProperty('--hy', (touch.y - holeBox.y).toFixed(1) + 'px');
   el.style.setProperty('--hr', (touch.R * Math.min(1, touch.k)).toFixed(1) + 'px');
 }
 document.addEventListener('visibilitychange', apply);

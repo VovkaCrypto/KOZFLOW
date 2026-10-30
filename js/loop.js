@@ -19,7 +19,7 @@
       if (!want()) return;
       const dt = last ? Math.min(50, Math.max(0, t - last)) : 16;
       last = t;
-      for (const it of [...items]) if (it.st.vis && items.has(it)) it.fn(t, dt);
+      for (const it of [...items]) if (it.st.vis && items.has(it)) { try { it.fn(t, dt); } catch (e) { console.error(e); } }
       if (want()) id = env.raf(frame);
     }
     function wake() { if (!id && want()) { last = 0; id = env.raf(frame); } }
