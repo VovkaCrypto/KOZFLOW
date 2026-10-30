@@ -94,6 +94,8 @@ h1{font-weight:300;line-height:1;display:flex;flex-direction:column;align-items:
 /* бегущая строка: две одинаковые группы, сдвиг на половину — бесшовно */
 .mq{display:flex;width:max-content;animation:mq 26s linear infinite}
 .peek:hover .mq{animation-play-state:paused}
+/* пауза из system.css держит слой каждой звёздочке, 24 штуки за весь сайт: вне окна анимация снята, лента всё равно не видна */
+.peek.is-off .mq,.peek.is-off .mq-s{animation:none}
 .mq-g{display:flex;align-items:center;gap:clamp(26px,3.4vw,52px);padding-right:clamp(26px,3.4vw,52px);flex:none}
 .mq-g img{height:30px;width:auto;opacity:.62;filter:brightness(0)}
 .mq-g img.tall{height:40px}

@@ -115,6 +115,7 @@ function build() {
   }
   rows.forEach(dragRow);
   watchVideos();
+  watchAnims();
 }
 
 function interleave(list) {
@@ -160,6 +161,7 @@ document.querySelector('.prices').innerHTML = Object.keys(CAT).map((c, i) => `<a
 // ряд тянется мышью и пальцем; отпустил — докатывается по инерции
 let dragged = false;
 function dragRow(r) {
+  r.el.addEventListener('touchstart', () => {}, { passive: true }); // без этого iOS не показывает :active
   r.el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') r.slow = 0.55; });
   r.el.addEventListener('pointerleave', () => (r.slow = 1));
   r.el.addEventListener('pointerdown', (e) => {
@@ -209,6 +211,14 @@ function tick(t) {
     while (r.x <= -half) r.x += half; while (r.x > 0) r.x -= half;
     r.track.style.transform = `translate3d(${r.x}px,0,0)`;
   }
+}
+
+// свои анимации карточек идут только в кадре: 91 анимация вне экрана стоила половину кадра на телефоне
+let aio;
+function watchAnims() {
+  aio?.disconnect();
+  aio = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('still', !e.isIntersecting)), { rootMargin: '100px' });
+  document.querySelectorAll('.wk .auto, .wk .shot, .wk .prc').forEach((c) => { c.classList.add('still'); aio.observe(c); });
 }
 
 // ролики играют, только пока секция на экране
