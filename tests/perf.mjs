@@ -20,8 +20,8 @@ for (const R of runs) for (let n = 0; n < RUNS; n++) {
   const res = await p.evaluate(async () => {
     const lt = []; try { new PerformanceObserver((l) => l.getEntries().forEach((e) => lt.push({ d: e.duration, y: scrollY }))).observe({ type: 'longtask', buffered: false }); } catch {}
     const fr = []; let last = performance.now();
-    const H = document.documentElement.scrollHeight - innerHeight;
-    await new Promise((ok) => { const f = (t) => { fr.push({ d: t - last, y: scrollY }); last = t; if (scrollY >= H - 2) return ok(); scrollBy({ top: 14, behavior: 'instant' }); requestAnimationFrame(f); }; requestAnimationFrame(f); });
+    const H = document.documentElement.scrollHeight - innerHeight; let stall = 0, yPrev = -1; // страница могла стать короче H: скролл встал — конец
+    await new Promise((ok) => { const f = (t) => { fr.push({ d: t - last, y: scrollY }); last = t; stall = scrollY === yPrev ? stall + 1 : 0; yPrev = scrollY; if (scrollY >= H - 2 || stall > 30) return ok(); scrollBy({ top: 14, behavior: 'instant' }); requestAnimationFrame(f); }; requestAnimationFrame(f); });
     await new Promise((r) => setTimeout(r, 300));
     return { fr, lt };
   });

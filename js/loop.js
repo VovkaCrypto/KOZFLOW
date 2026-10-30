@@ -91,12 +91,13 @@
   addEventListener('resize', () => { g.LOOP.vh = innerHeight; if (innerWidth !== vw) { g.LOOP.vw = vw = innerWidth; boxes.clear(); } });
   if (window.ResizeObserver) new ResizeObserver(() => boxes.clear()).observe(document.documentElement);
 
-  g.LOOP.gateCss('#hero, #clients, #services, #works, #process, #about, #contact');
+  g.LOOP.gateCss('#hero, #clients, #services, #works, #process, #about, #contact, #final');
 
   // телефон: блоки вне экрана браузер не считает вовсе; высота запоминается, чтобы полоса прокрутки не прыгала.
   // На ПК не нужно и нельзя: содержание ломает схлопывание отступов, высоты секций меняются.
-  if (g.LOOP.coarse) addEventListener('load', () => document.querySelectorAll('#works, #process, #about, #faq, #contact, footer.foot').forEach((el) => {
-    el.style.containIntrinsicSize = `auto ${Math.round(el.offsetHeight)}px`;
+  if (g.LOOP.coarse) addEventListener('load', () => document.querySelectorAll('#works, #process, #about, #contact, #final').forEach((el) => {
+    const cs = getComputedStyle(el); // свойство задаёт высоту содержимого, без отступов секции
+    el.style.containIntrinsicSize = `auto ${Math.round(el.offsetHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom))}px`;
     el.style.contentVisibility = 'auto';
   }));
 })(typeof globalThis !== 'undefined' ? globalThis : window);

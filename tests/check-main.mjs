@@ -7,11 +7,13 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const errors = [];
 
-for (const id of ['services', 'works', 'process', 'about', 'faq', 'contact']) {
+for (const id of ['services', 'works', 'process', 'about', 'contact', 'final']) {
   if (!html.includes(`id="${id}"`)) errors.push(`нет секции #${id}`);
 }
 if (html.includes('id="cases"')) errors.push('остались старые кейсы — их заменили «Работы»');
 if (html.includes('id="price"')) errors.push('осталась старая секция #price');
+if (html.includes('id="faq"')) errors.push('остался легаси FAQ — его заменил #final');
+if (html.includes('class="foot"')) errors.push('остался легаси подвал — его заменил #final');
 if ((html.match(/id="services"/g) || []).length > 1) errors.push('две секции #services');
 
 const refs = [...html.matchAll(/\b(?:src|href)="([^"]+)"/g)].map(m => m[1]);
