@@ -567,11 +567,9 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   new IntersectionObserver(([e]) => { vis = e.intersectionRatio >= 0.3; }, { threshold: [0, 0.3, 0.6] }).observe(stage);
   new ResizeObserver(() => layout()).observe(stage);
 
-  let last = performance.now();
-  function loop(now) { const dt = Math.min(0.05, (now - last) / 1000); last = now; tick(dt); requestAnimationFrame(loop); }
   layout();
   start('site');
-  requestAnimationFrame(loop);
+  LOOP.add(root, (now, dt) => tick(dt / 1000));
   window.__cv = { start, jump, jumpLoop, showFin, state: () => ({ w: w.id, ph, i, s, t, T }), set: (o) => { if ('playing' in o) playing = o.playing; if ('t' in o) t = o.t; } };
 })();
 

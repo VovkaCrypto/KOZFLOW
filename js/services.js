@@ -303,7 +303,7 @@ function frame(now) {
   ctx.globalAlpha = 1;
 }
 
-function tick(now) { if (S.vis) { const a = performance.now(); frame(now); const d = performance.now() - a; S.ft = S.ft ? S.ft * .95 + d * .05 : d; } requestAnimationFrame(tick); }
+function tick(now) { const a = performance.now(); frame(now); const d = performance.now() - a; S.ft = S.ft ? S.ft * .95 + d * .05 : d; }
 // видео: вшитое base64 → Blob (iOS не играет data:-видео)
 document.querySelectorAll('video[data-vid]').forEach((v) => { const s = document.getElementById('vid-' + v.dataset.vid); v.src = s ? URL.createObjectURL(new Blob([Uint8Array.from(atob(s.textContent.trim()), (c) => c.charCodeAt(0))], { type: 'video/mp4' })) : `assets/services/${v.dataset.vid}.mp4`; v.play().catch(() => {}); });
 document.querySelectorAll('img').forEach((im) => im.decode && im.decode().catch(() => {}));
@@ -311,5 +311,5 @@ let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit
 document.fonts.ready.then(fit);
 fit();
 window.__svc = [{ el, get ft() { return S.ft; } }];
-requestAnimationFrame(tick);
+LOOP.add(el, tick, { margin: '20% 0px' });
 })();

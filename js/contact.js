@@ -13,9 +13,7 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 // видимость и общий кадр: анимации крутятся только на экране
 const vis = new WeakMap();
 const io = new IntersectionObserver((es) => es.forEach((e) => vis.set(e.target, e.isIntersecting)), { rootMargin: '150px' });
-const TK = [];
-const tick = (s, f) => TK.push({ s, f });
-(function loop(t) { for (const k of TK) if (vis.get(k.s)) k.f(t); requestAnimationFrame(loop); })(0);
+const tick = (s, f) => LOOP.add(s, f, { margin: '150px' });
 const once = (el, f, th = 0.35) => { const o = new IntersectionObserver((es) => { if (es[0].isIntersecting) { o.disconnect(); f(); } }, { threshold: th }); o.observe(el); };
 const local = (el, e) => { const r = el.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, w: r.width, h: r.height }; };
 

@@ -276,7 +276,9 @@ if (!reduce) {
     } else if (DOE) addEventListener('deviceorientation', onTilt);
   }
   REEL.cursor = cam;
-  gsap.ticker.add(() => { $$('.scene .cam').forEach((c) => { c.style.translate = `${(-cam.x * 26).toFixed(2)}px ${(-cam.y * 16).toFixed(2)}px`; }); });
+  // камера пишется только когда сдвинулась и герой на экране: вечный тикер GSAP не давал странице отдыхать
+  let camX = NaN, camY = NaN;
+  window.LOOP.add(hero, () => { if (cam.x === camX && cam.y === camY) return; camX = cam.x; camY = cam.y; $$('.scene .cam').forEach((c) => { c.style.translate = `${(-cam.x * 26).toFixed(2)}px ${(-cam.y * 16).toFixed(2)}px`; }); });
 }
 
 /* ── телефон: ролик перематывается пальцем, как плёнка (с инерцией); тап — пауза/пуск ── */

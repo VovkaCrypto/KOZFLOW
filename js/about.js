@@ -156,7 +156,7 @@ function runSites(cell) {
   scr.innerHTML = IMG.sites.map((s) => `<img alt="" src="${s}">`).join('');
   const imgs = [...scr.children]; let k = 0;
   const show = () => { imgs.forEach((im, i) => im.classList.toggle('on', i === k)); names.forEach((n, i) => n.classList.toggle('on', i === k)); k = (k + 1) % imgs.length; };
-  show(); if (!RM) setInterval(show, 4200);
+  show(); if (!RM) { let on = false; new IntersectionObserver(([e]) => { on = e.isIntersecting; }).observe(cell); setInterval(() => { if (on && !document.hidden) show(); }, 4200); }
 }
 
 function mountCells() {
@@ -298,8 +298,7 @@ let ring, film, wasPhone = phone();
   sec.querySelectorAll('.bento video').forEach((v) => vio.observe(v));
   film = buildFilm();
   apply();
-  const loop = (t) => { ring.frame(t); film.frame(t); requestAnimationFrame(loop); };
-  requestAnimationFrame(loop);
+  LOOP.add(sec, (t) => { ring.frame(t); film.frame(t); });
   addEventListener('resize', () => {
     if (phone() !== wasPhone) { wasPhone = phone(); ring.vids.forEach((v) => vio.unobserve(v)); ring = buildRing(st); ring.vids.forEach((v) => vio.observe(v)); }
     else ring.layout();

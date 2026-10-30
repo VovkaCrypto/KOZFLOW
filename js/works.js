@@ -207,7 +207,6 @@ function tick(t) {
     while (r.x <= -half) r.x += half; while (r.x > 0) r.x -= half;
     r.track.style.transform = `translate3d(${r.x}px,0,0)`;
   }
-  requestAnimationFrame(tick);
 }
 
 // ролики играют, только пока секция на экране
@@ -432,8 +431,8 @@ function pipeTick(dt) {
 addEventListener('resize', () => { if (pipe) { const sc = pipe.scen, au = pipe.auto; pipe.vert = mob(); layoutPipe(); pipe.auto = au; startScen(sc); } });
 
 let lt = 0;
-function loop(t) { const dt = Math.min(0.05, (t - (lt || t)) / 1000); lt = t; scrollTick(dt); pipeTick(dt); requestAnimationFrame(loop); }
+function loop(t) { const dt = Math.min(0.05, (t - (lt || t)) / 1000); lt = t; scrollTick(dt); pipeTick(dt); }
 
 renderChips(); build();
-if (!reduced) { requestAnimationFrame(tick); requestAnimationFrame(loop); }
+if (!reduced) { const sec = document.getElementById('works'); LOOP.add(sec, tick, { margin: '100px 0px' }); LOOP.add(sec, loop, { margin: '100px 0px' }); }
 })();
