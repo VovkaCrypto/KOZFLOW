@@ -318,6 +318,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     const o = svg.getBoundingClientRect(), k = (w.bounds[2] - w.bounds[0]) / o.width;
     let l = 1e9, t = 1e9, r = -1e9, b = -1e9;
     w.sts(j).forEach((e) => { const q = e.getBoundingClientRect(); if (q.width) { l = Math.min(l, q.left); t = Math.min(t, q.top); r = Math.max(r, q.right); b = Math.max(b, q.bottom); } });
+    if (!o.width || r < l) return [st.sg[0] - 150, st.sg[1], st.sg[0] + 150, st.sg[1] + 300]; // сцена не разложена: замер потом, в кэш не пишем
     return (st.box = [(l - o.left) * k + w.bounds[0], (t - o.top) * k + w.bounds[1], (r - o.left) * k + w.bounds[0], (b - o.top) * k + w.bounds[1]]);
   }
   function frameStop(st, sx, sy) {
@@ -555,7 +556,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   });
   // нижний лист на телефоне тянется вниз, пока его содержимое не прокручено; отпустил выше порога — вернулся
   const sheet = matchMedia('(max-width:640px)');
-  let pull = null;
+  let pull = null, shut = 0;
   dr.addEventListener('touchstart', (e) => { pull = sheet.matches && e.target !== dr && (dr.scrollTop <= 0 || e.target.closest('.dr-x')) ? { y: e.touches[0].clientY, d: 0 } : null; }, { passive: true });
   dr.addEventListener('touchmove', (e) => {
     if (!pull) return;
@@ -569,11 +570,11 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     if (!pull?.d) { pull = null; return; }
     const out = pull.d > 90; pull = null;
     dr.style.transition = ''; dr.style.transform = out ? 'translateY(100%)' : '';
-    if (out) setTimeout(() => dr.close(), 240);
+    if (out) shut = setTimeout(() => dr.close(), 240);
   };
   dr.addEventListener('touchend', release);
   dr.addEventListener('touchcancel', release);
-  dr.addEventListener('close', () => { dr.style.transform = ''; });
+  dr.addEventListener('close', () => { clearTimeout(shut); dr.style.transform = ''; });
 
   // --- события
   $('.cv-pick').addEventListener('click', (e) => { const b = e.target.closest('.pk'); if (b) start(b.dataset.p); });
@@ -593,6 +594,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   stage.addEventListener('pointerup', (e) => {
     if (!sw || sw.id !== e.pointerId) return;
     const dx = e.clientX - sw.x, dy = e.clientY - sw.y; sw = null;
+    if (ph !== 'go' && ph !== 'dwell') return; // финал уже идёт: свайп сорвал бы вылет изделия
     if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)();
   });
   $('.c-play').addEventListener('click', () => { playing = !playing; root.classList.toggle('paused', !playing); $('.c-play').setAttribute('aria-label', playing ? 'Пауза' : 'Продолжить'); });

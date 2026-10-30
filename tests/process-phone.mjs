@@ -65,6 +65,17 @@ const y1 = await p.evaluate(() => scrollY);
 check(y1 - y0 > 100, `вертикальный жест: страница ушла на ${Math.round(y1 - y0)} px`);
 check((await station()) === 2, `вертикальный жест сменил станцию: ${await station()}`);
 
+// свайп на финале не срывает его
+await stageTop(); await p.waitForTimeout(300);
+await p.evaluate(() => { __cv.set({ playing: true }); __cv.jump(5); document.querySelector('#process .c-next').click(); });
+await p.waitForTimeout(400);
+const f0 = await p.evaluate(() => __cv.state());
+await touch(zone.x + 70, zone.y, -140, 8);
+const f1 = await p.evaluate(() => __cv.state());
+check(f0.ph === 'outro' && (f1.ph === 'fly' || f1.t > f0.t), `свайп на финале: ${f0.ph} ${f0.t.toFixed(2)} → ${f1.ph} ${f1.t.toFixed(2)}`);
+await p.evaluate(() => { __cv.start('site'); __cv.set({ playing: false }); __cv.jump(2); });
+await p.waitForTimeout(300);
+
 // нижний лист
 const openSheet = async () => {
   await p.evaluate(() => document.querySelector('#process .c-more').scrollIntoView({ behavior: 'instant', block: 'center' }));
@@ -86,7 +97,9 @@ check(sh.grip, 'нет ручки .dr-grip');
 check(/нужно от вас/i.test(sh.text) && /вы получаете/i.test(sh.text), 'в листе нет «От вас / Вы получаете»');
 const y2 = await p.evaluate(() => scrollY);
 await touch(196, 40, 0, 200);
+check(await isOpen(), 'жест по подложке закрыл лист');
 await touch(196, 240, 0, -200);
+check(await isOpen(), 'прокрутка листа закрыла его');
 check(Math.abs((await p.evaluate(() => scrollY)) - y2) < 2, 'фон прокрутился под листом');
 await touch(196, sh.vh - sh.h + 14, 0, 220);
 await p.waitForTimeout(500);
