@@ -147,8 +147,8 @@
       return `<a class="it ds-p md-p" href="#works" style="width:${pw}px"><span class="fl"><img class="f1" src="assets/${w1.thumb || w1.file}" alt=""><img class="f2" src="assets/${w2.thumb || w2.file}" alt=""></span></a>`;
     }).join('');
     const P = $$('.md-p', cam), FL = P.map((p) => p.firstElementChild);
-    const cx = W / 2, cy = H * 0.3, mid = (n - 1) / 2;
-    const fanR = (i) => (i - mid) * 11, fanX = (i) => (i - mid) * W * 0.045;
+    const cx = W / 2, cy = H * 0.27, mid = (n - 1) / 2;
+    const fanR = (i) => (i - mid) * 9, fanX = (i) => (i - mid) * W * 0.04;
     P.forEach((p, i) => {
       tl.set(p, { opacity: 0, x: cx, y: cy, xPercent: -50, yPercent: -50, rotation: 0, scale: 1, zIndex: i, transformOrigin: '50% 150%' }, 0);
       tl.set(FL[i], { rotationY: 0, scale: 1, transformPerspective: 800 }, 0);

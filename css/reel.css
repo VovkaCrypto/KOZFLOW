@@ -50,6 +50,8 @@ body.dark .brand img{filter:invert(1);mix-blend-mode:screen}
 /* холст эффектов центра: слово и знак как частицы и пиксели (js/fx.js) */
 .fx{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
 .word.fxh b{opacity:0!important}
+/* дырка под пальцем (js/reel.js); поле шире слова, иначе маска срежет края букв за рамкой .word */
+.word.hole{padding:.2em;margin:-.2em;-webkit-mask-image:radial-gradient(circle var(--hr,0px) at var(--hx,0px) var(--hy,0px),transparent 70%,#000 82%);mask-image:radial-gradient(circle var(--hr,0px) at var(--hx,0px) var(--hy,0px),transparent 70%,#000 82%)}
 .mark.fxh{opacity:0}
 /* плёночное зерно — едва заметное */
 .grain{position:absolute;inset:-60px;z-index:8;pointer-events:none;opacity:.045;will-change:transform;
@@ -60,6 +62,7 @@ body.dark .grain{opacity:.06}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-40px,26px)}40%{transform:translate(28px,-38px)}60%{transform:translate(-24px,-12px)}80%{transform:translate(38px,36px)}100%{transform:translate(0,0)}}
 
 /* ───────── центр: знак → слово → подпись → кнопка ───────── */
+.hero h1,.hero .sub{text-shadow:none}   /* legacy .hero h1 тянул тень старого героя на тёмном видео, на светлых сценах это серый ореол */
 .copy{position:absolute;z-index:5;left:0;right:0;top:50%;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;color:var(--fg)}
 .copy a{pointer-events:auto}
 h1{font-weight:300;line-height:1;display:flex;flex-direction:column;align-items:center}
@@ -112,12 +115,12 @@ h1{font-weight:300;line-height:1;display:flex;flex-direction:column;align-items:
   .brand{font-size:19px}.brand img{width:38px;height:38px}
   .nav ul{gap:16px}.nav ul a{font-size:12px;letter-spacing:.1em}
   .nav ul li:nth-child(2){display:none}
-  .veil{background:radial-gradient(ellipse 80% 24% at 50% 65%,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 50%,rgba(var(--veil),0) 100%)}
-  .copy{top:65%}
-  .sub{font-size:10.5px;letter-spacing:.14em;margin-top:12px}
+  .veil{background:radial-gradient(ellipse 80% 24% at 50% 68%,rgba(var(--veil),.95) 0%,rgba(var(--veil),.9) 50%,rgba(var(--veil),0) 100%)}
+  .copy{top:68%}
+  .sub{font-size:11.5px;letter-spacing:.14em;margin-top:12px}
   .cta{height:52px;font-size:14px}
   .mq{animation-duration:18s}.mq-g img{height:24px}.mq-g img.tall{height:32px}.mq-n{font-size:19px}
-  .hero{touch-action:pan-y}
+  .hero{touch-action:pan-y;height:100svh}
 }
 @media (max-height:700px) and (min-width:761px){:root{--w:clamp(84px,13vw,300px)}}
 

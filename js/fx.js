@@ -2,7 +2,7 @@
  * Снимки: REEL.fx.word(id) и REEL.fx.mark(color) растрируют слово/знак в их точном месте и берут точки.
  * Рисование — только из REEL.onRender сцены (функция времени ролика), ядро чистит холст в начале кадра:
  *   fx.scatter(snap, u, o) — распад в вихрь и сборка; fx.pixel(snap, block, tint) — пикселизация;
- *   fx.solid(snap, alpha) — слово целиком; fx.ring(x, y, r, a, col, w) — рябь.
+ *   fx.solid(snap, alpha) — слово целиком; fx.ring(x, y, r, a, col, w) — рябь; fx.flee(snap, x, y, k, R) — разлёт от пальца.
  */
 (() => {
   'use strict';
@@ -120,6 +120,22 @@
       // твёрдое слово уходит в первые доли взрыва и возвращается в конце сборки
       const solidA = Math.max(1 - kOut * 4, (kBack - 0.8) / 0.2);
       return Math.max(0, Math.min(1, solidA));
+    },
+    // разлёт от пальца: точка в радиусе R уходит наружу со спадом по расстоянию; цвета — само слово и токены золото, терракота, небо
+    flee(snap, x, y, k, R) {
+      if (!snap || k <= 0) return;
+      dirty = true;
+      const { n, P, R: Q, C, order } = snap, K = Math.min(1, k), R2 = R * R;
+      let col = -1;
+      g.globalAlpha = Math.min(1, K * 1.6);
+      for (let j = 0; j < n; j++) {
+        const i = order[j], px = P[i * 2], py = P[i * 2 + 1], dx = px - x, dy = py - y, d2 = dx * dx + dy * dy;
+        if (d2 >= R2) continue;
+        const f = 1 - Math.sqrt(d2) / R, r1 = Q[i * 4], r2 = Q[i * 4 + 1], a = Math.atan2(dy, dx) + (r1 - 0.5) * 0.9, s = R * (0.7 + r2 * 0.5) * f * f * K, sz = 1.4 + r2 * 1.4;
+        if (C[i] !== col) { col = C[i]; g.fillStyle = col >= 1 && col <= 3 ? PAL[col] : snap.color || PAL[0]; }
+        g.fillRect(px + Math.cos(a) * s - sz / 2, py + Math.sin(a) * s - sz / 2, sz, sz);
+      }
+      g.globalAlpha = 1;
     },
     // пикселизация: блок в px; tint — сдвиг палитры по блокам (0 — без цвета)
     // покрытие честно усредняется по площади блока (drawImage при сильном сжатии теряет тонкие штрихи)

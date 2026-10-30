@@ -11,7 +11,7 @@ REEL.scene('motion', (c) => {
   const PAL = { cream: [0.96, 0.94, 0.87], terra: [0.76, 0.42, 0.29], gold: [0.77, 0.6, 0.35], sky: [0.66, 0.77, 0.85], lav: [0.79, 0.71, 0.89], pink: [0.91, 0.66, 0.72] };
   cam.innerHTML = `
     <canvas class="mo-gl"></canvas>
-    ${(mob ? ['one'] : ['tl', 'tr', 'bl', 'br']).map((q) => `<div class="it mo-pan mo-${q}"><canvas class="cv"></canvas><div class="ft caps"></div></div>`).join('')}`;
+    ${(mob ? ['one'] : ['tl', 'tr', 'bl', 'br']).map((q) => `<div class="it mo-pan mo-${q}"><canvas class="mo-cv"></canvas><div class="ft caps"></div></div>`).join('')}`;
   const glc = $('.mo-gl', cam), PAN = $$('.mo-pan', cam);
 
   /* ───────── WebGL: частицы ───────── */
@@ -21,7 +21,8 @@ REEL.scene('motion', (c) => {
   if (gl) {
     const vs = `
       attribute vec3 aGrid; attribute vec3 aKnot; attribute vec3 aSph; attribute vec3 aCol; attribute float aR;
-      uniform float uM1, uM2, uT, uAsp, uSize, uRy, uRx, uBurst;
+      uniform float uM1, uM2, uT, uAsp, uSize, uRy, uRx, uBurst, uTouchK, uTR;
+      uniform vec2 uTouch;
       varying vec3 vCol; varying float vA;
       void main(){
         vec3 p = mix(mix(aGrid, aKnot, uM1), aSph * (1.0 + uBurst * (0.4 + aR)), uM2);
@@ -30,7 +31,12 @@ REEL.scene('motion', (c) => {
         p = vec3(cy*p.x + sy*p.z, p.y, -sy*p.x + cy*p.z);
         p = vec3(p.x, cx*p.y - sx*p.z, sx*p.y + cx*p.z);
         float z = p.z + 3.4;
-        gl_Position = vec4(p.x * 2.1 / (z * uAsp), p.y * 2.1 / z, 0.0, 1.0);
+        vec2 q = vec2(p.x * 2.1 / (z * uAsp), p.y * 2.1 / z);
+        if (uTouchK > 0.0) {   // от пальца: расстояние в единицах высоты кадра, иначе на узком экране круг сплющится
+          vec2 dd = (q - uTouch) * vec2(uAsp, 1.0); float d = length(dd);
+          if (d < uTR) { float f = 1.0 - d / uTR; q += dd / max(d, 0.001) * f * f * uTR * uTouchK * vec2(1.0 / uAsp, 1.0); }
+        }
+        gl_Position = vec4(q, 0.0, 1.0);
         gl_PointSize = uSize * (0.6 + aR) / z;
         vCol = aCol; vA = smoothstep(6.0, 2.0, z);
       }`;
@@ -56,14 +62,14 @@ REEL.scene('motion', (c) => {
     }
     const attr = (name, data, size) => { const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW); const loc = gl.getAttribLocation(prog, name); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0); };
     attr('aGrid', grid, 3); attr('aKnot', knot, 3); attr('aSph', sph, 3); attr('aCol', col, 3); attr('aR', rnd, 1);
-    ['uM1', 'uM2', 'uT', 'uAsp', 'uSize', 'uRy', 'uRx', 'uBurst', 'uA'].forEach((n) => { U[n] = gl.getUniformLocation(prog, n); });
+    ['uM1', 'uM2', 'uT', 'uAsp', 'uSize', 'uRy', 'uRx', 'uBurst', 'uA', 'uTouch', 'uTouchK', 'uTR'].forEach((n) => { U[n] = gl.getUniformLocation(prog, n); });
     gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
   }
   const dpr = LOOP.dpr();
   glc.width = W * dpr; glc.height = H * dpr;
 
   /* ───────── демо по углам: 2D-холсты ───────── */
-  const pans = PAN.map((p) => ({ el: p, cv: $('.cv', p), ft: $('.ft', p) }));
+  const pans = PAN.map((p) => ({ el: p, cv: $('.mo-cv', p), ft: $('.ft', p) }));
   pans.forEach((p) => { p.g = p.cv.getContext('2d'); });
   function sizePans() { pans.forEach((p) => { p.w = p.cv.clientWidth; p.h = p.cv.clientHeight; p.cv.width = p.w * dpr; p.cv.height = p.h * dpr; p.g.setTransform(dpr, 0, 0, dpr, 0, 0); }); }
 
@@ -90,6 +96,8 @@ REEL.scene('motion', (c) => {
     gl.uniform1f(U.uSize, (mob ? 8 : 10.5) * dpr); gl.uniform1f(U.uBurst, burst);
     gl.uniform1f(U.uRy, u * 0.55 * m1 + cur.x * 0.9); gl.uniform1f(U.uRx, 0.35 * m1 + cur.y * 0.6);
     gl.uniform1f(U.uA, alpha * 0.9);
+    const pt = REEL.touch;
+    gl.uniform2f(U.uTouch, pt.x / W * 2 - 1, 1 - pt.y / H * 2); gl.uniform1f(U.uTouchK, pt.k); gl.uniform1f(U.uTR, pt.R / (H / 2));
     gl.drawArrays(gl.POINTS, 0, N);
   }
 

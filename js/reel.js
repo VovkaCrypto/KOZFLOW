@@ -179,6 +179,7 @@ function render() {
   if (REEL.fx) REEL.fx.frame();
   for (const f of renders) { try { f(t); } catch (e) { console.error(e); } }
   if (mk) accents(t);
+  if (REEL.fx && (touch.k || holeEl)) flee(t);
 }
 
 /* ── акценты на сменах глав: знак монетой, перерисовкой линий и пульсом; у слов «Сайты» и «Дизайн» свои приёмы.
@@ -257,7 +258,7 @@ REEL.seek = (t) => { tl.seek(t, false); render(); };
 REEL.pause = () => { userPause = true; apply(); };
 REEL.play = () => { userPause = false; apply(); };
 
-/* ── камера: на компьютере её ведёт курсор, на телефоне — наклон; сцены и частицы читают REEL.cursor ── */
+/* ── камера: на компьютере её ведёт курсор, на телефоне стоит; сцены и частицы читают REEL.cursor ── */
 if (!reduce) {
   const cam = { x: 0, y: 0 };
   const qx = gsap.quickTo(cam, 'x', { duration: 0.9, ease: 'expo.out' }), qy = gsap.quickTo(cam, 'y', { duration: 0.9, ease: 'expo.out' });
@@ -267,13 +268,6 @@ if (!reduce) {
       qx((e.clientX - r.left) / r.width - 0.5); qy((e.clientY - r.top) / r.height - 0.5);
     });
     hero.addEventListener('pointerleave', () => { qx(0); qy(0); });
-  } else {
-    let b0 = null;
-    const onTilt = (e) => { if (e.gamma == null) return; if (b0 == null) b0 = e.beta; qx(Math.max(-0.5, Math.min(0.5, e.gamma / 50))); qy(Math.max(-0.5, Math.min(0.5, (e.beta - b0) / 50))); };
-    const DOE = window.DeviceOrientationEvent;
-    if (DOE && typeof DOE.requestPermission === 'function') {   // iOS: разрешение только из жеста
-      hero.addEventListener('pointerup', function ask() { hero.removeEventListener('pointerup', ask); DOE.requestPermission().then((r) => { if (r === 'granted') addEventListener('deviceorientation', onTilt); }, () => {}); });
-    } else if (DOE) addEventListener('deviceorientation', onTilt);
   }
   REEL.cursor = cam;
   // камера пишется только когда сдвинулась и герой на экране: вечный тикер GSAP не давал странице отдыхать
@@ -281,45 +275,36 @@ if (!reduce) {
   window.LOOP.add(hero, () => { if (cam.x === camX && cam.y === camY) return; camX = cam.x; camY = cam.y; $$('.scene .cam').forEach((c) => { c.style.translate = `${(-cam.x * 26).toFixed(2)}px ${(-cam.y * 16).toFixed(2)}px`; }); });
 }
 
-/* ── телефон: ролик перематывается пальцем, как плёнка (с инерцией); тап — пауза/пуск ── */
-const SPAN = WRAP - LOOP_FROM;
-function seekWrap(t) {
-  if (t < LOOP_FROM) t = WRAP - ((LOOP_FROM - t) % SPAN);
-  if (t >= WRAP) t = LOOP_FROM + ((t - WRAP) % SPAN);
-  tl.seek(t, false); render();
+/* ── телефон: палец разгоняет частицы. Сцены лежат слоями и скрыты, поэтому слушает сам #hero; жест не перехватывается, прокрутка остаётся браузеру.
+ * Сила k растёт за ~0.1 с и спадает за ~0.6 с; тап держит её HOLD мс, иначе короткое касание не успевает проявиться. Читают fx.flee и шейдер сцены «Моушен». */
+const HOLD = 140;
+const touch = REEL.touch = { x: 0, y: 0, active: false, k: 0, R: 70 };
+if (window.LOOP.coarse && !reduce) {
+  const pin = (e) => { const r = hero.getBoundingClientRect(); touch.x = e.clientX - r.left; touch.y = e.clientY - r.top; };
+  let hold = 0;
+  hero.addEventListener('pointerdown', (e) => { pin(e); touch.active = true; hold = performance.now() + HOLD; }, { passive: true });
+  hero.addEventListener('pointermove', (e) => { if (touch.active) pin(e); }, { passive: true });
+  ['pointerup', 'pointercancel'].forEach((n) => hero.addEventListener(n, () => { touch.active = false; }, { passive: true }));
+  window.LOOP.add(hero, (now, dt) => {
+    const was = touch.k, on = touch.active || now < hold;
+    touch.k += ((on ? 1 : 0) - touch.k) * (1 - Math.exp(-dt / (on ? 55 : 170)));
+    if (touch.k < 0.02 && !on) touch.k = 0;
+    if ((touch.k || was) && tl && tl.paused()) render();
+  });
 }
-if (!fine && !reduce) {
-  const S_PER_PX = 0.022;
-  let drag = null, inertia = null;
-  const end = () => { hero.classList.remove('scrub'); apply(); };
-  hero.addEventListener('pointerdown', (e) => {
-    if (!tl || e.target.closest('a,button')) return;
-    if (inertia) { inertia.kill(); inertia = null; }
-    drag = { x: e.clientX, y: e.clientY, t0: tl.time(), last: e.clientX, lt: performance.now(), v: 0, moved: false };
-  });
-  hero.addEventListener('pointermove', (e) => {
-    if (!drag) return;
-    const dx = e.clientX - drag.x;
-    if (!drag.moved) {
-      if (Math.abs(dx) < 8 && Math.abs(e.clientY - drag.y) < 8) return;
-      if (Math.abs(e.clientY - drag.y) > Math.abs(dx)) { drag = null; return; }   // вертикальный жест — это прокрутка страницы
-      drag.moved = true; tl.pause(); hero.classList.add('scrub');
-    }
-    const now = performance.now();
-    drag.v = (e.clientX - drag.last) / Math.max(1, now - drag.lt); drag.last = e.clientX; drag.lt = now;
-    seekWrap(drag.t0 - dx * S_PER_PX);
-  });
-  hero.addEventListener('pointerup', () => {
-    if (!drag) return;
-    const d = drag; drag = null;
-    if (!d.moved) { userPause = !userPause; apply(); return; }
-    const st = { v: -d.v * 1000 * S_PER_PX };   // секунд ролика в секунду
-    inertia = gsap.to(st, { v: 0, duration: Math.min(1.4, 0.35 + Math.abs(st.v) * 0.04), ease: 'power2.out',
-      onUpdate: () => seekWrap(tl.time() + st.v * gsap.ticker.deltaRatio() / 60), onComplete: () => { inertia = null; end(); } });
-  });
-  hero.addEventListener('pointercancel', () => { if (drag && drag.moved) end(); drag = null; });
+// слово под пальцем: дырка маской, точки снимка летят из неё. Окно — пока слово собрано; сцена «Моушен» рисует слово сама (fxh)
+let holeEl = null;
+function flee(t) {
+  const s = touch.k ? WORDS.find((w) => t >= w.a + 1.4 && t < w.b - 0.5) : null, el = s ? wordEl[s.id] : null, on = el && !el.classList.contains('fxh');
+  if (holeEl && (holeEl !== el || !on)) { holeEl.classList.remove('hole'); holeEl = null; }
+  if (!on) return;
+  REEL.fx.flee(REEL.fx.word(s.id, getComputedStyle(el).getPropertyValue('--wc').trim()), touch.x, touch.y, touch.k, touch.R);
+  if (holeEl !== el) { el.classList.add('hole'); holeEl = el; }
+  const r = REEL.fx.place(el);
+  el.style.setProperty('--hx', (touch.x - r.x).toFixed(1) + 'px');
+  el.style.setProperty('--hy', (touch.y - r.y).toFixed(1) + 'px');
+  el.style.setProperty('--hr', (touch.R * Math.min(1, touch.k)).toFixed(1) + 'px');
 }
-REEL.seekWrap = (t) => seekWrap(t);
 document.addEventListener('visibilitychange', apply);
 new IntersectionObserver(([e]) => { offscreen = !e.isIntersecting; apply(); }, { threshold: 0.05 }).observe(hero);
 
