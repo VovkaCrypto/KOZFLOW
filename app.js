@@ -981,7 +981,7 @@
       raf = requestAnimationFrame(tick);
     }
 
-    showcase.addEventListener('mousemove', (e) => {
+    if (!LOOP.coarse) showcase.addEventListener('mousemove', (e) => {
       // position offset so preview sits to the right of cursor and slightly above
       const px = e.clientX + 28;
       const py = e.clientY - 110;

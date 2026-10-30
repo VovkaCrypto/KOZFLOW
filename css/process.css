@@ -150,7 +150,7 @@
 .cv-all:hover{background:var(--ink);color:var(--cream)}
 .cv-all svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 .cv.fin .cv-all{background:rgba(255,253,248,.1);color:var(--cream);box-shadow:0 0 0 1px rgba(242,184,75,.45)}
-.cv.fin .cv-all:hover{background:var(--gold);color:var(--night)}
+@media (hover:hover) and (pointer:fine){.cv.fin .cv-all:hover{background:var(--gold);color:var(--night)}}
 /* подэтап «Правки» — плашка над петлёй, едет вместе с камерой */
 .cv-pins{position:absolute;left:0;top:0;width:0;height:0;z-index:1}
 .cv .pin{position:absolute;transform:translate(-50%,14px);display:grid;justify-items:center;gap:2px;padding:9px 16px 10px;border-radius:14px;background:#221B14;color:var(--cream);box-shadow:0 0 0 1.5px var(--gold),0 14px 30px -14px rgba(0,0,0,.55);cursor:pointer;white-space:nowrap;transition:box-shadow .4s,background .4s}
@@ -244,7 +244,7 @@
 .cv .fz-b button:hover{border-color:var(--gold)}
 .cv .b-next i{position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--gold);transform-origin:left;transform:scaleX(0)}
 .cv .b-next.arm i{animation:cvArm 16s linear forwards}
-.cv-fin:hover .b-next.arm i{animation-play-state:paused}
+@media (hover:hover) and (pointer:fine){.cv-fin:hover .b-next.arm i{animation-play-state:paused}}
 @keyframes cvArm{to{transform:scaleX(1)}}
 .cv .fz-map{grid-area:map;width:100%;height:clamp(300px,50vh,480px);overflow:visible;min-width:0}
 .cv .m-w{opacity:.92}

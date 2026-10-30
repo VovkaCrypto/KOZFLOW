@@ -117,5 +117,6 @@
 #final .pl .more>div{visibility:hidden;transition:visibility .6s}
 #final .pl li.on .more>div{visibility:visible}
 #final .bot6 a{text-decoration:underline}
+#final #prices{scroll-margin-top:24px}
 #final .wm6{--fs:18.6vw}
 @media (max-width:600px){#final .wr:first-child{--fs:42.6vw}#final .wr:last-child{--fs:32.2vw}}

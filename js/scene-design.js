@@ -123,7 +123,7 @@ REEL.scene('design', (c) => {
   });
 
   /* ── наведение: работа выходит вперёд и подсвечивается (интерактив поверх ролика) ── */
-  P.forEach((p) => {
+  if (!LOOP.coarse) P.forEach((p) => {
     p.addEventListener('pointerenter', () => { p.style.zIndex = 5; gsap.to($('.fl', p), { scale: 1.18, duration: 0.45, ease: 'back.out(2.2)', overwrite: 'auto' }); });
     p.addEventListener('pointerleave', () => { p.style.zIndex = ''; gsap.to($('.fl', p), { scale: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' }); });
   });

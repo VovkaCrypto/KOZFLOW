@@ -562,8 +562,10 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     else if (e.target.closest('.b-next')) start(e.target.closest('.b-next').dataset.p);
     else { const b = e.target.closest('[data-j]'); if (b) openDr(+b.dataset.j); }
   });
-  fin.addEventListener('pointerenter', () => { finHold = true; });
-  fin.addEventListener('pointerleave', () => { finHold = false; });
+  if (!LOOP.coarse) {
+    fin.addEventListener('pointerenter', () => { finHold = true; });
+    fin.addEventListener('pointerleave', () => { finHold = false; });
+  }
   new IntersectionObserver(([e]) => { vis = e.intersectionRatio >= 0.3; }, { threshold: [0, 0.3, 0.6] }).observe(stage);
   new ResizeObserver(() => layout()).observe(stage);
 
