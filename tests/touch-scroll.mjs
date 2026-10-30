@@ -3,17 +3,19 @@
 // Список растёт с задачами плана.
 import { launch, open, PHONE } from './pw.mjs';
 
-const BLOCKS = ['#hero', '#services'];
+const BLOCKS = ['#hero', '#services', '#process .cv-stage'];
 const DIST = 400, STEPS = 24;
 const b = await launch();
 const { ctx, p, errs } = await open(b, PHONE);
 const cdp = await ctx.newCDPSession(p);
 const bad = [];
 for (const sel of BLOCKS) {
+  await p.evaluate((sel) => document.querySelector(sel).scrollIntoView({ behavior: 'instant' }), sel);
+  await p.waitForTimeout(800); // Цех и «Обо мне» собираются при подъезде
   const box = await p.evaluate((sel) => {
     const e = document.querySelector(sel), r = e.getBoundingClientRect();
     scrollTo({ top: Math.max(0, r.top + scrollY - 40), behavior: 'instant' });
-    const q = e.getBoundingClientRect(), x = q.left + q.width / 2, y = Math.max(q.top + 60, Math.min(q.bottom - 20, innerHeight - 40));
+    const q = e.getBoundingClientRect(), x = q.left + q.width / 2, y = Math.max(q.top + 60, Math.min(q.bottom - 20, innerHeight - 110));
     return { x, y, top: scrollY, own: !!document.elementFromPoint(x, y)?.closest(sel) };
   }, sel);
   if (!box.own) { bad.push(`${sel}: точка жеста не на блоке`); continue; }

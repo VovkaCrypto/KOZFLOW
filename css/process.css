@@ -478,12 +478,12 @@
   .cv .pk{padding:8px 10px 8px 6px;gap:8px;border-radius:16px}
   .cv .pk-ic{width:54px;height:46px}
   .cv .pk-t{font-size:19px}.cv .pk-t small{font-size:11.5px;margin-top:4px}
-  .cv-stage{height:clamp(420px,62vh,560px);border-radius:22px 22px 0 0}
+  .cv-stage{height:clamp(420px,62vh,560px);border-radius:22px 22px 0 0;touch-action:pan-y pinch-zoom}
   .cv.fin .cv-stage{border-radius:22px}
-  .cv-chip{left:10px;top:10px;font-size:12.5px;padding:7px 12px 7px 10px;max-width:calc(100% - 68px)}
+  .cv-chip{left:10px;top:10px;font-size:12.5px;padding:7px 12px 7px 10px;max-width:calc(100% - 72px);background:#FFFDF8;-webkit-backdrop-filter:none;backdrop-filter:none} /* сквозь полупрозрачную плашку читался цех */
   .cv-chip b{font-size:14px}
   .cv-hint{display:none}
-  .cv-all{top:8px;right:10px;width:40px;height:40px;padding:0;justify-content:center}
+  .cv-all{top:8px;right:10px;width:44px;height:44px;padding:0;justify-content:center}
   .cv-all span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .cv .pin{padding:7px 12px 8px}.cv .pin b{font-size:19px}.cv .pin-s{font-size:11.5px}
   .cv .ci-st{font-size:13px;padding:5px 11px 5px 9px}
@@ -495,11 +495,12 @@
   .cv-line .t{display:none}
   .cv-line .on .t{display:block}
   .cv-row{grid-template-columns:1fr}
-  .cv-info{min-height:0}
+  .cv-info{min-height:200px} /* самый длинный текст станции: кнопки под пальцем не прыгают при листании */
   .cv .ci-num{font-size:36px}
   .cv-info h3{font-size:25px}
   .cv-info p{font-size:14.5px}
-  .cv .ci-yg{font-size:13px}
+  .cv .ci-yg{display:none} /* «От вас / Вы получаете» — в нижнем листе */
+  .cv-ctl button{height:44px;min-width:44px}
   .cv-ctl .c-more{flex:1}
   .cv-terms{grid-template-columns:1fr 1fr;gap:16px}
   .cv-terms b{font-size:24px}
@@ -510,7 +511,12 @@
   .cv .fz-cards button{padding:11px 12px}
   .cv .fc-h{font-size:16px}
   .cv .fz-b a,.cv .fz-b button{padding:11px 14px;font-size:14px}
-  .cv .dr-in .ci-yg{grid-template-columns:1fr}
+  /* шторка становится нижним листом; фон стоит, пока лист открыт */
+  .cv-dr{margin:auto 0 0;width:100%;max-width:100%;height:auto;max-height:86dvh;border-radius:22px 22px 0 0;box-shadow:0 -30px 60px -30px rgba(0,0,0,.45);overscroll-behavior:contain;transition:transform .24s var(--ease)}
+  .cv-dr[open]{animation:cvSheet .4s var(--ease)}
+  @keyframes cvSheet{from{transform:translateY(100%)}}
+  :root:has(.cv-dr[open]){overflow:hidden}
+  .cv .dr-grip{position:absolute;left:50%;top:9px;width:40px;height:4px;margin-left:-20px;border-radius:2px;background:#CFC4B2}
 }
 /* телефон: лёгкий режим — без микроанимаций станций (лампы остаются), дорожки стоят */
 .cv.lite .mv-press,.cv.lite .mv-bob,.cv.lite .mv-u,.cv.lite .mv-w,.cv.lite .mv-grab,.cv.lite .mv-key,.cv.lite .mv-flk,.cv.lite .mv-out,.cv.lite .wave,.cv.lite .led,.cv.lite .spk,.cv.lite .lampr,.cv.lite .beacon,.cv.lite .cv-line .next i{animation:none!important}

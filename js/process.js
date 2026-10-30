@@ -234,6 +234,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   }
   const stateBefore = (j) => (j === 0 ? 'plan' : w.stops[j - 1].st === 'draft' && w.loop && w.stops[j].s > w.loop.s1 ? 'fixed' : w.stops[j - 1].st);
   function markStations() {
+    root.dataset.active = i;
     w.stops.forEach((_, j) => w.sts(j).forEach((e) => { e.classList.toggle('done', j < i || (j === i && ph === 'dwell' && applied)); e.classList.toggle('on', j === i && ph === 'dwell'); }));
   }
   function island() {
@@ -310,11 +311,21 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     return [tx, ty, tw];
   }
   // рамка «изделие + табличка станции» с местом под чип и кнопку сверху; не влезает — камера чуть отъезжает
+  // рамка станции в координатах цеха: читается один раз, высота у станций разная
+  function stopBox(j) {
+    const st = w.stops[j];
+    if (st.box) return st.box;
+    const o = svg.getBoundingClientRect(), k = (w.bounds[2] - w.bounds[0]) / o.width;
+    let l = 1e9, t = 1e9, r = -1e9, b = -1e9;
+    w.sts(j).forEach((e) => { const q = e.getBoundingClientRect(); if (q.width) { l = Math.min(l, q.left); t = Math.min(t, q.top); r = Math.max(r, q.right); b = Math.max(b, q.bottom); } });
+    return (st.box = [(l - o.left) * k + w.bounds[0], (t - o.top) * k + w.bounds[1], (r - o.left) * k + w.bounds[0], (b - o.top) * k + w.bounds[1]]);
+  }
   function frameStop(st, sx, sy) {
-    const top = Math.min(st.sg[1] - 16, sy - 150), bot = sy + 175; // под изделием — кусок цеха, оно не у нижнего края
-    const l = Math.min(st.sg[0] - 150, sx - 90), r = Math.max(st.sg[0] + 150, sx + 90);
-    const ui = (mob() ? 60 : 88) / Z0, VH = SH / Z0, base = VW();
-    const z = clamp(Math.max((bot - top) / (VH - ui - 20 / Z0), (r - l) / (base * 0.92)), 1, 1.75);
+    const m = mob(), B = m ? stopBox(i) : null; // на телефоне кадр — станция и изделие целиком, без запаса вокруг
+    const top = m ? Math.min(B[1] - 8, sy - 118) : Math.min(st.sg[1] - 16, sy - 150), bot = m ? Math.max(B[3] + 8, sy + 118) : sy + 175; // под изделием — кусок цеха, оно не у нижнего края
+    const l = m ? Math.min(B[0] - 8, sx - 108) : Math.min(st.sg[0] - 150, sx - 90), r = m ? Math.max(B[2] + 8, sx + 108) : Math.max(st.sg[0] + 150, sx + 90);
+    const ui = (m ? 50 : 88) / Z0, VH = SH / Z0, base = VW();
+    const z = clamp(Math.max((bot - top) / (VH - ui - (m ? 8 : 20) / Z0), (r - l) / (base * 0.92)), 1, 1.75);
     return [(l + r) / 2, (top + bot) / 2 - (ui / 2) * z, base * z];
   }
   function start(id) {
@@ -518,7 +529,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     const docs = st.id === 'offer' ? '<div class="dr-docs">' + ['КП', 'Договор', 'ТЗ', 'NDA'].map((d) => `<span>${ic('doc')}${d}</span>`).join('') + '</div>' : '';
     const pay = st.id === 'offer' ? '<p class="dr-pay">' + ic('coin') + 'Предоплата 50 % — после подписания</p>' : st.id === 'release' ? '<p class="dr-pay">' + ic('coin') + 'Вторые 50 % — по готовности</p>' : '';
     const sub = st.id === 'first' && subOn() ? `<section class="dr-sub"><span class="dr-sk">${ic('loop')}Подэтап ${SUB.no} · ${esc(SUB.name)}</span><h4>${esc(SUB.t)} — 2 круга бесплатно</h4><p>${esc(m.sub || SUB.k)}</p>${list(SUB.do, 'loop')}<button class="dr-goloop" data-loop="1">Показать петлю правок на ленте</button></section>` : '';
-    dr.innerHTML = `<form method="dialog" class="dr-x"><button aria-label="Закрыть">×</button></form>
+    dr.innerHTML = `<form method="dialog" class="dr-x"><span class="dr-grip"></span><button aria-label="Закрыть">×</button></form>
       <div class="dr-in">
         <span class="dr-k">${esc(w.title)} · станция ${j + 1} из ${w.stops.length} · ${esc(st.name)}</span>
         <h3 id="cv-dr-t">${esc(ps.t)}</h3>
@@ -542,6 +553,27 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     if (e.target.closest('[data-loop]')) { dr.close(); jumpLoop(); return; }
     const b = e.target.closest('[data-d]'); if (b) openDr(+dr.dataset.j + +b.dataset.d);
   });
+  // нижний лист на телефоне тянется вниз, пока его содержимое не прокручено; отпустил выше порога — вернулся
+  const sheet = matchMedia('(max-width:640px)');
+  let pull = null;
+  dr.addEventListener('touchstart', (e) => { pull = sheet.matches && e.target !== dr && (dr.scrollTop <= 0 || e.target.closest('.dr-x')) ? { y: e.touches[0].clientY, d: 0 } : null; }, { passive: true });
+  dr.addEventListener('touchmove', (e) => {
+    if (!pull) return;
+    const d = e.touches[0].clientY - pull.y;
+    if (d <= 0 && !pull.d) { pull = null; return; } // вверх — обычная прокрутка листа
+    if (e.cancelable) e.preventDefault();
+    pull.d = Math.max(0, d);
+    dr.style.transition = 'none'; dr.style.transform = `translateY(${pull.d}px)`;
+  }, { passive: false });
+  const release = () => {
+    if (!pull?.d) { pull = null; return; }
+    const out = pull.d > 90; pull = null;
+    dr.style.transition = ''; dr.style.transform = out ? 'translateY(100%)' : '';
+    if (out) setTimeout(() => dr.close(), 240);
+  };
+  dr.addEventListener('touchend', release);
+  dr.addEventListener('touchcancel', release);
+  dr.addEventListener('close', () => { dr.style.transform = ''; });
 
   // --- события
   $('.cv-pick').addEventListener('click', (e) => { const b = e.target.closest('.pk'); if (b) start(b.dataset.p); });
@@ -550,8 +582,19 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     const b = e.target.closest('[data-j]'); if (b) jump(+b.dataset.j);
   });
   // на подэтапе 3.1 i уже указывает на следующую станцию: «назад» — к первой версии, «вперёд» — на неё
-  $('.c-prev').addEventListener('click', () => jump(inLoop() ? w.fi : Math.max(0, i - 1)));
-  $('.c-next').addEventListener('click', () => (inLoop() ? jump(i) : i < w.stops.length - 1 ? jump(i + 1) : (hideFin(), outro())));
+  const prev = () => jump(inLoop() ? w.fi : Math.max(0, i - 1));
+  const next = () => (inLoop() ? jump(i) : i < w.stops.length - 1 ? jump(i + 1) : (hideFin(), outro()));
+  $('.c-prev').addEventListener('click', prev);
+  $('.c-next').addEventListener('click', next);
+  // свайп по сцене — соседняя станция; вертикальный жест браузер забирает себе (touch-action: pan-y) и шлёт pointercancel
+  let sw = null;
+  stage.addEventListener('pointerdown', (e) => { sw = e.pointerType === 'touch' && ph !== 'fin' ? { x: e.clientX, y: e.clientY, id: e.pointerId } : null; });
+  stage.addEventListener('pointercancel', () => { sw = null; });
+  stage.addEventListener('pointerup', (e) => {
+    if (!sw || sw.id !== e.pointerId) return;
+    const dx = e.clientX - sw.x, dy = e.clientY - sw.y; sw = null;
+    if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)();
+  });
   $('.c-play').addEventListener('click', () => { playing = !playing; root.classList.toggle('paused', !playing); $('.c-play').setAttribute('aria-label', playing ? 'Пауза' : 'Продолжить'); });
   $('.c-more').addEventListener('click', () => openDr(inLoop() ? w.fi : i));
   svg.addEventListener('click', (e) => { const g = e.target.closest('[data-i]'); if (g && ph !== 'fin') openDr(+g.dataset.i); });
