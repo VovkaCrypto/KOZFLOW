@@ -3,6 +3,7 @@
    поэтому общие правила живут здесь, а не в их файлах. */
 
 /* цвета ремёсел (js/services.js): тёмные — для светлого фона, светлые — для тёмного */
+.is-off,.is-off *,.is-off::before,.is-off::after,.is-off *::before,.is-off *::after{animation-play-state:paused!important}
 :root{
   --k-design:#C26B4A;--k-motion:#4F7896;--k-sites:#3A4A3D;--k-auto:#B0844A;
   --k-design-l:#DB8664;--k-motion-l:#A3BCCB;--k-sites-l:#93AC93;--k-auto-l:#C4985A;

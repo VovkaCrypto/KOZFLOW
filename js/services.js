@@ -79,7 +79,7 @@ const CHATS = [
 const MEDIA = {
   auto: `<div class="m m-chat"><div class="hd"><i class="av"></i><span><b></b><small></small></span></div><div class="msgs"></div></div>`,
   sites: `<div class="m m-sl"><img class="sl" src="assets/services/vostok-desk-hero.webp" alt="Восток 24" data-cap="Восток 24"><img class="sl" src="assets/services/tverchefs-desk-hero.webp" alt="Ассоциация кулинаров" data-cap="Ассоциация кулинаров"><img class="sl" src="assets/services/miravi-desk-hero.webp" alt="Miravi" data-cap="Miravi"><span class="cap"></span></div>`,
-  motion: `<div class="m m-vid"><video data-vid="dish" muted playsinline loop autoplay preload="auto"></video><span class="cap">Видеоменю · Восток 24</span><span class="bar"></span></div>`,
+  motion: `<div class="m m-vid"><video data-vid="dish" muted playsinline loop preload="none"></video><span class="cap">Видеоменю · Восток 24</span><span class="bar"></span></div>`,
   design: `<div class="m m-sl"><img class="sl" src="assets/services/w02.webp" alt="Афиша Кегельбара" data-cap="Кегельбар"><img class="sl" src="assets/services/w12.webp" alt="Афиша Завода" data-cap="Завод"><img class="sl" src="assets/services/w09.webp" alt="Айдентика Волжанки" data-cap="Волжанка"><img class="sl" src="assets/services/w37.webp" alt="Упаковка «Щукин и дети»" data-cap="Щукин и дети"><span class="cap"></span></div>`
 };
 
@@ -211,7 +211,7 @@ S.nav.forEach((b) => b.addEventListener('click', () => { const i = +b.dataset.go
 new IntersectionObserver(([e]) => { S.vis = e.isIntersecting; }, { rootMargin: '20% 0px' }).observe(el);
 
 function fit() {
-  const dpr = Math.min(2, devicePixelRatio || 1), r = pin.getBoundingClientRect();
+  const dpr = LOOP.dpr(), r = pin.getBoundingClientRect();
   S.cv.width = r.width * dpr; S.cv.height = r.height * dpr; S.ctx.setTransform(dpr, 0, 0, dpr, 0, 0); S.W = r.width; S.H = r.height;
   const b = box.getBoundingClientRect();
   S.cx = b.left - r.left + b.width / 2; S.cy = b.top - r.top + b.height / 2; S.sz = Math.min(b.width, b.height);
@@ -231,8 +231,8 @@ function setActive(a) {
 
 function frame(now) {
   const dt = S.last ? Math.min(50, now - S.last) : 16.7; S.last = now; const fr = dt / 16.67, t = now / 1000;
-  const r = el.getBoundingClientRect(), span = r.height - innerHeight, n = SV.length;
-  const p = cl(-r.top / span) * n, i = Math.min(n - 1, Math.floor(p)), f = p - i;
+  const r = LOOP.box(el), span = r.height - LOOP.vh, n = SV.length;
+  const p = cl((scrollY - r.top) / span) * n, i = Math.min(n - 1, Math.floor(p)), f = p - i;
   // K → первая услуга в начале, дальше у каждой услуги долгая стоянка и переход в последней трети
   let A, B, u, poly;
   if (p < .3) { A = 0; B = 1; u = p / .3; poly = 0; }
@@ -305,7 +305,7 @@ function frame(now) {
 
 function tick(now) { const a = performance.now(); frame(now); const d = performance.now() - a; S.ft = S.ft ? S.ft * .95 + d * .05 : d; }
 // видео: вшитое base64 → Blob (iOS не играет data:-видео)
-document.querySelectorAll('video[data-vid]').forEach((v) => { const s = document.getElementById('vid-' + v.dataset.vid); v.src = s ? URL.createObjectURL(new Blob([Uint8Array.from(atob(s.textContent.trim()), (c) => c.charCodeAt(0))], { type: 'video/mp4' })) : `assets/services/${v.dataset.vid}.mp4`; v.play().catch(() => {}); });
+document.querySelectorAll('video[data-vid]').forEach((v) => { const s = document.getElementById('vid-' + v.dataset.vid); v.src = s ? URL.createObjectURL(new Blob([Uint8Array.from(atob(s.textContent.trim()), (c) => c.charCodeAt(0))], { type: 'video/mp4' })) : `assets/services/${v.dataset.vid}.mp4`; new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { rootMargin: '200px 0px' }).observe(v); });
 document.querySelectorAll('img').forEach((im) => im.decode && im.decode().catch(() => {}));
 let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(fit, 150); });
 document.fonts.ready.then(fit);

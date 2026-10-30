@@ -80,3 +80,15 @@ test('dpr caps', () => {
   assert.equal(rig({ coarse: true, dpr: 1 }).L.dpr(), 1);
   assert.equal(rig({ coarse: true }).L.coarse, true);
 });
+
+test('gateCss marks elements off-screen', () => {
+  const r = rig();
+  const cls = new Set();
+  const el = { classList: { toggle: (c, on) => (on ? cls.add(c) : cls.delete(c)) } };
+  r.doc.querySelectorAll = () => [el];
+  r.L.gateCss('#x');
+  r.see(el, false);
+  assert.ok(cls.has('is-off'));
+  r.see(el, true);
+  assert.ok(!cls.has('is-off'));
+});

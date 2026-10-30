@@ -94,9 +94,9 @@ function buildRing(st) {
   return {
     layout, vids,
     frame(t) {
-      const rect = st.getBoundingClientRect();
-      const target = RM ? 1 : clamp(-rect.top / (rect.height - innerHeight));
-      if (rect.bottom < -100 || rect.top > innerHeight + 100) { ps = target; tPrev = t; return; } // кольцо вне экрана — не считаем
+      const box = LOOP.box(st), top = box.top - scrollY, bottom = top + box.height;
+      const target = RM ? 1 : clamp(-top / (box.height - LOOP.vh));
+      if (bottom < -100 || top > LOOP.vh + 100) { ps = target; tPrev = t; return; } // кольцо вне экрана — не считаем
       // сцена догоняет прокрутку с затуханием: колесо крутит рывками, карточки — нет
       const dt = Math.min(0.05, (t - (tPrev || t)) / 1000); tPrev = t;
       ps = ps < 0 || RM ? target : ps + (target - ps) * (1 - Math.exp(-dt * 3.6));
@@ -238,22 +238,23 @@ function buildFilm() {
   const pars = panels.map((pn) => [...pn.querySelectorAll('[data-par]')].map((e) => [e, +e.dataset.par]));
   const tl = film.querySelector('.tl');
   let travel = 0, subsOn = false, fp = -1, ftPrev = 0;
-  const layout = () => { travel = track.scrollWidth - innerWidth; film.style.height = (RM ? 0 : travel + innerHeight * 1.3) + 'px'; };
+  let pxs = [];
+  const layout = () => { travel = track.scrollWidth - innerWidth; film.style.height = (RM ? 0 : travel + innerHeight * 1.3) + 'px'; pxs = panels.map((pn) => ({ l: pn.offsetLeft, w: pn.offsetWidth })); };
   layout();
   return {
     layout,
     frame(t) {
       if (RM) return;
-      const rect = film.getBoundingClientRect();
-      if (rect.bottom < -50 || rect.top > innerHeight + 50) return;
-      const target = clamp(-rect.top / (rect.height - innerHeight));
+      const box = LOOP.box(film), top = box.top - scrollY;
+      if (top + box.height < -50 || top > LOOP.vh + 50) return;
+      const target = clamp(-top / (box.height - LOOP.vh));
       const dt = Math.min(0.05, (t - (ftPrev || t)) / 1000); ftPrev = t;
       fp = fp < 0 ? target : fp + (target - fp) * (1 - Math.exp(-dt * 6));
       const p = fp, x = p * travel;
       track.style.transform = `translate3d(${(-x).toFixed(1)}px,0,0)`;
       const n = panels.length, pos = p * (n - 0.15);
       panels.forEach((pn, i) => {
-        const lp = (pn.offsetLeft + pn.offsetWidth / 2 - x - innerWidth / 2) / innerWidth;
+        const lp = (pxs[i].l + pxs[i].w / 2 - x - LOOP.vw / 2) / LOOP.vw;
         // параллакс — через translate, чтобы не затирать transform самих слоёв (центровка, поворот)
         if (Math.abs(lp) < 1.2) pars[i].forEach(([e, k]) => (e.style.translate = `${(lp * k).toFixed(1)}px 0`));
         if (!pn.classList.contains('in') && Math.abs(lp) < 0.5) {
@@ -266,8 +267,8 @@ function buildFilm() {
         bar[i].style.setProperty('--f', clamp(pos - i + 0.5).toFixed(3));
         bar[i].classList.toggle('on', Math.abs(lp) < 0.5);
       });
-      const d = panels[1].getBoundingClientRect();
-      if (d.right > 0 && d.left < innerWidth) drawDial(t / 1000);
+      const dl = pxs[1].l - x;
+      if (dl + pxs[1].w > 0 && dl < LOOP.vw) drawDial(t / 1000);
     },
   };
 }

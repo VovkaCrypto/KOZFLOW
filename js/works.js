@@ -199,7 +199,9 @@ function tick(t) {
   const dt = Math.min(0.05, (t - (tick.t || t)) / 1000); tick.t = t;
   boost *= Math.pow(0.04, dt);
   if (inView) for (const r of rows) {
-    const half = r.track.scrollWidth / r.reps;
+    // ширина ленты читается только при изменении размера: scrollWidth в кадре заставлял браузер пересчитывать раскладку
+    if (!r.ro) { r.ro = new ResizeObserver(() => { r.half = 0; }); r.ro.observe(r.track); }
+    const half = r.half || (r.half = r.track.scrollWidth / r.reps);
     if (!r.drag?.on) {
       r.x += (r.dir * r.v * r.slow * (1 + boost) + r.fling) * dt;
       r.fling *= Math.pow(0.03, dt);

@@ -4,6 +4,8 @@
 // иначе requestAnimationFrame не запрашивается вовсе — телефон отдыхает. dt ограничен 50 мс,
 // чтобы после возврата на вкладку анимации не прыгали.
 // LOOP.coarse — сенсорный экран без мыши; LOOP.dpr() — плотность холстов (телефон ≤ 1.5, ПК ≤ 2).
+// LOOP.gateCss(sel) — CSS-анимации блоков стоят, пока блок вне окна (класс is-off, правило в css/system.css).
+// LOOP.box(el) — { top, height } блока на странице из кеша: читать раскладку каждый кадр дорого; LOOP.vw, LOOP.vh — размеры окна из кеша.
 (function (g) {
   function createLoop(env) {
     const coarse = env.mm('(hover: none) and (pointer: coarse)').matches;
@@ -56,6 +58,10 @@
         if (!items.delete(it)) return;
         if (--it.st.n === 0) { it.w.st.delete(it.el); it.w.io.unobserve(it.el); }
       },
+      gateCss(sel, margin = '100px') {
+        const io = new env.IO((es) => es.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)), { rootMargin: margin });
+        env.doc.querySelectorAll(sel).forEach((el) => io.observe(el));
+      },
     };
   }
 
@@ -71,4 +77,26 @@
     mm: (q) => matchMedia(q),
     dpr: () => window.devicePixelRatio,
   });
+
+  // кеш положения блоков: сбрасывается, когда меняется высота страницы или ширина окна (адресная строка его не трогает)
+  const boxes = new Map();
+  g.LOOP.box = (el) => {
+    let b = boxes.get(el);
+    if (!b) { const r = el.getBoundingClientRect(); b = { top: r.top + scrollY, height: r.height }; boxes.set(el, b); }
+    return b;
+  };
+  // размеры окна из кеша: чтение innerHeight в кадре заставляет браузер пересчитывать раскладку
+  let vw = innerWidth;
+  g.LOOP.vw = vw; g.LOOP.vh = innerHeight;
+  addEventListener('resize', () => { g.LOOP.vh = innerHeight; if (innerWidth !== vw) { g.LOOP.vw = vw = innerWidth; boxes.clear(); } });
+  if (window.ResizeObserver) new ResizeObserver(() => boxes.clear()).observe(document.documentElement);
+
+  g.LOOP.gateCss('#hero, #clients, #services, #works, #process, #about, #contact');
+
+  // телефон: блоки вне экрана браузер не считает вовсе; высота запоминается, чтобы полоса прокрутки не прыгала.
+  // На ПК не нужно и нельзя: содержание ломает схлопывание отступов, высоты секций меняются.
+  if (g.LOOP.coarse) addEventListener('load', () => document.querySelectorAll('#works, #process, #about, #faq, #contact, footer.foot').forEach((el) => {
+    el.style.containIntrinsicSize = `auto ${Math.round(el.offsetHeight)}px`;
+    el.style.contentVisibility = 'auto';
+  }));
 })(typeof globalThis !== 'undefined' ? globalThis : window);

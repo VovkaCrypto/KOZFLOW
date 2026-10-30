@@ -59,7 +59,7 @@ REEL.scene('motion', (c) => {
     ['uM1', 'uM2', 'uT', 'uAsp', 'uSize', 'uRy', 'uRx', 'uBurst', 'uA'].forEach((n) => { U[n] = gl.getUniformLocation(prog, n); });
     gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
   }
-  const dpr = Math.min(2, devicePixelRatio || 1);
+  const dpr = LOOP.dpr();
   glc.width = W * dpr; glc.height = H * dpr;
 
   /* ───────── демо по углам: 2D-холсты ───────── */
@@ -340,8 +340,9 @@ REEL.scene('motion', (c) => {
   const resetL = () => { WL.forEach((l) => { l.style.translate = ''; l.style.scale = ''; l.style.filter = ''; l.style.removeProperty('--wc'); }); dirtyL = false; };
   const hash = (x) => Math.abs(Math.sin(x * 127.1 + 311.7) * 43758.5453) % 1;
 
+  let wordFs = 0; addEventListener('resize', () => { wordFs = 0; });
   function center(u, t) {
-    const fs = parseFloat(getComputedStyle(wordEl).fontSize) || 100;
+    const fs = wordFs || (wordFs = parseFloat(getComputedStyle(wordEl).fontSize) || 100);
     const active = u > 0.9 && u < 7.55;
     if (!active) {
       if (dirtyL) resetL();

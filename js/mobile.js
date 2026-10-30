@@ -71,7 +71,7 @@
     c.cutOut([card, chip], b);
 
     // волна: по низу кадра и в карточке; субтитры, статус
-    const big = $('.ma-wave', cam), gb = big.getContext('2d'), sm = $('.ma-voice', card), gs = sm.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1);
+    const big = $('.ma-wave', cam), gb = big.getContext('2d'), sm = $('.ma-voice', card), gs = sm.getContext('2d'), dpr = LOOP.dpr();
     big.width = W * dpr; big.height = H * dpr; gb.setTransform(dpr, 0, 0, dpr, 0, 0);
     const stt = $('.stt', card), tcc = $('.tcc', card), arc = $('.dial .arc', card), orbit = $('.dial .orbit', card), ticks = $$('.dial .ticks line', card);
     let sig = '', sized = false;

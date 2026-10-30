@@ -139,11 +139,11 @@
   function onScroll() {
     if (scrollTick) return;
     scrollTick = true;
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       ktInitialPass();
       scrollTick = false;
       if (allRevealed()) window.removeEventListener('scroll', onScroll);
-    });
+    }, 300);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 

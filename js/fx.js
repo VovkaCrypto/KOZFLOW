@@ -46,7 +46,7 @@
   const FX = (window.REEL.fx = {
     PAL,
     resize() {
-      W = hero.clientWidth; H = hero.clientHeight; dpr = Math.min(2, devicePixelRatio || 1);
+      W = hero.clientWidth; H = hero.clientHeight; dpr = LOOP.dpr();
       cv.width = W * dpr; cv.height = H * dpr; snaps = {}; dirty = true;
     },
     // ядро зовёт в начале кадра

@@ -62,7 +62,7 @@ REEL.scene('auto', (c) => {
   const vk = $('.vkm', tg), tgm = $('.tgm', tg);
   const thr = $$('.thr', cam), route1 = $('.r1', cam), route2 = $('.r2', cam), route3 = $('.r3', cam);
   // нижний холст — волна и сеть под репликами; верхний — страйк поверх значков и сообщений
-  const dpr = Math.min(2, devicePixelRatio || 1);
+  const dpr = LOOP.dpr();
   const topCv = $('.au-top', cam), [g, gt] = [$('.au-wave', cam), topCv].map((cv) => { cv.width = W * dpr; cv.height = H * dpr; const x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); return x; });
 
   // реплики: текст целиком (ещё не напечатанное прозрачно и держит размер), ключевые слова — в своих спанах с лассо
