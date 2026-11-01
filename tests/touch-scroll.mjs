@@ -3,7 +3,7 @@
 // Список растёт с задачами плана.
 import { launch, open, PHONE } from './pw.mjs';
 
-const BLOCKS = ['#hero', '#services', '#process .cv-stage'];
+const BLOCKS = ['#hero', '#services', '#process .cv-stage', '#about .deck', '#about .film'];
 const DIST = 400, STEPS = 24;
 const b = await launch();
 const { ctx, p, errs } = await open(b, PHONE);

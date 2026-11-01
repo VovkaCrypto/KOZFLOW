@@ -10,6 +10,8 @@
 const IMG = {"cut":"assets/about/cut.webp","posters":["assets/about/p02.webp","assets/about/p04.webp","assets/about/p08.webp","assets/about/p10.webp","assets/about/p12.webp","assets/about/p13.webp","assets/about/p17.webp","assets/about/p18.webp","assets/about/p20.webp","assets/about/p22.webp","assets/about/p24.webp","assets/about/p25.webp","assets/about/p26.webp","assets/about/p29.webp","assets/about/p30.webp","assets/about/p31.webp","assets/about/p32.webp","assets/about/p35.webp","assets/about/p37.webp","assets/about/p38.webp","assets/about/p39.webp","assets/about/p40.webp","assets/about/p41.webp","assets/about/p45.webp","assets/about/p46.webp","assets/about/p47.webp","assets/about/p48.webp","assets/about/p50.webp"],"logos":["assets/about/logo-zavod.webp","assets/about/logo-kegelbar.webp","assets/about/logo-kinza.webp","assets/about/logo-schukin.webp","assets/about/logo-volzhanka.webp","assets/about/logo-inproject.webp"],"sites":["assets/about/site-vostok.webp","assets/about/site-tverchefs.webp","assets/about/site-miravi.webp","assets/about/site-deepdiver.webp"],"clips":["assets/about/v-reel-afisha.mp4","assets/about/v-kinza-720.mp4","assets/about/v-reel-dish.mp4","assets/about/v-dd-main-1x1-loop.mp4","assets/about/v-dish.mp4"],"motion":"assets/about/m-afisha.mp4","film":{"voice":"assets/about/f-voice.mp4","dd":"assets/about/f-dd.mp4","dish":"assets/about/f-dish.mp4"}};
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const phone = () => innerWidth <= 760;
+// телефон — колода и сторис; выбор один раз при загрузке, иначе поворот в альбомную вернул бы кольцо и пин
+const STACK = innerWidth <= 760 || Math.min(screen.width, screen.height) <= 760;
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ease = (t) => 1 - Math.pow(1 - t, 3);
 const smoother = (t) => t * t * t * (t * (t * 6 - 15) + 10);
@@ -60,9 +62,76 @@ const AUTO = [
 ];
 const AUTO_TAG = ['голосовой бот', 'бот в VK и на сайте', 'аналитика', 'бот закупок'];
 
+// карточка работы: P афиша · V ролик · A автоматизация · S сайт
+function workCard(k, j, cls = '') {
+  const c = document.createElement('div');
+  if (k === 'P') { c.className = `card ${cls}`; c.innerHTML = `<img alt="" src="${IMG.posters[(j * 5) % IMG.posters.length]}">`; }
+  if (k === 'V') { c.className = `card ${cls}`; c.innerHTML = `<video muted loop playsinline preload="none" src="${CLIPS[j % CLIPS.length]}"></video><span class="tagc">▶ моушен</span>`; }
+  if (k === 'S') { c.className = `card s ${cls}`; c.innerHTML = `<div class="scr"><img alt="" src="${IMG.sites[j % IMG.sites.length]}"></div>`; }
+  if (k === 'A') { c.className = `card a ${cls}`; c.innerHTML = AUTO[j % AUTO.length] + `<span class="tagc">${AUTO_TAG[j % AUTO.length]}</span>`; }
+  return c;
+}
+
+// ---------- колода работ на телефоне: фото, имя, под ними стопка карт; смахнул — карта уходит вниз стопки
+function buildDeck(st) {
+  st.classList.add('stage--deck');
+  st.innerHTML = `<div class="deck-ph"><div class="glow"></div><img alt="Владимир Козлов" src="${IMG.cut}"></div><svg class="deck-nm" viewBox="0 0 1000 400"><text class="l1" x="500" text-anchor="middle">ВЛАДИМИР</text><text class="l2" x="500" text-anchor="middle">КОЗЛОВ</text></svg><div class="ctr"><span class="n" data-v="30" data-suf="+"></span><small>проектов в HoReCa</small></div><div class="deck"></div><p class="deck-hint">Смахните карту вбок — следующая работа</p>`;
+  const svg = st.querySelector('.deck-nm'), deck = st.querySelector('.deck'), ctr = st.querySelector('.ctr .n');
+  fitLines(svg, [svg.querySelector('.l1'), svg.querySelector('.l2')], 1000, 18);
+  const cw = Math.min(innerWidth * 0.56, 230), ch = cw * 1.34, cnt = { P: 0, V: 0, A: 0, S: 0 };
+  deck.style.setProperty('--cw', cw + 'px'); deck.style.setProperty('--ch', ch + 'px');
+  const order = [...'PVAPSVPA'].map((k, i) => {
+    const el = workCard(k, cnt[k]++, 'deck-c'); deck.append(el);
+    const ac = el.querySelector('.ac'); if (ac) ac.style.transform = `scale(${cw / 240})`;
+    return { el, i, v: el.querySelector('video') };
+  });
+  let live = false;
+  // играет только верхняя карта
+  const sync = () => { deck.dataset.top = order[0].i; order.forEach((c, p) => { if (!c.v) return; if (live && !p && !RM) c.v.play().catch(() => {}); else c.v.pause(); }); };
+  const place = (skip) => order.forEach((c, p) => {
+    if (c === skip) return;
+    const q = Math.min(p, 3), s = p % 2 ? 1 : -1;
+    c.el.style.zIndex = order.length - p;
+    c.el.style.opacity = p > 3 ? 0 : 1;
+    c.el.style.transform = `translate3d(${s * q * 6}px,${q * 6}px,0) rotate(${p ? s * 3 : 0}deg)`;
+  });
+  const fling = (dir) => {
+    const c = order.shift(); order.push(c);
+    c.el.style.zIndex = order.length + 1;
+    c.el.style.transform = `translate3d(${dir * innerWidth}px,0,0) rotate(${dir * 14}deg)`;
+    place(c); sync();
+    setTimeout(() => { c.el.style.transition = 'none'; place(); void c.el.offsetWidth; c.el.style.transition = ''; }, 320);
+  };
+  // вертикальный жест браузер забирает себе (touch-action: pan-y) и шлёт pointercancel
+  let g = null;
+  deck.addEventListener('pointerdown', (e) => {
+    if (RM || g) return;
+    g = { id: e.pointerId, x: e.clientX, dx: 0, el: order[0].el };
+    g.el.style.transition = 'none';
+  });
+  deck.addEventListener('pointermove', (e) => {
+    if (!g || g.id !== e.pointerId) return;
+    g.dx = e.clientX - g.x;
+    g.el.style.transform = `translate3d(${g.dx}px,0,0) rotate(${(g.dx * 0.05).toFixed(1)}deg)`;
+  });
+  const end = (e) => {
+    if (!g || g.id !== e.pointerId) return;
+    const { dx, el } = g; g = null; el.style.transition = '';
+    if (e.type === 'pointerup' && Math.abs(dx) >= 60) fling(Math.sign(dx)); else place();
+  };
+  deck.addEventListener('pointerup', end);
+  deck.addEventListener('pointercancel', end);
+  place(); sync();
+  new IntersectionObserver(([e]) => {
+    live = e.isIntersecting; sync();
+    if (live) { st.classList.add('in'); playNum(ctr, 300); }
+  }, { threshold: 0.15 }).observe(deck);
+  new IntersectionObserver(([e], io) => { if (e.isIntersecting) { st.classList.add('in'); io.disconnect(); } }, { threshold: 0.3 }).observe(st.querySelector('.deck-ph'));
+  return { layout() {}, vids: [], frame() {} };
+}
+
 // ---------- кольцо работ
 function buildRing(st) {
-  // P афиша · V ролик · A автоматизация · S сайт
   const ORDER = phone() ? 'PVAPSVPAPVAPSP' : 'PVPAPSPVPAPPVAPSPVPAPV';
   const N = ORDER.length;
   st.innerHTML = `<div class="pin"><div class="glow"></div><svg class="nm" viewBox="0 0 1000 400"><text class="l1" x="500" text-anchor="middle">ВЛАДИМИР</text><text class="l2" x="500" text-anchor="middle">КОЗЛОВ</text></svg><div class="ring"></div><img class="cut" alt="Владимир Козлов" src="${IMG.cut}"><div class="ctr"><span class="n" data-v="30" data-suf="+"></span><small>проектов в HoReCa</small></div><div class="legend"><span>афиши</span><span><b>ролики</b></span><span>сайты</span><span><b>автоматизации</b></span></div></div>`;
@@ -71,11 +140,7 @@ function buildRing(st) {
   fitLines(svg, [l1, l2], 1000, 18);
   const r = rnd(7), cards = [], cnt = { P: 0, V: 0, A: 0, S: 0 };
   [...ORDER].forEach((k, i) => {
-    const c = document.createElement('div'), j = cnt[k]++;
-    if (k === 'P') { c.className = 'card'; c.innerHTML = `<img alt="" src="${IMG.posters[(j * 5) % IMG.posters.length]}">`; }
-    if (k === 'V') { c.className = 'card'; c.innerHTML = `<video muted loop playsinline preload="none" src="${CLIPS[j % CLIPS.length]}"></video><span class="tagc">▶ моушен</span>`; }
-    if (k === 'S') { c.className = 'card s'; c.innerHTML = `<div class="scr"><img alt="" src="${IMG.sites[j % IMG.sites.length]}"></div>`; }
-    if (k === 'A') { c.className = 'card a'; c.innerHTML = AUTO[j % AUTO.length] + `<span class="tagc">${AUTO_TAG[j % AUTO.length]}</span>`; }
+    const c = workCard(k, cnt[k]++);
     ring.append(c);
     const a = r() * Math.PI * 2;
     cards.push({ el: c, k, dx: Math.cos(a), dy: Math.sin(a) - 0.3, rot: (r() - 0.5) * 40, d: i / N });
@@ -197,8 +262,9 @@ function runSubs(box) {
 function buildFilm() {
   const film = sec.querySelector('.film'), track = film.querySelector('.track'), panels = [...track.children], bar = [...film.querySelectorAll('.fbar span')];
   const FV = { voice: media(IMG.film.voice), dd: media(IMG.film.dd), dish: media(IMG.film.dish) };
-  film.querySelectorAll('video[data-film]').forEach((v) => { v.src = FV[v.dataset.film]; vio.observe(v); });
-  const f9 = film.querySelector('.float9'); f9.innerHTML = `<video muted loop playsinline preload="none" src="${MOTION}"></video>`; vio.observe(f9.firstChild);
+  const watch = (v) => { if (!STACK || RM) vio.observe(v); }; // в сторис роликами управляет смена панели
+  film.querySelectorAll('video[data-film]').forEach((v) => { v.src = FV[v.dataset.film]; watch(v); });
+  const f9 = film.querySelector('.float9'); f9.innerHTML = `<video muted loop playsinline preload="none" src="${MOTION}"></video>`; watch(f9.firstChild);
   // 01: стена — ряды логотипов и афиш, каждый ряд продублирован для бесшовной петли
   const L = IMG.logos, P = IMG.posters;
   film.querySelector('.wall-in').innerHTML = [0, 1, 2, 3].map((r) => {
@@ -239,6 +305,62 @@ function buildFilm() {
   const tl = film.querySelector('.tl');
   let travel = 0, subsOn = false, fp = -1, ftPrev = 0;
   let pxs = [];
+  // панель вошла в кадр: цифры, субтитры, кривая
+  const enter = (pn, i) => {
+    if (pn.classList.contains('in')) return;
+    pn.classList.add('in');
+    pn.querySelectorAll('.n').forEach((el, j) => playNum(el, 150 + j * 150));
+    if (i === 1 && !subsOn) { subsOn = true; runSubs(pn.querySelector('.subs')); }
+    if (i === 2) { ppath.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1) .5s'; ppath.style.strokeDashoffset = 0; }
+  };
+  // сторис на телефоне: панели по одной, автопереход, пока блок в кадре; на последней стоим, там кнопка
+  function stories() {
+    const STEP = 5, last = panels.length - 1;
+    film.classList.add('film--st');
+    film.querySelector('.fpin').insertAdjacentHTML('afterbegin', `<div class="segs">${panels.map(() => '<i class="seg"><b></b></i>').join('')}</div>`);
+    tl.style.setProperty('--tl', 1);
+    if (RM) { panels.forEach(enter); return { layout() {}, frame() {} }; }
+    const segs = [...film.querySelectorAll('.seg b')], vids = panels.map((pn) => [...pn.querySelectorAll('video')]);
+    let on = -1, el = 0, vis = false, held = false, tPrev = 0, d = null;
+    const play = () => vids[on].forEach((v) => (vis ? v.play().catch(() => {}) : v.pause()));
+    const show = (i) => {
+      if (on >= 0) { panels[on].classList.remove('on'); vids[on].forEach((v) => v.pause()); }
+      on = i; el = 0; film.dataset.active = i;
+      panels[i].classList.add('on'); enter(panels[i], i);
+      segs.forEach((s, j) => { s.style.transform = `scaleX(${j < i ? 1 : 0})`; });
+      play();
+    };
+    show(0);
+    new IntersectionObserver(([e]) => { vis = e.isIntersecting; play(); }, { threshold: 0.5 }).observe(film);
+    film.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('a,button')) return;
+      d = { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId }; held = true;
+    });
+    const up = (e) => {
+      if (!d || d.id !== e.pointerId) return;
+      const dx = e.clientX - d.x, dy = e.clientY - d.y, tap = Math.hypot(dx, dy) < 12 && performance.now() - d.t < 350;
+      d = null; held = false;
+      if (e.type !== 'pointerup') return;
+      const r = film.getBoundingClientRect();
+      if (tap) show((on + (e.clientX > r.left + r.width / 2 ? 1 : last)) % panels.length);
+      else if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) show((on + (dx < 0 ? 1 : last)) % panels.length);
+    };
+    film.addEventListener('pointerup', up);
+    film.addEventListener('pointercancel', up);
+    return {
+      layout() {},
+      frame(t) {
+        const dt = Math.min(0.05, (t - (tPrev || t)) / 1000); tPrev = t;
+        if (!vis) return;
+        if (on === 1) drawDial(t / 1000);
+        if (held) return;
+        el = Math.min(STEP, el + dt);
+        segs[on].style.transform = `scaleX(${(el / STEP).toFixed(3)})`;
+        if (el >= STEP && on < last) show(on + 1);
+      },
+    };
+  }
+  if (STACK) return stories();
   const layout = () => { travel = track.scrollWidth - innerWidth; film.style.height = (RM ? 0 : travel + innerHeight * 1.3) + 'px'; pxs = panels.map((pn) => ({ l: pn.offsetLeft, w: pn.offsetWidth })); };
   layout();
   return {
@@ -257,12 +379,7 @@ function buildFilm() {
         const lp = (pxs[i].l + pxs[i].w / 2 - x - LOOP.vw / 2) / LOOP.vw;
         // параллакс — через translate, чтобы не затирать transform самих слоёв (центровка, поворот)
         if (Math.abs(lp) < 1.2) pars[i].forEach(([e, k]) => (e.style.translate = `${(lp * k).toFixed(1)}px 0`));
-        if (!pn.classList.contains('in') && Math.abs(lp) < 0.5) {
-          pn.classList.add('in');
-          pn.querySelectorAll('.n').forEach((el, j) => playNum(el, 150 + j * 150));
-          if (i === 1 && !subsOn) { subsOn = true; runSubs(pn.querySelector('.subs')); }
-          if (i === 2) { ppath.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1) .5s'; ppath.style.strokeDashoffset = 0; }
-        }
+        if (Math.abs(lp) < 0.5) enter(pn, i);
         if (i === 5) tl.style.setProperty('--tl', clamp(1 - lp * 2).toFixed(3));
         bar[i].style.setProperty('--f', clamp(pos - i + 0.5).toFixed(3));
         bar[i].classList.toggle('on', Math.abs(lp) < 0.5);
@@ -279,7 +396,7 @@ const vio = new IntersectionObserver((es) => es.forEach((e) => { const v = e.tar
 // ---------- выбор (только в эскизе; на сайте ручек нет — значения берутся из data-* секции)
 const KH = document.getElementById('k-h'), KN = document.getElementById('k-nums'), KL = document.getElementById('k-low'), line = document.getElementById('k-line');
 function apply() {
-  if (!KH) { sec.querySelectorAll('.film .n').forEach((n) => setNum(n, 0)); return; }
+  if (!KH) { sec.querySelectorAll('.film .n').forEach((n) => { if (!n.dataset.played) setNum(n, 0); }); return; }
   sec.dataset.h = KH.value; sec.dataset.nums = KN.value; sec.dataset.low = KL.value;
   sec.querySelectorAll('.bento .n, .film .n').forEach((n) => { delete n.dataset.played; setNum(n, +n.dataset.v); });
   line.textContent = `Обо мне: вихрь работ · низ — ${KL.value === 'film' ? 'плёнка' : 'сетка'} · заголовок ${KH.value} · цифры — ${KN.value === 'flip' ? 'табло' : 'счёт'}`;
@@ -293,7 +410,7 @@ if (KH) {
 let ring, film, wasPhone = phone();
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
   const st = sec.querySelector('.stage');
-  ring = buildRing(st);
+  ring = STACK ? buildDeck(st) : buildRing(st);
   ring.vids.forEach((v) => vio.observe(v));
   mountCells();
   sec.querySelectorAll('.bento video').forEach((v) => vio.observe(v));
@@ -301,7 +418,7 @@ let ring, film, wasPhone = phone();
   apply();
   LOOP.add(sec, (t) => { ring.frame(t); film.frame(t); });
   addEventListener('resize', () => {
-    if (phone() !== wasPhone) { wasPhone = phone(); ring.vids.forEach((v) => vio.unobserve(v)); ring = buildRing(st); ring.vids.forEach((v) => vio.observe(v)); }
+    if (!STACK && phone() !== wasPhone) { wasPhone = phone(); ring.vids.forEach((v) => vio.unobserve(v)); ring = buildRing(st); ring.vids.forEach((v) => vio.observe(v)); }
     else ring.layout();
     film.layout();
   });
