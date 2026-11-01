@@ -423,7 +423,9 @@ if (KH) {
 }
 
 let ring, film, wasPhone = phone();
-(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+// шрифт завис или ползёт по медленной сети: секция собирается без него, имя подгоняется, когда он придёт
+const fontsIn = document.fonts ? document.fonts.ready : Promise.resolve();
+Promise.race([fontsIn, new Promise((ok) => setTimeout(ok, 2500))]).then(() => {
   const st = sec.querySelector('.stage');
   ring = STACK ? buildDeck(st) : buildRing(st);
   ring.vids.forEach((v) => vio.observe(v));
@@ -431,6 +433,7 @@ let ring, film, wasPhone = phone();
   sec.querySelectorAll('.bento video').forEach((v) => vio.observe(v));
   film = buildFilm();
   apply();
+  fontsIn.then(() => sec.querySelectorAll('.deck-nm,.nm').forEach((svg) => fitLines(svg, [svg.querySelector('.l1'), svg.querySelector('.l2')], 1000, 18)));
   if (!(STACK && RM)) LOOP.add(sec, (t) => { ring.frame(t); film.frame(t); }); // без движения на телефоне кадровый цикл пуст и только будит отрисовку
   addEventListener('resize', () => {
     if (!STACK && phone() !== wasPhone) { wasPhone = phone(); ring.vids.forEach((v) => vio.unobserve(v)); ring = buildRing(st); ring.vids.forEach((v) => vio.observe(v)); }
