@@ -11,7 +11,8 @@ const IMG = {"cut":"assets/about/cut.webp","posters":["assets/about/p02.webp","a
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const phone = () => innerWidth <= 760;
 // телефон — колода и сторис; выбор один раз при загрузке, иначе поворот в альбомную вернул бы кольцо и пин
-const STACK = innerWidth <= 760 || Math.min(screen.width, screen.height) <= 760;
+// экран устройства считается только у пальца: ноутбук с масштабом 150 % отдаёт screen 1280×720 и телефоном не становится
+const STACK = innerWidth <= 760 || (matchMedia('(pointer:coarse)').matches && Math.min(screen.width, screen.height) <= 760);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ease = (t) => 1 - Math.pow(1 - t, 3);
 const smoother = (t) => t * t * t * (t * (t * 6 - 15) + 10);
@@ -86,10 +87,16 @@ function buildDeck(st) {
     return { el, i, v: el.querySelector('video') };
   });
   let live = false;
-  // играет только верхняя карта
-  const sync = () => { deck.dataset.top = order[0].i; order.forEach((c, p) => { if (!c.v) return; if (live && !p && !RM) c.v.play().catch(() => {}); else c.v.pause(); }); };
+  const flying = new Set(); // карта, улетевшая за край, в стопку не возвращается, пока не долетит
+  // без движения ролик не играет: первый кадр вместо чёрного прямоугольника
+  if (RM) order.forEach((c) => { if (c.v) { c.v.preload = 'metadata'; c.v.src += '#t=0.1'; } });
+  // играет только верхняя карта, остальные и вся колода вне кадра держат анимации снятыми
+  const sync = () => {
+    deck.dataset.top = order[0].i; deck.classList.toggle('still', !live);
+    order.forEach((c, p) => { c.el.classList.toggle('top', !p); if (!c.v) return; if (live && !p && !RM) c.v.play().catch(() => {}); else c.v.pause(); });
+  };
   const place = (skip) => order.forEach((c, p) => {
-    if (c === skip) return;
+    if (c.el === skip || flying.has(c)) return;
     const q = Math.min(p, 3), s = p % 2 ? 1 : -1;
     c.el.style.zIndex = order.length - p;
     c.el.style.opacity = p > 3 ? 0 : 1;
@@ -99,13 +106,14 @@ function buildDeck(st) {
     const c = order.shift(); order.push(c);
     c.el.style.zIndex = order.length + 1;
     c.el.style.transform = `translate3d(${dir * innerWidth}px,0,0) rotate(${dir * 14}deg)`;
-    place(c); sync();
-    setTimeout(() => { c.el.style.transition = 'none'; place(); void c.el.offsetWidth; c.el.style.transition = ''; }, 320);
+    flying.add(c); place(g?.el); sync();
+    setTimeout(() => { flying.delete(c); c.el.style.transition = 'none'; place(g?.el); void c.el.offsetWidth; c.el.style.transition = ''; }, 320);
   };
   // вертикальный жест браузер забирает себе (touch-action: pan-y) и шлёт pointercancel
   let g = null;
   deck.addEventListener('pointerdown', (e) => {
     if (RM || g) return;
+    deck.setPointerCapture(e.pointerId); // мышь в узком окне: отпустили за краем колоды, а жест всё равно закрылся
     g = { id: e.pointerId, x: e.clientX, dx: 0, el: order[0].el };
     g.el.style.transition = 'none';
   });
@@ -245,16 +253,17 @@ function mountCells() {
 // ---------- плёнка
 const SUBS = [['Гость', 'Бильярд на девять вечера, на двоих?'], ['Света · Завод', 'Стол свободен. Бронирую?'], ['Гость', 'Да, спасибо'], ['Света · Завод', 'Готово, ждём в 21:00.'],
   ['Гость', 'Дорожку на двоих, сегодня в восемь'], ['Кегель · Кегельбар', 'Бронь записана: сегодня, 20:00, два гостя.']];
-function runSubs(box) {
+function runSubs(box, live = () => true) {
   const who = box.querySelector('small'), p = box.querySelector('p'); let k = 0;
   const line = () => {
+    if (!live()) { setTimeout(line, 800); return; } // панель не на экране: диалог ждёт, а не тикает впустую
     const [w, t] = SUBS[k]; k = (k + 1) % SUBS.length;
     who.textContent = w; who.classList.toggle('bot', w !== 'Гость');
     p.innerHTML = t.split(' ').map((s) => `<span>${s}</span>`).join(' ');
     const ws = [...p.children]; let i = 0;
     const id = setInterval(() => {
       ws.forEach((s, j) => { s.classList.toggle('on', j <= i); s.classList.toggle('cur', j === i); });
-      if (++i > ws.length) { clearInterval(id); setTimeout(line, 1300); }
+      if (++i > ws.length) { clearInterval(id); if (!RM) setTimeout(line, 1300); } // без движения одна реплика стоит
     }, RM ? 0 : 230);
   };
   line();
@@ -303,14 +312,14 @@ function buildFilm() {
   };
   const pars = panels.map((pn) => [...pn.querySelectorAll('[data-par]')].map((e) => [e, +e.dataset.par]));
   const tl = film.querySelector('.tl');
-  let travel = 0, subsOn = false, fp = -1, ftPrev = 0;
+  let travel = 0, subsOn = false, subsLive = () => true, fp = -1, ftPrev = 0;
   let pxs = [];
   // панель вошла в кадр: цифры, субтитры, кривая
   const enter = (pn, i) => {
     if (pn.classList.contains('in')) return;
     pn.classList.add('in');
     pn.querySelectorAll('.n').forEach((el, j) => playNum(el, 150 + j * 150));
-    if (i === 1 && !subsOn) { subsOn = true; runSubs(pn.querySelector('.subs')); }
+    if (i === 1 && !subsOn) { subsOn = true; runSubs(pn.querySelector('.subs'), () => subsLive()); }
     if (i === 2) { ppath.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1) .5s'; ppath.style.strokeDashoffset = 0; }
   };
   // сторис на телефоне: панели по одной, автопереход, пока блок в кадре; на последней стоим, там кнопка
@@ -322,18 +331,22 @@ function buildFilm() {
     if (RM) { panels.forEach(enter); return { layout() {}, frame() {} }; }
     const segs = [...film.querySelectorAll('.seg b')], vids = panels.map((pn) => [...pn.querySelectorAll('video')]);
     let on = -1, el = 0, vis = false, held = false, tPrev = 0, d = null;
+    subsLive = () => vis && on === 1;
     const play = () => vids[on].forEach((v) => (vis ? v.play().catch(() => {}) : v.pause()));
+    // цифры и кривая ждут первого показа: иначе панель 1 доигрывает, пока блок ещё за 1500 px от кадра
     const show = (i) => {
       if (on >= 0) { panels[on].classList.remove('on'); vids[on].forEach((v) => v.pause()); }
       on = i; el = 0; film.dataset.active = i;
-      panels[i].classList.add('on'); enter(panels[i], i);
+      panels[i].classList.add('on'); if (vis) enter(panels[i], i);
       segs.forEach((s, j) => { s.style.transform = `scaleX(${j < i ? 1 : 0})`; });
       play();
     };
     show(0);
-    new IntersectionObserver(([e]) => { vis = e.isIntersecting; play(); }, { threshold: 0.5 }).observe(film);
+    new IntersectionObserver(([e]) => { vis = e.isIntersecting; if (vis) enter(panels[on], on); play(); }, { threshold: 0.5 }).observe(film);
+    new IntersectionObserver(([e]) => film.classList.toggle('still', !e.isIntersecting)).observe(film);
     film.addEventListener('pointerdown', (e) => {
       if (e.target.closest('a,button')) return;
+      film.setPointerCapture(e.pointerId);
       d = { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId }; held = true;
     });
     const up = (e) => {
@@ -342,8 +355,10 @@ function buildFilm() {
       d = null; held = false;
       if (e.type !== 'pointerup') return;
       const r = film.getBoundingClientRect();
-      if (tap) show((on + (e.clientX > r.left + r.width / 2 ? 1 : last)) % panels.length);
-      else if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) show((on + (dx < 0 ? 1 : last)) % panels.length);
+      // вперёд с последней — на первую, назад с первой — та же панель заново
+      const step = (fwd) => show(fwd ? (on + 1) % panels.length : Math.max(on - 1, 0));
+      if (tap) step(e.clientX > r.left + r.width / 2);
+      else if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) step(dx < 0);
     };
     film.addEventListener('pointerup', up);
     film.addEventListener('pointercancel', up);
@@ -416,7 +431,7 @@ let ring, film, wasPhone = phone();
   sec.querySelectorAll('.bento video').forEach((v) => vio.observe(v));
   film = buildFilm();
   apply();
-  LOOP.add(sec, (t) => { ring.frame(t); film.frame(t); });
+  if (!(STACK && RM)) LOOP.add(sec, (t) => { ring.frame(t); film.frame(t); }); // без движения на телефоне кадровый цикл пуст и только будит отрисовку
   addEventListener('resize', () => {
     if (!STACK && phone() !== wasPhone) { wasPhone = phone(); ring.vids.forEach((v) => vio.unobserve(v)); ring = buildRing(st); ring.vids.forEach((v) => vio.observe(v)); }
     else ring.layout();

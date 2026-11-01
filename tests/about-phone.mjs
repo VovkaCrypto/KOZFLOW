@@ -4,6 +4,7 @@ import { launch, open, opt, PHONE } from './pw.mjs';
 
 const VW = +opt('--w') || 393, VH = +opt('--h') || 659; // другие размеры: --w 320 --h 568
 const SIZE = { viewport: { width: VW, height: VH }, screen: { width: VW, height: VH } };
+const LAND = VW > VH; // альбомная: две колонки ПК, медиа рядом с текстом, блок почти в окно
 const b = await launch();
 const bad = [];
 const check = (ok, msg) => { if (!ok) bad.push(msg); };
@@ -47,7 +48,7 @@ const crossing = () => p.evaluate(() => {
   }).length;
 });
 const top = () => p.evaluate(() => document.querySelector('#about .deck').dataset.top);
-check(await p.evaluate(() => getComputedStyle(document.querySelector('#about .stage')).position !== 'sticky' && document.querySelector('#about .stage').offsetHeight < innerHeight * 2.2), 'стадия всё ещё тянется на экраны прокрутки');
+check(await p.evaluate((L) => getComputedStyle(document.querySelector('#about .stage')).position !== 'sticky' && (L || document.querySelector('#about .stage').offsetHeight < innerHeight * 2.2), LAND), 'стадия всё ещё тянется на экраны прокрутки');
 let z = await deckIn(); await p.waitForTimeout(500);
 z = await deckIn();
 check(z.top !== undefined, 'нет data-top у колоды');
@@ -78,7 +79,7 @@ const act = () => p.evaluate(() => +document.querySelector('#about .film').datas
 let f = await filmIn(); await p.waitForTimeout(400); f = await filmIn();
 console.log(`сторис: ${Math.round(f.w)}×${Math.round(f.h)} из ${f.vh}`);
 check(f.h <= 640, `блок выше нормы: ${f.h}`);
-if (VW >= 393) check(f.h <= f.vh * 0.82 + 1, `блок выше 82 % окна: ${f.h}`);
+if (VW >= 393 && !LAND) check(f.h <= f.vh * 0.82 + 1, `блок выше 82 % окна: ${f.h}`);
 check(await p.evaluate(() => getComputedStyle(document.querySelector('#about .fpin')).position !== 'sticky'), 'пин плёнки остался');
 check(await p.evaluate(() => { const t = document.querySelector('#about .film .track'); return t.scrollWidth <= t.clientWidth + 1; }), 'горизонтальная лента осталась');
 check((await p.evaluate(() => document.querySelectorAll('#about .film .seg').length)) === 6, 'нет шести сегментов');
@@ -88,6 +89,8 @@ check((await act()) === (a0 + 1) % 6, `тап справа: ${await act()} по�
 const a1 = await act();
 await press(f.l + f.w * 0.2, f.y, 60);
 check((await act()) === (a1 + 5) % 6, `тап слева: ${await act()} после ${a1}`);
+await press(f.l + f.w * 0.2, f.y, 60);
+check((await act()) === 0, `тап слева на первой панели увёл на ${await act()}`);
 const a2 = await act();
 await p.waitForTimeout(5600);
 check((await act()) === a2 + 1, `автопереход: ${await act()} после ${a2}`);
@@ -97,17 +100,21 @@ check((await act()) === a3, `удержание не держит: ${await act()
 // текст панели не перекрыт: ни одна панель не наезжает на .pn-txt своим медиа
 for (let i = 0; i < 6; i++) {
   const r = await p.evaluate(() => {
-    const pn = document.querySelector('#about .pn.on'), t = pn?.querySelector('.pn-txt')?.getBoundingClientRect(), box = pn?.getBoundingClientRect();
+    const pn = document.querySelector('#about .pn.on'), t = pn?.querySelector('.pn-txt')?.getBoundingClientRect(), box = pn?.getBoundingClientRect(), W = t?.right ?? 0;
     if (!t) return { none: true };
     const under = [...pn.querySelectorAll('.pn-m,.phones,.tl,.float9,.big-tg')].map((e) => e.getBoundingClientRect()).filter((q) => q.height);
-    const last = [...pn.querySelectorAll('.pn-txt>*')].reduce((m, e) => Math.max(m, e.getBoundingClientRect().bottom), 0);
-    return { name: pn.className, last: Math.round(last - box.top), H: Math.round(box.height), clash: under.filter((q) => q.top < last - 1).length, out: under.filter((q) => q.bottom > box.bottom + 1).length };
+    const kids = [...pn.querySelectorAll('.pn-txt>*')].map((e) => e.getBoundingClientRect()), last = kids.reduce((m, q) => Math.max(m, q.bottom), 0), right = kids.reduce((m, q) => Math.max(m, q.right), 0);
+    return { name: pn.className, last: Math.round(last - box.top), H: Math.round(box.height), clash: under.filter((q) => q.top < last - 1 && q.left < right - 1).length, out: under.filter((q) => q.bottom > box.bottom + 1).length };
   });
   check(!r.none, `панель ${i}: нет активной .pn.on`);
   if (!r.none) { console.log(`${r.name}: текст до ${r.last} из ${r.H}`); check(!r.clash, `${r.name}: текст перекрыт`); check(!r.out, `${r.name}: медиа выходит за панель`); check(r.last <= r.H, `${r.name}: текст за панелью`); }
   await press(f.l + f.w * 0.8, f.y, 60);
 }
-const y1 = await p.evaluate(() => scrollY);
+// вне кадра анимаций нет: колода под блоком сторис, блок сторис над карточками контактов
+check(await p.evaluate(() => { const d = document.querySelector('#about .deck'), top = d.querySelector('.deck-c.top'); return d.querySelectorAll('.deck-c').length - d.querySelectorAll('.deck-c:not(.top)').length === 1 && !!top; }), 'верхняя карта не помечена');
+await p.evaluate(() => scrollTo({ top: 0, behavior: 'instant' })); await p.waitForTimeout(400);
+check(await p.evaluate(() => { const n = (s) => document.getAnimations().filter((a) => a.effect.target?.closest?.(s) && a.playState === 'running' && a.effect.getTiming().iterations === Infinity).length; return document.querySelector('#about .film').classList.contains('still') && document.querySelector('#about .deck').classList.contains('still') && !n('#about .deck') && !n('#about .film'); }), 'анимации #about идут вне кадра');
+const y1 = await filmIn().then(() => p.waitForTimeout(400)).then(() => p.evaluate(() => scrollY));
 await touch(f.l + f.w / 2, f.y, 6, -220, 20);
 check((await p.evaluate(() => scrollY)) - y1 > 100, 'вертикальный жест по сторис не прокрутил страницу');
 if (errs.length) bad.push(`ошибки консоли: ${errs.join(' | ')}`);
@@ -117,10 +124,11 @@ await ctx.close();
 ({ p, errs, ctx } = await session({ ...SIZE, reducedMotion: 'reduce' }));
 const rm = await p.evaluate(() => {
   const d = document.querySelector('#about .deck'), f = document.querySelector('#about .film'), pn = [...f.querySelectorAll('.pn')];
-  return { deckScroll: d.scrollWidth > d.clientWidth, shown: pn.filter((e) => getComputedStyle(e).display !== 'none').length, stacked: pn[1].getBoundingClientRect().top >= pn[0].getBoundingClientRect().bottom - 1, segs: getComputedStyle(f.querySelector('.segs')).display, nums: [...f.querySelectorAll('.gn .n')].map((n) => n.textContent) };
+  return { posters: [...d.querySelectorAll('video')].every((v) => v.preload === 'metadata' && /#t=/.test(v.src)), deckScroll: d.scrollWidth > d.clientWidth, shown: pn.filter((e) => getComputedStyle(e).display !== 'none').length, stacked: pn[1].getBoundingClientRect().top >= pn[0].getBoundingClientRect().bottom - 1, segs: getComputedStyle(f.querySelector('.segs')).display, nums: [...f.querySelectorAll('.gn .n')].map((n) => n.textContent) };
 });
 console.log(JSON.stringify(rm));
 check(rm.deckScroll, 'reduced: колода не лента');
+check(rm.posters, 'reduced: ролики колоды без первого кадра');
 check(rm.shown === 6 && rm.stacked, 'reduced: сторис не список');
 check(rm.segs === 'none', 'reduced: сегменты видны');
 check(rm.nums.every((n) => /[1-9]/.test(n)), `reduced: нули в цифрах ${rm.nums}`);

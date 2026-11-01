@@ -87,7 +87,7 @@ const nb = (t) => t.replace(/(\d) (?=\d{3})/g, '$1 ').replace(/ ₽/g, ' ₽')
 
 /* ── телефон: стопка карточек ремёсел вместо экрана с частицами, код частиц ниже не исполняется.
  * Решается один раз при загрузке и по экрану устройства, а не окна: поворот в альбомную не должен оставить пустую секцию. ── */
-if (innerWidth <= 760 || Math.min(screen.width, screen.height) <= 760) {
+if (innerWidth <= 760 || (matchMedia('(pointer:coarse)').matches && Math.min(screen.width, screen.height) <= 760)) {
   const el = document.getElementById('services');
   const ART = {
     auto: `<div class="sk-who"><i>${CHATS[0].who[0]}</i><span><b>${CHATS[0].who}</b><small>${CHATS[0].where}</small></span></div><div class="sk-chat">${CHATS[0].m.map(([c, t], i) => `<p class="${c}" style="--i:${i}">${t}</p>`).join('')}</div>`,

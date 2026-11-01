@@ -244,6 +244,7 @@
 #about .film--st .pn.on{display:block;animation:ab-st .4s var(--ease)}
 @keyframes ab-st{from{opacity:0;transform:translateX(10px)}}
 #about .film--st .fbar{display:none}
+#about .film--st .subs{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(23,18,13,.96)} /* блюр поверх ролика на телефоне пересчитывается каждый кадр */
 /* панель 540 px в столбик: текст сверху, медиа снизу, не встречаются. Альбомная (шире 760) держит двухколоночную раскладку ПК */
 @media (max-width:760px){
 #about .film--st .pn-txt{top:30px}
@@ -263,6 +264,7 @@
 #about .segs{position:absolute;left:14px;right:14px;top:12px;z-index:6;display:flex;gap:5px}
 #about .seg{flex:1;height:3px;border-radius:2px;overflow:hidden;background:rgba(245,239,223,.2)}
 #about .seg b{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:0 50%}
+/* вне кадра и под верхней картой анимаций нет совсем: paused держал бы слой (см. works.css) */#about .deck.still *,#about .deck-c:not(.top) *,#about .film--st.still *,#about .deck.still *::before,#about .deck-c:not(.top) *::before,#about .film--st.still *::before,#about .deck.still *::after,#about .deck-c:not(.top) *::after,#about .film--st.still *::after{animation:none!important}
 @media (prefers-reduced-motion:reduce){
 #about .stage--deck .deck{display:flex;gap:12px;width:auto;height:auto;padding:0 16px;overflow-x:auto;scroll-snap-type:x mandatory;touch-action:auto}
 #about .deck .deck-c{position:relative;flex:none;width:var(--cw);height:var(--ch);transform:none!important;opacity:1!important;scroll-snap-align:center}
@@ -280,7 +282,7 @@
 #about .film{height:auto!important}
 #about .fpin{position:relative;height:auto;overflow-x:auto}
 #about .track{position:relative;padding:20px 6vw 60px;transform:none!important}
-#about,#about *{animation:none!important}
+#about,#about *,#about *::before,#about *::after{animation:none!important}
 }
 #about .stage{inset:auto;z-index:auto;perspective:none}
 #about .cta{height:auto;font-size:inherit}
