@@ -67,6 +67,7 @@
 #about h2{font:400 clamp(34px,4vw,58px)/1.02 'STRome',Georgia,serif;text-transform:uppercase;margin:12px 0 0}
 #about h2 em{font-style:normal;color:var(--gold)}
 #about h2 .h{display:none}
+@media (max-width:760px){#about h2 .ln{display:block;white-space:nowrap}#about h2 .dsh{display:none}}
 #about[data-h="1"] h2 .h1,#about[data-h="2"] h2 .h2,#about[data-h="3"] h2 .h3{display:inline}
 #about .lead{font-size:clamp(16px,1.2vw,18px);line-height:1.55;color:var(--fg2);max-width:620px;margin:18px 0 0}
 #about .cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}
@@ -179,7 +180,7 @@
 #about .ctr .n{font-size:64px}
 #about .ctr small{font-size:12.5px;max-width:110px}
 #about .legend{display:none}
-#about .head h2{font-size:34px}
+#about .head h2{font-size:min(calc((100vw - 34px) / 10.9),44px);line-height:1.06}
 #about .track{gap:4vw;padding:0 6vw}
 #about .pn{width:88vw;height:calc(100svh - 96px);border-radius:24px}
 #about .fbar{left:6vw;right:6vw;bottom:14px;gap:5px}

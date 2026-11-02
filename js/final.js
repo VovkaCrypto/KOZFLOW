@@ -1,4 +1,4 @@
-// Секция «Финал» (#final) — цены, короткие ответы, связь, вордмарк KOZFLOW из афиш.
+// Секция «Финал» (#final) — цены, условия, подвал, вордмарк KOZFLOW из афиш. Способы связи живут только в #contact.
 // Разметка и стили перенесены из sections-v3/final (port.mjs); этот файл правится здесь, в эскизе его нет.
 // Вордмарк: буквы поднимаются из-под края страницы, под лучом проступают цветные афиши. Лента запечена в assets/final.
 (() => {
@@ -7,13 +7,8 @@
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
-  root.querySelectorAll('.mail6').forEach((b) => (b.onclick = () => { navigator.clipboard?.writeText(b.dataset.mail).catch(() => {}); b.dataset.done = ''; setTimeout(() => delete b.dataset.done, 1400); }));
   root.querySelectorAll('.pl>li>button').forEach((b) => b.addEventListener('click', () => { const on = b.parentElement.classList.toggle('on'); b.setAttribute('aria-expanded', on); }));
   root.querySelector('.up').addEventListener('click', () => scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }));
-
-  const clk = root.querySelector('.clk6'), fmt = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow' });
-  const upd = () => { if (!document.hidden) clk.textContent = fmt.format(new Date()); };
-  upd(); setInterval(upd, 15000);
 
   const wm = root.querySelector('.wm6'), base = [...wm.querySelectorAll('.base span')], lit = [...wm.querySelectorAll('.lit span')];
   const up = base.map(() => 0), trPrev = base.map(() => '');

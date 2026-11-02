@@ -119,7 +119,6 @@
   .wk .prc .bd{flex:1;display:flex;flex-direction:column;gap:12px;padding:18px 20px 20px}
   .wk .prc .nm{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
   .wk .prc .nm b{font:400 24px/1 'STRome',serif;text-transform:uppercase}
-  .wk .prc .nm i{font-style:normal;font-size:12px;color:#7A6B56;letter-spacing:.1em}
   .wk .prc .fr{font:400 30px/1 'STRome',serif;color:var(--gold-2)}
   .wk .prc .fr small{font:500 13px 'Golos Text',sans-serif;color:var(--mute);margin-right:6px}
   .wk .prc ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:14px}
@@ -258,7 +257,7 @@
     /* на телефоне прайс-листы листаются пальцем вбок */
     .wk .prices{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}
     .wk .prc{flex:0 0 82%;scroll-snap-align:center}
-    .wk .prc .nm b{font-size:min(24px,5.6vw)}.wk .prc .nm i{display:none} /* «Автоматизации» занимает всю ширину, номер резался краем */
+    .wk .prc .nm b{font-size:min(24px,5.6vw)}
     .wk .prl .plh{margin-bottom:24px}
     .wk .x{right:12px;top:10px}
     /* сайт на телефоне: одно устройство, переключатель */

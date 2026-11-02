@@ -151,10 +151,10 @@ const PRICE = {
   motion: { vis: `<div class="vis v-motion"><video muted loop playsinline autoplay preload="metadata" poster="${A}assets/moushen/reel-zoom.webp"><source src="${A}assets/moushen/reel-zoom.mp4" type="video/mp4"></video></div>`,
     items: [['Оживлённая афиша', 'от 2 000 ₽'], ['Рилс', 'от 5 000 ₽'], ['Промо-ролик', 'от 10 000 ₽']] },
   auto: { vis: `<div class="vis v-auto">${ANIM.wave()}${mini({ mini: ['phone', 'wave', 'ai', 'flow', 'cal', 'tg'] })}</div>`,
-    items: [['Автоматизация', 'от 10 000 ₽'], ['Чат-бот', '20 000 ₽'], ['Голосовой бот', '40 000 ₽']] },
+    items: [['Автоматизация', 'от 10 000 ₽'], ['Чат-бот', '20 000 ₽'], ['Голосовой бот', '50 000 ₽']] },
 };
-document.querySelector('.prices').innerHTML = Object.keys(CAT).map((c, i) => `<a class="prc" href="${PAGE[c]}">${PRICE[c].vis}
-  <span class="bd"><span class="nm"><b>${CAT[c]}</b><i>0${i + 1}</i></span><span class="fr"><small>от</small>${FROM[c].replace('от ', '')}</span>
+document.querySelector('.prices').innerHTML = Object.keys(CAT).map((c) => `<a class="prc" href="${PAGE[c]}">${PRICE[c].vis}
+  <span class="bd"><span class="nm"><b>${CAT[c]}</b></span><span class="fr"><small>от</small>${FROM[c].replace('от ', '')}</span>
   <ul>${PRICE[c].items.map(([n, v]) => `<li><span>${n}</span><span>${v}</span></li>`).join('')}</ul>
   <span class="go">Открыть прайс-лист ${ARR}</span></span></a>`).join('');
 

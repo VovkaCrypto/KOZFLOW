@@ -177,6 +177,9 @@ const local = (el, e) => { const r = el.getBoundingClientRect(); return { x: e.c
   }
 
   root.querySelectorAll('.cs .copy').forEach((b) => (b.onclick = () => { navigator.clipboard?.writeText(b.dataset.mail).catch(() => {}); b.dataset.done = ''; setTimeout(() => delete b.dataset.done, 1400); }));
+  const clk = root.querySelector('.clk6'), fmt = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow' });
+  const upd = () => { if (!document.hidden) clk.textContent = fmt.format(new Date()); };
+  upd(); setInterval(upd, 15000);
   io.observe(root); badge(root);
   }
   if (!('IntersectionObserver' in window)) { boot(); return; }

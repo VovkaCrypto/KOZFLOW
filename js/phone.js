@@ -1,4 +1,4 @@
-// Телефонная оболочка главной. Нижний док прячется, пока финал в кадре: там своя кнопка Telegram.
+// Телефонная оболочка главной. Нижний док прячется у подвала и ниже: на ценах Telegram в нём ещё нужен.
 // Показ после первого экрана — body.is-past-hero из app.js, правило в css/phone.css.
 (() => {
   // Обо всех якорях вне дока, и на ПК тоже: «Обо мне» достраивается на подходе и удлиняет страницу на тысячи px,
@@ -32,9 +32,9 @@
     const el = document.getElementById(location.hash.slice(1));
     if (el) hold(el, true);
   }
-  const dock = document.querySelector('.dock'), fin = document.getElementById('final');
+  const dock = document.querySelector('.dock'), fin = document.querySelector('#final .ln6');
   if (!dock || !fin || !('IntersectionObserver' in window)) return;
-  new IntersectionObserver(([e]) => dock.classList.toggle('dock--hide', e.isIntersecting)).observe(fin);
+  new IntersectionObserver(([e]) => dock.classList.toggle('dock--hide', e.isIntersecting || e.boundingClientRect.top < 0)).observe(fin);
   // Цех и «Обо мне» достраиваются при подходе и меняют высоту страницы: после тапа держим цель, пока она не встанет.
   // Палец на экране отменяет — человек уже листает сам.
   dock.addEventListener('click', (e) => {
