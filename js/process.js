@@ -306,7 +306,28 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     const f = ph === 'dwell' ? 1 : ph === 'go' ? smooth(320, 60, Math.abs(sB - s)) : 0;
     if (f > 0) { const [fx, fy, fw] = frameStop(w.stops[i], sx, sy); tx += (fx - tx) * f; ty += (fy - ty) * f; tw += (fw - tw) * f; }
     if (ph === 'go' && w.loop && s > w.loop.s0 - 40 && s < w.loop.s1 + 40) { tx += (w.loop.an[0] - sx) * 0.5; ty += (w.loop.an[1] - sy) * 0.5 + 40; } // ниже — чтобы плашка подэтапа не резалась краем
+    if (mob()) tw = zoomOf(i); // телефон: масштаб станции, к которой едем; в пути не меняется
     return [tx, ty, tw];
+  }
+  // телефон: смена масштаба слоя заставляет Safari заново растрировать весь цех — на каждом перегоне камера
+  // зумилась ×0.79 → ×1 → ×0.79. Станции с почти одинаковым кадром (разница < 6 %) получают общий, самый широкий
+  // масштаб: камера между ними только едет, зум меняется один-два раза за изделие — у крупных станций в конце.
+  function zoomOf(j) {
+    const key = `${SW}x${SH}`;
+    if (!w.zg || w.zgK !== key) {
+      let sure = true;
+      const zs = w.stops.map((st, k) => { const p = at(w, st.s), [sx, sy] = iso(p[0], p[1], p[2]), z = frameStop(st, sx, sy, k)[2]; if (!st.box) sure = false; return z; });
+      const zg = [];
+      for (let a = 0; a < zs.length;) {
+        let b = a + 1, lo = zs[a], hi = zs[a];
+        while (b < zs.length && Math.max(hi, zs[b]) / Math.min(lo, zs[b]) < 1.06) { lo = Math.min(lo, zs[b]); hi = Math.max(hi, zs[b]); b++; }
+        for (let k = a; k < b; k++) zg[k] = hi;
+        a = b;
+      }
+      if (!sure) return zg[j]; // рамки станций ещё не замерены — посчитаем снова
+      w.zg = zg; w.zgK = key;
+    }
+    return w.zg[j];
   }
   // рамка «изделие + табличка станции» с местом под чип и кнопку сверху; не влезает — камера чуть отъезжает
   // рамка станции в координатах цеха: читается один раз, высота у станций разная
@@ -319,8 +340,8 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     if (!o.width || r < l) return [st.sg[0] - 150, st.sg[1], st.sg[0] + 150, st.sg[1] + 300]; // сцена не разложена: замер потом, в кэш не пишем
     return (st.box = [(l - o.left) * k + w.bounds[0], (t - o.top) * k + w.bounds[1], (r - o.left) * k + w.bounds[0], (b - o.top) * k + w.bounds[1]]);
   }
-  function frameStop(st, sx, sy) {
-    const m = mob(), B = m ? stopBox(i) : null; // на телефоне кадр — станция и изделие целиком, без запаса вокруг
+  function frameStop(st, sx, sy, j = i) {
+    const m = mob(), B = m ? stopBox(j) : null; // на телефоне кадр — станция и изделие целиком, без запаса вокруг
     const top = m ? Math.min(B[1] - 8, sy - 118) : Math.min(st.sg[1] - 16, sy - 150), bot = m ? Math.max(B[3] + 8, sy + 118) : sy + 175; // под изделием — кусок цеха, оно не у нижнего края
     const l = m ? Math.min(B[0] - 8, sx - 108) : Math.min(st.sg[0] - 150, sx - 90), r = m ? Math.max(B[2] + 8, sx + 108) : Math.max(st.sg[0] + 150, sx + 90);
     const ui = (m ? 50 : 88) / Z0, VH = SH / Z0, base = VW();
@@ -389,7 +410,8 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     const [sx, sy] = iso(x, y, z);
     const tf = `translate(${sx.toFixed(1)} ${sy.toFixed(1)}) scale(${PS})`;
     if (tf !== w.ptf) { w.pd.setAttribute('transform', tf); w.ptf = tf; }
-    w.lifts.forEach((L, j) => { const dz = clamp(s - L.s0, 0, L.s1 - L.s0); if (w.plats[j]) w.plats[j].setAttribute('transform', `translate(0 ${(-dz * CE * KK).toFixed(1)})`); });
+    // лифт трогаем, только когда платформа правда сдвинулась: запись атрибута перерисовывает весь цех
+    w.lifts.forEach((L, j) => { const pl = w.plats[j]; if (!pl) return; const v = `translate(0 ${(-clamp(s - L.s0, 0, L.s1 - L.s0) * CE * KK).toFixed(1)})`; if (pl.__tf !== v) { pl.setAttribute('transform', v); pl.__tf = v; } });
     // порядок по глубине: изделие встаёт перед первым узлом, который ближе к зрителю
     const pk = depth(x, y, z) + (z > 30 ? 40 : 0);
     let j = 0; while (j < w.keys.length && w.keys[j] <= pk) j++;

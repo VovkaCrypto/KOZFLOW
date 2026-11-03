@@ -2,7 +2,7 @@
 // Жесты — сырые Input.dispatchTouchEvent, как в touch-scroll.mjs.
 import { launch, open, PHONE } from './pw.mjs';
 
-const CLOSE = 0.7; // станция занимает не меньше этой доли высоты сцены
+const CLOSE = 0.66; // станция занимает не меньше этой доли высоты сцены. Было 0.7: с 03.11 соседние станции делят общий масштаб (без перерастеризации слоя на iPhone), кадр мельче на 2–3 %
 const b = await launch();
 const { ctx, p, errs } = await open(b, PHONE);
 const cdp = await ctx.newCDPSession(p);
