@@ -286,7 +286,10 @@ dl.pass dd b{font:500 22px/1.1 var(--disp)}
   .pg-logo{gap:8px;font-size:16px}
   .pg-logo img{width:32px}
   .pg-tabs,.pg-write{display:none}
-  .pg-cur{display:inline-flex;align-items:center;gap:8px;min-width:0;height:40px;margin-left:auto;padding:0 10px 0 13px;border:1px solid rgba(217,207,185,.9);border-radius:999px;
+  .pg-tg{margin-left:auto}
+  html.pg-dlg .pg-tg{margin-left:0}
+  html.pg-dlg .pg-cur{display:inline-flex}
+  .pg-cur{align-items:center;gap:8px;min-width:0;height:40px;margin-left:auto;padding:0 10px 0 13px;border:1px solid rgba(217,207,185,.9);border-radius:999px;
     background:rgba(255,255,255,.5);color:var(--ink);font:500 14px/1 var(--text);white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .pg-cur i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--c,var(--gold))}
   .pg-cur .dn{flex:none;width:16px;height:16px;fill:none;stroke:var(--ink-mute);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease)}

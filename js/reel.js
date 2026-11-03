@@ -230,8 +230,9 @@ function accents(t) {
   if (p >= 0) {
     const x = t - ACC.pulse[0], beat = (y) => (y > 0 ? Math.exp(-y * 9) * Math.sin(Math.min(Math.PI, y * 18)) : 0);
     markEl.style.scale = (1 + 0.28 * (beat(x) + 0.8 * beat(x - 0.25))).toFixed(3);
-    // кольца — по настоящей рамке знака: на телефоне он на финале вырос (transform), fx.place этого не видит
-    if (REEL.fx) { const q = rel(markEl), r = { x: q.left, y: q.top, w: q.width, h: q.height }, cx = r.x + r.w / 2, cy = r.y + r.h / 2; [0, 0.25, 0.5].forEach((d0, j) => { const y = x - d0; if (y > 0 && y < 0.8) REEL.fx.ring(cx, cy, r.h * (0.35 + y * 1.8), (1 - y / 0.8) * 0.7, j % 2 ? '#C4985A' : '#C26B4A', 2 - j * 0.4); }); }
+    // кольца — по рамке знака с ростом на телефоне (transform), но без пульса: fx.place рост не видит,
+    // а getBoundingClientRect видит и пульс (scale вокруг центра) — делим на него, иначе кольца раздувались бы в такт
+    if (REEL.fx) { const q = rel(markEl), ps = parseFloat(markEl.style.scale) || 1, r = { w: q.width / ps, h: q.height / ps }, cx = q.left + q.width / 2, cy = q.top + q.height / 2; [0, 0.25, 0.5].forEach((d0, j) => { const y = x - d0; if (y > 0 && y < 0.8) REEL.fx.ring(cx, cy, r.h * (0.35 + y * 1.8), (1 - y / 0.8) * 0.7, j % 2 ? '#C4985A' : '#C26B4A', 2 - j * 0.4); }); }
   }
   off('pulse', () => { markEl.style.scale = ''; });
   // «Сайты»: заливка стекает в контур и поднимается обратно, по её краю идёт сканлиния

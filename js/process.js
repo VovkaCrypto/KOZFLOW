@@ -623,10 +623,12 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   const stateAt = (v) => { const j = w.stops.findIndex((st) => st.s > v + 1); return j < 0 ? w.stops[w.stops.length - 1].st : stateBefore(j); };
   let sw = null, dragEnd = 0;
   stage.addEventListener('pointerdown', (e) => {
+    if (sw && sw.on) return; // второй палец во время перетаскивания жест не перехватывает
     sw = e.pointerType !== 'mouse' && (ph === 'go' || ph === 'dwell') && !e.target.closest('button,a,.pin') ? { x: e.clientX, y: e.clientY, id: e.pointerId, on: false } : null;
   });
   stage.addEventListener('pointermove', (e) => {
     if (!sw || sw.id !== e.pointerId) return;
+    if (sw.on && ph !== 'drag') { sw = null; root.classList.remove('dragging'); return; } // кнопка пульта сменила фазу посреди жеста
     const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
     if (!sw.on) {
       if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
@@ -652,6 +654,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     if (!was.on) return;
     root.classList.remove('dragging');
     dragEnd = performance.now();
+    if (ph !== 'drag') return; // фазу уже сменила кнопка пульта — её решение главнее
     let k = nearest(s + clamp(was.v, -2500, 2500) * 0.22); // бросок пальцем уносит дальше
     const moved = (was.x - was.cx) * was.k; // у pointercancel координаты пустые — берём последнее касание
     if (k === was.i0 && Math.abs(moved) > 40 * was.k) k = clamp(was.i0 + Math.sign(moved), 0, w.stops.length - 1); // короткий свайп листает на соседнюю

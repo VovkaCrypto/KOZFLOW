@@ -138,7 +138,7 @@
 .cv .pk[aria-selected="true"] .pk-t small{color:var(--gold-d)}
 
 /* сцена */
-.cv-stage{position:relative;height:clamp(500px,72vh,760px);border-radius:28px 28px 0 0;overflow:hidden;background:radial-gradient(120% 90% at 50% 40%,#EFE5D3 0%,#E6D9C3 60%,#DCCDB3 100%);isolation:isolate}
+.cv-stage{position:relative;height:clamp(500px,72vh,760px);border-radius:28px 28px 0 0;overflow:hidden;background:radial-gradient(120% 90% at 50% 40%,#EFE5D3 0%,#E6D9C3 60%,#DCCDB3 100%);isolation:isolate;touch-action:pan-y pinch-zoom}
 .cv-svg .w[hidden]{display:none}
 /* камера: слой двигается transform'ом, SVG фиксированного размера (задаёт runtime) */
 .cv-cam{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}

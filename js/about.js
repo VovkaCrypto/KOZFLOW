@@ -448,7 +448,8 @@ Promise.race([fontsIn, new Promise((ok) => setTimeout(ok, 2500))]).then(() => {
   io.observe(root);
   // телефон: колода и сторис ниже заготовки на ~730 px. Собранная на подходе секция укорачивала страницу над пальцем,
   // а Safari не держит позицию (нет scroll anchoring) — экран прыгал. Собираем заранее, в простое после загрузки.
-  if (innerWidth <= 760 || Math.min(screen.width, screen.height) <= 760) {
+  // то же условие, что STACK внутри boot: экран устройства считается только у пальца (ноутбук со 150 % отдаёт screen 1280×720)
+  if (innerWidth <= 760 || (matchMedia('(pointer:coarse)').matches && Math.min(screen.width, screen.height) <= 760)) {
     const early = () => { if (!done) { io.disconnect(); boot(); } };
     const idle = () => (window.requestIdleCallback ? requestIdleCallback(early, { timeout: 2500 }) : setTimeout(early, 1200));
     if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });

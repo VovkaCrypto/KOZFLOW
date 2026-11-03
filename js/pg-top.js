@@ -47,8 +47,14 @@
       root.classList.remove('pg-lock');
       btn.setAttribute('aria-expanded', 'false');
     });
-    // тап по затемнению закрывает: всё содержимое внутри .pg-sheet, сам dialog — только подложка
-    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    // тап по затемнению закрывает: всё содержимое внутри .pg-sheet, сам dialog — только подложка;
+    // «Вы здесь» — ссылка на эту же страницу: закрывает лист, а не перезагружает
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg || e.target.closest('a[aria-current="page"]')) { e.preventDefault(); dlg.close(); }
+    });
+    // уход по ссылке из листа: в bfcache страница не должна остаться с открытым листом и запертой прокруткой
+    addEventListener('pagehide', () => { if (dlg.open) dlg.close(); });
+    root.classList.add('pg-dlg');
   }
 
   /* ── прятать при скролле вниз (телефон) и полоса чтения ── */

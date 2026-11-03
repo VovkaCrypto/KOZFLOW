@@ -71,6 +71,22 @@ for (const [page, { need, ban, lines = [], calc }] of Object.entries(PAGES)) {
   for (const l of LINKS) if (!html.includes(`href="${l}"`)) errors.push(`${page}: нет ссылки ${l}`);
 }
 
+// лист ремёсел в шапке: цена «от» лежит в data-from (в текст страницы не попадает) — она обязана быть и на самой странице ремесла
+const FROM = { '/sayty': ['sayty.html', 'от 25 000 ₽'], '/dizayn': ['dizayn.html', 'от 1 200 ₽'], '/moushen': ['moushen.html', 'от 2 000 ₽'], '/avtomatizacii': ['avtomatizacii.html', 'от 10 000 ₽'] };
+const pageText = (f) => norm(fs.readFileSync(path.join(root, f), 'utf8')).replace(/<head>[\s\S]*?<\/head>/, ' ').replace(/<dialog[\s\S]*?<\/dialog>/g, ' ').replace(/<[^>]+>/g, ' ');
+for (const f of [...Object.keys(PAGES), 'politika.html']) {
+  const html = norm(fs.readFileSync(path.join(root, f), 'utf8'));
+  for (const [href, [page, price]] of Object.entries(FROM)) {
+    const m = html.match(new RegExp(`<a href="${href}"[^>]*>(?:(?!</a>)[\\s\\S])*?data-from="([^"]*)"`));
+    if (!m) errors.push(`${f}: в листе нет цены для ${href}`);
+    else if (m[1] !== price) errors.push(`${f}: в листе ${href} = «${m[1]}», нужно «${price}»`);
+  }
+}
+for (const [page, price] of Object.values(FROM)) {
+  const num = price.replace(/^от /, '');
+  if (!has(pageText(page), num)) errors.push(`${page}: цены из листа «${price}» нет на странице`);
+}
+
 if (errors.length) {
   console.log(errors.join('\n'));
   process.exit(1);
