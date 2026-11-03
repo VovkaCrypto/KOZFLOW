@@ -65,6 +65,29 @@ const y1 = await p.evaluate(() => scrollY);
 check(y1 - y0 > 100, `вертикальный жест: страница ушла на ${Math.round(y1 - y0)} px`);
 check((await station()) === 2, `вертикальный жест сменил станцию: ${await station()}`);
 
+// перетаскивание: изделие едет за пальцем до отпускания, отпустил — докат до станции и автопрогон дальше
+await p.evaluate(() => { __cv.start('site'); __cv.jump(2); __cv.set({ playing: true }); });
+await stageTop(); await p.waitForTimeout(500);
+const d0 = await p.evaluate(() => __cv.state());
+await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: zone.x + 80, y: zone.y }] });
+for (let k = 1; k <= 10; k++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: zone.x + 80 - k * 10, y: zone.y }] }); await p.waitForTimeout(30); }
+const d1 = await p.evaluate(() => __cv.state());
+await p.waitForTimeout(600); // палец стоит — изделие тоже
+const d2 = await p.evaluate(() => __cv.state());
+for (let k = 11; k <= 20; k++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: zone.x + 80 - k * 10, y: zone.y }] }); await p.waitForTimeout(30); }
+const d3 = await p.evaluate(() => __cv.state());
+check(d1.ph === 'drag' && d1.s > d0.s + 20, `палец тянет: фаза ${d1.ph}, путь ${d0.s.toFixed(0)} → ${d1.s.toFixed(0)}`);
+check(Math.abs(d2.s - d1.s) < 0.5, `палец стоит, а изделие едет: ${d1.s.toFixed(1)} → ${d2.s.toFixed(1)}`);
+check(d3.s > d2.s + 20, `палец дальше, изделие стоит: ${d2.s.toFixed(0)} → ${d3.s.toFixed(0)}`);
+await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+await p.waitForTimeout(1800);
+const d4 = await p.evaluate(() => __cv.state());
+check(d4.ph === 'dwell' && d4.i >= 3, `после отпускания: фаза ${d4.ph}, станция ${d4.i} (ждали стоянку на 3+)`);
+await p.waitForTimeout(7000);
+const d5 = await p.evaluate(() => __cv.state());
+check(d5.i > d4.i || d5.ph === 'go', `автопрогон после перетаскивания не продолжился: ${d5.ph} ${d5.i}`);
+await p.evaluate(() => __cv.set({ playing: false }));
+
 // свайп на финале не срывает его
 await stageTop(); await p.waitForTimeout(300);
 await p.evaluate(() => { __cv.set({ playing: true }); __cv.jump(5); document.querySelector('#process .c-next').click(); });

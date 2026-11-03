@@ -258,7 +258,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   }
 
   // --- фазы
-  function go(j) {
+  function go(j, fast) {
     i = j; ph = 'go'; t = 0; applied = false;
     sA = s; sB = w.stops[j].s;
     // виртуальный путь: на петле правок «дороже» — изделие там идёт медленнее, без рывка на входе
@@ -270,7 +270,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     }
     warp = vd;
     const D = vd[N];
-    T = D < 1 ? 0.01 : clamp(1.2 + D / 230, 2.6, 16);
+    T = D < 1 ? 0.01 : fast ? clamp(0.45 + D / 1100, 0.45, 1.4) : clamp(1.2 + D / 230, 2.6, 16); // fast — докат после пальца
     markStations(); renderInfo(true);
   }
   function sAtVirtual(u) {
@@ -303,7 +303,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     const p = at(w, s), [sx, sy] = iso(p[0], p[1], p[2]);
     let tx = sx, ty = sy + 10, tw = VW();
     // у станции в кадре и изделие, и табличка; на подъезде камера заранее переходит к этому кадру
-    const f = ph === 'dwell' ? 1 : ph === 'go' ? smooth(320, 60, Math.abs(sB - s)) : 0;
+    const f = ph === 'dwell' ? 1 : ph === 'go' ? smooth(320, 60, Math.abs(sB - s)) : ph === 'drag' ? smooth(320, 60, Math.abs(w.stops[i].s - s)) : 0;
     if (f > 0) { const [fx, fy, fw] = frameStop(w.stops[i], sx, sy); tx += (fx - tx) * f; ty += (fy - ty) * f; tw += (fw - tw) * f; }
     if (ph === 'go' && w.loop && s > w.loop.s0 - 40 && s < w.loop.s1 + 40) { tx += (w.loop.an[0] - sx) * 0.5; ty += (w.loop.an[1] - sy) * 0.5 + 40; } // ниже — чтобы плашка подэтапа не резалась краем
     if (mob()) tw = zoomOf(i); // телефон: масштаб станции, к которой едем; в пути не меняется
@@ -418,12 +418,16 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     if (j !== w.pi) { w.layer.insertBefore(w.pd, w.items[j] || null); w.pi = j; }
     island();
     // пульт
-    if (ph === 'go' || ph === 'dwell') renderInfo(false);
+    if (ph === 'go' || ph === 'dwell' || ph === 'drag') renderInfo(false);
     if (ph === 'dwell') paintLine(clamp(t / DWELL, 0, 1));
-    else if (ph === 'go') paintLine(0);
+    else if (ph === 'go' || ph === 'drag') paintLine(0);
     // камера: пружина к цели, кадр — transform слоя
     const [tx, ty, tw] = camTarget();
     if (reduced) Object.assign(cam, { x: tx, y: ty, w: tw });
+    else if (ph === 'drag') { // под пальцем камера идёт следом почти без отставания: цех едет вместе с пальцем
+      const q = 1 - Math.exp(-dt * 22);
+      cam.x += (tx - cam.x) * q; cam.y += (ty - cam.y) * q; cam.w += (tw - cam.w) * q; cam.vx = cam.vy = cam.vw = 0;
+    }
     else {
       const om = ph === 'outro' || ph === 'fly' ? 2.1 : 2.7;
       for (const [k, v, target] of [['x', 'vx', tx], ['y', 'vy', ty], ['w', 'vw', tw]]) {
@@ -612,16 +616,53 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   const next = () => (inLoop() ? jump(i) : i < w.stops.length - 1 ? jump(i + 1) : (hideFin(), outro()));
   $('.c-prev').addEventListener('click', prev);
   $('.c-next').addEventListener('click', next);
-  // свайп по сцене — соседняя станция; вертикальный жест браузер забирает себе (touch-action: pan-y) и шлёт pointercancel
-  let sw = null;
-  stage.addEventListener('pointerdown', (e) => { sw = e.pointerType === 'touch' && ph !== 'fin' ? { x: e.clientX, y: e.clientY, id: e.pointerId } : null; });
-  stage.addEventListener('pointercancel', () => { sw = null; });
-  stage.addEventListener('pointerup', (e) => {
-    if (!sw || sw.id !== e.pointerId) return;
-    const dx = e.clientX - sw.x, dy = e.clientY - sw.y; sw = null;
-    if (ph !== 'go' && ph !== 'dwell') return; // финал уже идёт: свайп сорвал бы вылет изделия
-    if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)();
+  // палец тянет изделие по ленте: влево — вперёд по пути, вправо — назад; цех едет под пальцем.
+  // Отпустил — с учётом броска докатывается до ближайшей станции, дальше автопрогон как обычно.
+  // Вертикальный жест браузер забирает себе (touch-action: pan-y) и шлёт pointercancel.
+  const nearest = (v) => { let k = 0; w.stops.forEach((st, j) => { if (Math.abs(st.s - v) < Math.abs(w.stops[k].s - v)) k = j; }); return k; };
+  const stateAt = (v) => { const j = w.stops.findIndex((st) => st.s > v + 1); return j < 0 ? w.stops[w.stops.length - 1].st : stateBefore(j); };
+  let sw = null, dragEnd = 0;
+  stage.addEventListener('pointerdown', (e) => {
+    sw = e.pointerType !== 'mouse' && (ph === 'go' || ph === 'dwell') && !e.target.closest('button,a,.pin') ? { x: e.clientX, y: e.clientY, id: e.pointerId, on: false } : null;
   });
+  stage.addEventListener('pointermove', (e) => {
+    if (!sw || sw.id !== e.pointerId) return;
+    const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+    if (!sw.on) {
+      if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+      if (ph !== 'go' && ph !== 'dwell') { sw = null; return; }
+      sw.on = true; sw.s0 = s; sw.i0 = i; sw.x = e.clientX; sw.k = 1 / (Z0 * SW / (cam.w * Z0)); // пути на пиксель экрана
+      sw.v = 0; sw.lx = e.clientX; sw.lt = e.timeStamp;
+      ph = 'drag'; applied = true;
+      try { stage.setPointerCapture(e.pointerId); } catch {}
+      root.classList.add('dragging');
+    }
+    const end = w.stops[w.stops.length - 1].s;
+    sw.cx = e.clientX;
+    s = clamp(sw.s0 - (e.clientX - sw.x) * sw.k, 0, end);
+    const dt = e.timeStamp - sw.lt;
+    if (dt > 0) { sw.v = sw.v * 0.6 + (-(e.clientX - sw.lx) * sw.k / dt * 1000) * 0.4; sw.lx = e.clientX; sw.lt = e.timeStamp; }
+    const k = nearest(s);
+    if (k !== i) { i = k; markStations(); }
+    setState(stateAt(s));
+  });
+  const letGo = (e) => {
+    if (!sw || sw.id !== e.pointerId) return;
+    const was = sw; sw = null;
+    if (!was.on) return;
+    root.classList.remove('dragging');
+    dragEnd = performance.now();
+    let k = nearest(s + clamp(was.v, -2500, 2500) * 0.22); // бросок пальцем уносит дальше
+    const moved = (was.x - was.cx) * was.k; // у pointercancel координаты пустые — берём последнее касание
+    if (k === was.i0 && Math.abs(moved) > 40 * was.k) k = clamp(was.i0 + Math.sign(moved), 0, w.stops.length - 1); // короткий свайп листает на соседнюю
+    if (!playing) { jump(k); return; } // на паузе доката нет — сразу на станцию
+    w.pd.dataset.st = stateBefore(k);
+    go(k, true);
+  };
+  stage.addEventListener('pointerup', letGo);
+  stage.addEventListener('pointercancel', letGo);
+  // после перетаскивания отпускание пальца не должно открывать шторку станции
+  stage.addEventListener('click', (e) => { if (performance.now() - dragEnd < 350) { e.stopPropagation(); e.preventDefault(); } }, true);
   $('.c-play').addEventListener('click', () => { playing = !playing; root.classList.toggle('paused', !playing); $('.c-play').setAttribute('aria-label', playing ? 'Пауза' : 'Продолжить'); });
   $('.c-more').addEventListener('click', () => openDr(inLoop() ? w.fi : i));
   svg.addEventListener('click', (e) => { const g = e.target.closest('[data-i]'); if (g && ph !== 'fin') openDr(+g.dataset.i); });
