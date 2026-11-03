@@ -99,7 +99,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
   const root = document.getElementById('process');
   const $ = (s, el = root) => el.querySelector(s), $$ = (s, el = root) => [...el.querySelectorAll(s)];
   const svg = $('.cv-svg'), camEl = $('.cv-cam'), pins = $('.cv-pins'), stage = $('.cv-stage'), fin = $('.cv-fin'), fly = $('.cv-fly'), chip = $('.cv-chip');
-  const line = $('.cv-line'), info = $('.cv-info'), dr = $('.cv-dr'), allBtn = $('.cv-all span');
+  const line = $('.cv-line'), info = $('.cv-info'), dr = $('.cv-dr'), allBtn = $('.cv-all span'), pult = $('.cv-pult');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const KK = 1.2649110640673518, R2 = Math.SQRT1_2, CE = Math.sqrt(3) / 2;
   const iso = (x, y, z) => [(x - y) * R2 * KK, ((x + y) * R2 * 0.5 - z * CE) * KK];
@@ -463,7 +463,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
     fly.getAnimations().forEach((a) => a.cancel()); fly.innerHTML = ''; fly.removeAttribute('style'); fly.classList.remove('burst');
     draw(0); treads(true);
     fin.innerHTML = finHTML(now); fillMap(); fin.hidden = false;
-    stage.classList.add('is-fin'); root.classList.add('fin');
+    lockFin(); stage.classList.add('is-fin'); root.classList.add('fin');
     allBtn.textContent = 'Смотреть цех';
     if (now) { fin.classList.add('open', 'go'); return; }
     fin.style.setProperty('--cx', '50%'); fin.style.setProperty('--cy', '50%');
@@ -478,6 +478,11 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
       if (finHold || !vis) { finTimer = setTimeout(step, 1500); return; }
       if (ph === 'fin') start(b.dataset.p);
     }, 16000);
+  }
+  // телефон: финал занимает ровно место «сцена + пульт». Секция не меняет высоту, а Safari без scroll anchoring
+  // иначе дёргал бы всю страницу ниже на ±350 px при каждом финале и переходе к следующему изделию
+  function lockFin() {
+    if (mob() && !root.classList.contains('fin')) stage.style.setProperty('--finh', `${stage.offsetHeight + pult.offsetHeight}px`);
   }
   function hideFin() {
     clearTimeout(finTimer); finHold = false;
@@ -501,7 +506,7 @@ window.CV={"worlds":[{"id":"poster","title":"Афиша","pts":[0,-80,12,0,-75,1
       fly.classList.add('burst');
       fin.innerHTML = finHTML(false); fillMap(); fin.hidden = false;
       fin.style.setProperty('--cx', '50%'); fin.style.setProperty('--cy', `${sr.height / 2}px`);
-      stage.classList.add('is-fin'); root.classList.add('fin');
+      lockFin(); stage.classList.add('is-fin'); root.classList.add('fin');
       requestAnimationFrame(() => {
         fin.classList.add('open');
         const slot = $('.fz-hero', fin), r2 = slot.getBoundingClientRect(), s2 = stage.getBoundingClientRect();

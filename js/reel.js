@@ -331,7 +331,15 @@ function start(seekTo) {
   if (reduce) { tl.seek(STILL.auto, false); tl.pause(); render(); }
   else { tl.seek(seekTo ?? keep, false); render(); apply(); }
 }
-addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => start(), 200); });
+// телефон: панель Safari при скролле меняет только высоту окна и шлёт resize. Сцена в svh от этого не меняется,
+// а пересборка ролика на каждый такой resize — лишний перезапуск и лаг. Пересобираем по ширине (поворот).
+let rzW = innerWidth;
+const touchOnly = matchMedia('(hover: none) and (pointer: coarse)').matches;
+addEventListener('resize', () => {
+  if (touchOnly && innerWidth === rzW) return;
+  rzW = innerWidth;
+  clearTimeout(rz); rz = setTimeout(() => start(), 200);
+});
 const fonts = ['300 16px STRome', '500 16px STRome', '900 16px STRome'].map((f) => document.fonts.load(f));
 Promise.all([loadMark(), loadWorks(), Promise.race([Promise.all(fonts), new Promise((r) => setTimeout(r, 1500))])]).then(() => {
   const t0 = parseFloat(new URLSearchParams(location.search).get('t'));

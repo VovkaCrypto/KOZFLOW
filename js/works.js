@@ -440,7 +440,8 @@ function pipeTick(dt) {
     pipe.wait = s.say?.[pipe.step] ? 1.5 : 0.45; if (pipe.step >= total) pipe.wait = 2.6;
   }
 }
-addEventListener('resize', () => { if (pipe) { const sc = pipe.scen, au = pipe.auto; pipe.vert = mob(); layoutPipe(); pipe.auto = au; startScen(sc); } });
+let pipeW = innerWidth; // телефон: панель Safari меняет только высоту — трубы не перезапускаем
+addEventListener('resize', () => { if (innerWidth === pipeW && matchMedia('(hover: none) and (pointer: coarse)').matches) return; pipeW = innerWidth; if (pipe) { const sc = pipe.scen, au = pipe.auto; pipe.vert = mob(); layoutPipe(); pipe.auto = au; startScen(sc); } });
 
 let lt = 0;
 function loop(t) { const dt = Math.min(0.05, (t - (lt || t)) / 1000); lt = t; scrollTick(dt); pipeTick(dt); }

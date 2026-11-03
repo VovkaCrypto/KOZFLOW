@@ -230,7 +230,7 @@
 #about .deck-nm text{font-family:'STRome',serif;fill:var(--cream);opacity:0;transition:transform 1s var(--ease) .15s,opacity .7s .15s}
 #about .deck-nm .l1{transform:translateX(-46px)}#about .deck-nm .l2{transform:translateX(46px)}
 #about .stage--deck.in .deck-nm text{transform:none;opacity:1}
-#about .stage--deck .ctr{position:static;justify-content:center;margin:18px 0 26px}
+#about .stage--deck .ctr{position:static;justify-content:center;margin:18px 0 26px;min-height:calc(64px * .85)} /* место под цифру до её появления: иначе колода растёт на 15 px над пальцем */
 #about .stage--deck .ctr .n{font-size:64px}
 #about .stage--deck .ctr small{font-size:12.5px;max-width:110px}
 #about .deck{position:relative;width:var(--cw);height:var(--ch);margin:0 auto;touch-action:pan-y;-webkit-user-select:none;user-select:none}

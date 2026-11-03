@@ -446,4 +446,11 @@ Promise.race([fontsIn, new Promise((ok) => setTimeout(ok, 2500))]).then(() => {
   if (!('IntersectionObserver' in window)) { boot(); return; }
   const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); boot(); } }, { rootMargin: '1500px 0px' });
   io.observe(root);
+  // телефон: колода и сторис ниже заготовки на ~730 px. Собранная на подходе секция укорачивала страницу над пальцем,
+  // а Safari не держит позицию (нет scroll anchoring) — экран прыгал. Собираем заранее, в простое после загрузки.
+  if (innerWidth <= 760 || Math.min(screen.width, screen.height) <= 760) {
+    const early = () => { if (!done) { io.disconnect(); boot(); } };
+    const idle = () => (window.requestIdleCallback ? requestIdleCallback(early, { timeout: 2500 }) : setTimeout(early, 1200));
+    if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });
+  }
 })();

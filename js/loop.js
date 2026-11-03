@@ -95,9 +95,18 @@
 
   // телефон: блоки вне экрана браузер не считает вовсе; высота запоминается, чтобы полоса прокрутки не прыгала.
   // На ПК не нужно и нельзя: содержание ломает схлопывание отступов, высоты секций меняются.
-  if (g.LOOP.coarse) addEventListener('load', () => document.querySelectorAll('#works, #process, #about, #contact, #final').forEach((el) => {
-    const cs = getComputedStyle(el); // свойство задаёт высоту содержимого, без отступов секции
-    el.style.containIntrinsicSize = `auto ${Math.round(el.offsetHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom))}px`;
-    el.style.contentVisibility = 'auto';
-  }));
+  // Включается только после первого показа секции: заготовка, снятая при загрузке, расходилась с настоящей высотой
+  // («Обо мне» 2736 против 2008 после сборки), и при первом показе секция над пальцем ужималась — Safari прыгал на 700 px.
+  if (g.LOOP.coarse && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target; io.unobserve(el);
+      requestAnimationFrame(() => {
+        const cs = getComputedStyle(el); // свойство задаёт высоту содержимого, без отступов секции
+        el.style.containIntrinsicSize = `auto ${Math.round(el.offsetHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom))}px`;
+        el.style.contentVisibility = 'auto';
+      });
+    }));
+    document.querySelectorAll('#works, #process, #about, #contact, #final').forEach((el) => io.observe(el));
+  }
 })(typeof globalThis !== 'undefined' ? globalThis : window);
