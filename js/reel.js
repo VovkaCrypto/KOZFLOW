@@ -152,6 +152,26 @@ function build() {
     }
   });
 
+  /* ── телефон: знак крупный на старте и на финале. Над центром на телефоне пустое место — знак его и занимает.
+   * Старт: рисуется на весь экран, к 1.5 с уменьшается и встаёт на место над словом (петля с 1.5 видит его уже на месте).
+   * Финал: пока встаёт KOZFLOW, знак растёт в пустоту над вордмарком; к концу петли возвращается. Пишем GSAP-transform,
+   * акценты (монета, пульс) ходят через CSS scale и складываются с ним. ── */
+  if (mob && mk && !reduce) {
+    gsap.set(markEl, { clearProps: 'transform' });
+    const m = rel(markEl), mcx = m.left + m.width / 2, mcy = m.top + m.height / 2;
+    const S0 = Math.min((Wd * 0.7) / m.width, (Hh * 0.42) / m.height); // 0.7: точки знака выходят за его рамку
+    tl.set(markEl, { x: Wd / 2 - mcx, y: Hh * 0.44 - mcy, scale: S0, transformOrigin: '50% 50%' }, 0);
+    tl.to(markEl, { x: 0, y: 0, scale: 1, duration: 0.55, ease: 'expo.inOut' }, 0.95);
+    const wm = $('.fi-wm');
+    if (wm) {
+      const nav = $('header.nav'), top = nav ? rel(nav).bottom + 18 : 84;
+      const w = rel(wm), bottom = w.top + w.height * 0.18 - 22; // у вордмарка над буквами пустые поля строки
+      const S1 = Math.max(1, Math.min(((bottom - top) * 0.86) / m.height, (Wd * 0.82) / m.width));
+      tl.to(markEl, { x: Wd / 2 - mcx, y: (top + bottom) / 2 - mcy, scale: S1, duration: 0.9, ease: 'expo.out' }, 27.12);
+      tl.to(markEl, { x: 0, y: 0, scale: 1, duration: 0.42, ease: 'power3.inOut' }, WRAP - 0.46);
+    }
+  } else gsap.set(markEl, { clearProps: 'transform' });
+
   /* ── ночь: тёмный кадр раскрывается кругом от слова и схлопывается обратно ── */
   tl.fromTo('.night', { clipPath: 'circle(0% at 50% 46%)' }, { clipPath: 'circle(150% at 50% 46%)', duration: 0.6, ease: 'power4.out', immediateRender: false }, NIGHT[0] - 0.08);
   tl.to(document.body, { ...DARK, duration: 0.25, ease: 'none' }, NIGHT[0] - 0.05);
@@ -210,7 +230,8 @@ function accents(t) {
   if (p >= 0) {
     const x = t - ACC.pulse[0], beat = (y) => (y > 0 ? Math.exp(-y * 9) * Math.sin(Math.min(Math.PI, y * 18)) : 0);
     markEl.style.scale = (1 + 0.28 * (beat(x) + 0.8 * beat(x - 0.25))).toFixed(3);
-    if (REEL.fx) { const r = REEL.fx.place(markEl), cx = r.x + r.w / 2, cy = r.y + r.h / 2; [0, 0.25, 0.5].forEach((d0, j) => { const y = x - d0; if (y > 0 && y < 0.8) REEL.fx.ring(cx, cy, r.h * (0.35 + y * 1.8), (1 - y / 0.8) * 0.7, j % 2 ? '#C4985A' : '#C26B4A', 2 - j * 0.4); }); }
+    // кольца — по настоящей рамке знака: на телефоне он на финале вырос (transform), fx.place этого не видит
+    if (REEL.fx) { const q = rel(markEl), r = { x: q.left, y: q.top, w: q.width, h: q.height }, cx = r.x + r.w / 2, cy = r.y + r.h / 2; [0, 0.25, 0.5].forEach((d0, j) => { const y = x - d0; if (y > 0 && y < 0.8) REEL.fx.ring(cx, cy, r.h * (0.35 + y * 1.8), (1 - y / 0.8) * 0.7, j % 2 ? '#C4985A' : '#C26B4A', 2 - j * 0.4); }); }
   }
   off('pulse', () => { markEl.style.scale = ''; });
   // «Сайты»: заливка стекает в контур и поднимается обратно, по её краю идёт сканлиния
